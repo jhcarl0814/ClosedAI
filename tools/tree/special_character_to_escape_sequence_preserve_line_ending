@@ -1,0 +1,61 @@
+#!/bin/bash
+
+awk --characters-as-bytes --assign BINMODE='rw' '
+	BEGIN {
+		RS = "\r\n|\n|\r";
+		FS = "";
+		code_point_to_escape_sequence["\x00"] = "\\0";
+		code_point_to_escape_sequence["\x01"] = "\\x01";
+		code_point_to_escape_sequence["\x02"] = "\\x02";
+		code_point_to_escape_sequence["\x03"] = "\\x03";
+		code_point_to_escape_sequence["\x04"] = "\\x04";
+		code_point_to_escape_sequence["\x05"] = "\\x05";
+		code_point_to_escape_sequence["\x06"] = "\\x06";
+		code_point_to_escape_sequence["\x07"] = "\\a";
+		code_point_to_escape_sequence["\x08"] = "\\b";
+		code_point_to_escape_sequence["\x09"] = "\\t";
+		code_point_to_escape_sequence["\x0A"] = "\\n";
+		code_point_to_escape_sequence["\x0B"] = "\\v";
+		code_point_to_escape_sequence["\x0C"] = "\\f";
+		code_point_to_escape_sequence["\x0D"] = "\\r";
+		code_point_to_escape_sequence["\x0E"] = "\\x0E";
+		code_point_to_escape_sequence["\x0F"] = "\\x0F";
+		code_point_to_escape_sequence["\x10"] = "\\x10";
+		code_point_to_escape_sequence["\x11"] = "\\x11";
+		code_point_to_escape_sequence["\x12"] = "\\x12";
+		code_point_to_escape_sequence["\x13"] = "\\x13";
+		code_point_to_escape_sequence["\x14"] = "\\x14";
+		code_point_to_escape_sequence["\x15"] = "\\x15";
+		code_point_to_escape_sequence["\x16"] = "\\x16";
+		code_point_to_escape_sequence["\x17"] = "\\x17";
+		code_point_to_escape_sequence["\x18"] = "\\x18";
+		code_point_to_escape_sequence["\x19"] = "\\x19";
+		code_point_to_escape_sequence["\x1A"] = "\\x1A";
+		code_point_to_escape_sequence["\x1B"] = "\\e";
+		code_point_to_escape_sequence["\x1C"] = "\\x1C";
+		code_point_to_escape_sequence["\x1D"] = "\\x1D";
+		code_point_to_escape_sequence["\x1E"] = "\\x1E";
+		code_point_to_escape_sequence["\x1F"] = "\\x1F";
+		code_point_to_escape_sequence["\\"] = "\\\\";
+		code_point_to_escape_sequence["\x7F"] = "\\x7F";
+		bg_grey = "\033[48;5;237m";
+		bg_reset = "\033[49m";
+	}
+	{
+
+		if(NF != 0) {
+			for(i = 1; i <= NF; ++i) {
+				if($i in code_point_to_escape_sequence)
+					printf(bg_grey "%s" bg_reset, code_point_to_escape_sequence[$i]);
+				else
+					printf("%s", $i);
+			}
+		}
+		if(RT == "\r\n")
+			printf(bg_grey "\\r\\n" bg_reset "\n");
+		else if(RT == "\n")
+			printf(bg_grey "\\n" bg_reset "\n");
+		else if(RT == "\r")
+			printf(bg_grey "\\r" bg_reset "\n");
+	}
+';
