@@ -1,3 +1,196 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	*
+	{
+		word-break: normal; overflow-wrap: anywhere;
+	}
+
+	.font-restore {
+		font-family: DejaVuSans,"DejaVu Sans",arial,sans-serif;
+		@apply text-[calc(var(--font-size-paragraph)*1rem)] leading-[calc(var(--line-height-paragraph)*1em)];
+	}
+	.heading1 {
+		@apply [margin-block:12px] text-[180%] leading-[1.5em];
+	}
+	.heading2 {
+		@apply [margin-block-start:36px] [margin-block-end:12px] font-bold text-[140%] leading-[1.5em];
+	}
+	.heading3 {
+		@apply [margin-block-start:12px] [margin-block-end:12px] font-bold text-[120%] leading-[1.5em];
+	}
+	.paragraph {
+		@apply [margin-block:6px];
+	}
+
+	a
+	{
+		color: #0000FF;
+		background-color:#0000FF09;
+	}
+	a:hover
+	{
+		text-decoration-line: underline;
+	}
+
+	.table-default-border {
+		@apply [&>thead>tr>td]:border-[1px] [&>thead>tr>td]:border-[#aaa] [&>thead>tr>td]:[padding-inline:6px];
+		@apply [&>tbody>tr>td]:border-[1px] [&>tbody>tr>td]:border-[#aaa] [&>tbody>tr>td]:[padding-inline:6px];
+	}
+	.table-default-align {
+		@apply [&>thead>tr>td]:align-top;
+		@apply [&>tbody>tr>td]:align-top;
+	}
+	.table-no-shrink {
+		@apply [&>thead>tr>td]:whitespace-pre;
+		@apply [&>tbody>tr>td]:whitespace-pre;
+	}
+	.table-shrink-block-code {
+		@apply [&>thead>tr>td>.block-code]:w-fit;
+		@apply [&>tbody>tr>td>.block-code]:w-fit;
+	}
+
+	form
+	{
+		@apply flex flex-col gap-y-[0.5em];
+	}
+	fieldset
+	{
+		@apply flex flex-col gap-y-[0.5em];
+		border:groove 2px #C0C0C0;
+		@apply p-[0.5em] ;
+	}
+	legend
+	{
+		@apply border-[1px] border-solid border-[#000000];
+		@apply p-[0.5em] max-w-[90%];
+	}
+	input[type="radio"]
+	{
+		@apply align-middle;
+	}
+	input[type="text"], textarea
+	{
+		border:groove 2px #C0C0C0;
+		@apply p-[0.5em] block w-full;
+	}
+	textarea
+	{
+		@apply min-h-[2.5em];
+	}
+	input[type="text"]:read-only, textarea:read-only
+	{
+		@apply bg-[#FAFAFA];
+	}
+	input[type="button"], button
+	{
+		border:outset 2px #C0C0C0;
+		@apply p-[0.5em];
+	}
+	input[type="button"]:active, button:active
+	{
+		border:inset 2px #C0C0C0;
+	}
+	fieldset:disabled > *:not(legend), input:disabled, textarea:disabled
+	{
+		@apply text-[#C0C0C0];
+	}
+
+	pre
+	{
+		@apply overflow-auto max-h-[60vh];
+	}
+}
+
+@layer components {
+	.block-code
+	{
+		font-family:DejaVuSansMono,"DejaVu Sans Mono",courier,monospace;
+		@apply text-[calc(var(--font-size-code)*1em)] leading-[calc(var(--line-height-code)*1em)];
+
+		@apply border-[1px] border-[#D6D6D6] bg-[rgba(0,0,0,0.031)] overflow-x-auto overflow-y-auto;
+		@apply [padding-inline:6px] [padding-block-end:1px];
+	}
+	td>.block-code:first-child {
+		@apply [margin-block-start:6px];
+	}
+	td>.block-code:last-child {
+		@apply [margin-block-end:6px];
+	}
+	.inline-code
+	{
+		font-family:DejaVuSansMono,"DejaVu Sans Mono",courier,monospace;
+		font-family:Consolas,monospace;
+
+		display:inline-block;
+		@apply border-[1px] border-[#D6D6D6] bg-[rgba(0,0,0,0.031)] /*[margin-block:0.5px]*/ [margin-inline:2px] [padding-block:0.5px] [padding-inline:2px];
+	}
+	.dubious-code
+	{
+		@apply bg-[#FFFF00]/[0.8];
+	}
+
+	.math_formula
+	{
+		font-family: "Times New Roman";
+		font-style: italic;
+
+		display:inline-block;
+		@apply border-[1px] border-dotted border-black /*[margin-block:0.5px]*/ [margin-inline:2px] [padding-block:0.5px] [padding-inline:2px];
+	}
+
+	.command
+	{
+		font-family:Courier, monospace;
+		@apply bg-[rgb(232,231,221)];
+	}
+	.command_input
+	{
+		font-family:Courier, monospace;
+	}
+	.plumbing_link
+	{
+		font-style:oblique 50deg;
+		@apply text-[#0645AD];
+	}
+	.concept_link
+	{
+		@apply text-[#BA0000];
+	}
+	.concept_link:before
+	{
+		content:"🔖";
+	}
+	.external_link
+	{
+		@apply text-[#BA0000] opacity-60;
+	}
+	/*
+	.external_link::after
+	{
+		content:"🔗";
+	}
+	*/
+}
+
+@layer utilities {
+	.highlight_yellow
+	{
+		@apply bg-[#FFFF00]/[0.8];
+	}
+	.highlight_bold
+	{
+		@apply font-bold;
+	}
+
+	.td_red
+	{
+		background-color:#FF000020;
+	}
+	.td_green
+	{
+		background-color:#00FF0020;
+	}
+}

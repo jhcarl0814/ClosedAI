@@ -1,0 +1,171 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_standalone~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_standalone~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_standalone')">git</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git">https://git-scm.com/docs/git</a></p>
+	<form id="git_standalone_form">
+		<p class="paragraph">Choose an action to perform:</p>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_standalone\_action\_version~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_standalone_action_version')"><input type="radio" id="git_standalone_action_version" name="git_standalone_action" value="version" /><label for="git_standalone_action_version"><span class="command">--version</span> (Internally converted to <span class="command">git version</span>) Prints the Git suite version that the git program came from.</label></legend>
+			<div><input type="checkbox" id="git_standalone_action_version_has_build_options" name="git_standalone_action_version_has_build_options" /><label for="git_standalone_action_version_has_build_options"><span class="command">--build-options</span> Include additional information about how git was built for diagnostic purposes.</label></div>
+		</fieldset>
+		<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_standalone\_action\_exec\_path~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_standalone_action_exec_path')"><input type="radio" id="git_standalone_action_exec_path" name="git_standalone_action" value="exec_path" /><label for="git_standalone_action_exec_path"><span class="command">--exec-path</span> Path to wherever your core Git programs are installed.</label></div>
+		<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_standalone\_action\_html\_path\_man\_path\_info\_path~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_standalone_action_html_path_man_path_info_path')">
+			<div><input type="radio" id="git_standalone_action_html_path" name="git_standalone_action" value="html_path" /><label for="git_standalone_action_html_path"><span class="command">--html-path</span> Print the path where Git’s HTML documentation is installed.</label></div>
+			<div><input type="radio" id="git_standalone_action_man_path" name="git_standalone_action" value="man_path" /><label for="git_standalone_action_man_path"><span class="command">--man-path</span> Print the manpath for the man pages.</label></div>
+			<div><input type="radio" id="git_standalone_action_info_path" name="git_standalone_action" value="info_path" /><label for="git_standalone_action_info_path"><span class="command">--info-path</span> Print the path where the Info files are installed.</label></div>
+		</div>
+		<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_standalone\_action\_help~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_standalone_action_help')"><input type="radio" id="git_standalone_action_no_option" name="git_standalone_action" value="no_option" checked /><label for="git_standalone_action_no_option">Print the synopsis of the git command and a list of the most commonly used Git commands.</label></div>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_standalone\_action\_help~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_standalone_action_help')"><input type="radio" id="git_standalone_action_help" name="git_standalone_action" value="help" /><label for="git_standalone_action_help"><span class="command">--help</span> (Internally converted to <span class="command">git help</span>) Prints the synopsis and a list of the most commonly used commands.</label></legend>
+			<p class="paragraph">Choose an action to perform:</p>
+			<div><input type="radio" id="git_standalone_action_help_action_no_option" name="git_standalone_action_help_action" value="no_option" checked /><label for="git_standalone_action_help_action_no_option">Print the synopsis of the git command and a list of the most commonly used Git commands.</label></div>
+			<fieldset>
+				<legend><input type="radio" id="git_standalone_action_help_action_all" name="git_standalone_action_help_action" value="all" /><label for="git_standalone_action_help_action_all"><span class="command">--all</span> Print all available commands.</label></legend>
+				<div><input type="radio" id="git_standalone_action_help_action_all_verbose_no_option" name="git_standalone_action_help_action_all_verbose" value="" checked /><label for="git_standalone_action_help_action_all_verbose_no_option">(use default)</label></div>
+				<div><input type="radio" id="git_standalone_action_help_action_all_verbose_has_verbose" name="git_standalone_action_help_action_all_verbose" value="true" /><label for="git_standalone_action_help_action_all_verbose_has_verbose"><span class="command">--verbose</span> Print description for all recognized commands.</label></div>
+				<div><input type="radio" id="git_standalone_action_help_action_all_verbose_has_no_verbose" name="git_standalone_action_help_action_all_verbose" value="false" /><label for="git_standalone_action_help_action_all_verbose_has_no_verbose"><span class="command">--no-verbose</span></label></div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div><input type="radio" id="git_standalone_action_help_action_all_external_commands_no_option" name="git_standalone_action_help_action_all_external_commands" value="" checked /><label for="git_standalone_action_help_action_all_external_commands_no_option">(use default)</label></div>
+				<div><input type="radio" id="git_standalone_action_help_action_all_external_commands_has_external_commands" name="git_standalone_action_help_action_all_external_commands" value="true" /><label for="git_standalone_action_help_action_all_external_commands_has_external_commands"><span class="command">--external-commands</span></label></div>
+				<div><input type="radio" id="git_standalone_action_help_action_all_external_commands_has_no_external_commands" name="git_standalone_action_help_action_all_external_commands" value="false" /><label for="git_standalone_action_help_action_all_external_commands_has_no_external_commands"><span class="command">--no-external-commands</span> Exclude the listing of external "<span class="command">git-*</span>" commands found in the <span class="command">$PATH</span>.</label></div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div><input type="radio" id="git_standalone_action_help_action_all_aliases_no_option" name="git_standalone_action_help_action_all_aliases" value="" checked /><label for="git_standalone_action_help_action_all_aliases_no_option">(use default)</label></div>
+				<div><input type="radio" id="git_standalone_action_help_action_all_aliases_has_aliases" name="git_standalone_action_help_action_all_aliases" value="true" /><label for="git_standalone_action_help_action_all_aliases_has_aliases"><span class="command">--aliases</span></label></div>
+				<div><input type="radio" id="git_standalone_action_help_action_all_aliases_has_no_aliases" name="git_standalone_action_help_action_all_aliases" value="false" /><label for="git_standalone_action_help_action_all_aliases_has_no_aliases"><span class="command">--no-aliases</span> Exclude the listing of configured aliases.</label></div>
+			</fieldset>
+			<div><input type="radio" id="git_standalone_action_help_action_help" name="git_standalone_action_help_action" value="help" /><label for="git_standalone_action_help_action_help"><span class="command">--help</span> Bring up the manual page for <span class="command">git help</span>.</label></div>
+			<fieldset>
+				<legend><input type="radio" id="git_standalone_action_help_action_page" name="git_standalone_action_help_action" value="page" /><label for="git_standalone_action_help_action_page"><span class="command">[&lt;command&gt;|&lt;doc&gt;]</span> Bring up the relevant manual page.</label></legend>
+				<div><input type="radio" id="git_standalone_action_help_action_page_program_no_option" name="git_standalone_action_help_action_page_program" value="" checked /><label for="git_standalone_action_help_action_page_program_no_option">(use default)</label></div>
+				<div><input type="radio" id="git_standalone_action_help_action_page_program_info" name="git_standalone_action_help_action_page_program" value="info" /><label for="git_standalone_action_help_action_page_program_info"><span class="command">--info</span> Display manual page for the command in the info format.</label></div>
+				<div><input type="radio" id="git_standalone_action_help_action_page_program_man" name="git_standalone_action_help_action_page_program" value="man" /><label for="git_standalone_action_help_action_page_program_man"><span class="command">--man</span> Display manual page for the command in the man format.</label></div>
+				<div><input type="radio" id="git_standalone_action_help_action_page_program_web" name="git_standalone_action_help_action_page_program" value="web" /><label for="git_standalone_action_help_action_page_program_web"><span class="command">--web</span> Display manual page for the command in the web (HTML) format.</label></div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div class="flex [align-items:first_baseline]"><label for="git_standalone_action_help_action_page_name" class="basis-[max-content]"><span class="command">&lt;command&gt;</span> or <span class="command">&lt;doc&gt;</span>:</label><input type="text" id="git_standalone_action_help_action_page_name" name="git_standalone_action_help_action_page_name" class="basis-0 grow command_input" value="help" /></div>
+			</fieldset>
+			<div><input type="radio" id="git_standalone_action_help_action_guide" name="git_standalone_action_help_action" value="guide" /><label for="git_standalone_action_help_action_guide"><span class="command">--guide</span> Print a list of the Git concept guides.</label></div>
+			<div><input type="radio" id="git_standalone_action_help_action_config" name="git_standalone_action_help_action" value="config" /><label for="git_standalone_action_help_action_config"><span class="command">--config</span> List all available configuration variables.</label></div>
+			<div><input type="radio" id="git_standalone_action_help_action_user_interfaces" name="git_standalone_action_help_action" value="user_interfaces" /><label for="git_standalone_action_help_action_user_interfaces"><span class="command">--user-interfaces</span> Print a list of the repository, command and file interfaces documentation.</label></div>
+			<div><input type="radio" id="git_standalone_action_help_action_developer_interfaces" name="git_standalone_action_help_action" value="developer_interfaces" /><label for="git_standalone_action_help_action_developer_interfaces"><span class="command">--developer-interfaces</span> Print a list of file formats, protocols and other developer interfaces documentation.</label></div>
+		</fieldset>
+	</form>
+	<textarea readonly wrap="off" id="git_standalone_command" name="git_standalone_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_standalone_refresh(){
+			document.getElementById("git_standalone_action_version").closest("fieldset").disabled = !document.getElementById("git_standalone_action_version").checked;
+			document.getElementById("git_standalone_action_help").closest("fieldset").disabled = !document.getElementById("git_standalone_action_help").checked;
+			document.getElementById("git_standalone_action_help_action_all").closest("fieldset").disabled = !document.getElementById("git_standalone_action_help_action_all").checked;
+			document.getElementById("git_standalone_action_help_action_page").closest("fieldset").disabled = !document.getElementById("git_standalone_action_help_action_page").checked;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+
+			let form_data = new FormData(document.getElementById("git_standalone_form"));
+			switch(form_data.get("git_standalone_action")){
+				case "version":
+					command_components.push("--version");
+					if(form_data.get("git_standalone_action_version_has_build_options"))
+						command_components.push("--build-options");
+					break;
+				case "exec_path":
+					command_components.push("--exec-path");
+					break;
+				case "html_path":
+					command_components.push("--html-path");
+					break;
+				case "man_path":
+					command_components.push("--man-path");
+					break;
+				case "info_path":
+					command_components.push("--info-path");
+					break;
+				case "no_option":
+					break;
+				case "help":
+					command_components.push("--help");
+					switch(form_data.get("git_standalone_action_help_action")){
+						case "no_option":
+							break;
+						case "all":
+							command_components.push("--all");
+							switch(form_data.get("git_standalone_action_help_action_all_verbose")){
+								case "false":
+									command_components.push("--no-verbose");
+									break;
+								case "true":
+									command_components.push("--verbose");
+									break;
+							}
+							switch(form_data.get("git_standalone_action_help_action_all_external_commands")){
+								case "false":
+									command_components.push("--no-external-commands");
+									break;
+								case "true":
+									command_components.push("--external-commands");
+									break;
+							}
+							switch(form_data.get("git_standalone_action_help_action_all_aliases")){
+								case "false":
+									command_components.push("--no-aliases");
+									break;
+								case "true":
+									command_components.push("--aliases");
+									break;
+							}
+							break;
+						case "help":
+							command_components.push("--help");
+							break;
+						case "page":
+							switch(form_data.get("git_standalone_action_help_action_page_program")){
+								case "info":
+									command_components.push("--info");
+									break;
+								case "man":
+									command_components.push("--man");
+									break;
+								case "web":
+									command_components.push("--web");
+									break;
+							}
+							if(form_data.get("git_standalone_action_help_action_page_name").length == 0){
+								document.getElementById("git_standalone_action_help_action_page_name").classList.add("bg-[#FF8888]");
+								has_error = true;
+							}
+							else{
+								document.getElementById("git_standalone_action_help_action_page_name").classList.remove("bg-[#FF8888]");
+								command_components.push(shell_quote(form_data.get("git_standalone_action_help_action_page_name")));
+							}
+							break;
+						case "guide":
+							command_components.push("--guide");
+							break;
+						case "config":
+							command_components.push("--config");
+							break;
+						case "user_interfaces":
+							command_components.push("--user-interfaces");
+							break;
+						case "developer_interfaces":
+							command_components.push("--developer-interfaces");
+							break;
+					}
+					break;
+			}
+
+			let git_standalone_command = document.getElementById("git_standalone_command");
+			if(!has_error){
+				git_standalone_command.classList.remove("!bg-[#FF8888]");
+				git_standalone_command.value = command_components.join(" ");
+			}
+			else{
+				git_standalone_command.classList.add("!bg-[#FF8888]");
+				git_standalone_command.value = "";
+			}
+		}
+		Array.from(document.getElementById("git_standalone_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_standalone_refresh);
+		});
+	</script>
+</div>
