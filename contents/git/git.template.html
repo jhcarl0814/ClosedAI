@@ -369,7 +369,10 @@
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefgitfileagitfile">gitfile</a><br/>
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefworktreeaworktree">worktree</a> =<br/><div class="ml-[1em]"><a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefworkingtreeaworkingtree">working tree</a> +<br/> per-worktree metadata (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefperworktreerefaper-worktreeref">per-worktree ref</a> + ...)<br/></div>
-									<a class="external_link" href="https://git-scm.com/docs/git-worktree"><span class="command">git worktree</span></a><br/>
+									<a class="[#reference\_desk\_dispatcher\_form.git\_worktree~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_worktree git_with_command','git_worktree');git_worktree_refresh();"><span class="command">git worktree</span></a><br/>
+									<div class="ml-[1em]">
+										<a class="concept_link" href="https://git-scm.com/docs/git-worktree#_description">main worktree, linked worktree</a><br/>
+									</div>
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefcleanaclean">clean</a>; <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefdirtyadirty">dirty</a>, <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefstashastashentry">stash entry</a><br/>
 									<a class="external_link" href="https://git-scm.com/docs/git-stash"><span class="command">git stash</span></a><br/>
 								</div>
@@ -903,6 +906,7 @@
 
 				{{ awk_expand_commands './git_version_form.template.html' }}
 				{{ awk_expand_commands './git_standalone_form.template.html' }}
+				{{ awk_expand_commands './git_worktree_form.template.html' }}
 				{{ awk_expand_commands './git_help_form.template.html' }}
 				{{ awk_expand_commands './git_with_command_form.template.html' }}
 			</div>
@@ -913,6 +917,7 @@
 				<h1 class="heading1">Examples</h1>
 				{{ awk_expand_commands './git_version_examples.template.html' }}
 				{{ awk_expand_commands './git_standalone_examples.template.html' }}
+				{{ awk_expand_commands './git_worktree_examples.template.html' }}
 				{{ awk_expand_commands './git_help_examples.template.html' }}
 				{{ awk_expand_commands './git_with_command_examples.template.html' }}
 			</div>

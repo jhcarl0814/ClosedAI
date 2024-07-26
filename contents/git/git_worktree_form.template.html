@@ -1,0 +1,480 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_worktree~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_worktree')">git worktree</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-worktree">https://git-scm.com/docs/git-worktree</a></p>
+	<form id="git_worktree_form">
+		<p class="paragraph">Choose an action to perform:</p>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_list~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_worktree_action_list')"><input type="radio" id="git_worktree_action_list" name="git_worktree_action" value="list" checked /><label for="git_worktree_action_list"><span class="command">list</span> List details of each worktree.</label></legend>
+			<p class="paragraph">Choose format:</p>
+			<fieldset>
+				<legend><input type="radio" id="git_worktree_action_list_format_no_option" name="git_worktree_action_list_format" value="" checked /><label for="git_worktree_action_list_format_no_option"></label></legend>
+				<div><input type="checkbox" id="git_worktree_action_list_format_no_option_has_verbose" name="git_worktree_action_list_format_no_option_has_verbose" checked /><label for="git_worktree_action_list_format_no_option_has_verbose"><span class="command">--verbose</span> Output additional information about worktrees.</label></div>
+			</fieldset>
+			<fieldset>
+				<legend><input type="radio" id="git_worktree_action_list_format_porcelain" name="git_worktree_action_list_format" value="porcelain" /><label for="git_worktree_action_list_format_porcelain"><span class="command">--porcelain</span> Output in an easy-to-parse format for scripts.</label></legend>
+				<div><input type="checkbox" id="git_worktree_action_list_format_porcelain_has_z" name="git_worktree_action_list_format_porcelain_has_z" /><label for="git_worktree_action_list_format_porcelain_has_z"><span class="command">-z</span> Terminate each line with a NUL rather than a newline.</label></div>
+			</fieldset>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div><input type="checkbox" id="git_worktree_action_list_has_expire" name="git_worktree_action_list_has_expire" /><label for="git_worktree_action_list_has_expire"><span class="command">--expire &lt;time&gt;</span> Annotate missing worktrees as prunable if they are older than <span class="command">&lt;time&gt;</span></label></div>
+			<div class="flex [align-items:first_baseline]"><label for="git_worktree_action_list_expire_time" class="basis-[max-content]"><span class="command">&lt;time&gt;</span>:</label><input type="text" id="git_worktree_action_list_expire_time" name="git_worktree_action_list_expire_time" class="basis-0 grow command_input" value="now" /></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_add~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_worktree_action_add')"><input type="radio" id="git_worktree_action_add" name="git_worktree_action" value="add" /><label for="git_worktree_action_add"><span class="command">add &lt;path&gt; [&lt;commit-ish&gt;]</span> Create a worktree at <span class="command">&lt;path&gt;</span> and checkout <span class="command">&lt;commit-ish&gt;</span> into it.</label></legend>
+			<div class="flex [align-items:first_baseline]"><label for="git_worktree_action_add_path" class="basis-[max-content]"><span class="command">&lt;path&gt;</span>:</label><input type="text" id="git_worktree_action_add_path" name="git_worktree_action_add_path" class="basis-0 grow command_input" value="../worktree" /></div>
+			<fieldset>
+				<legend>What to checkout:</legend>
+				<div><input type="radio" id="git_worktree_action_add_commitish_orphan" name="git_worktree_action_add_commitish" value="orphan" /><label for="git_worktree_action_add_commitish_orphan"><span class="command">--orphan</span> Make the new worktree and index empty, associating the worktree with a new unborn branch</label></div>
+				<div class="flex [align-items:first_baseline]"><div class="basis-[max-content]"><input type="radio" id="git_worktree_action_add_commitish_use_commitish" name="git_worktree_action_add_commitish" value="use_commitish" /><label for="git_worktree_action_add_commitish_use_commitish"><span class="command">&lt;commit-ish&gt;</span></label></div><label for="git_worktree_action_add_commitish_commitish" class="hidden"><span class="command">&lt;commit-ish&gt;</span>:</label><textarea wrap="off" id="git_worktree_action_add_commitish_commitish" name="git_worktree_action_add_commitish_commitish" class="basis-0 grow command_input">HEAD</textarea></div>
+				<div class="flex [align-items:first_baseline]">
+					<input type="radio" id="git_worktree_action_add_commitish_omitted" name="git_worktree_action_add_commitish" value="omitted" checked /><label for="git_worktree_action_add_commitish_omitted">
+						(omitted):
+						<div class="ml-[1em]">
+							<p class="paragraph">not <span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--detached</span>: becomes one of previous cases depending on whether <span class="command">&lt;path&gt;</span>'s basename is existent local branch name and then whether <span class="inline-code">HEAD</span> is unborn and then whether other local branches or remote tracking branches are present;</p>
+							<p class="paragraph"><span class="command">-b</span>/<span class="command">-B</span>: becomes one of previous cases depending on whether <span class="inline-code">HEAD</span> is unborn;</p>
+							<p class="paragraph"><span class="command">--detached</span>: if <span class="inline-code">HEAD</span> is unborn then error out;</p>
+						</div>
+					</label>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>Whether to suppress checkout at first (when not using <span class="command">--orphan</span>):</legend>
+				<div><input type="radio" id="git_worktree_action_add_checkout_no_option" name="git_worktree_action_add_checkout" value="" checked /><label for="git_worktree_action_add_checkout_no_option">(use default)</label></div>
+				<div><input type="radio" id="git_worktree_action_add_checkout_has_checkout" name="git_worktree_action_add_checkout" value="true" /><label for="git_worktree_action_add_checkout_has_checkout"><span class="command">--checkout</span></label></div>
+				<div><input type="radio" id="git_worktree_action_add_checkout_has_no_checkout" name="git_worktree_action_add_checkout" value="false" /><label for="git_worktree_action_add_checkout_has_no_checkout"><span class="command">--no-checkout</span> Suppress checkout in order to make customizations, such as configuring sparse-checkout.</label></div>
+			</fieldset>
+			<fieldset>
+				<legend>Where <span class="inline-code">HEAD</span> points to:</legend>
+				<div><input type="radio" id="git_worktree_action_add_HEAD_no_option" name="git_worktree_action_add_HEAD" value="" checked /><label for="git_worktree_action_add_HEAD_no_option">not <span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--detached</span> To oversimplify, checkout existent local branch (see examples).</label></div>
+				<fieldset>
+					<legend>(when not using <span class="command">--orphan</span> and <span class="command">&lt;commit-ish&gt;</span> is omitted) (and basename of <span class="command">&lt;path&gt;</span> is not existent local branch name) (and <span class="inline-code">HEAD</span> is unborn branch) Whether to use remote-tracking branch with matching name as upstream to create new branch:</legend>
+					<div><input type="radio" id="git_worktree_action_add_HEAD_no_option_guess_remote_no_option" name="git_worktree_action_add_HEAD_no_option_guess_remote" value="" checked /><label for="git_worktree_action_add_HEAD_no_option_guess_remote_no_option">(use default)</label></div>
+					<div><input type="radio" id="git_worktree_action_add_HEAD_no_option_guess_remote_has_guess_remote" name="git_worktree_action_add_HEAD_no_option_guess_remote" value="true" /><label for="git_worktree_action_add_HEAD_no_option_guess_remote_has_guess_remote"><span class="command">--guess-remote</span> If there exists a tracking branch in exactly one remote matching the basename of <span class="command">&lt;path&gt;</span>, base the new branch on the remote-tracking branch, and mark the remote-tracking branch as "upstream" from the new branch.</label></div>
+					<div><input type="radio" id="git_worktree_action_add_HEAD_no_option_guess_remote_has_no_guess_remote" name="git_worktree_action_add_HEAD_no_option_guess_remote" value="false" /><label for="git_worktree_action_add_HEAD_no_option_guess_remote_has_no_guess_remote"><span class="command">--no-guess-remote</span></label></div>
+				</fieldset>
+				<div><input type="radio" id="git_worktree_action_add_HEAD_b" name="git_worktree_action_add_HEAD" value="b" /><label for="git_worktree_action_add_HEAD_b"><span class="command">-b &lt;new-branch&gt;</span> Create a new branch named <span class="command">&lt;new-branch&gt;</span> and check out <span class="command">&lt;new-branch&gt;</span> into the new worktree. Refuses to create a new branch if it already exists.</label></div>
+				<div class="flex [align-items:first_baseline]"><label for="git_worktree_action_add_HEAD_b_new_branch" class="basis-[max-content]"><span class="command">&lt;new-branch&gt;</span>:</label><input type="text" id="git_worktree_action_add_HEAD_b_new_branch" name="git_worktree_action_add_HEAD_b_new_branch" class="basis-0 grow command_input" value="new_branch" /></div>
+				<div><input type="radio" id="git_worktree_action_add_HEAD_B" name="git_worktree_action_add_HEAD" value="B" /><label for="git_worktree_action_add_HEAD_B"><span class="command">-B &lt;branch&gt;</span> Create a new branch named <span class="command">&lt;branch&gt;</span> and check out <span class="command">&lt;branch&gt;</span> into the new worktree. Resets <span class="command">&lt;branch&gt;</span> if it already exists.</label></div>
+				<div class="flex [align-items:first_baseline]"><label for="git_worktree_action_add_HEAD_B_branch" class="basis-[max-content]"><span class="command">&lt;branch&gt;</span>:</label><input type="text" id="git_worktree_action_add_HEAD_B_branch" name="git_worktree_action_add_HEAD_B_branch" class="basis-0 grow command_input" value="branch" /></div>
+				<div><input type="radio" id="git_worktree_action_add_HEAD_detach" name="git_worktree_action_add_HEAD" value="detach" /><label for="git_worktree_action_add_HEAD_detach"><span class="command">--detach</span> Detach <span class="inline-code">HEAD</span> in the new worktree <span id="git_worktree_action_add_HEAD_detach_orphan_warning">(when not using <span class="command">--orphan</span>)</span>.</label></div>
+			</fieldset>
+			<fieldset>
+				<legend>Whether to use <span class="command">&lt;commit-ish&gt;</span> as upstream when creating a new branch or resetting existent local branch (when not using <span class="command">--orphan</span> or <span class="command">--detach</span>):</legend>
+				<div><input type="radio" id="git_worktree_action_add_track_no_option" name="git_worktree_action_add_track" value="" checked /><label for="git_worktree_action_add_track_no_option">(use default)</label></div>
+				<div><input type="radio" id="git_worktree_action_add_track_has_track" name="git_worktree_action_add_track" value="true" /><label for="git_worktree_action_add_track_has_track"><span class="command">--track</span> When creating a new branch or resetting existent local branch, if <span class="command">&lt;commit-ish&gt;</span> is a branch, mark it as "upstream" from the new branch.</label></div>
+				<div><input type="radio" id="git_worktree_action_add_track_has_no_track" name="git_worktree_action_add_track" value="false" /><label for="git_worktree_action_add_track_has_no_track"><span class="command">--no-track</span></label></div>
+			</fieldset>
+			<fieldset>
+				<legend><input type="checkbox" id="git_worktree_action_add_has_lock" name="git_worktree_action_add_has_lock" /><label for="git_worktree_action_add_has_lock"><span class="command">--lock</span> Keep the worktree locked after creation.</label></legend>
+				<div><input type="checkbox" id="git_worktree_action_add_lock_has_reason" name="git_worktree_action_add_lock_has_reason" /><label for="git_worktree_action_add_lock_has_reason"><span class="command">--reason &lt;reason&gt;</span> An explanation why the worktree is locked.</label></div>
+				<div class="flex [align-items:first_baseline]"><label for="git_worktree_action_add_lock_reason" class="basis-[max-content]"><span class="command">&lt;reason&gt;</span>:</label><textarea wrap="off" id="git_worktree_action_add_lock_reason" name="git_worktree_action_add_lock_reason" class="basis-0 grow command_input">lock reason</textarea></div>
+			</fieldset>
+			<fieldset>
+				<legend>Whether <span class="command">&lt;path&gt;</span> is already assigned to some worktree and the state of the worktree:</legend>
+				<div><input type="radio" id="git_worktree_action_add_path_already_assigned_no_option" name="git_worktree_action_add_path_already_assigned" value="" checked /><label for="git_worktree_action_add_path_already_assigned_no_option"></label></div>
+				<div><input type="radio" id="git_worktree_action_add_path_already_assigned_missing" name="git_worktree_action_add_path_already_assigned" value="missing" /><label for="git_worktree_action_add_path_already_assigned_missing">(at least 1 <span class="command">--force</span>) <span class="command">&lt;path&gt;</span> is already assigned to some worktree but is missing.</label></div>
+				<div><input type="radio" id="git_worktree_action_add_path_already_assigned_missing_and_locked" name="git_worktree_action_add_path_already_assigned" value="missing_and_locked" /><label for="git_worktree_action_add_path_already_assigned_missing_and_locked">(at least 2 <span class="command">--force</span>s) <span class="command">&lt;path&gt;</span> is already assigned to some worktree but is missing and locked.</label></div>
+			</fieldset>
+			<fieldset>
+				<legend>Whether the new worktree's intended branch to checkout is already checked out by another worktree (when not using <span class="command">--orphan</span>) (when not using <span class="command">-b</span>/<span class="command">--detach</span>):</legend>
+				<div><input type="radio" id="git_worktree_action_add_branch_already_checked_out_false" name="git_worktree_action_add_branch_already_checked_out" value="false" checked /><label for="git_worktree_action_add_branch_already_checked_out_false"></label></div>
+				<div><input type="radio" id="git_worktree_action_add_branch_already_checked_out_true" name="git_worktree_action_add_branch_already_checked_out" value="true" /><label for="git_worktree_action_add_branch_already_checked_out_true">(at least 1 <span class="command">--force</span>) The new worktree's intended branch to checkout is already checked out by another worktree.</label></div>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_move~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_worktree_action_move')"><input type="radio" id="git_worktree_action_move" name="git_worktree_action" value="move" /><label for="git_worktree_action_move"><span class="command">move &lt;worktree&gt; &lt;new-path&gt;</span> Move a linked worktree to a new location.</label></legend>
+			<div class="flex [align-items:first_baseline]"><label for="git_worktree_action_move_worktree" class="basis-[max-content]"><span class="command">&lt;worktree&gt;</span>:</label><textarea wrap="off" id="git_worktree_action_move_worktree" name="git_worktree_action_move_worktree" class="basis-0 grow command_input">../worktree</textarea></div>
+			<div class="flex [align-items:first_baseline]"><label for="git_worktree_action_move_new_path" class="basis-[max-content]"><span class="command">&lt;new-path&gt;</span>:</label><textarea wrap="off" id="git_worktree_action_move_new_path" name="git_worktree_action_move_new_path" class="basis-0 grow command_input">../new_path</textarea></div>
+			<fieldset>
+				<legend>Whether <span class="command">&lt;worktree&gt;</span> is locked:</legend>
+				<div><input type="radio" id="git_worktree_action_move_worktree_locked_false" name="git_worktree_action_move_worktree_locked" value="false" checked /><label for="git_worktree_action_move_worktree_locked_false"></label></div>
+				<div><input type="radio" id="git_worktree_action_move_worktree_locked_true" name="git_worktree_action_move_worktree_locked" value="true" /><label for="git_worktree_action_move_worktree_locked_true">(at least 2 <span class="command">--force</span>s) <span class="command">&lt;worktree&gt;</span> is locked.</label></div>
+			</fieldset>
+			<fieldset>
+				<legend>Whether <span class="command">&lt;new-path&gt;</span> is already assigned to some worktree and the state of the worktree:</legend>
+				<div><input type="radio" id="git_worktree_action_move_new_path_already_assigned_no_option" name="git_worktree_action_move_new_path_already_assigned" value="" checked /><label for="git_worktree_action_move_new_path_already_assigned_no_option"></label></div>
+				<div><input type="radio" id="git_worktree_action_move_new_path_already_assigned_missing" name="git_worktree_action_move_new_path_already_assigned" value="missing" /><label for="git_worktree_action_move_new_path_already_assigned_missing">(at least 1 <span class="command">--force</span>) <span class="command">&lt;new-path&gt;</span> is already assigned to some worktree but is missing.</label></div>
+				<div><input type="radio" id="git_worktree_action_move_new_path_already_assigned_missing_and_locked" name="git_worktree_action_move_new_path_already_assigned" value="missing_and_locked" /><label for="git_worktree_action_move_new_path_already_assigned_missing_and_locked">(at least 2 <span class="command">--force</span>s) <span class="command">&lt;new-path&gt;</span> is already assigned to some worktree but is missing and locked.</label></div>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_remove~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_worktree_action_remove')"><input type="radio" id="git_worktree_action_remove" name="git_worktree_action" value="remove" /><label for="git_worktree_action_remove"><span class="command">remove &lt;worktree&gt;</span> Remove a linked worktree.</label></legend>
+			<div class="flex [align-items:first_baseline]"><label for="git_worktree_action_remove_worktree" class="basis-[max-content]"><span class="command">&lt;worktree&gt;</span>:</label><textarea wrap="off" id="git_worktree_action_remove_worktree" name="git_worktree_action_remove_worktree" class="basis-0 grow command_input">../worktree</textarea></div>
+			<fieldset>
+				<legend>Whether <span class="command">&lt;worktree&gt;</span> is dirty:</legend>
+				<div><input type="radio" id="git_worktree_action_remove_worktree_dirty_false" name="git_worktree_action_remove_worktree_dirty" value="false" checked /><label for="git_worktree_action_remove_worktree_dirty_false"></label></div>
+				<div><input type="radio" id="git_worktree_action_remove_worktree_dirty_true" name="git_worktree_action_remove_worktree_dirty" value="true" /><label for="git_worktree_action_remove_worktree_dirty_true">(at least 1 <span class="command">--force</span>) <span class="command">&lt;worktree&gt;</span> is dirty.</label></div>
+			</fieldset>
+			<fieldset>
+				<legend>Whether <span class="command">&lt;worktree&gt;</span> is locked:</legend>
+				<div><input type="radio" id="git_worktree_action_remove_worktree_locked_false" name="git_worktree_action_remove_worktree_locked" value="false" checked /><label for="git_worktree_action_remove_worktree_locked_false"></label></div>
+				<div><input type="radio" id="git_worktree_action_remove_worktree_locked_true" name="git_worktree_action_remove_worktree_locked" value="true" /><label for="git_worktree_action_remove_worktree_locked_true">(at least 2 <span class="command">--force</span>s) <span class="command">&lt;worktree&gt;</span> is locked.</label></div>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_prune~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_worktree_action_prune')"><input type="radio" id="git_worktree_action_prune" name="git_worktree_action" value="prune" /><label for="git_worktree_action_prune"><span class="command">prune</span> Prune worktree information in <span class="inline-code">$GIT_DIR/worktrees</span>.</label></legend>
+			<fieldset>
+				<legend>Whether to perform the action:</legend>
+				<div><input type="radio" id="git_worktree_action_prune_dry_run" name="git_worktree_action_prune" value="dry_run" checked /><label for="git_worktree_action_prune_dry_run"><span class="command">--dry-run</span> Do not remove anything; just report what would be removed.</label></div>
+				<fieldset>
+					<legend><input type="radio" id="git_worktree_action_prune_run" name="git_worktree_action_prune" value="run" /><label for="git_worktree_action_prune_run"></label></legend>
+					<div><input type="checkbox" id="git_worktree_action_prune_run_has_verbose" name="git_worktree_action_prune_run_has_verbose" checked /><label for="git_worktree_action_prune_run_has_verbose"><span class="command">--verbose</span> Report all removals.</label></div>
+				</fieldset>
+			</fieldset>
+			<div><input type="checkbox" id="git_worktree_action_prune_has_expire" name="git_worktree_action_prune_has_expire" /><label for="git_worktree_action_prune_has_expire"><span class="command">--expire &lt;time&gt;</span> Only expire unused worktrees older than <span class="command">&lt;time&gt;</span></label></div>
+			<div class="flex [align-items:first_baseline]"><label for="git_worktree_action_prune_expire_time" class="basis-[max-content]"><span class="command">&lt;time&gt;</span>:</label><input type="text" id="git_worktree_action_prune_expire_time" name="git_worktree_action_prune_expire_time" class="basis-0 grow command_input" value="now" /></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_lock~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_worktree_action_lock')"><input type="radio" id="git_worktree_action_lock" name="git_worktree_action" value="lock" /><label for="git_worktree_action_lock"><span class="command">lock &lt;worktree&gt;</span> If a worktree is on a portable device or network share which is not always mounted, lock it to prevent its administrative files from being pruned automatically. This also prevents it from being moved or deleted.</label></legend>
+			<div><input type="checkbox" id="git_worktree_action_lock_has_reason" name="git_worktree_action_lock_has_reason" /><label for="git_worktree_action_lock_has_reason"><span class="command">--reason &lt;reason&gt;</span> An explanation why the worktree is locked.</label></div>
+			<div class="flex [align-items:first_baseline]"><label for="git_worktree_action_lock_reason" class="basis-[max-content]"><span class="command">&lt;reason&gt;</span>:</label><textarea wrap="off" id="git_worktree_action_lock_reason" name="git_worktree_action_lock_reason" class="basis-0 grow command_input">lock reason</textarea></div>
+			<div class="flex [align-items:first_baseline]"><label for="git_worktree_action_lock_worktree" class="basis-[max-content]"><span class="command">&lt;worktree&gt;</span>:</label><textarea wrap="off" id="git_worktree_action_lock_worktree" name="git_worktree_action_lock_worktree" class="basis-0 grow command_input">../worktree</textarea></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_unlock~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_worktree_action_unlock')"><input type="radio" id="git_worktree_action_unlock" name="git_worktree_action" value="unlock" /><label for="git_worktree_action_unlock"><span class="command">unlock &lt;worktree&gt;</span> Unlock a worktree, allowing it to be pruned, moved or deleted.</label></legend>
+			<div class="flex [align-items:first_baseline]"><label for="git_worktree_action_unlock_worktree" class="basis-[max-content]"><span class="command">&lt;worktree&gt;</span>:</label><textarea wrap="off" id="git_worktree_action_unlock_worktree" name="git_worktree_action_unlock_worktree" class="basis-0 grow command_input">../worktree</textarea></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_repair~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_worktree_action_repair')"><input type="radio" id="git_worktree_action_repair" name="git_worktree_action" value="repair" /><label for="git_worktree_action_repair"><span class="command">repair [&lt;path&gt;…​]</span> Repair worktree administrative files, if possible, if they have become corrupted or outdated due to external factors.</label></legend>
+			<fieldset>
+				<legend><span class="basis-[max-content] command">&lt;path&gt;…​</span>:</legend>
+				<input id="git_worktree_action_repair_path_list_add" type="button" value="Add" />
+				<div id="git_worktree_action_repair_path_list"></div>
+				<script>
+					document.getElementById("git_worktree_action_repair_path_list_add").addEventListener("click",function(e){
+						document.getElementById("git_worktree_action_repair_path_list").append((function(){
+							let div = document.createElement("div"); div.className = "flex gap-x-[0.5em]";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap="off"; textarea.className="command_input"; textarea.addEventListener("input", git_worktree_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_worktree_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_worktree_refresh();
+					})
+				</script>
+			</fieldset>
+		</fieldset>
+	</form>
+	<textarea readonly wrap="off" id="git_worktree_command" name="git_worktree_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_worktree_refresh(){
+			document.getElementById("git_worktree_action_list").closest("fieldset").disabled = !document.getElementById("git_worktree_action_list").checked;
+			document.getElementById("git_worktree_action_list_format_no_option").closest("fieldset").disabled = !document.getElementById("git_worktree_action_list_format_no_option").checked;
+			document.getElementById("git_worktree_action_list_format_porcelain").closest("fieldset").disabled = !document.getElementById("git_worktree_action_list_format_porcelain").checked;
+			document.getElementById("git_worktree_action_list_expire_time").disabled = !document.getElementById("git_worktree_action_list_has_expire").checked;
+
+			document.getElementById("git_worktree_action_add").closest("fieldset").disabled = !document.getElementById("git_worktree_action_add").checked;
+			document.getElementById("git_worktree_action_add_commitish_commitish").disabled = !document.getElementById("git_worktree_action_add_commitish_use_commitish").checked;
+			document.getElementById("git_worktree_action_add_checkout_no_option").closest("fieldset").disabled = document.getElementById("git_worktree_action_add_commitish_orphan").checked;
+			document.getElementById("git_worktree_action_add_HEAD_no_option_guess_remote_no_option").closest("fieldset").disabled = !(document.getElementById("git_worktree_action_add_commitish_omitted").checked && document.getElementById("git_worktree_action_add_HEAD_no_option").checked);
+			document.getElementById("git_worktree_action_add_HEAD_b_new_branch").disabled = !document.getElementById("git_worktree_action_add_HEAD_b").checked;
+			document.getElementById("git_worktree_action_add_HEAD_B_branch").disabled = !document.getElementById("git_worktree_action_add_HEAD_B").checked;
+			document.getElementById("git_worktree_action_add_track_no_option").closest("fieldset").disabled = document.getElementById("git_worktree_action_add_commitish_orphan").checked || document.getElementById("git_worktree_action_add_HEAD_detach").checked;
+			document.getElementById("git_worktree_action_add_has_lock").closest("fieldset").disabled = !document.getElementById("git_worktree_action_add_has_lock").checked;
+			document.getElementById("git_worktree_action_add_lock_reason").disabled = !document.getElementById("git_worktree_action_add_lock_has_reason").checked;
+			document.getElementById("git_worktree_action_add_branch_already_checked_out_false").closest("fieldset").disabled = document.getElementById("git_worktree_action_add_commitish_orphan").checked || (document.getElementById("git_worktree_action_add_HEAD_b").checked || document.getElementById("git_worktree_action_add_HEAD_detach").checked);
+
+			document.getElementById("git_worktree_action_move").closest("fieldset").disabled = !document.getElementById("git_worktree_action_move").checked;
+			document.getElementById("git_worktree_action_remove").closest("fieldset").disabled = !document.getElementById("git_worktree_action_remove").checked;
+			document.getElementById("git_worktree_action_prune").closest("fieldset").disabled = !document.getElementById("git_worktree_action_prune").checked;
+			document.getElementById("git_worktree_action_prune_expire_time").disabled = !document.getElementById("git_worktree_action_prune_has_expire").checked;
+			document.getElementById("git_worktree_action_prune_run").closest("fieldset").disabled = !document.getElementById("git_worktree_action_prune_run").checked;
+			document.getElementById("git_worktree_action_lock").closest("fieldset").disabled = !document.getElementById("git_worktree_action_lock").checked;
+			document.getElementById("git_worktree_action_lock_reason").disabled = !document.getElementById("git_worktree_action_lock_has_reason").checked;
+			document.getElementById("git_worktree_action_unlock").closest("fieldset").disabled = !document.getElementById("git_worktree_action_unlock").checked;
+			document.getElementById("git_worktree_action_repair").closest("fieldset").disabled = !document.getElementById("git_worktree_action_repair").checked;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("worktree");
+
+			let form_data = new FormData(document.getElementById("git_worktree_form"));
+			switch(form_data.get("git_worktree_action")){
+				case "list":
+					command_components.push("list");
+					switch(form_data.get("git_worktree_action_list_format")){
+						case "":
+							if(form_data.get("git_worktree_action_list_format_no_option_has_verbose"))
+								command_components.push("--verbose");
+							break;
+						case "porcelain":
+							command_components.push("--porcelain");
+							if(form_data.get("git_worktree_action_list_format_porcelain_has_z"))
+								command_components.push("-z");
+							break;
+					}
+					if(form_data.get("git_worktree_action_list_has_expire")){
+						command_components.push("--expire");
+						if(form_data.get("git_worktree_action_list_expire_time").length == 0){
+							document.getElementById("git_worktree_action_list_expire_time").classList.add("bg-[#FF8888]");
+							has_error = true;
+						}
+						else{
+							document.getElementById("git_worktree_action_list_expire_time").classList.remove("bg-[#FF8888]");
+							command_components.push(shell_quote(form_data.get("git_worktree_action_list_expire_time")));
+						}
+					}
+					break;
+				case "add":
+					command_components.push("add");
+					switch(form_data.get("git_worktree_action_add_checkout")){
+						case "false":
+							command_components.push("--no-checkout");
+							break;
+						case "true":
+							command_components.push("--checkout");
+							break;
+					}
+					switch(form_data.get("git_worktree_action_add_commitish")){
+						case "orphan":
+							command_components.push("--orphan");
+							break;
+					}
+					if(document.getElementById("git_worktree_action_add_commitish_orphan").checked && document.getElementById("git_worktree_action_add_HEAD_detach").checked){
+						has_error = true;
+						document.getElementById("git_worktree_action_add_HEAD_detach_orphan_warning").classList.add("bg-[#FF8888]");
+					}
+					else{
+						document.getElementById("git_worktree_action_add_HEAD_detach_orphan_warning").classList.remove("bg-[#FF8888]");
+					}
+					switch(form_data.get("git_worktree_action_add_HEAD")){
+						case "":
+							if(document.getElementById("git_worktree_action_add_commitish_omitted").checked && document.getElementById("git_worktree_action_add_HEAD_no_option").checked){
+								switch(form_data.get("git_worktree_action_add_HEAD_no_option_guess_remote")){
+									case "false":
+										command_components.push("--no-guess-remote");
+										break;
+									case "true":
+										command_components.push("--guess-remote");
+										break;
+								}
+							}
+							break;
+						case "b":
+							command_components.push("-b");
+							if(form_data.get("git_worktree_action_add_HEAD_b_new_branch").length == 0){
+								document.getElementById("git_worktree_action_add_HEAD_b_new_branch").classList.add("bg-[#FF8888]");
+								has_error = true;
+							}
+							else{
+								document.getElementById("git_worktree_action_add_HEAD_b_new_branch").classList.remove("bg-[#FF8888]");
+								command_components.push(shell_quote(form_data.get("git_worktree_action_add_HEAD_b_new_branch")));
+							}
+							break;
+						case "B":
+							command_components.push("-B");
+							if(form_data.get("git_worktree_action_add_HEAD_B_branch").length == 0){
+								document.getElementById("git_worktree_action_add_HEAD_B_branch").classList.add("bg-[#FF8888]");
+								has_error = true;
+							}
+							else{
+								document.getElementById("git_worktree_action_add_HEAD_B_branch").classList.remove("bg-[#FF8888]");
+								command_components.push(shell_quote(form_data.get("git_worktree_action_add_HEAD_B_branch")));
+							}
+							break;
+						case "detach":
+							command_components.push("--detach");
+							break;
+					}
+					switch(form_data.get("git_worktree_action_add_track")){
+						case "false":
+							command_components.push("--no-track");
+							break;
+						case "true":
+							command_components.push("--track");
+							break;
+					}
+					if(form_data.get("git_worktree_action_add_has_lock")){
+						command_components.push("--lock");
+						if(form_data.get("git_worktree_action_add_lock_has_reason")){
+							command_components.push("--reason");
+							if(form_data.get("git_worktree_action_add_lock_reason").length == 0){
+								document.getElementById("git_worktree_action_add_lock_reason").classList.add("bg-[#FF8888]");
+								has_error = true;
+							}
+							else{
+								document.getElementById("git_worktree_action_add_lock_reason").classList.remove("bg-[#FF8888]");
+								command_components.push(shell_quote(form_data.get("git_worktree_action_add_lock_reason")));
+							}
+						}
+					}
+
+					let git_worktree_action_add_number_of_force = 0;
+					switch(form_data.get("git_worktree_action_add_path_already_assigned")){
+						case "missing":
+							git_worktree_action_add_number_of_force = Math.max(git_worktree_action_add_number_of_force, 1);
+							break;
+						case "missing_and_locked":
+							git_worktree_action_add_number_of_force = Math.max(git_worktree_action_add_number_of_force, 2);
+							break;
+					}
+					if(!(document.getElementById("git_worktree_action_add_commitish_orphan").checked || (document.getElementById("git_worktree_action_add_HEAD_b").checked || document.getElementById("git_worktree_action_add_HEAD_detach").checked))){
+						switch(form_data.get("git_worktree_action_add_branch_already_checked_out")){
+							case "true":
+								git_worktree_action_add_number_of_force = Math.max(git_worktree_action_add_number_of_force, 1);
+								break;
+						}
+					}
+					command_components.push(...Array(git_worktree_action_add_number_of_force).fill("--force"));
+
+					if(form_data.get("git_worktree_action_add_path").length == 0){
+						document.getElementById("git_worktree_action_add_path").classList.add("bg-[#FF8888]");
+						has_error = true;
+					}
+					else{
+						document.getElementById("git_worktree_action_add_path").classList.remove("bg-[#FF8888]");
+						command_components.push(shell_quote(form_data.get("git_worktree_action_add_path")));
+					}
+					switch(form_data.get("git_worktree_action_add_commitish")){
+						case "use_commitish":
+							if(form_data.get("git_worktree_action_add_commitish_commitish").length == 0){
+								document.getElementById("git_worktree_action_add_commitish_commitish").classList.add("bg-[#FF8888]");
+								has_error = true;
+							}
+							else{
+								document.getElementById("git_worktree_action_add_commitish_commitish").classList.remove("bg-[#FF8888]");
+								command_components.push(shell_quote(form_data.get("git_worktree_action_add_commitish_commitish")));
+							}
+							break;
+					}
+					break;
+				case "move":
+					command_components.push("move");
+
+					let git_worktree_action_move_number_of_force = 0;
+					switch(form_data.get("git_worktree_action_move_worktree_locked")){
+						case "true":
+							git_worktree_action_move_number_of_force = Math.max(git_worktree_action_move_number_of_force, 2);
+							break;
+					}
+					switch(form_data.get("git_worktree_action_move_new_path_already_assigned")){
+						case "missing":
+							git_worktree_action_move_number_of_force = Math.max(git_worktree_action_move_number_of_force, 1);
+							break;
+						case "missing_and_locked":
+							git_worktree_action_move_number_of_force = Math.max(git_worktree_action_move_number_of_force, 2);
+							break;
+					}
+					command_components.push(...Array(git_worktree_action_move_number_of_force).fill("--force"));
+
+					if(form_data.get("git_worktree_action_move_worktree").length == 0){
+						document.getElementById("git_worktree_action_move_worktree").classList.add("bg-[#FF8888]");
+						has_error = true;
+					}
+					else{
+						document.getElementById("git_worktree_action_move_worktree").classList.remove("bg-[#FF8888]");
+						command_components.push(shell_quote(form_data.get("git_worktree_action_move_worktree")));
+					}
+					if(form_data.get("git_worktree_action_move_new_path").length == 0){
+						document.getElementById("git_worktree_action_move_new_path").classList.add("bg-[#FF8888]");
+						has_error = true;
+					}
+					else{
+						document.getElementById("git_worktree_action_move_new_path").classList.remove("bg-[#FF8888]");
+						command_components.push(shell_quote(form_data.get("git_worktree_action_move_new_path")));
+					}
+					break;
+				case "remove":
+					command_components.push("remove");
+
+					let git_worktree_action_remove_number_of_force = 0;
+					switch(form_data.get("git_worktree_action_remove_worktree_dirty")){
+						case "true":
+							git_worktree_action_remove_number_of_force = Math.max(git_worktree_action_remove_number_of_force, 1);
+							break;
+					}
+					switch(form_data.get("git_worktree_action_remove_worktree_locked")){
+						case "true":
+							git_worktree_action_remove_number_of_force = Math.max(git_worktree_action_remove_number_of_force, 2);
+							break;
+					}
+					command_components.push(...Array(git_worktree_action_remove_number_of_force).fill("--force"));
+
+					if(form_data.get("git_worktree_action_remove_worktree").length == 0){
+						document.getElementById("git_worktree_action_remove_worktree").classList.add("bg-[#FF8888]");
+						has_error = true;
+					}
+					else{
+						document.getElementById("git_worktree_action_remove_worktree").classList.remove("bg-[#FF8888]");
+						command_components.push(shell_quote(form_data.get("git_worktree_action_remove_worktree")));
+					}
+					break;
+				case "prune":
+					command_components.push("prune");
+					switch(form_data.get("git_worktree_action_prune")){
+						case "dry_run":
+							command_components.push("--dry-run");
+							break;
+						case "run":
+							if(form_data.get("git_worktree_action_prune_run_has_verbose"))
+								command_components.push("--verbose");
+							break;
+					}
+					if(form_data.get("git_worktree_action_prune_has_expire")){
+						command_components.push("--expire");
+						if(form_data.get("git_worktree_action_prune_expire_time").length == 0){
+							document.getElementById("git_worktree_action_prune_expire_time").classList.add("bg-[#FF8888]");
+							has_error = true;
+						}
+						else{
+							document.getElementById("git_worktree_action_prune_expire_time").classList.remove("bg-[#FF8888]");
+							command_components.push(shell_quote(form_data.get("git_worktree_action_prune_expire_time")));
+						}
+					}
+					break;
+				case "lock":
+					command_components.push("lock");
+					if(form_data.get("git_worktree_action_lock_has_reason")){
+						command_components.push("--reason");
+						if(form_data.get("git_worktree_action_lock_reason").length == 0){
+							document.getElementById("git_worktree_action_lock_reason").classList.add("bg-[#FF8888]");
+							has_error = true;
+						}
+						else{
+							document.getElementById("git_worktree_action_lock_reason").classList.remove("bg-[#FF8888]");
+							command_components.push(shell_quote(form_data.get("git_worktree_action_lock_reason")));
+						}
+					}
+					if(form_data.get("git_worktree_action_lock_worktree").length == 0){
+						document.getElementById("git_worktree_action_lock_worktree").classList.add("bg-[#FF8888]");
+						has_error = true;
+					}
+					else{
+						document.getElementById("git_worktree_action_lock_worktree").classList.remove("bg-[#FF8888]");
+						command_components.push(shell_quote(form_data.get("git_worktree_action_lock_worktree")));
+					}
+					break;
+				case "unlock":
+					command_components.push("unlock");
+					if(form_data.get("git_worktree_action_unlock_worktree").length == 0){
+						document.getElementById("git_worktree_action_unlock_worktree").classList.add("bg-[#FF8888]");
+						has_error = true;
+					}
+					else{
+						document.getElementById("git_worktree_action_unlock_worktree").classList.remove("bg-[#FF8888]");
+						command_components.push(shell_quote(form_data.get("git_worktree_action_unlock_worktree")));
+					}
+					break;
+				case "repair":
+					command_components.push("repair");
+					Array.from(document.getElementById("git_worktree_action_repair_path_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						command_components.push(shell_quote(textarea.value));
+					});
+					break;
+			}
+
+			let git_worktree_command = document.getElementById("git_worktree_command");
+			if(!has_error){
+				git_worktree_command.classList.remove("!bg-[#FF8888]");
+				git_worktree_command.value = command_components.join(" ");
+			}
+			else{
+				git_worktree_command.classList.add("!bg-[#FF8888]");
+				git_worktree_command.value = "";
+			}
+		}
+		Array.from(document.getElementById("git_worktree_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_worktree_refresh);
+		});
+	</script>
+</div>
