@@ -343,11 +343,27 @@
 									Configuration<br/>
 									<div class="ml-[1em]">
 										<a class="[#reference\_desk\_dispatcher\_form.git\_version~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_version git_with_command','git_version');git_version_refresh();"><span class="command">git version</span></a><br/>
-										<a class="external_link" href="https://git-scm.com/docs/git-config"><span class="command">git config</span></a><br/>
-										<a class="external_link" href="https://git-scm.com/docs/git-var"><span class="command">git var</span></a><br/>
+										<a class="[#reference\_desk\_dispatcher\_form.git\_config~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_config git_with_command','git_config');git_config_refresh();"><span class="command">git config</span></a><br/>
+										<div class="ml-[1em]">
+											<a class="concept_link" href="https://git-scm.com/docs/git-config#FILES">configuration files</a><br/>
+											<div class="ml-[1em]">
+												<a class="concept_link" href="https://git-scm.com/docs/git-config#_syntax">section, subsection, value</a><br/>
+												<a class="concept_link" href="https://git-scm.com/docs/git-config#_values">types, runtime prefix</a><br/>
+												<a class="concept_link" href="https://git-scm.com/docs/git-config#_includes">include</a><br/>
+											</div>
+											<a class="concept_link" href="https://git-scm.com/docs/git-config#SCOPES">configuration scope, protected configuration</a><br/>
+											<a class="concept_link" href="https://git-scm.com/docs/git-config#FILES">multiple values</a><br/>
+											<a class="concept_link" href="https://git-scm.com/docs/git-config#ENVIRONMENT">overriding values</a><br/>
+											<a class="concept_link" href="https://git-scm.com/docs/git-config#_variables">configuration variables</a><br/>
+										</div>
+										<a class="[#reference\_desk\_dispatcher\_form.git\_var~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_var git_with_command','git_var');git_var_refresh();"><span class="command">git var</span></a><br/>
+										<div class="ml-[1em]">
+											<a class="concept_link" href="https://git-scm.com/docs/git-var#_variables">logical variables</a><br/>
+										</div>
 									</div>
 									CLI<br/>
 									<div class="ml-[1em]">
+										<a class="concept_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-corequotePath">path syntax in output</a><br/>
 										<a class="[#reference\_desk\_dispatcher\_form.git\_standalone~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_standalone git_with_command','git_standalone');git_standalone_refresh();"><span class="command">git</span></a><br/>
 										<div class="ml-[1em]">
 											<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefplumbingaplumbing">plumbing</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefcoregitacoreGit">core Git</a>)<br/>
@@ -905,6 +921,8 @@
 				</div>
 
 				{{ awk_expand_commands './git_version_form.template.html' }}
+				{{ awk_expand_commands './git_config_form.template.html' }}
+				{{ awk_expand_commands './git_var_form.template.html' }}
 				{{ awk_expand_commands './git_standalone_form.template.html' }}
 				{{ awk_expand_commands './git_worktree_form.template.html' }}
 				{{ awk_expand_commands './git_help_form.template.html' }}
@@ -916,6 +934,8 @@
 			<div class="absolute overflow-x-hidden overflow-y-auto inset-[8px] border-[1px] border-solid border-[#000000] rounded-[5px] px-[1em] py-[0.5em]">
 				<h1 class="heading1">Examples</h1>
 				{{ awk_expand_commands './git_version_examples.template.html' }}
+				{{ awk_expand_commands './git_config_examples.template.html' }}
+				{{ awk_expand_commands './git_var_examples.template.html' }}
 				{{ awk_expand_commands './git_standalone_examples.template.html' }}
 				{{ awk_expand_commands './git_worktree_examples.template.html' }}
 				{{ awk_expand_commands './git_help_examples.template.html' }}

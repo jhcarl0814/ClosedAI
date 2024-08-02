@@ -185,6 +185,10 @@
 			let reference_desk_dispatcher_form = document.getElementById("reference_desk_dispatcher_form");
 			if(reference_desk_dispatcher_form.classList.contains("git_version"))
 				git_version_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_config"))
+				git_config_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_var"))
+				git_var_refresh();
 			if(reference_desk_dispatcher_form.classList.contains("git_standalone"))
 				git_standalone_refresh();
 			if(reference_desk_dispatcher_form.classList.contains("git_worktree"))

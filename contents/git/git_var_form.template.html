@@ -1,0 +1,48 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_var~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_var~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_var')">git var</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-var">https://git-scm.com/docs/git-var</a></p>
+	<form id="git_var_form">
+		<p class="paragraph">Choose an action to perform:</p>
+		<div><input type="radio" id="git_var_action_l" name="git_var_action" value="l" checked /><label for="git_var_action_l"><span class="command">-l</span> Display the logical variables.</label></div>
+		<div class="flex [align-items:first_baseline]"><div class="basis-[max-content]"><input type="radio" id="git_var_action_variable" name="git_var_action" value="variable" /><label for="git_var_action_variable"><span class="command">&lt;variable&gt;</span></label></div><label for="git_var_action_variable_variable" class="hidden"><span class="command">&lt;variable&gt;</span>:</label><input type="text" id="git_var_action_variable_variable" name="git_var_action_variable_variable" class="basis-0 grow command_input" value="GIT_SHELL_PATH" /></div>
+	</form>
+	<textarea readonly wrap="off" id="git_var_command" name="git_var_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_var_refresh(){
+			document.getElementById("git_var_action_variable_variable").disabled = !document.getElementById("git_var_action_variable").checked;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("var");
+
+			let form_data = new FormData(document.getElementById("git_var_form"));
+			switch(form_data.get("git_var_action")){
+				case "l":
+					command_components.push("-l");
+					break;
+				case "variable":
+					if(form_data.get("git_var_action_variable_variable").length == 0){
+						document.getElementById("git_var_action_variable_variable").classList.add("bg-[#FF8888]");
+						has_error = true;
+					}
+					else{
+						document.getElementById("git_var_action_variable_variable").classList.remove("bg-[#FF8888]");
+						command_components.push(shell_quote(form_data.get("git_var_action_variable_variable")));
+					}
+					break;
+			}
+
+			let git_var_command = document.getElementById("git_var_command");
+			if(!has_error){
+				git_var_command.classList.remove("!bg-[#FF8888]");
+				git_var_command.value = command_components.join(" ");
+			}
+			else{
+				git_var_command.classList.add("!bg-[#FF8888]");
+				git_var_command.value = "";
+			}
+		}
+		Array.from(document.getElementById("git_var_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_var_refresh);
+		});
+	</script>
+</div>
