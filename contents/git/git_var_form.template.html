@@ -3,8 +3,8 @@
 	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-var">https://git-scm.com/docs/git-var</a></p>
 	<form id="git_var_form">
 		<p class="paragraph">Choose an action to perform:</p>
-		<div><input type="radio" id="git_var_action_l" name="git_var_action" value="l" checked /><label for="git_var_action_l"><span class="command">-l</span> Display the logical variables.</label></div>
-		<div class="flex [align-items:first_baseline]"><div class="basis-[max-content]"><input type="radio" id="git_var_action_variable" name="git_var_action" value="variable" /><label for="git_var_action_variable"><span class="command">&lt;variable&gt;</span></label></div><label for="git_var_action_variable_variable" class="hidden"><span class="command">&lt;variable&gt;</span>:</label><input type="text" id="git_var_action_variable_variable" name="git_var_action_variable_variable" class="basis-0 grow command_input" value="GIT_SHELL_PATH" /></div>
+		<div><input type="radio" id="git_var_action_l" name="git_var_action" value="l" checked><label for="git_var_action_l"><span class="command">-l</span> Display the logical variables.</label></div>
+		<div class="flex [align-items:first_baseline]"><div class="basis-[max-content]"><input type="radio" id="git_var_action_variable" name="git_var_action" value="variable"><label for="git_var_action_variable"><span class="command">&lt;variable&gt;</span></label></div><label for="git_var_action_variable_variable" class="hidden"><span class="command">&lt;variable&gt;</span>:</label><input type="text" id="git_var_action_variable_variable" name="git_var_action_variable_variable" class="basis-0 grow command_input" value="GIT_SHELL_PATH"></div>
 	</form>
 	<textarea readonly wrap="off" id="git_var_command" name="git_var_command" class="command_input mt-[1em]"></textarea>
 	<script>

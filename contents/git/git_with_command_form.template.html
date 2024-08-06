@@ -5,12 +5,12 @@
 	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git">https://git-scm.com/docs/git</a></p>
 	<form id="git_with_command_form">
 		<fieldset>
-			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_exec\_path~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_exec_path')"><input type="checkbox" id="git_with_command_has_exec_path" name="git_with_command_has_exec_path" /><label for="git_with_command_has_exec_path"><span class="command">--exec-path=&lt;path&gt;</span> Path to wherever your core Git programs are installed.</label></legend>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_exec\_path~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_exec_path')"><input type="checkbox" id="git_with_command_has_exec_path" name="git_with_command_has_exec_path"><label for="git_with_command_has_exec_path"><span class="command">--exec-path=&lt;path&gt;</span> Path to wherever your core Git programs are installed.</label></legend>
 			<textarea wrap="off" id="git_with_command_exec_path" name="git_with_command_exec_path" class="command_input"></textarea>
 		</fieldset>
 		<fieldset>
 			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_config~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_config')"><span class="command">-c &lt;name&gt;=&lt;value&gt;</span> Pass a configuration parameter to the command. The value given will override values from configuration files.</legend>
-			<input id="git_with_command_config_list_add" type="button" value="Add" />
+			<input id="git_with_command_config_list_add" type="button" value="Add">
 			<div id="git_with_command_config_list"></div>
 			<script>
 				document.getElementById("git_with_command_config_list_add").addEventListener("click",function(e){
@@ -28,7 +28,7 @@
 		</fieldset>
 		<fieldset>
 			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_config\_env~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_config_env')"><span class="command">--config-env=&lt;name&gt;=&lt;env_var_name&gt;</span> Give configuration variable <span class="command">&lt;name&gt;</span> a value, where <span class="command">&lt;env_var_name&gt;</span> is the name of an environment variable from which to retrieve the value.</legend>
-			<input id="git_with_command_config_env_list_add" type="button" value="Add" />
+			<input id="git_with_command_config_env_list_add" type="button" value="Add">
 			<div id="git_with_command_config_env_list"></div>
 			<script>
 				document.getElementById("git_with_command_config_env_list_add").addEventListener("click",function(e){
@@ -46,7 +46,7 @@
 		</fieldset>
 		<fieldset>
 			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_current\_working\_directory~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_current_working_directory')"><span class="command">-C &lt;path&gt;</span> Run as if git was started in <span class="command">&lt;path&gt;</span> instead of the current working directory.</legend>
-			<input id="git_with_command_current_working_directory_list_add" type="button" value="Add" />
+			<input id="git_with_command_current_working_directory_list_add" type="button" value="Add">
 			<div id="git_with_command_current_working_directory_list"></div>
 			<script>
 				document.getElementById("git_with_command_current_working_directory_list_add").addEventListener("click",function(e){
@@ -63,30 +63,30 @@
 			</script>
 		</fieldset>
 		<fieldset>
-			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_git\_dir\_work\_tree~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_git_dir_work_tree')"><input type="checkbox" id="git_with_command_has_git_dir" name="git_with_command_has_git_dir" /><label for="git_with_command_has_git_dir"><span class="command">--git-dir=&lt;path&gt;</span> Set the path to the repository (".git" directory).</label></legend>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_git\_dir\_work\_tree~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_git_dir_work_tree')"><input type="checkbox" id="git_with_command_has_git_dir" name="git_with_command_has_git_dir"><label for="git_with_command_has_git_dir"><span class="command">--git-dir=&lt;path&gt;</span> Set the path to the repository (".git" directory).</label></legend>
 			<textarea wrap="off" id="git_with_command_git_dir" name="git_with_command_git_dir" class="command_input"></textarea>
 		</fieldset>
-		<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_bare~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_bare')"><input type="checkbox" id="git_with_command_has_bare" name="git_with_command_has_bare" /><label for="git_with_command_has_bare"><span class="command">--bare</span> Treat the repository as a bare repository.</label></div>
+		<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_bare~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_bare')"><input type="checkbox" id="git_with_command_has_bare" name="git_with_command_has_bare"><label for="git_with_command_has_bare"><span class="command">--bare</span> Treat the repository as a bare repository.</label></div>
 		<fieldset>
-			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_git\_dir\_work\_tree~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_git_dir_work_tree')"><input type="checkbox" id="git_with_command_has_work_tree" name="git_with_command_has_work_tree" /><label for="git_with_command_has_work_tree"><span class="command">--work-tree=&lt;path&gt;</span> Set the path to the working tree.</label></legend>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_git\_dir\_work\_tree~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_git_dir_work_tree')"><input type="checkbox" id="git_with_command_has_work_tree" name="git_with_command_has_work_tree"><label for="git_with_command_has_work_tree"><span class="command">--work-tree=&lt;path&gt;</span> Set the path to the working tree.</label></legend>
 			<textarea wrap="off" id="git_with_command_work_tree" name="git_with_command_work_tree" class="command_input"></textarea>
 		</fieldset>
 		<fieldset>
-			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_namespace~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_namespace')"><input type="checkbox" id="git_with_command_has_namespace" name="git_with_command_has_namespace" /><label for="git_with_command_has_namespace"><span class="command">--namespace=&lt;name&gt;</span> Set the Git namespace.</label></legend>
-			<input type="text" id="git_with_command_namespace" name="git_with_command_namespace" class="command_input" />
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_namespace~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_namespace')"><input type="checkbox" id="git_with_command_has_namespace" name="git_with_command_has_namespace"><label for="git_with_command_has_namespace"><span class="command">--namespace=&lt;name&gt;</span> Set the Git namespace.</label></legend>
+			<input type="text" id="git_with_command_namespace" name="git_with_command_namespace" class="command_input">
 		</fieldset>
 		<fieldset>
-			<legend><input type="checkbox" id="git_with_command_has_attr_source" name="git_with_command_has_attr_source" /><label for="git_with_command_has_attr_source"><span class="command">--attr-source=&lt;tree-ish&gt;</span> Read gitattributes from <span class="command">&lt;tree-ish&gt;</span> instead of the worktree.</label></legend>
+			<legend><input type="checkbox" id="git_with_command_has_attr_source" name="git_with_command_has_attr_source"><label for="git_with_command_has_attr_source"><span class="command">--attr-source=&lt;tree-ish&gt;</span> Read gitattributes from <span class="command">&lt;tree-ish&gt;</span> instead of the worktree.</label></legend>
 			<textarea wrap="off" id="git_with_command_attr_source" name="git_with_command_attr_source" class="command_input"></textarea>
 		</fieldset>
-		<div><input type="checkbox" id="git_with_command_has_no_replace_objects" name="git_with_command_has_no_replace_objects" /><label for="git_with_command_has_no_replace_objects"><span class="command">--no-replace-objects</span> Do not use replacement refs to replace Git objects.</label></div>
-		<div><input type="checkbox" id="git_with_command_has_no_lazy_fetch" name="git_with_command_has_no_lazy_fetch" /><label for="git_with_command_has_no_lazy_fetch"><span class="command">--no-lazy-fetch</span> Do not fetch missing objects from the promisor remote on demand.</label></div>
-		<div><input type="checkbox" id="git_with_command_has_no_optional_locks" name="git_with_command_has_no_optional_locks" /><label for="git_with_command_has_no_optional_locks"><span class="command">--no-optional-locks</span> Do not perform optional operations that require locks.</label></div>
+		<div><input type="checkbox" id="git_with_command_has_no_replace_objects" name="git_with_command_has_no_replace_objects"><label for="git_with_command_has_no_replace_objects"><span class="command">--no-replace-objects</span> Do not use replacement refs to replace Git objects.</label></div>
+		<div><input type="checkbox" id="git_with_command_has_no_lazy_fetch" name="git_with_command_has_no_lazy_fetch"><label for="git_with_command_has_no_lazy_fetch"><span class="command">--no-lazy-fetch</span> Do not fetch missing objects from the promisor remote on demand.</label></div>
+		<div><input type="checkbox" id="git_with_command_has_no_optional_locks" name="git_with_command_has_no_optional_locks"><label for="git_with_command_has_no_optional_locks"><span class="command">--no-optional-locks</span> Do not perform optional operations that require locks.</label></div>
 		<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_pathspecs~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_pathspecs')">
-			<div><input type="checkbox" id="git_with_command_has_literal_pathspecs" name="git_with_command_has_literal_pathspecs" /><label for="git_with_command_has_literal_pathspecs"><span class="command">--literal-pathspecs</span> Treat pathspecs literally (i.e. no globbing, no pathspec magic).</label></div>
-			<div><input type="checkbox" id="git_with_command_has_glob_pathspecs" name="git_with_command_has_glob_pathspecs" /><label for="git_with_command_has_glob_pathspecs"><span class="command">--glob-pathspecs</span> Add "glob" magic to all pathspec.</label></div>
-			<div><input type="checkbox" id="git_with_command_has_noglob_pathspecs" name="git_with_command_has_noglob_pathspecs" /><label for="git_with_command_has_noglob_pathspecs"><span class="command">--noglob-pathspecs</span> Add "literal" magic to all pathspec.</label></div>
-			<div><input type="checkbox" id="git_with_command_has_icase_pathspecs" name="git_with_command_has_icase_pathspecs" /><label for="git_with_command_has_icase_pathspecs"><span class="command">--icase-pathspecs</span> Add "icase" magic to all pathspec.</label></div>
+			<div><input type="checkbox" id="git_with_command_has_literal_pathspecs" name="git_with_command_has_literal_pathspecs"><label for="git_with_command_has_literal_pathspecs"><span class="command">--literal-pathspecs</span> Treat pathspecs literally (i.e. no globbing, no pathspec magic).</label></div>
+			<div><input type="checkbox" id="git_with_command_has_glob_pathspecs" name="git_with_command_has_glob_pathspecs"><label for="git_with_command_has_glob_pathspecs"><span class="command">--glob-pathspecs</span> Add "glob" magic to all pathspec.</label></div>
+			<div><input type="checkbox" id="git_with_command_has_noglob_pathspecs" name="git_with_command_has_noglob_pathspecs"><label for="git_with_command_has_noglob_pathspecs"><span class="command">--noglob-pathspecs</span> Add "literal" magic to all pathspec.</label></div>
+			<div><input type="checkbox" id="git_with_command_has_icase_pathspecs" name="git_with_command_has_icase_pathspecs"><label for="git_with_command_has_icase_pathspecs"><span class="command">--icase-pathspecs</span> Add "icase" magic to all pathspec.</label></div>
 		</div>
 	</form>
 	<script>

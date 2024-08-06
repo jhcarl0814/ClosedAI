@@ -4,25 +4,25 @@
 	<form id="git_clone_form">
 		<div class="flex [align-items:first_baseline]"><label for="git_clone_repository" class="basis-[max-content]"><span class="command">&lt;repository&gt;</span>:</label><textarea wrap="off" id="git_clone_repository" name="git_clone_repository" class="basis-0 grow command_input"></textarea></div>
 
-		<div><input type="checkbox" id="git_clone_has_directory" name="git_clone_has_directory" /><label for="git_clone_has_directory"><span class="command">&lt;directory&gt;</span> The name of a new directory to clone into.</label></div>
+		<div><input type="checkbox" id="git_clone_has_directory" name="git_clone_has_directory"><label for="git_clone_has_directory"><span class="command">&lt;directory&gt;</span> The name of a new directory to clone into.</label></div>
 		<div class="flex [align-items:first_baseline]"><label for="git_clone_directory"><span class="command">&lt;directory&gt;</span>:</label><textarea wrap="off" id="git_clone_directory" name="git_clone_directory" class="basis-0 grow command_input"></textarea></div>
 
 		<fieldset>
 			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_progress~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_progress')">Progress Reporting:</legend>
-			<div><input type="radio" id="git_clone_progress_quiet" name="git_clone_progress" value="quiet" /><label for="git_clone_progress_quiet"><span class="command">--quiet</span> Operate quietly. Progress is not reported to the standard error stream.</label></div>
-			<div><input type="radio" id="git_clone_progress_no_option" name="git_clone_progress" value="no_option" checked /><label for="git_clone_progress_no_option">Progress status is reported on the standard error stream by default when it is attached to a terminal.</label></div>
-			<div><input type="radio" id="git_clone_progress_progress" name="git_clone_progress" value="progress" /><label for="git_clone_progress_progress"><span class="command">--progress</span> Forces progress status even if the standard error stream is not directed to a terminal.</label></div>
+			<div><input type="radio" id="git_clone_progress_quiet" name="git_clone_progress" value="quiet"><label for="git_clone_progress_quiet"><span class="command">--quiet</span> Operate quietly. Progress is not reported to the standard error stream.</label></div>
+			<div><input type="radio" id="git_clone_progress_no_option" name="git_clone_progress" value="no_option" checked><label for="git_clone_progress_no_option">Progress status is reported on the standard error stream by default when it is attached to a terminal.</label></div>
+			<div><input type="radio" id="git_clone_progress_progress" name="git_clone_progress" value="progress"><label for="git_clone_progress_progress"><span class="command">--progress</span> Forces progress status even if the standard error stream is not directed to a terminal.</label></div>
 		</fieldset>
-		<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_verbose~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_verbose')"><input type="checkbox" id="git_clone_has_verbose" name="git_clone_has_verbose" /><label for="git_clone_has_verbose"><span class="command">--verbose</span> Run verbosely. Does not affect the reporting of progress status to the standard error stream.</label></div>
+		<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_verbose~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_verbose')"><input type="checkbox" id="git_clone_has_verbose" name="git_clone_has_verbose"><label for="git_clone_has_verbose"><span class="command">--verbose</span> Run verbosely. Does not affect the reporting of progress status to the standard error stream.</label></div>
 
 		<fieldset>
 			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_resulting\_type~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_resulting_type')">Resulting type:</legend>
 			<fieldset>
-				<legend><input type="radio" id="git_clone_resulting_type_no_option" name="git_clone_resulting_type" value="no_option" checked /><label for="git_clone_resulting_type_no_option"></label></legend>
+				<legend><input type="radio" id="git_clone_resulting_type_no_option" name="git_clone_resulting_type" value="no_option" checked><label for="git_clone_resulting_type_no_option"></label></legend>
 
 				<fieldset>
 					<legend><span class="command">--recurse-submodules[=&lt;pathspec&gt;]</span> After the clone is created, initialize and clone submodules within based on the provided <span class="command">&lt;pathspec&gt;</span>. Ignored if the cloned repository does not have a worktree/checkout (i.e. if any of <span class="command">--no-checkout</span>, <span class="command">--bare</span>, or <span class="command">--mirror</span> is given)</legend>
-					<input id="git_clone_recurse_submodules_list_add" type="button" value="Add" />
+					<input id="git_clone_recurse_submodules_list_add" type="button" value="Add">
 					<div id="git_clone_recurse_submodules_list" class="flex flex-col gap-y-[0.5em]"></div>
 					<script>
 						document.getElementById("git_clone_recurse_submodules_list_add").addEventListener("click",function(e){
@@ -47,40 +47,40 @@
 				</fieldset>
 
 				<fieldset class="border-none p-[0px]">
-					<div><input type="checkbox" id="git_clone_has_jobs" name="git_clone_has_jobs" /><label for="git_clone_has_jobs"><span class="command">--jobs=&lt;n&gt;</span> The number of submodules fetched at the same time.</label></div>
-					<div class="flex [align-items:first_baseline]"><label for="git_clone_jobs_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_clone_jobs_n" name="git_clone_jobs_n" class="basis-0 grow command_input" value="" /></div>
+					<div><input type="checkbox" id="git_clone_has_jobs" name="git_clone_has_jobs"><label for="git_clone_has_jobs"><span class="command">--jobs=&lt;n&gt;</span> The number of submodules fetched at the same time.</label></div>
+					<div class="flex [align-items:first_baseline]"><label for="git_clone_jobs_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_clone_jobs_n" name="git_clone_jobs_n" class="basis-0 grow command_input" value=""></div>
 
 					<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-					<div><input type="radio" id="git_clone_remote_submodules_no_option" name="git_clone_remote_submodules" value="" checked /><label for="git_clone_remote_submodules_no_option">(use default)</label></div>
-					<div><input type="radio" id="git_clone_remote_submodules_has_no_remote_submodules" name="git_clone_remote_submodules" value="false" /><label for="git_clone_remote_submodules_has_no_remote_submodules"><span class="command">--no-remote-submodules</span></label></div>
-					<div><input type="radio" id="git_clone_remote_submodules_has_remote_submodules" name="git_clone_remote_submodules" value="true" /><label for="git_clone_remote_submodules_has_remote_submodules"><span class="command">--remote-submodules</span> All submodules which are cloned will use the status of the submodule’s remote-tracking branch to update the submodule, rather than the superproject’s recorded SHA-1.</label></div>
+					<div><input type="radio" id="git_clone_remote_submodules_no_option" name="git_clone_remote_submodules" value="" checked><label for="git_clone_remote_submodules_no_option">(use default)</label></div>
+					<div><input type="radio" id="git_clone_remote_submodules_has_no_remote_submodules" name="git_clone_remote_submodules" value="false"><label for="git_clone_remote_submodules_has_no_remote_submodules"><span class="command">--no-remote-submodules</span></label></div>
+					<div><input type="radio" id="git_clone_remote_submodules_has_remote_submodules" name="git_clone_remote_submodules" value="true"><label for="git_clone_remote_submodules_has_remote_submodules"><span class="command">--remote-submodules</span> All submodules which are cloned will use the status of the submodule’s remote-tracking branch to update the submodule, rather than the superproject’s recorded SHA-1.</label></div>
 				</fieldset>
 			</fieldset>
-			<div><input type="radio" id="git_clone_resulting_type_bare" name="git_clone_resulting_type" value="bare" /><label for="git_clone_resulting_type_bare"><span class="command">--bare</span> Make a bare Git repository.</label></div>
-			<div><input type="radio" id="git_clone_resulting_type_mirror" name="git_clone_resulting_type" value="mirror" /><label for="git_clone_resulting_type_mirror"><span class="command">--mirror</span> Set up a mirror of the source repository.</label></div>
+			<div><input type="radio" id="git_clone_resulting_type_bare" name="git_clone_resulting_type" value="bare"><label for="git_clone_resulting_type_bare"><span class="command">--bare</span> Make a bare Git repository.</label></div>
+			<div><input type="radio" id="git_clone_resulting_type_mirror" name="git_clone_resulting_type" value="mirror"><label for="git_clone_resulting_type_mirror"><span class="command">--mirror</span> Set up a mirror of the source repository.</label></div>
 		</fieldset>
 
 		<fieldset>
 			<legend>Initial state:</legend>
 			<fieldset>
 				<legend>Checkout (no <span class="command">--bare</span>/<span class="command">--mirror</span>):</legend>
-				<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_checkout~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_checkout')"><input type="checkbox" id="git_clone_checkout_has_no_checkout" name="git_clone_checkout_has_no_checkout" /><label for="git_clone_checkout_has_no_checkout"><span class="command">--no-checkout</span> No checkout of <span class="inline-code">HEAD</span> is performed after the clone is complete.</label></div>
-				<div><input type="checkbox" id="git_clone_checkout_has_sparse" name="git_clone_checkout_has_sparse" /><label for="git_clone_checkout_has_sparse"><span class="command">--sparse</span> Employ a sparse-checkout, with only files in the toplevel directory initially being present.</label></div>
+				<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_checkout~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_checkout')"><input type="checkbox" id="git_clone_checkout_has_no_checkout" name="git_clone_checkout_has_no_checkout"><label for="git_clone_checkout_has_no_checkout"><span class="command">--no-checkout</span> No checkout of <span class="inline-code">HEAD</span> is performed after the clone is complete.</label></div>
+				<div><input type="checkbox" id="git_clone_checkout_has_sparse" name="git_clone_checkout_has_sparse"><label for="git_clone_checkout_has_sparse"><span class="command">--sparse</span> Employ a sparse-checkout, with only files in the toplevel directory initially being present.</label></div>
 			</fieldset>
 
 			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_template~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_template')">
-				<div><input type="checkbox" id="git_clone_has_template" name="git_clone_has_template" /><label for="git_clone_has_template"><span class="command">--template=&lt;template-directory&gt;</span> Specify the directory from which templates will be used.</label></div>
+				<div><input type="checkbox" id="git_clone_has_template" name="git_clone_has_template"><label for="git_clone_has_template"><span class="command">--template=&lt;template-directory&gt;</span> Specify the directory from which templates will be used.</label></div>
 				<div class="flex [align-items:first_baseline]"><label for="git_clone_template"><span class="command">&lt;template-directory&gt;</span>:</label><textarea wrap="off" id="git_clone_template" name="git_clone_template" class="basis-0 grow command_input"></textarea></div>
 			</div>
 
 			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_separate\_git\_dir~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_separate_git_dir')">
-				<div><input type="checkbox" id="git_clone_has_separate_git_dir" name="git_clone_has_separate_git_dir" /><label for="git_clone_has_separate_git_dir"><span class="command">--separate-git-dir=&lt;git-dir&gt;</span> Instead of placing the cloned repository where it is supposed to be, place the cloned repository at the specified directory, then make a filesystem-agnostic Git symbolic link to there.</label></div>
+				<div><input type="checkbox" id="git_clone_has_separate_git_dir" name="git_clone_has_separate_git_dir"><label for="git_clone_has_separate_git_dir"><span class="command">--separate-git-dir=&lt;git-dir&gt;</span> Instead of placing the cloned repository where it is supposed to be, place the cloned repository at the specified directory, then make a filesystem-agnostic Git symbolic link to there.</label></div>
 				<div class="flex [align-items:first_baseline]"><label for="git_clone_separate_git_dir"><span class="command">&lt;git-dir&gt;</span>:</label><textarea wrap="off" id="git_clone_separate_git_dir" name="git_clone_separate_git_dir" class="basis-0 grow command_input"></textarea></div>
 			</div>
 
 			<fieldset>
 				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_config~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_config')"><span class="command">--config=&lt;key&gt;=&lt;value&gt;</span> Set a configuration variable in the newly-created repository; this takes effect immediately after the repository is initialized, but before the remote history is fetched or any files checked out.</legend>
-				<input id="git_clone_config_list_add" type="button" value="Add" />
+				<input id="git_clone_config_list_add" type="button" value="Add">
 				<div id="git_clone_config_list"></div>
 				<script>
 					document.getElementById("git_clone_config_list_add").addEventListener("click",function(e){
@@ -98,75 +98,75 @@
 			</fieldset>
 
 			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_origin~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_origin')">
-				<div><input type="checkbox" id="git_clone_has_origin" name="git_clone_has_origin" /><label for="git_clone_has_origin"><span class="command">--origin=&lt;name&gt;</span> Instead of using the remote name <span class="inline-code">origin</span> to keep track of the upstream repository, use <span class="command">&lt;name&gt;</span>.</label></div>
-				<div class="flex [align-items:first_baseline]"><label for="git_clone_origin"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_clone_origin" name="git_clone_origin" class="basis-0 grow command_input" value="origin" /></div>
+				<div><input type="checkbox" id="git_clone_has_origin" name="git_clone_has_origin"><label for="git_clone_has_origin"><span class="command">--origin=&lt;name&gt;</span> Instead of using the remote name <span class="inline-code">origin</span> to keep track of the upstream repository, use <span class="command">&lt;name&gt;</span>.</label></div>
+				<div class="flex [align-items:first_baseline]"><label for="git_clone_origin"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_clone_origin" name="git_clone_origin" class="basis-0 grow command_input" value="origin"></div>
 			</div>
 
 			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_branch~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_branch')">
-				<div><input type="checkbox" id="git_clone_has_branch" name="git_clone_has_branch" /><label for="git_clone_has_branch"><span class="command">--branch=&lt;name&gt;</span> Instead of pointing the newly created <span class="inline-code">HEAD</span> to the branch pointed to by the cloned repository’s <span class="inline-code">HEAD</span>, point to <span class="command">&lt;name&gt;</span> branch instead.</label></div>
-				<div class="flex [align-items:first_baseline]"><label for="git_clone_branch"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_clone_branch" name="git_clone_branch" class="basis-0 grow command_input" value="main" /></div>
+				<div><input type="checkbox" id="git_clone_has_branch" name="git_clone_has_branch"><label for="git_clone_has_branch"><span class="command">--branch=&lt;name&gt;</span> Instead of pointing the newly created <span class="inline-code">HEAD</span> to the branch pointed to by the cloned repository’s <span class="inline-code">HEAD</span>, point to <span class="command">&lt;name&gt;</span> branch instead.</label></div>
+				<div class="flex [align-items:first_baseline]"><label for="git_clone_branch"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_clone_branch" name="git_clone_branch" class="basis-0 grow command_input" value="main"></div>
 			</div>
 		</fieldset>
 
 		<fieldset>
 			<legend>When source is on the local machine, how to save disk space:</legend>
-			<div><input type="radio" id="git_clone_local_no_option" name="git_clone_local" value="no_option" checked /><label for="git_clone_local_no_option">(use default)</label></div>
-			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_shared~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_shared')"><input type="radio" id="git_clone_local_shared" name="git_clone_local" value="shared" /><label for="git_clone_local_shared"><span class="command">--shared</span> When the repository to clone is on the local machine, instead of using hard links, automatically setup <span class="inline-code">.git/objects/info/alternates</span> to share the objects with the source repository. The resulting repository starts out without any object of its own.</label></div>
+			<div><input type="radio" id="git_clone_local_no_option" name="git_clone_local" value="no_option" checked><label for="git_clone_local_no_option">(use default)</label></div>
+			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_shared~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_shared')"><input type="radio" id="git_clone_local_shared" name="git_clone_local" value="shared"><label for="git_clone_local_shared"><span class="command">--shared</span> When the repository to clone is on the local machine, instead of using hard links, automatically setup <span class="inline-code">.git/objects/info/alternates</span> to share the objects with the source repository. The resulting repository starts out without any object of its own.</label></div>
 			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_local\_local\_no\_hardlinks\_no\_local~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_local_local_no_hardlinks_no_local')">
-				<div><input type="radio" id="git_clone_local_local" name="git_clone_local" value="local" /><label for="git_clone_local_local"><span class="command">--local</span> When the repository to clone from is on a local machine, this flag bypasses the normal "Git aware" transport mechanism and clones the repository by making a copy of <span class="inline-code">HEAD</span> and everything under objects and refs directories. The files under <span class="inline-code">.git/objects/</span> directory are hardlinked to save space when possible.</label></div>
-				<div><input type="radio" id="git_clone_local_no_hardlinks" name="git_clone_local" value="no_hardlinks" /><label for="git_clone_local_no_hardlinks"><span class="command">--no-hardlinks</span> Force the cloning process from a repository on a local filesystem to copy the files under the <span class="inline-code">.git/objects</span> directory instead of using hardlinks.</label></div>
-				<div><input type="radio" id="git_clone_local_no_local" name="git_clone_local" value="no_local" /><label for="git_clone_local_no_local"><span class="command">--no-local</span> Override the default when a local path (e.g., <span class="command">/path/to/repo</span>) is given, using the regular Git transport instead.</label></div>
+				<div><input type="radio" id="git_clone_local_local" name="git_clone_local" value="local"><label for="git_clone_local_local"><span class="command">--local</span> When the repository to clone from is on a local machine, this flag bypasses the normal "Git aware" transport mechanism and clones the repository by making a copy of <span class="inline-code">HEAD</span> and everything under objects and refs directories. The files under <span class="inline-code">.git/objects/</span> directory are hardlinked to save space when possible.</label></div>
+				<div><input type="radio" id="git_clone_local_no_hardlinks" name="git_clone_local" value="no_hardlinks"><label for="git_clone_local_no_hardlinks"><span class="command">--no-hardlinks</span> Force the cloning process from a repository on a local filesystem to copy the files under the <span class="inline-code">.git/objects</span> directory instead of using hardlinks.</label></div>
+				<div><input type="radio" id="git_clone_local_no_local" name="git_clone_local" value="no_local"><label for="git_clone_local_no_local"><span class="command">--no-local</span> Override the default when a local path (e.g., <span class="command">/path/to/repo</span>) is given, using the regular Git transport instead.</label></div>
 			</div>
 		</fieldset>
 
 		<fieldset>
 			<legend>Saving throughput:</legend>
-			<div><input type="radio" id="git_clone_reference_no_option" name="git_clone_reference" value="no_option" checked /><label for="git_clone_reference_no_option"></label></div>
-			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_reference~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_reference')"><input type="radio" id="git_clone_reference_has_reference" name="git_clone_reference" value="has_reference" /><label for="git_clone_reference_has_reference"><span class="command">--reference=&lt;repository&gt;</span> If the reference <span class="command">&lt;repository&gt;</span> is on the local machine, automatically setup <span class="inline-code">.git/objects/info/alternates</span> to obtain objects from the reference <span class="command">&lt;repository&gt;</span>.</label></div>
-			<div><input type="radio" id="git_clone_reference_has_reference_if_able" name="git_clone_reference" value="has_reference_if_able" /><label for="git_clone_reference_has_reference_if_able"><span class="command">--reference-if-able=&lt;repository&gt;</span> A non existing directory is skipped with a warning instead of aborting the clone.</label></div>
+			<div><input type="radio" id="git_clone_reference_no_option" name="git_clone_reference" value="no_option" checked><label for="git_clone_reference_no_option"></label></div>
+			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_reference~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_reference')"><input type="radio" id="git_clone_reference_has_reference" name="git_clone_reference" value="has_reference"><label for="git_clone_reference_has_reference"><span class="command">--reference=&lt;repository&gt;</span> If the reference <span class="command">&lt;repository&gt;</span> is on the local machine, automatically setup <span class="inline-code">.git/objects/info/alternates</span> to obtain objects from the reference <span class="command">&lt;repository&gt;</span>.</label></div>
+			<div><input type="radio" id="git_clone_reference_has_reference_if_able" name="git_clone_reference" value="has_reference_if_able"><label for="git_clone_reference_has_reference_if_able"><span class="command">--reference-if-able=&lt;repository&gt;</span> A non existing directory is skipped with a warning instead of aborting the clone.</label></div>
 
 			<fieldset class="border-none p-[0px]">
 				<div class="flex [align-items:first_baseline]"><label for="git_clone_reference_repository"><span class="command">&lt;repository&gt;</span>:</label><textarea wrap="off" id="git_clone_reference_repository" name="git_clone_reference_repository" class="basis-0 grow command_input"></textarea></div>
 
-				<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_dissociate~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_dissociate')"><input type="checkbox" id="git_clone_has_dissociate" name="git_clone_has_dissociate" /><label for="git_clone_has_dissociate"><span class="command">--dissociate</span> Borrow the objects from reference repositories specified with the <span class="command">--reference</span> options only to reduce network transfer, and stop borrowing from them after a clone is made by making necessary local copies of borrowed objects.</label></div>
+				<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_dissociate~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_dissociate')"><input type="checkbox" id="git_clone_has_dissociate" name="git_clone_has_dissociate"><label for="git_clone_has_dissociate"><span class="command">--dissociate</span> Borrow the objects from reference repositories specified with the <span class="command">--reference</span> options only to reduce network transfer, and stop borrowing from them after a clone is made by making necessary local copies of borrowed objects.</label></div>
 			</fieldset>
 
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-			<div><input type="checkbox" id="git_clone_has_bundle_uri" name="git_clone_has_bundle_uri" /><label for="git_clone_has_bundle_uri"><span class="command">--bundle-uri=&lt;uri&gt;</span> Before fetching from the remote, fetch a bundle from the given <span class="command">&lt;uri&gt;</span> and unbundle the data into the local repository. <span id="git_clone_has_bundle_uri_shallow_warning">Incompatible with <span class="command">--depth</span>, <span class="command">--shallow-since</span>, and <span class="command">--shallow-exclude</span>.</span></label></div>
-			<div class="flex [align-items:first_baseline]"><label for="git_clone_bundle_uri"><span class="command">&lt;uri&gt;</span>:</label><input type="text" id="git_clone_bundle_uri" name="git_clone_bundle_uri" class="basis-0 grow command_input" value="" /></div>
+			<div><input type="checkbox" id="git_clone_has_bundle_uri" name="git_clone_has_bundle_uri"><label for="git_clone_has_bundle_uri"><span class="command">--bundle-uri=&lt;uri&gt;</span> Before fetching from the remote, fetch a bundle from the given <span class="command">&lt;uri&gt;</span> and unbundle the data into the local repository. <span id="git_clone_has_bundle_uri_shallow_warning">Incompatible with <span class="command">--depth</span>, <span class="command">--shallow-since</span>, and <span class="command">--shallow-exclude</span>.</span></label></div>
+			<div class="flex [align-items:first_baseline]"><label for="git_clone_bundle_uri"><span class="command">&lt;uri&gt;</span>:</label><input type="text" id="git_clone_bundle_uri" name="git_clone_bundle_uri" class="basis-0 grow command_input" value=""></div>
 		</fieldset>
 
 		<fieldset>
 			<legend>(limit the set of requested commits:)</legend>
-			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_tags~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_tags')"><input type="checkbox" id="git_clone_has_no_tags" name="git_clone_has_no_tags" /><label for="git_clone_has_no_tags"><span class="command">--no-tags</span> Don’t clone any tags, and set <span class="inline-code">remote.&lt;remote&gt;.tagOpt=--no-tags</span> in the config, ensuring that future <span class="command">git pull</span> and <span class="command">git fetch</span> operations won’t follow any tags.</label></div>
+			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_tags~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_tags')"><input type="checkbox" id="git_clone_has_no_tags" name="git_clone_has_no_tags"><label for="git_clone_has_no_tags"><span class="command">--no-tags</span> Don’t clone any tags, and set <span class="inline-code">remote.&lt;remote&gt;.tagOpt=--no-tags</span> in the config, ensuring that future <span class="command">git pull</span> and <span class="command">git fetch</span> operations won’t follow any tags.</label></div>
 
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-			<div><input type="radio" id="git_clone_single_branch_no_option" name="git_clone_single_branch" value="" checked /><label for="git_clone_single_branch_no_option">(use default)</label></div>
-			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_single\_branch~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_single_branch')"><input type="radio" id="git_clone_single_branch_has_no_single_branch" name="git_clone_single_branch" value="false" /><label for="git_clone_single_branch_has_no_single_branch"><span class="command">--no-single-branch</span></label></div>
-			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_single\_branch~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_single_branch')"><input type="radio" id="git_clone_single_branch_has_single_branch" name="git_clone_single_branch" value="true" /><label for="git_clone_single_branch_has_single_branch"><span class="command">--single-branch</span> Clone only the history leading to the tip of a single branch, either specified by the <span class="command">--branch</span> option or the primary branch remote’s <span class="inline-code">HEAD</span> points at.</label></div>
+			<div><input type="radio" id="git_clone_single_branch_no_option" name="git_clone_single_branch" value="" checked><label for="git_clone_single_branch_no_option">(use default)</label></div>
+			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_single\_branch~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_single_branch')"><input type="radio" id="git_clone_single_branch_has_no_single_branch" name="git_clone_single_branch" value="false"><label for="git_clone_single_branch_has_no_single_branch"><span class="command">--no-single-branch</span></label></div>
+			<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_single\_branch~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_single_branch')"><input type="radio" id="git_clone_single_branch_has_single_branch" name="git_clone_single_branch" value="true"><label for="git_clone_single_branch_has_single_branch"><span class="command">--single-branch</span> Clone only the history leading to the tip of a single branch, either specified by the <span class="command">--branch</span> option or the primary branch remote’s <span class="inline-code">HEAD</span> points at.</label></div>
 
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 			<fieldset>
 				<legend>shallow clone:</legend>
 				<div class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_depth~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_depth')">
-					<div><input type="checkbox" id="git_clone_has_depth" name="git_clone_has_depth" /><label for="git_clone_has_depth"><span class="command">--depth=&lt;depth&gt;</span> Create a shallow clone with a history truncated to the specified number of commits. Implies <span class="command">--single-branch</span> unless <span class="command">--no-single-branch</span> is given to fetch the histories near the tips of all branches.</label></div>
-					<div class="flex [align-items:first_baseline]"><label for="git_clone_depth"><span class="command">&lt;depth&gt;</span>:</label><input type="text" id="git_clone_depth" name="git_clone_depth" class="basis-0 grow command_input" value="1" /></div>
+					<div><input type="checkbox" id="git_clone_has_depth" name="git_clone_has_depth"><label for="git_clone_has_depth"><span class="command">--depth=&lt;depth&gt;</span> Create a shallow clone with a history truncated to the specified number of commits. Implies <span class="command">--single-branch</span> unless <span class="command">--no-single-branch</span> is given to fetch the histories near the tips of all branches.</label></div>
+					<div class="flex [align-items:first_baseline]"><label for="git_clone_depth"><span class="command">&lt;depth&gt;</span>:</label><input type="text" id="git_clone_depth" name="git_clone_depth" class="basis-0 grow command_input" value="1"></div>
 				</div>
 
 				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 				<fieldset class="border-none p-[0px]">
-					<div><input type="radio" id="git_clone_shallow_submodules_no_option" name="git_clone_shallow_submodules" value="" checked /><label for="git_clone_shallow_submodules_no_option">(use default)</label></div>
-					<div><input type="radio" id="git_clone_shallow_submodules_has_no_shallow_submodules" name="git_clone_shallow_submodules" value="false" /><label for="git_clone_shallow_submodules_has_no_shallow_submodules"><span class="command">--no-shallow-submodules</span></label></div>
-					<div><input type="radio" id="git_clone_shallow_submodules_has_shallow_submodules" name="git_clone_shallow_submodules" value="true" /><label for="git_clone_shallow_submodules_has_shallow_submodules"><span class="command">--shallow-submodules</span> All submodules which are cloned will be shallow with a depth of 1.</label></div>
+					<div><input type="radio" id="git_clone_shallow_submodules_no_option" name="git_clone_shallow_submodules" value="" checked><label for="git_clone_shallow_submodules_no_option">(use default)</label></div>
+					<div><input type="radio" id="git_clone_shallow_submodules_has_no_shallow_submodules" name="git_clone_shallow_submodules" value="false"><label for="git_clone_shallow_submodules_has_no_shallow_submodules"><span class="command">--no-shallow-submodules</span></label></div>
+					<div><input type="radio" id="git_clone_shallow_submodules_has_shallow_submodules" name="git_clone_shallow_submodules" value="true"><label for="git_clone_shallow_submodules_has_shallow_submodules"><span class="command">--shallow-submodules</span> All submodules which are cloned will be shallow with a depth of 1.</label></div>
 				</fieldset>
 
 				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-				<div><input type="checkbox" id="git_clone_has_shallow_since" name="git_clone_has_shallow_since" /><label for="git_clone_has_shallow_since"><span class="command">--shallow-since=&lt;date&gt;</span> Create a shallow clone with a history after the specified time.</label></div>
-				<div class="flex [align-items:first_baseline]"><label for="git_clone_shallow_since_date"><span class="command">&lt;date&gt;</span>:</label><input type="text" id="git_clone_shallow_since_date" name="git_clone_shallow_since_date" class="basis-0 grow command_input" value="" /></div>
+				<div><input type="checkbox" id="git_clone_has_shallow_since" name="git_clone_has_shallow_since"><label for="git_clone_has_shallow_since"><span class="command">--shallow-since=&lt;date&gt;</span> Create a shallow clone with a history after the specified time.</label></div>
+				<div class="flex [align-items:first_baseline]"><label for="git_clone_shallow_since_date"><span class="command">&lt;date&gt;</span>:</label><input type="text" id="git_clone_shallow_since_date" name="git_clone_shallow_since_date" class="basis-0 grow command_input" value=""></div>
 
 				<fieldset>
 					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_shallow\_exclude~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_shallow_exclude')"><span class="command">--shallow-exclude=&lt;revision&gt;</span> Create a shallow clone with a history, excluding commits reachable from a specified remote branch or tag.</legend>
-					<input id="git_clone_shallow_exclude_list_add" type="button" value="Add" />
+					<input id="git_clone_shallow_exclude_list_add" type="button" value="Add">
 					<div id="git_clone_shallow_exclude_list"></div>
 					<script>
 						document.getElementById("git_clone_shallow_exclude_list_add").addEventListener("click",function(e){
@@ -188,7 +188,7 @@
 			<legend>partial clone (limit the number of blobs and trees downloaded within a given range of commits):</legend>
 			<fieldset>
 				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_filter~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_filter')"><span class="command">--filter=&lt;filter-spec&gt;</span> Use the partial clone feature and request that the server sends a subset of reachable objects according to a given object filter.</legend>
-				<input id="git_clone_filter_list_add" type="button" value="Add" />
+				<input id="git_clone_filter_list_add" type="button" value="Add">
 				<div id="git_clone_filter_list"></div>
 				<script>
 					document.getElementById("git_clone_filter_list_add").addEventListener("click",function(e){
@@ -206,18 +206,18 @@
 			</fieldset>
 
 			<fieldset class="border-none p-[0px]">
-				<div><input type="checkbox" id="git_clone_has_also_filter_submodules" name="git_clone_has_also_filter_submodules" /><label for="git_clone_has_also_filter_submodules"><span class="command">--also-filter-submodules</span> Also apply the partial clone filter to any submodules in the repository. Requires <span class="command">--filter</span> and <span class="command">--recurse-submodules</span>.</label></div>
+				<div><input type="checkbox" id="git_clone_has_also_filter_submodules" name="git_clone_has_also_filter_submodules"><label for="git_clone_has_also_filter_submodules"><span class="command">--also-filter-submodules</span> Also apply the partial clone filter to any submodules in the repository. Requires <span class="command">--filter</span> and <span class="command">--recurse-submodules</span>.</label></div>
 			</fieldset>
 		</fieldset>
 
 		<fieldset>
 			<legend>Server options:</legend>
-			<div><input type="checkbox" id="git_clone_has_upload_pack" name="git_clone_has_upload_pack" /><label for="git_clone_has_upload_pack"><span class="command">--upload-pack=&lt;upload-pack&gt;</span> When given, and the repository to clone from is accessed via ssh, specifies a non-default path for the command run on the other end.</label></div>
+			<div><input type="checkbox" id="git_clone_has_upload_pack" name="git_clone_has_upload_pack"><label for="git_clone_has_upload_pack"><span class="command">--upload-pack=&lt;upload-pack&gt;</span> When given, and the repository to clone from is accessed via ssh, specifies a non-default path for the command run on the other end.</label></div>
 			<div class="flex [align-items:first_baseline]"><label for="git_clone_upload_pack"><span class="command">&lt;upload-pack&gt;</span>:</label><textarea wrap="off" id="git_clone_upload_pack" name="git_clone_upload_pack" class="basis-0 grow command_input"></textarea></div>
 
 			<fieldset>
 				<legend><span class="command">--server-option=&lt;option&gt;</span> Transmit the given string to the server when communicating using protocol version 2.</legend>
-				<input id="git_clone_server_option_list_add" type="button" value="Add" />
+				<input id="git_clone_server_option_list_add" type="button" value="Add">
 				<div id="git_clone_server_option_list"></div>
 				<script>
 					document.getElementById("git_clone_server_option_list_add").addEventListener("click",function(e){
@@ -234,9 +234,9 @@
 				</script>
 			</fieldset>
 
-			<div><input type="radio" id="git_clone_reject_shallow_no_option" name="git_clone_reject_shallow" value="" checked /><label for="git_clone_reject_shallow_no_option">(use default)</label></div>
-			<div><input type="radio" id="git_clone_reject_shallow_has_no_reject_shallow" name="git_clone_reject_shallow" value="false" /><label for="git_clone_reject_shallow_has_no_reject_shallow"><span class="command">--no-reject-shallow</span></label></div>
-			<div><input type="radio" id="git_clone_reject_shallow_has_reject_shallow" name="git_clone_reject_shallow" value="true" /><label for="git_clone_reject_shallow_has_reject_shallow"><span class="command">--reject-shallow</span> Fail if the source repository is a shallow repository.</label></div>
+			<div><input type="radio" id="git_clone_reject_shallow_no_option" name="git_clone_reject_shallow" value="" checked><label for="git_clone_reject_shallow_no_option">(use default)</label></div>
+			<div><input type="radio" id="git_clone_reject_shallow_has_no_reject_shallow" name="git_clone_reject_shallow" value="false"><label for="git_clone_reject_shallow_has_no_reject_shallow"><span class="command">--no-reject-shallow</span></label></div>
+			<div><input type="radio" id="git_clone_reject_shallow_has_reject_shallow" name="git_clone_reject_shallow" value="true"><label for="git_clone_reject_shallow_has_reject_shallow"><span class="command">--reject-shallow</span> Fail if the source repository is a shallow repository.</label></div>
 		</fieldset>
 	</form>
 	<textarea readonly wrap="off" id="git_clone_command" name="git_clone_command" class="command_input mt-[1em]"></textarea>

@@ -4,38 +4,38 @@
 	<p class="paragraph">Display help information about Git.</p>
 	<form id="git_help_form">
 		<p class="paragraph">Choose an action to perform:</p>
-		<div><input type="radio" id="git_help_action_no_option" name="git_help_action" value="no_option" checked /><label for="git_help_action_no_option">Print the synopsis of the git command and a list of the most commonly used Git commands.</label></div>
+		<div><input type="radio" id="git_help_action_no_option" name="git_help_action" value="no_option" checked><label for="git_help_action_no_option">Print the synopsis of the git command and a list of the most commonly used Git commands.</label></div>
 		<fieldset>
-			<legend><input type="radio" id="git_help_action_all" name="git_help_action" value="all" /><label for="git_help_action_all"><span class="command">--all</span> Print all available commands.</label></legend>
-			<div><input type="radio" id="git_help_action_all_verbose_no_option" name="git_help_action_all_verbose" value="" checked /><label for="git_help_action_all_verbose_no_option">(use default)</label></div>
-			<div><input type="radio" id="git_help_action_all_verbose_has_verbose" name="git_help_action_all_verbose" value="true" /><label for="git_help_action_all_verbose_has_verbose"><span class="command">--verbose</span> Print description for all recognized commands.</label></div>
-			<div><input type="radio" id="git_help_action_all_verbose_has_no_verbose" name="git_help_action_all_verbose" value="false" /><label for="git_help_action_all_verbose_has_no_verbose"><span class="command">--no-verbose</span></label></div>
+			<legend><input type="radio" id="git_help_action_all" name="git_help_action" value="all"><label for="git_help_action_all"><span class="command">--all</span> Print all available commands.</label></legend>
+			<div><input type="radio" id="git_help_action_all_verbose_no_option" name="git_help_action_all_verbose" value="" checked><label for="git_help_action_all_verbose_no_option">(use default)</label></div>
+			<div><input type="radio" id="git_help_action_all_verbose_has_verbose" name="git_help_action_all_verbose" value="true"><label for="git_help_action_all_verbose_has_verbose"><span class="command">--verbose</span> Print description for all recognized commands.</label></div>
+			<div><input type="radio" id="git_help_action_all_verbose_has_no_verbose" name="git_help_action_all_verbose" value="false"><label for="git_help_action_all_verbose_has_no_verbose"><span class="command">--no-verbose</span></label></div>
 
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-			<div><input type="radio" id="git_help_action_all_external_commands_no_option" name="git_help_action_all_external_commands" value="" checked /><label for="git_help_action_all_external_commands_no_option">(use default)</label></div>
-			<div><input type="radio" id="git_help_action_all_external_commands_has_external_commands" name="git_help_action_all_external_commands" value="true" /><label for="git_help_action_all_external_commands_has_external_commands"><span class="command">--external-commands</span></label></div>
-			<div><input type="radio" id="git_help_action_all_external_commands_has_no_external_commands" name="git_help_action_all_external_commands" value="false" /><label for="git_help_action_all_external_commands_has_no_external_commands"><span class="command">--no-external-commands</span> Exclude the listing of external "git-*" commands found in the <span class="command">$PATH</span>.</label></div>
+			<div><input type="radio" id="git_help_action_all_external_commands_no_option" name="git_help_action_all_external_commands" value="" checked><label for="git_help_action_all_external_commands_no_option">(use default)</label></div>
+			<div><input type="radio" id="git_help_action_all_external_commands_has_external_commands" name="git_help_action_all_external_commands" value="true"><label for="git_help_action_all_external_commands_has_external_commands"><span class="command">--external-commands</span></label></div>
+			<div><input type="radio" id="git_help_action_all_external_commands_has_no_external_commands" name="git_help_action_all_external_commands" value="false"><label for="git_help_action_all_external_commands_has_no_external_commands"><span class="command">--no-external-commands</span> Exclude the listing of external "git-*" commands found in the <span class="command">$PATH</span>.</label></div>
 
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-			<div><input type="radio" id="git_help_action_all_aliases_no_option" name="git_help_action_all_aliases" value="" checked /><label for="git_help_action_all_aliases_no_option">(use default)</label></div>
-			<div><input type="radio" id="git_help_action_all_aliases_has_aliases" name="git_help_action_all_aliases" value="true" /><label for="git_help_action_all_aliases_has_aliases"><span class="command">--aliases</span></label></div>
-			<div><input type="radio" id="git_help_action_all_aliases_has_no_aliases" name="git_help_action_all_aliases" value="false" /><label for="git_help_action_all_aliases_has_no_aliases"><span class="command">--no-aliases</span> Exclude the listing of configured aliases.</label></div>
+			<div><input type="radio" id="git_help_action_all_aliases_no_option" name="git_help_action_all_aliases" value="" checked><label for="git_help_action_all_aliases_no_option">(use default)</label></div>
+			<div><input type="radio" id="git_help_action_all_aliases_has_aliases" name="git_help_action_all_aliases" value="true"><label for="git_help_action_all_aliases_has_aliases"><span class="command">--aliases</span></label></div>
+			<div><input type="radio" id="git_help_action_all_aliases_has_no_aliases" name="git_help_action_all_aliases" value="false"><label for="git_help_action_all_aliases_has_no_aliases"><span class="command">--no-aliases</span> Exclude the listing of configured aliases.</label></div>
 		</fieldset>
-		<div><input type="radio" id="git_help_action_help" name="git_help_action" value="help" /><label for="git_help_action_help"><span class="command">--help</span> Bring up the manual page for <span class="command">git help</span>.</label></div>
+		<div><input type="radio" id="git_help_action_help" name="git_help_action" value="help"><label for="git_help_action_help"><span class="command">--help</span> Bring up the manual page for <span class="command">git help</span>.</label></div>
 		<fieldset>
-			<legend><input type="radio" id="git_help_action_page" name="git_help_action" value="page" /><label for="git_help_action_page"><span class="command">[&lt;command&gt;|&lt;doc&gt;]</span> Bring up the relevant manual page.</label></legend>
-			<div><input type="radio" id="git_help_action_page_program_no_option" name="git_help_action_page_program" value="" checked /><label for="git_help_action_page_program_no_option">(use default)</label></div>
-			<div><input type="radio" id="git_help_action_page_program_info" name="git_help_action_page_program" value="info" /><label for="git_help_action_page_program_info"><span class="command">--info</span> Display manual page for the command in the info format.</label></div>
-			<div><input type="radio" id="git_help_action_page_program_man" name="git_help_action_page_program" value="man" /><label for="git_help_action_page_program_man"><span class="command">--man</span> Display manual page for the command in the man format.</label></div>
-			<div><input type="radio" id="git_help_action_page_program_web" name="git_help_action_page_program" value="web" /><label for="git_help_action_page_program_web"><span class="command">--web</span> Display manual page for the command in the web (HTML) format.</label></div>
+			<legend><input type="radio" id="git_help_action_page" name="git_help_action" value="page"><label for="git_help_action_page"><span class="command">[&lt;command&gt;|&lt;doc&gt;]</span> Bring up the relevant manual page.</label></legend>
+			<div><input type="radio" id="git_help_action_page_program_no_option" name="git_help_action_page_program" value="" checked><label for="git_help_action_page_program_no_option">(use default)</label></div>
+			<div><input type="radio" id="git_help_action_page_program_info" name="git_help_action_page_program" value="info"><label for="git_help_action_page_program_info"><span class="command">--info</span> Display manual page for the command in the info format.</label></div>
+			<div><input type="radio" id="git_help_action_page_program_man" name="git_help_action_page_program" value="man"><label for="git_help_action_page_program_man"><span class="command">--man</span> Display manual page for the command in the man format.</label></div>
+			<div><input type="radio" id="git_help_action_page_program_web" name="git_help_action_page_program" value="web"><label for="git_help_action_page_program_web"><span class="command">--web</span> Display manual page for the command in the web (HTML) format.</label></div>
 
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-			<div class="flex [align-items:first_baseline]"><label for="git_help_action_page_name" class="basis-[max-content]"><span class="command">&lt;command&gt;</span> or <span class="command">&lt;doc&gt;</span>:</label><input type="text" id="git_help_action_page_name" name="git_help_action_page_name" class="basis-0 grow command_input" value="help" /></div>
+			<div class="flex [align-items:first_baseline]"><label for="git_help_action_page_name" class="basis-[max-content]"><span class="command">&lt;command&gt;</span> or <span class="command">&lt;doc&gt;</span>:</label><input type="text" id="git_help_action_page_name" name="git_help_action_page_name" class="basis-0 grow command_input" value="help"></div>
 		</fieldset>
-		<div><input type="radio" id="git_help_action_guide" name="git_help_action" value="guide" /><label for="git_help_action_guide"><span class="command">--guide</span> Print a list of the Git concept guides.</label></div>
-		<div><input type="radio" id="git_help_action_config" name="git_help_action" value="config" /><label for="git_help_action_config"><span class="command">--config</span> List all available configuration variables.</label></div>
-		<div><input type="radio" id="git_help_action_user_interfaces" name="git_help_action" value="user_interfaces" /><label for="git_help_action_user_interfaces"><span class="command">--user-interfaces</span> Print a list of the repository, command and file interfaces documentation.</label></div>
-		<div><input type="radio" id="git_help_action_developer_interfaces" name="git_help_action" value="developer_interfaces" /><label for="git_help_action_developer_interfaces"><span class="command">--developer-interfaces</span> Print a list of file formats, protocols and other developer interfaces documentation.</label></div>
+		<div><input type="radio" id="git_help_action_guide" name="git_help_action" value="guide"><label for="git_help_action_guide"><span class="command">--guide</span> Print a list of the Git concept guides.</label></div>
+		<div><input type="radio" id="git_help_action_config" name="git_help_action" value="config"><label for="git_help_action_config"><span class="command">--config</span> List all available configuration variables.</label></div>
+		<div><input type="radio" id="git_help_action_user_interfaces" name="git_help_action" value="user_interfaces"><label for="git_help_action_user_interfaces"><span class="command">--user-interfaces</span> Print a list of the repository, command and file interfaces documentation.</label></div>
+		<div><input type="radio" id="git_help_action_developer_interfaces" name="git_help_action" value="developer_interfaces"><label for="git_help_action_developer_interfaces"><span class="command">--developer-interfaces</span> Print a list of file formats, protocols and other developer interfaces documentation.</label></div>
 	</form>
 	<textarea readonly wrap="off" id="git_help_command" name="git_help_command" class="command_input mt-[1em]"></textarea>
 	<script>
