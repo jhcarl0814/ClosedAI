@@ -526,7 +526,7 @@
 						<div class="ml-[1em]">
 							<div class="flex">
 								<div class="basis-auto grow">
-									<a class="external_link" href="https://git-scm.com/docs/git-init"><span class="command">git init</span></a><br/>
+									<a class="[#reference\_desk\_dispatcher\_form.git\_init~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_init git_with_command','git_init');git_init_refresh();"><span class="command">git init</span></a><br/>
 								</div>
 
 								<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
@@ -571,8 +571,12 @@
 							<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 							<span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefrepositoryarepository">repository</a>&gt;</span>: <a class="concept_link" href="https://git-scm.com/docs/git-fetch#_git_urls">URL</a> or name of <a class="concept_link" href="https://git-scm.com/docs/git-fetch#_remotes">remote</a> , tracks <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefremotearemoterepository">remote repository</a><br/>
 							<div class="ml-[1em]">
-								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbarerepositoryabarerepository">bare repository</a><br/>
-								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefshallowrepositoryashallowrepository">shallow repository</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefshallowcloneashallowclone">shallow clone</a>)<br/>
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbarerepositoryabarerepository">bare repository</a> <a class="concept_link" href="https://git-scm.com/docs/git-clone#Documentation/git-clone.txt-code--barecode">(git clone)</a><br/>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/git-clone#Documentation/git-clone.txt-code--mirrorcode">mirror</a><br/>
+								</div>
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefshallowrepositoryashallowrepository">shallow repository</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefshallowcloneashallowclone">shallow clone</a>), <a class="external_link" href="https://git-scm.com/docs/shallow"><span class="inline-code">$GIT_DIR/shallow</span></a><br/>
+								<a class="external_link" href="https://git-scm.com/docs/partial-clone">partial clone</a>, <a class="concept_link" href="https://git-scm.com/docs/partial-clone#_using_many_promisor_remotes">promisor remote</a><br/>
 							</div>
 							<span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefrefspecarefspec">refspec</a>&gt;</span> <a class="concept_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt-ltrefspecgt">(git fetch)</a> <a class="concept_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-ltrefspecgt82308203">(git push)</a><br/>
 							<div class="my-[0.25em] grid grid-cols-[auto,auto,1fr,auto,auto] gap-[0.25em] leading-[1em]" style="grid-template-areas:&quot;. fetch_porcelain fetch_porcelain fetch_porcelain .&quot;
@@ -580,7 +584,7 @@
 								&quot;label_local push_plumbing_local push_arrow push_plumbing_remote label_remote&quot;
 								&quot;. push_porcelain push_porcelain push_porcelain .&quot;;">
 								<div class="[grid-area:fetch\_porcelain] justify-self-center font-restore">
-									<a class="external_link" href="https://git-scm.com/docs/git-clone"><span class="command">git clone</span></a><br/>
+									<a class="[#reference\_desk\_dispatcher\_form.git\_clone~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_clone git_with_command','git_clone');git_clone_refresh();"><span class="command">git clone</span></a><br/>
 									<a class="external_link" href="https://git-scm.com/docs/git-fetch"><span class="command">git fetch</span></a><br/>
 									<a class="external_link" href="https://git-scm.com/docs/git-pull"><span class="command">git pull</span></a><br/>
 								</div>
@@ -925,6 +929,8 @@
 				{{ awk_expand_commands './git_var_form.template.html' }}
 				{{ awk_expand_commands './git_standalone_form.template.html' }}
 				{{ awk_expand_commands './git_worktree_form.template.html' }}
+				{{ awk_expand_commands './git_init_form.template.html' }}
+				{{ awk_expand_commands './git_clone_form.template.html' }}
 				{{ awk_expand_commands './git_help_form.template.html' }}
 				{{ awk_expand_commands './git_with_command_form.template.html' }}
 			</div>
@@ -938,6 +944,8 @@
 				{{ awk_expand_commands './git_var_examples.template.html' }}
 				{{ awk_expand_commands './git_standalone_examples.template.html' }}
 				{{ awk_expand_commands './git_worktree_examples.template.html' }}
+				{{ awk_expand_commands './git_init_examples.template.html' }}
+				{{ awk_expand_commands './git_clone_examples.template.html' }}
 				{{ awk_expand_commands './git_help_examples.template.html' }}
 				{{ awk_expand_commands './git_with_command_examples.template.html' }}
 			</div>
