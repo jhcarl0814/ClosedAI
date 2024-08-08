@@ -332,7 +332,7 @@
 						<div class="ml-[1em]">
 							<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefalternateobjectdatabaseaalternateobjectdatabase">alternate object database</a><br>
 						</div>
-						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefindexaindex">index</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefcacheacache">cache</a>), <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefindexentryaindexentry">index entry</a><br>
+						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefindexaindex">index</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefcacheacache">cache</a>), <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefindexentryaindexentry">index entry</a>, <a class="external_link" href="https://git-scm.com/docs/gitformat-index"><span class="inline-code">$GIT_DIR/index</span></a><br>
 						<span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefpathspecapathspec">pathspec</a>&gt;</span><br>
 
 						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -629,7 +629,13 @@
 								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 								<h2 class="highlight_bold">Diffing</h2>
 								<div class="ml-[1em]">
-									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-ls-files"><span class="command">git ls-files</span></a><br>
+									<a class="[#reference\_desk\_dispatcher\_form.git\_ls\_files~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_ls_files git_with_command','git_ls_files');git_ls_files_refresh();"><span class="command">git ls-files</span></a><br>
+									<div class="ml-[1em]">
+										<a class="concept_link" href="https://git-scm.com/docs/git-ls-files#_output">stage (git ls-files)</a><br>
+										<a class="concept_link" href="https://git-scm.com/docs/git-ls-files#Documentation/git-ls-files.txt---resolve-undo">resolve-undo information</a><br>
+										<a class="concept_link" href="https://git-scm.com/docs/git-ls-files#Documentation/git-ls-files.txt--t">status tag</a><br>
+										<span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/git-ls-files#Documentation/git-ls-files.txt---eol">eolinfo</a>&gt;</span>, <span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/git-ls-files#Documentation/git-ls-files.txt---eol">eolattr</a>&gt;</span><br>
+									</div>
 									<a class="external_link" href="https://git-scm.com/docs/git-status"><span class="command">git status</span></a><br>
 								</div>
 							</div>
@@ -792,6 +798,7 @@
 										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefevilmergeaevilmerge">evil merge</a><br>
 										<a class="external_link" href="https://git-scm.com/docs/git-merge"><span class="command">git merge</span></a><br>
 										<div class="ml-[1em]">
+											<a class="concept_link" href="https://git-scm.com/docs/git-merge#_true_merge">stage (git merge)</a><br>
 											<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-merge-base"><span class="command">git merge-base</span></a><br>
 											<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-merge-tree"><span class="command">git merge-tree</span></a><br>
 										</div>
@@ -931,6 +938,7 @@
 				{{ awk_expand_commands './git_worktree_form.template.html' }}
 				{{ awk_expand_commands './git_init_form.template.html' }}
 				{{ awk_expand_commands './git_clone_form.template.html' }}
+				{{ awk_expand_commands './git_ls_files_form.template.html' }}
 				{{ awk_expand_commands './git_help_form.template.html' }}
 				{{ awk_expand_commands './git_with_command_form.template.html' }}
 			</div>
@@ -946,6 +954,7 @@
 				{{ awk_expand_commands './git_worktree_examples.template.html' }}
 				{{ awk_expand_commands './git_init_examples.template.html' }}
 				{{ awk_expand_commands './git_clone_examples.template.html' }}
+				{{ awk_expand_commands './git_ls_files_examples.template.html' }}
 				{{ awk_expand_commands './git_help_examples.template.html' }}
 				{{ awk_expand_commands './git_with_command_examples.template.html' }}
 			</div>
