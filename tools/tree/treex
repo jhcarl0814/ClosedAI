@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#function treex () {
+	tree "$@" --regular_file_is_text_file='iconv --from-code=UTF-8 --to-code=UTF-8' --text_file_transformer='special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number';
+#}
+#export -f treex;
