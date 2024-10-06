@@ -1,0 +1,274 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_cached\_stage~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_others~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_directory~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_filtering~*_&]:block">
+	<h2 class="heading2"><span class="command">git ls-files --cached</span><br><span class="command">git ls-files --stage</span><br><span class="command">git ls-files --others</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+
+			echo -e '1\n5' >'./repo/conflicted'; echo -e '1\n5' >'./repo/conflicted_excluded'; git -C './repo' add './conflicted' './conflicted_excluded'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout -b branch1; git -C './repo' branch branch2
+			echo -e '1\n2\n5' >'./repo/conflicted'; echo -e '1\n2\n5' >'./repo/conflicted_excluded'; git -C './repo' add './conflicted' './conflicted_excluded'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch2
+			echo -e '1\n3\n5' >'./repo/conflicted'; echo -e '1\n3\n5' >'./repo/conflicted_excluded'; git -C './repo' add './conflicted' './conflicted_excluded'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch1
+			git -C './repo' merge branch2 --message="$((++number))"
+
+			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir_empty_excluded' './repo/untracked_dir' './repo/untracked_dir_excluded'; touch -- './repo/untracked' './repo/untracked_excluded' './repo/untracked_dir/untracked' './repo/untracked_dir/untracked_excluded' './repo/untracked_dir_excluded/untracked' './repo/untracked_dir_excluded/untracked_excluded'
+			touch -- './repo/unstaged_deletion' './repo/unstaged_deletion_excluded'; git -C './repo' add './unstaged_deletion' './unstaged_deletion_excluded'; rm -- './repo/unstaged_deletion' './repo/unstaged_deletion_excluded'
+			echo '1' >'./repo/unstaged_modification'; echo '1' >'./repo/unstaged_modification_excluded'; git -C './repo' add './unstaged_modification' './unstaged_modification_excluded'; echo '2' >'./repo/unstaged_modification'; echo '2' >'./repo/unstaged_modification_excluded'
+
+			mkdir --parents -- './repo/dir_to_file' './repo/dir_to_file_excluded'; touch -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded' './repo/dir_to_file/.gitkeep' './repo/dir_to_file_excluded/.gitkeep'; git -C './repo' add './file_to_dir' './file_to_dir_excluded' './file_to_dir_empty' './file_to_dir_empty_excluded' './dir_to_file' './dir_to_file_excluded'; rm --recursive -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded' './repo/dir_to_file' './repo/dir_to_file_excluded'; mkdir --parents -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded'; touch -- './repo/dir_to_file' './repo/dir_to_file_excluded' './repo/file_to_dir/.gitkeep' './repo/file_to_dir_excluded/.gitkeep'
+
+			treex '.' -not -regex './repo/.git/hooks/.*' -regextype 'posix-extended'
+			git -C './repo' ls-files -t --stage
+			git -C './repo' ls-files -t --stage --exclude="*_excluded"
+			git -C './repo' ls-files -t --stage --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --stage --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --stage --exclude="*_excluded" --ignored | tail --lines='+'"$(("$(git -C './repo' ls-files -t --others --exclude="*_excluded" --ignored | wc --lines)"+1))"
+			git -C './repo' ls-files -t --cached
+			git -C './repo' ls-files -t --cached --exclude="*_excluded"
+			git -C './repo' ls-files -t --cached --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others
+			git -C './repo' ls-files -t --others --exclude="*_excluded"
+			git -C './repo' ls-files -t --others --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --directory
+			git -C './repo' ls-files -t --others --directory --exclude="*_excluded"
+			git -C './repo' ls-files -t --others --directory --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --directory --no-empty-directory
+			git -C './repo' ls-files -t --others --directory --no-empty-directory --exclude="*_excluded"
+			git -C './repo' ls-files -t --others --directory --no-empty-directory --exclude="*_excluded" --ignored
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_deleted\_modified~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_filtering~*_&]:block">
+	<h2 class="heading2"><span class="command">git ls-files --deleted</span><br><span class="command">git ls-files --modified</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir_empty_excluded' './repo/untracked_dir' './repo/untracked_dir_excluded'; touch -- './repo/untracked' './repo/untracked_excluded' './repo/untracked_dir/untracked' './repo/untracked_dir/untracked_excluded' './repo/untracked_dir_excluded/untracked' './repo/untracked_dir_excluded/untracked_excluded'
+			touch -- './repo/unstaged_deletion' './repo/unstaged_deletion_excluded'; git -C './repo' add './unstaged_deletion' './unstaged_deletion_excluded'; rm -- './repo/unstaged_deletion' './repo/unstaged_deletion_excluded'
+			echo '1' >'./repo/unstaged_modification'; echo '1' >'./repo/unstaged_modification_excluded'; git -C './repo' add './unstaged_modification' './unstaged_modification_excluded'; echo '2' >'./repo/unstaged_modification'; echo '2' >'./repo/unstaged_modification_excluded'
+
+			treex '.' -not -regex './repo/.git/hooks/.*' -regextype 'posix-extended'
+			git -C './repo' ls-files -t --deleted
+			git -C './repo' ls-files -t --deleted --exclude="*_excluded"
+			git -C './repo' ls-files -t --deleted --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --deleted --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --deleted --exclude="*_excluded" --ignored | tail --lines='+'"$(("$(git -C './repo' ls-files -t --others --exclude="*_excluded" --ignored | wc --lines)"+1))"
+			git -C './repo' ls-files -t --modified
+			git -C './repo' ls-files -t --modified --exclude="*_excluded"
+			git -C './repo' ls-files -t --modified --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --modified --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --modified --exclude="*_excluded" --ignored | tail --lines='+'"$(("$(git -C './repo' ls-files -t --others --exclude="*_excluded" --ignored | wc --lines)"+1))"
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_killed~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_directory~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_filtering~*_&]:block">
+	<h2 class="heading2"><span class="command">git ls-files --killed</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			mkdir --parents -- './repo/dir_to_file' './repo/dir_to_file_excluded'; touch -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded' './repo/dir_to_file/.gitkeep' './repo/dir_to_file_excluded/.gitkeep'; git -C './repo' add './file_to_dir' './file_to_dir_excluded' './file_to_dir_empty' './file_to_dir_empty_excluded' './dir_to_file' './dir_to_file_excluded'; rm --recursive -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded' './repo/dir_to_file' './repo/dir_to_file_excluded'; mkdir --parents -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded'; touch -- './repo/dir_to_file' './repo/dir_to_file_excluded' './repo/file_to_dir/.gitkeep' './repo/file_to_dir_excluded/.gitkeep'
+
+			treex '.' -not -regex './repo/.git/hooks/.*' -regextype 'posix-extended'
+			git -C './repo' ls-files -t --killed
+			git -C './repo' ls-files -t --killed --exclude="*_excluded"
+			git -C './repo' ls-files -t --killed --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --killed --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --killed --exclude="*_excluded" --ignored | tail --lines='+'"$(("$(git -C './repo' ls-files -t --others --exclude="*_excluded" --ignored | wc --lines)"+1))"
+			git -C './repo' ls-files -t --killed --directory
+			git -C './repo' ls-files -t --killed --directory --exclude="*_excluded"
+			git -C './repo' ls-files -t --killed --directory --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --killed --directory --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --killed --directory --exclude="*_excluded" --ignored | tail --lines='+'"$(("$(git -C './repo' ls-files -t --others --directory --exclude="*_excluded" --ignored | wc --lines)"+1))"
+			git -C './repo' ls-files -t --killed --directory --no-empty-directory
+			git -C './repo' ls-files -t --killed --directory --no-empty-directory --exclude="*_excluded"
+			git -C './repo' ls-files -t --killed --directory --no-empty-directory --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --killed --directory --no-empty-directory --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --killed --directory --no-empty-directory --exclude="*_excluded" --ignored | tail --lines='+'"$(("$(git -C './repo' ls-files -t --others --directory --no-empty-directory --exclude="*_excluded" --ignored | wc --lines)"+1))"
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_unmerged~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_resolve\_undo~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_filtering~*_&]:block">
+	<h2 class="heading2"><span class="command">git ls-files --unmerged</span><br><span class="command">git ls-files --resolve-undo</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+
+			echo -e '1\n5' >'./repo/conflicted'; echo -e '1\n5' >'./repo/conflicted_excluded'; git -C './repo' add './conflicted' './conflicted_excluded'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout -b branch1; git -C './repo' branch branch2
+			echo -e '1\n2\n5' >'./repo/conflicted'; echo -e '1\n2\n5' >'./repo/conflicted_excluded'; git -C './repo' add './conflicted' './conflicted_excluded'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch2
+			echo -e '1\n3\n5' >'./repo/conflicted'; echo -e '1\n3\n5' >'./repo/conflicted_excluded'; git -C './repo' add './conflicted' './conflicted_excluded'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch1
+			git -C './repo' merge branch2 --message="$((++number))"
+
+			treex '.' -not -regex './repo/.git/hooks/.*' -regextype 'posix-extended'
+			git -C './repo' ls-files -t --unmerged
+			git -C './repo' ls-files -t --unmerged --exclude="*_excluded"
+			git -C './repo' ls-files -t --unmerged --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --unmerged --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --unmerged --exclude="*_excluded" --ignored | tail --lines='+'"$(("$(git -C './repo' ls-files -t --others --exclude="*_excluded" --ignored | wc --lines)"+1))"
+			git -C './repo' ls-files -t --resolve-undo
+			treex './repo/conflicted'
+			echo -e '1\n2\n3\n5' >'./repo/conflicted'; echo -e '1\n2\n3\n5' >'./repo/conflicted_excluded'; git -C './repo' add './conflicted' './conflicted_excluded'
+			git -C './repo' ls-files -t --unmerged
+			git -C './repo' ls-files -t --resolve-undo
+			git -C './repo' ls-files -t --resolve-undo --exclude="*_excluded"
+			git -C './repo' ls-files -t --resolve-undo --exclude="*_excluded" --ignored
+			git -C './repo' ls-files -t --others --resolve-undo --exclude="*_excluded" --ignored
+			git -C './repo' checkout --merge './conflicted' './conflicted_excluded'
+			treex './repo/conflicted'
+			git -C './repo' ls-files -t --unmerged
+			git -C './repo' ls-files -t --resolve-undo
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_z~*_&]:block">
+	<h2 class="heading2"><span class="command">git ls-files -z</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+
+			echo -e '1\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout -b branch1; git -C './repo' branch branch2
+			echo -e '1\n2\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch2
+			echo -e '1\n3\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch1
+			git -C './repo' merge branch2 --message="$((++number))"
+
+			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir'; touch -- './repo/untracked' './repo/untracked_dir/untracked'
+			touch -- './repo/unstaged_deletion'; git -C './repo' add './unstaged_deletion'; rm -- './repo/unstaged_deletion'
+			echo '1' >'./repo/unstaged_modification'; git -C './repo' add './unstaged_modification'; echo '2' >'./repo/unstaged_modification'
+
+			mkdir --parents -- './repo/dir_to_file'; touch -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file/.gitkeep'; git -C './repo' add './file_to_dir' './file_to_dir_empty' './dir_to_file'; rm --recursive -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file'; mkdir --parents -- './repo/file_to_dir' './repo/file_to_dir_empty'; touch -- './repo/dir_to_file' './repo/file_to_dir/.gitkeep'
+
+			treex '.' -not -regex './repo/.git/hooks/.*' -regextype 'posix-extended'
+			git -C './repo' ls-files -t --stage | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --stage -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --cached | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --cached -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --others | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --others -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --deleted | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --deleted -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --modified | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --modified -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --killed | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --killed -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+
+			git -C './repo' ls-files -t --unmerged | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --unmerged -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --resolve-undo | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --resolve-undo -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			echo -e '1\n2\n3\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'
+			git -C './repo' ls-files -t --unmerged | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --unmerged -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --resolve-undo | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --resolve-undo -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' checkout --merge './conflicted'
+			git -C './repo' ls-files -t --unmerged | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --unmerged -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --resolve-undo | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' ls-files -t --resolve-undo -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_eol~*_&]:block">
+	<h2 class="heading2"><span class="command">git ls-files --eol</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+
+			echo -e '1\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout -b branch1; git -C './repo' branch branch2
+			echo -e '1\n2\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch2
+			echo -e '1\n3\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch1
+			git -C './repo' merge branch2 --message="$((++number))"
+
+			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir'; touch -- './repo/untracked' './repo/untracked_dir/untracked'
+			touch -- './repo/unstaged_deletion'; git -C './repo' add './unstaged_deletion'; rm -- './repo/unstaged_deletion'
+			echo '1' >'./repo/unstaged_modification'; git -C './repo' add './unstaged_modification'; echo '2' >'./repo/unstaged_modification'
+
+			mkdir --parents -- './repo/dir_to_file'; touch -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file/.gitkeep'; git -C './repo' add './file_to_dir' './file_to_dir_empty' './dir_to_file'; rm --recursive -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file'; mkdir --parents -- './repo/file_to_dir' './repo/file_to_dir_empty'; touch -- './repo/dir_to_file' './repo/file_to_dir/.gitkeep'
+
+			treex '.' -not -regex './repo/.git/hooks/.*' -regextype 'posix-extended'
+			git -C './repo' ls-files -t --stage
+			git -C './repo' ls-files -t --stage --eol
+			git -C './repo' ls-files -t --cached
+			git -C './repo' ls-files -t --cached --eol
+			git -C './repo' ls-files -t --others
+			git -C './repo' ls-files -t --others --eol
+			git -C './repo' ls-files -t --deleted
+			git -C './repo' ls-files -t --deleted --eol
+			git -C './repo' ls-files -t --modified
+			git -C './repo' ls-files -t --modified --eol
+			git -C './repo' ls-files -t --killed
+			git -C './repo' ls-files -t --killed --eol
+
+			git -C './repo' ls-files -t --unmerged
+			git -C './repo' ls-files -t --unmerged --eol
+			echo -e '1\n2\n3\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'
+			git -C './repo' ls-files -t --unmerged
+			git -C './repo' ls-files -t --unmerged --eol
+			git -C './repo' checkout --merge './conflicted'
+			git -C './repo' ls-files -t --unmerged
+			git -C './repo' ls-files -t --unmerged --eol
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_format~*_&]:block">
+	<h2 class="heading2"><span class="command">git ls-files --format=&lt;format&gt;</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+
+			echo -e '1\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout -b branch1; git -C './repo' branch branch2
+			echo -e '1\n2\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch2
+			echo -e '1\n3\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch1
+			git -C './repo' merge branch2 --message="$((++number))"
+
+			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir'; touch -- './repo/untracked' './repo/untracked_dir/untracked'
+			touch -- './repo/unstaged_deletion'; git -C './repo' add './unstaged_deletion'; rm -- './repo/unstaged_deletion'
+			echo '1' >'./repo/unstaged_modification'; git -C './repo' add './unstaged_modification'; echo '2' >'./repo/unstaged_modification'
+
+			mkdir --parents -- './repo/dir_to_file'; touch -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file/.gitkeep'; git -C './repo' add './file_to_dir' './file_to_dir_empty' './dir_to_file'; rm --recursive -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file'; mkdir --parents -- './repo/file_to_dir' './repo/file_to_dir_empty'; touch -- './repo/dir_to_file' './repo/file_to_dir/.gitkeep'
+
+			treex '.' -not -regex './repo/.git/hooks/.*' -regextype 'posix-extended'
+			git -C './repo' ls-files -t --cached
+			git -C './repo' ls-files --cached --format='%(objecttype) %(objectmode) %(objectname) %(stage) ii="%(eolinfo:index)" iw="%(eolinfo:worktree)" a="%(eolattr)" %(objectsize) %(path)'
+			git -C './repo' ls-files -t --deleted
+			git -C './repo' ls-files --deleted --format='%(objecttype) %(objectmode) %(objectname) %(stage) ii="%(eolinfo:index)" iw="%(eolinfo:worktree)" a="%(eolattr)" %(objectsize) %(path)'
+			git -C './repo' ls-files -t --modified
+			git -C './repo' ls-files --modified --format='%(objecttype) %(objectmode) %(objectname) %(stage) ii="%(eolinfo:index)" iw="%(eolinfo:worktree)" a="%(eolattr)" %(objectsize) %(path)'
+			git -C './repo' ls-files -t --unmerged
+			git -C './repo' ls-files --unmerged --format='%(objecttype) %(objectmode) %(objectname) %(stage) ii="%(eolinfo:index)" iw="%(eolinfo:worktree)" a="%(eolattr)" %(objectsize) %(path)'
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
