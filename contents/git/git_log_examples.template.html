@@ -1,0 +1,1026 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_log~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_revisions~*_&]:block">
+	<h2 class="heading2"><span class="command">git log --branches[=&lt;pattern&gt;]</span><br><span class="command">git log --tags[=&lt;pattern&gt;]</span><br><span class="command">git log --remotes[=&lt;pattern&gt;]</span><br><span class="command">git log --all</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git -C './server/repo.git' branch branch1; git -C './server/repo.git' tag tag1
+			git --git-dir='./server/repo.git' --work-tree='.' checkout -b branch2 branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git -C './server/repo.git' tag tag2
+			git --git-dir='./server/repo.git' --work-tree='.' checkout -B branch2 branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' checkout -b branch3 branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git -C './server/repo.git' tag tag3
+			git --git-dir='./server/repo.git' --work-tree='.' checkout -B branch3 branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+
+			git -C './client' init './repo'
+			branch_default_name="$(git -C './client/repo' branch --show-current)"; echo "$branch_default_name"
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' fetch --tags
+			git -C './client/repo' lg
+			git -C './client/repo' checkout "$branch_default_name"
+			git -C './client/repo' checkout branch1
+			git -C './client/repo' checkout branch2
+			git -C './client/repo' checkout branch3
+			git -C './client/repo' lg
+			git -C './client/repo' lg --all
+			git -C './client/repo' lg --branches
+			git -C './client/repo' lg --branches='*1'
+			git -C './client/repo' lg --branches='*2'
+			git -C './client/repo' lg --branches='*2' --branches='*3'
+			git -C './client/repo' lg --tags
+			git -C './client/repo' lg --tags='*2'
+			git -C './client/repo' lg --remotes
+			git -C './client/repo' lg --remotes='server/*2'
+			git -C './client/repo' lg --remotes='*r*r/*2'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_log~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_reflog~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_walk\_reflogs~*_&]:block">
+	<h2 class="heading2"><span class="command">git log --reflog</span><br><span class="command">git log --walk-reflogs</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch1
+			git -C './repo' checkout -b branch2 branch1; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag1
+			git -C './repo' checkout -B branch2 branch1; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag2
+			git -C './repo' checkout -B branch2 tag1
+			git -C './repo' checkout -B branch2 tag2
+			git -C './repo' log branch2
+			git -C './repo' log --graph branch2
+			git -C './repo' log --reflog branch2
+			git -C './repo' log --reflog --graph branch2
+			git -C './repo' log --walk-reflogs branch2
+			git -C './repo' log --walk-reflogs --graph branch2
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_log~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_boundary~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_left\_right~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_symmetric\_difference~*_&]:block">
+	<h2 class="heading2"><span class="command">git log --boundary</span><br><span class="command">git log --left-right</span><br><span class="command">git log --left-right --boundary</span><br><span class="command">git log --cherry-pick</span><br><span class="command">git log --cherry-mark</span><br><span class="command">git log --cherry-mark --boundary</span><br><span class="command">git log --left-only</span><br><span class="command">git log --right-only</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+			echo -e '1\n\n\n\n1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='0 -> 1'
+			git -C './repo' branch branch1
+			echo -e '1\n\n\n\n2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='1 -> 2'
+			echo -e '2\n\n\n\n2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='1 -> 2'
+			echo -e '2\n\n\n\n3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='2 -> 3'
+			echo -e '3\n\n\n\n3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='2 -> 3'
+			echo -e '3\n\n\n\n4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='3 -> 4'
+			echo -e '4\n\n\n\n4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='3 -> 4'
+			git -C './repo' checkout branch1
+			echo -e '1\n\n\n\n2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='1 -> 2'
+			echo -e '2\n\n\n\n2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='1 -> 2'
+			echo -e '3\n\n\n\n2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='2 -> 3'
+			echo -e '3\n\n\n\n3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='2 -> 3'
+			echo -e '3\n\n\n\n5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='3 -> 5'
+			echo -e '4\n\n\n\n5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='3 -> 4'
+			git -C './repo' log --format=oneline --all
+			git -C './repo' log --format=oneline --graph --all
+			git -C './repo' log --format=oneline "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --graph "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --boundary "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --graph --boundary "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --left-right "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --graph --left-right "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --left-right --boundary "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --graph --left-right --boundary "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --cherry-pick "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --graph --cherry-pick "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --cherry-mark "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --graph --cherry-mark "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --cherry-mark --boundary "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --graph --cherry-mark --boundary "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --left-only "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --graph --left-only "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --right-only "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --graph --right-only "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --right-only --cherry-mark "$branch_default_name"...branch1
+			git -C './repo' log --format=oneline --graph --right-only --cherry-mark "$branch_default_name"...branch1
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_log~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_first\_parent\_and\_exclude\_first\_parent\_only~*_&]:block">
+	<h2 class="heading2"><span class="command">git log --first-parent</span><br><span class="command">git log --exclude-first-parent-only</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' checkout branch1; git -C './repo' commit --message="$((++number))"' (branch1)' --allow-empty
+			git -C './repo' merge --message="$((++number))"' (branch1)' "$branch_default_name"
+			git -C './repo' checkout "$branch_default_name"; git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' merge --message="$((++number))" branch1
+			git -C './repo' checkout branch1; git -C './repo' commit --message="$((++number))"' (branch1)' --allow-empty
+			git -C './repo' merge --message="$((++number))"' (branch1)' "$branch_default_name"
+			git -C './repo' lg --all
+			git -C './repo' lg "$branch_default_name"
+			git -C './repo' lg --first-parent "$branch_default_name"
+			git -C './repo' lg branch1.."$branch_default_name"
+			git -C './repo' lg --exclude-first-parent-only branch1.."$branch_default_name"
+			git -C './repo' lg branch1
+			git -C './repo' lg --first-parent branch1
+			git -C './repo' lg "$branch_default_name"..branch1
+			git -C './repo' lg --exclude-first-parent-only "$branch_default_name"..branch1
+			git -C './repo' checkout "$branch_default_name"; git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' merge --message="$((++number))" branch1
+			git -C './repo' lg --all
+			git -C './repo' lg "$branch_default_name"
+			git -C './repo' lg --first-parent "$branch_default_name"
+			git -C './repo' lg branch1.."$branch_default_name"
+			git -C './repo' lg --exclude-first-parent-only branch1.."$branch_default_name"
+			git -C './repo' lg branch1
+			git -C './repo' lg --first-parent branch1
+			git -C './repo' lg "$branch_default_name"..branch1
+			git -C './repo' lg --exclude-first-parent-only "$branch_default_name"..branch1
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_log~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_ancestry\_path~*_&]:block">
+	<h2 class="heading2"><span class="command">git log --ancestry-path[=&lt;commit&gt;]</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+			git -C './repo' commit --message='a' --allow-empty
+			git -C './repo' checkout -b branch1
+			git -C './repo' commit --message='b' --allow-empty
+			git -C './repo' checkout -b branch2
+			git -C './repo' commit --message='d' --allow-empty
+			git -C './repo' commit --message='e' --allow-empty
+			git -C './repo' checkout branch1
+			git -C './repo' commit --message='c' --allow-empty
+			git -C './repo' merge --message='g' branch2
+			git -C './repo' checkout branch2
+			git -C './repo' commit --message='f' --allow-empty
+			git -C './repo' checkout branch1
+			git -C './repo' commit --message='h' --allow-empty
+			git -C './repo' merge --message='i' branch2
+			git -C './repo' commit --message='j' --allow-empty
+			git -C './repo' checkout "$branch_default_name"
+			git -C './repo' commit --message='k' --allow-empty
+			git -C './repo' merge --message='l' branch1
+			git -C './repo' commit --message='m' --allow-empty
+			git -C './repo' lg
+			git -C './repo' lg --not :/'d' --not :/'m'
+			git -C './repo' lg :/'d'..:/'m'
+			git -C './repo' lg --ancestry-path :/'d'..:/'m'
+			git -C './repo' lg --not :/'d' :/'b' --not :/'m'
+			git -C './repo' lg --ancestry-path --not :/'d' :/'b' --not :/'m'
+			git -C './repo' lg --ancestry-path=:/'d' --not :/'d' :/'b' --not :/'m'
+			git -C './repo' lg --ancestry-path=:/'b' --not :/'d' :/'b' --not :/'m'
+			git -C './repo' lg --ancestry-path=:/'d' --ancestry-path=:/'b' --not :/'d' :/'b' --not :/'m'
+			git -C './repo' lg --ancestry-path=:/'h' :/'d'..:/'m'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_log~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_follow~*_&]:block">
+	<h2 class="heading2"><span class="command">git log --follow</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo '1' >'./repo/file1'; git -C './repo' add './file1'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			echo '2' >'./repo/file1'; git -C './repo' add './file1'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			mv './repo/file1' './repo/file2'; git -C './repo' add './file1' './file2'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' log
+			git -C './repo' log --follow 'file1'
+			git -C './repo' log --follow 'file2'
+			git -C './repo' log --follow -- 'file1'
+			git -C './repo' log --follow -- 'file2'
+			git -C './repo' log --graph
+			git -C './repo' log --graph --follow 'file2'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_log~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_L~*_&]:block">
+	<h2 class="heading2"><span class="command">git log -L&lt;start&gt;,&lt;end&gt;:&lt;file&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -e 'a\n1' >'./repo/file1'; git -C './repo' add './file1'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			echo -e 'a\n2' >'./repo/file1'; git -C './repo' add './file1'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			mv './repo/file1' './repo/file2'; git -C './repo' add './file1' './file2'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			echo -e '3\na' >'./repo/file2'; git -C './repo' add './file2'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			echo -e '4\na' >'./repo/file2'; git -C './repo' add './file2'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' log
+			git -C './repo' log -L1,1:'./file2'
+			git -C './repo' log -L2,2:'./file2'
+			git -C './repo' log -L1,2:'./file2'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_log~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_simplification~*_&]:block">
+	<h2 class="heading2"><span class="command">git log --full-history</span><br><span class="command">git log --full-history --simplify-merges</span><br><span class="command">git log --show-pulls</span><br><span class="command">git log --show-pulls --simplify-merges</span><br>(<span class="command">git log --dense/--sparse</span> don't affect which commits are followed, affect which commits are included)</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		git config set --system --all 'log.decorate' 'full';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+			git -C './repo' commit --message='-' --allow-empty
+			echo -e '0' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='0'
+			git -C './repo' commit --message='0' --allow-empty
+			echo -e '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='1'
+			git -C './repo' commit --message='1' --allow-empty
+			git -C './repo' branch "$branch_default_name"1; git -C './repo' branch "$branch_default_name"2; git -C './repo' branch branch11; git -C './repo' branch branch21; git -C './repo' branch branch51
+			git -C './repo' checkout "$branch_default_name"1
+			git -C './repo' commit --message='1 (^2)' --allow-empty
+			git -C './repo' commit --message='1 (^2)' --allow-empty
+			git -C './repo' checkout "$branch_default_name"2
+			git -C './repo' commit --message='1 (^2)' --allow-empty
+			echo -e '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='2 (^2)'
+			git -C './repo' commit --message='2 (^2)' --allow-empty
+
+			git -C './repo' checkout branch11
+			git -C './repo' commit --message='1 (^1)' --allow-empty
+			git -C './repo' commit --message='1 (^1)' --allow-empty
+			git -C './repo' branch branch12
+			git -C './repo' merge --message='1 (== ^1) (== ^2)' "$branch_default_name"1
+			git -C './repo' commit --message='1' --allow-empty
+			git -C './repo' checkout branch12; git -C './repo' branch branch31; git -C './repo' branch branch32; git -C './repo' branch branch33
+			git -C './repo' merge --no-commit "$branch_default_name"1; echo -e '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='2 (!= ^1) (!= ^2)'
+			git -C './repo' commit --message='2' --allow-empty
+
+			git -C './repo' checkout branch21
+			git -C './repo' commit --message='1 (^1)' --allow-empty
+			echo -e '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='2 (^1)'
+			git -C './repo' commit --message='2 (^1)' --allow-empty
+			git -C './repo' branch branch22; git -C './repo' branch branch23; git -C './repo' branch branch41; git -C './repo' branch branch42
+			git -C './repo' merge --message='2 (== ^1) (!= ^2)' "$branch_default_name"1
+			git -C './repo' commit --message='2' --allow-empty
+			git -C './repo' checkout branch22
+			git -C './repo' merge --no-commit "$branch_default_name"1; echo -e '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='1 (!= ^1) (== ^2)'
+			git -C './repo' commit --message='1' --allow-empty
+			git -C './repo' checkout branch23
+			git -C './repo' merge --no-commit "$branch_default_name"1; echo -e '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='3 (!= ^1) (!= ^2)'
+			git -C './repo' commit --message='3' --allow-empty
+
+			git -C './repo' checkout branch31
+			git -C './repo' merge --message='2 (!= ^1) (== ^2)' "$branch_default_name"2
+			git -C './repo' commit --message='2' --allow-empty
+			git -C './repo' checkout branch32
+			git -C './repo' merge --no-commit "$branch_default_name"2; echo -e '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='1 (== ^1) (!= ^2)'
+			git -C './repo' commit --message='1' --allow-empty
+			git -C './repo' checkout branch33
+			git -C './repo' merge --no-commit "$branch_default_name"2; echo -e '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='3 (!= ^1) (!= ^2)'
+			git -C './repo' commit --message='3' --allow-empty
+
+			git -C './repo' checkout branch41
+			git -C './repo' merge --message='2 (== ^1) (== ^2)' "$branch_default_name"2
+			git -C './repo' commit --message='2' --allow-empty
+			git -C './repo' checkout branch42
+			git -C './repo' merge --no-commit "$branch_default_name"2; echo -e '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='3 (!= ^1) (!= ^2)'
+			git -C './repo' commit --message='3' --allow-empty
+
+			git -C './repo' checkout branch51
+			git -C './repo' commit --message='1 (^1)' --allow-empty
+			echo -e '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='3 (^1)'
+			git -C './repo' commit --message='3 (^1)' --allow-empty
+			git -C './repo' branch branch52; git -C './repo' branch branch53
+			git -C './repo' merge "$branch_default_name"2; echo -e '4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='4 (!= ^1) (!= ^2)'
+			git -C './repo' commit --message='4' --allow-empty
+			git -C './repo' checkout branch52
+			git -C './repo' merge "$branch_default_name"2; echo -e '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='3 (== ^1) (!= ^2)'
+			git -C './repo' commit --message='3' --allow-empty
+			git -C './repo' checkout branch53
+			git -C './repo' merge "$branch_default_name"2; echo -e '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='2 (!= ^1) (== ^2)'
+			git -C './repo' commit --message='2' --allow-empty
+
+			git -C './repo' log --format=oneline --abbrev-commit --graph --all
+		EOF0
+	}}
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch11
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch41
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">(merge keep current branch's change)</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch21
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch52
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">(merge discard current branch's change)</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch22
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch53
+				EOF0
+			}}
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch51
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">(merge pull in other branch's change)</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch31
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch53
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">(merge discard other branch's change)</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch32
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch52
+				EOF0
+			}}
+		</div>
+		<div class="[grid-column:span_3]">
+			<h3 class="heading3">(default)</h3>
+			<p class="paragraph">commits are included if not TREESAME to any parent</p>
+		</div>
+		<div>
+			<p class="paragraph">merge commit is same to both parents, follow one of them</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch41 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch41 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch41 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">merge commit is same to one parent, follow this one</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch52 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">merge commit is same to one parent, follow this one</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch53 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">merge commit isn't same to either of parents, follow both of them</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch51 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch51 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch51 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">merge commit is same to one parent, follow this one</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch53 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">merge commit is same to one parent, follow this one</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch52 './file'
+				EOF0
+			}}
+		</div>
+		<div class="[grid-column:span_3]">
+			<h3 class="heading3"><span class="command">--full-history</span> without parent rewriting</h3>
+			<p class="paragraph">follow all parents of a merge</p>
+			<p class="paragraph">commits are included if not TREESAME to some parent</p>
+		</div>
+		<div>
+			<p class="paragraph">commits are included if not TREESAME to some parent, so merge commits aren't always included</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history branch41 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch41 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch41 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch52 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch53 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history branch51 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch51 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch51 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch53 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch52 './file'
+				EOF0
+			}}
+		</div>
+		<div class="[grid-column:span_3]">
+			<h3 class="heading3"><span class="command">--full-history</span> with parent rewriting</h3>
+			<p class="paragraph">follow all parents of a merge</p>
+			<p class="paragraph">non-merge commits are included if not TREESAME to parent; merge commits are always included</p>
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch41 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch41 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch41 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch52 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch53 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch51 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch51 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch51 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch53 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch52 './file'
+				EOF0
+			}}
+		</div>
+		<div class="[grid-column:span_3]">
+			<h3 class="heading3"><span class="command">--full-history --simplify-merges</span></h3>
+			<p class="paragraph">transitive reduction, but if there are at least 1 TREESAME out edges then don't drop the last TREESAME out edge</p>
+		</div>
+		<div>
+			<p class="paragraph">if merge commit's number of !TREESAME out edges drops to 0 and number of TREESAME out edges drops to &lt;= 1 then it is removed</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch41 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch41 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch41 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">TREESAME parent is descendant of !TREESAME parent, so the out edge to !TREESAME parent is removed</p>
+			<p class="paragraph">if merge commit's number of !TREESAME out edges drops to 0 and number of TREESAME out edges drops to &lt;= 1 then it is removed</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch52 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">!TREESAME parent is descendant of TREESAME parent, but TREESAME parent is last one, the out edge to TREESAME parent isn't removed</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch53 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch51 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch51 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch51 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">TREESAME parent is descendant of !TREESAME parent, so the out edge to !TREESAME parent is removed</p>
+			<p class="paragraph">if merge commit's number of !TREESAME out edges drops to 0 and number of TREESAME out edges drops to &lt;= 1 then it is removed</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch53 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">!TREESAME parent is descendant of TREESAME parent, but TREESAME parent is last one, the out edge to TREESAME parent isn't removed</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch52 './file'
+				EOF0
+			}}
+		</div>
+		<div class="[grid-column:span_3]">
+			<h3 class="heading3"><span class="command">--show-pulls</span></h3>
+			<p class="paragraph">non-merge commits are included if not TREESAME to parent; merge commits are included if not TREESAME to its first parent but TREESAME to a later parent</p>
+		</div>
+		<div>
+			<p class="paragraph">merge commit is same to both parents, follow one of them</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch41 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch41 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch41 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">merge commit is same to one parent, follow this one</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch52 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">merge commit is same to one parent, follow this one</p>
+			<p class="paragraph">merge commits are included if not TREESAME to its first parent but TREESAME to a later parent</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch53 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">merge commit isn't same to either of parents, follow both of them</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch51 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch51 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch51 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">merge commit is same to one parent, follow this one</p>
+			<p class="paragraph">merge commits are included if not TREESAME to its first parent but TREESAME to a later parent</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch53 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">merge commit is same to one parent, follow this one</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch52 './file'
+				EOF0
+			}}
+		</div>
+		<div class="[grid-column:span_3]">
+			<h3 class="heading3"><span class="command">--show-pulls --simplify-merges</span></h3>
+			<p class="paragraph">follow all parents of a merge</p>
+		</div>
+		<div>
+			<p class="paragraph">if merge commit's number of !TREESAME out edges drops to 0 and number of TREESAME out edges drops to &lt;= 1 then it is removed</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch41 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch41 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch11 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch41 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">TREESAME parent is descendant of !TREESAME parent, so the out edge to !TREESAME parent is removed</p>
+			<p class="paragraph">if merge commit's number of !TREESAME out edges drops to 0 and number of TREESAME out edges drops to &lt;= 1 then it is removed</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch21 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch52 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">!TREESAME parent is descendant of TREESAME parent, but TREESAME parent is last one, the out edge to TREESAME parent isn't removed</p>
+			<p class="paragraph">merge commits are included if not TREESAME to its first parent but TREESAME to a later parent</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch22 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch53 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch51 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch51 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch51 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">TREESAME parent is descendant of !TREESAME parent, so the out edge to !TREESAME parent is removed</p>
+			<p class="paragraph">if merge commit's number of !TREESAME out edges drops to 0 and number of TREESAME out edges drops to &lt;= 1 then it is removed</p>
+			<p class="paragraph">merge commits are included if not TREESAME to its first parent but TREESAME to a later parent</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch53 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch31 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch53 './file'
+				EOF0
+			}}
+		</div>
+		<div>
+			<p class="paragraph">!TREESAME parent is descendant of TREESAME parent, but TREESAME parent is last one, the out edge to TREESAME parent isn't removed</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch52 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch32 './file'
+					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch52 './file'
+				EOF0
+			}}
+		</div>
+	</div>
+	{{
+		git config unset --system --all 'log.decorate';
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_log~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_decoration~*_&]:block">
+	<h2 class="heading2"><span class="command">git log --decorate=no</span><br><span class="command">git log --decorate=short</span><br><span class="command">git log --decorate=full</span><br><span class="command">git log --decorate-refs=&lt;pattern&gt;</span><br><span class="command">git log --clear-decorations</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		git config set --system --all 'log.decorate' 'short';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git -C './server/repo.git' branch branch1; git -C './server/repo.git' tag tag1
+
+			git -C './client' init './repo'
+			branch_default_name="$(git -C './client/repo' branch --show-current)"; echo "$branch_default_name"
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' fetch
+			git -C './client/repo' log
+			git -C './client/repo' checkout "$branch_default_name"
+			git -C './client/repo' update-ref 'refs/heads2/branch' HEAD
+			git -C './client/repo' log
+			git -C './client/repo' log --decorate-refs='*2*'
+			git -C './client/repo' log --decorate-refs='*'
+			git -C './client/repo' log --decorate-refs='*' --decorate-refs='HEAD'
+			git -C './client/repo' log --clear-decorations
+			git -C './client/repo' log --decorate=no
+			git -C './client/repo' log --decorate=no --clear-decorations
+			git -C './client/repo' log --decorate=short
+			git -C './client/repo' log --decorate=short --clear-decorations
+			git -C './client/repo' log --decorate=full
+			git -C './client/repo' log --decorate=full --clear-decorations
+		EOF0
+		git config unset --system --all 'log.decorate';
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_log~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_diff\_merges\_and\_combined\_all\_paths~*_&]:block">
+	<h2 class="heading2"><span class="command">git log --diff-merges=&lt;format&gt;</span><br><span class="command">git log --diff-merges=combined --combined-all-paths</span><br><span class="command">git log --diff-merges=dense-combined --combined-all-paths</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -e '1\n\n1\n\n1\n\n1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' branch branch2
+			git -C './repo' checkout -b branch1; echo -e '2\n\n1\n\n2\n\n1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch2; echo -e '3\n\n2\n\n1\n\n1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch1
+			git -C './repo' lg --patch
+			git -C './repo' merge --message="$((++number))" branch2
+			echo -e '4\n\n2\n\n2\n\n1' >'./repo/file'; git -C './repo' add './file'
+			git -C './repo' commit --no-edit
+			git -C './repo' lg --patch
+			git -C './repo' lg --patch --diff-merges=off
+			git -C './repo' lg --patch --diff-merges=first-parent
+			git -C './repo' lg --patch --diff-merges=separate
+			git -C './repo' lg --patch --diff-merges=combined
+			git -C './repo' lg --patch --diff-merges=combined --combined-all-paths
+			git -C './repo' lg --patch --diff-merges=dense-combined
+			git -C './repo' lg --patch --diff-merges=dense-combined --unified=1
+			git -C './repo' lg --patch --diff-merges=dense-combined --unified=1 --combined-all-paths
+			git -C './repo' lg --patch --diff-merges=remerge
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' branch branch2
+			git -C './repo' checkout -b branch1; echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' checkout branch2; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch1
+			git -C './repo' lg --patch
+			git -C './repo' merge --message="$((++number))" branch2
+			git -C './repo' lg --patch
+			git -C './repo' lg --patch --diff-merges=off
+			git -C './repo' lg --patch --diff-merges=first-parent
+			git -C './repo' lg --patch --diff-merges=separate
+			git -C './repo' lg --patch --diff-merges=combined
+			git -C './repo' lg --patch --diff-merges=combined --combined-all-paths
+			git -C './repo' lg --patch --diff-merges=dense-combined
+			git -C './repo' lg --patch --diff-merges=dense-combined --combined-all-paths
+			git -C './repo' lg --patch --diff-merges=remerge
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' branch branch2
+			git -C './repo' checkout -b branch1; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch2; echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' checkout branch1
+			git -C './repo' lg --patch
+			git -C './repo' merge --message="$((++number))" branch2
+			git -C './repo' lg --patch
+			git -C './repo' lg --patch --diff-merges=off
+			git -C './repo' lg --patch --diff-merges=first-parent
+			git -C './repo' lg --patch --diff-merges=separate
+			git -C './repo' lg --patch --diff-merges=combined
+			git -C './repo' lg --patch --diff-merges=combined --combined-all-paths
+			git -C './repo' lg --patch --diff-merges=dense-combined
+			git -C './repo' lg --patch --diff-merges=dense-combined --combined-all-paths
+			git -C './repo' lg --patch --diff-merges=remerge
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

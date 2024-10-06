@@ -1,0 +1,591 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_checkout')">git checkout</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-checkout">https://git-scm.com/docs/git-checkout</a></p>
+	<p class="paragraph">Switch branches or restore working tree files.</p>
+	<form id="git_checkout_form">
+		<p>Choose an action to perform:</p>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_from\_index~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_checkout_action_from_index')">
+				<p>Check out paths from the index. (Overwrite working tree with the contents in the index.)</p>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_pathspec_list" name="git_checkout_action" value="from_index_pathspec_list" checked><label for="git_checkout_action_from_index_pathspec_list"><span class="command">git checkout [--] &lt;pathspec&gt;...</span></label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_pathspec_from_file" name="git_checkout_action" value="from_index_pathspec_from_file"><label for="git_checkout_action_from_index_pathspec_from_file"><span class="command">git checkout --pathspec-from-file=&lt;file&gt; [--pathspec-file-nul]</span></label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_patch" name="git_checkout_action" value="from_index_patch"><label for="git_checkout_action_from_index_patch"><span class="command">git checkout --patch [--] [&lt;pathspec&gt;...]</span> Interactively select hunks in the difference between the index and the working tree. The chosen hunks are then applied in reverse to the working tree. (Implies <span class="command">--no-overlay</span>.)</label></div>
+			</legend>
+			<div id="git_checkout_action_from_index_pathspec_from_file_" class="subform">
+				<p><span class="command">--pathspec-from-file=&lt;file&gt;</span> Pathspec is passed in <span class="command">&lt;file&gt;</span> instead of commandline args.</p>
+				<div class="form_item"><label for="git_checkout_action_from_index_pathspec_from_file_file"><span class="command">&lt;file&gt;</span>:</label><textarea wrap="off" id="git_checkout_action_from_index_pathspec_from_file_file" name="git_checkout_action_from_index_pathspec_from_file_file" class="basis-0 grow command_input"></textarea></div>
+				<div class="form_item"><input type="checkbox" id="git_checkout_action_from_index_has_pathspec_file_nul" name="git_checkout_action_from_index_has_pathspec_file_nul"><label for="git_checkout_action_from_index_has_pathspec_file_nul"><span class="command">--pathspec-file-nul</span> Pathspec elements are separated with NUL character and all other characters are taken literally (including newlines and quotes).</label></div>
+			</div>
+			<fieldset id="git_checkout_action_from_index_pathspec_list_">
+				<legend><p><span class="command">&lt;pathspec&gt;...</span> Limits the paths affected by the operation.</p></legend>
+				<input id="git_checkout_action_from_index_pathspec_list_add" type="button" value="Add">
+				<div id="git_checkout_action_from_index_pathspec_list__"></div>
+				<script>
+					document.getElementById("git_checkout_action_from_index_pathspec_list_add").addEventListener("click",function(e){
+						document.getElementById("git_checkout_action_from_index_pathspec_list__").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_checkout_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_checkout_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_checkout_refresh();
+					})
+				</script>
+			</fieldset>
+			<fieldset>
+				<legend><p>what to do with unmerged path:</p></legend>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_unmerged_action_no_option" name="git_checkout_action_from_index_unmerged_action" value="no_option" checked><label for="git_checkout_action_from_index_unmerged_action_no_option">Fail upon unmerged entries.</label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_unmerged_action_force" name="git_checkout_action_from_index_unmerged_action" value="force"><label for="git_checkout_action_from_index_unmerged_action_force"><span class="command">--force</span> Unmerged entries are ignored.</label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_unmerged_action_ours" name="git_checkout_action_from_index_unmerged_action" value="ours"><label for="git_checkout_action_from_index_unmerged_action_ours"><span class="command">--ours</span> Check out stage #2 (ours) for unmerged paths.</label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_unmerged_action_theirs" name="git_checkout_action_from_index_unmerged_action" value="theirs"><label for="git_checkout_action_from_index_unmerged_action_theirs"><span class="command">--theirs</span> Check out stage #3 (theirs) for unmerged paths.</label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_unmerged_action_merge" name="git_checkout_action_from_index_unmerged_action" value="merge"><label for="git_checkout_action_from_index_unmerged_action_merge"><span class="command">--merge</span> Recreate the conflicted merge in the specified paths. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeconflictStyle"><span class="inline_code">merge.conflictStyle</span></a> which defaults to <span class="inline_code">merge</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_unmerged_action_conflict" name="git_checkout_action_from_index_unmerged_action" value="conflict"><label for="git_checkout_action_from_index_unmerged_action_conflict"><span class="command">--conflict=(<input type="radio" id="git_checkout_action_from_index_unmerged_action_conflict_style_merge" name="git_checkout_action_from_index_unmerged_action_conflict_style" value="merge" checked><label for="git_checkout_action_from_index_unmerged_action_conflict_style_merge">merge</label>|<input type="radio" id="git_checkout_action_from_index_unmerged_action_conflict_style_diff3" name="git_checkout_action_from_index_unmerged_action_conflict_style" value="diff3"><label for="git_checkout_action_from_index_unmerged_action_conflict_style_diff3">diff3</label>|<input type="radio" id="git_checkout_action_from_index_unmerged_action_conflict_style_zdiff3" name="git_checkout_action_from_index_unmerged_action_conflict_style" value="zdiff3"><label for="git_checkout_action_from_index_unmerged_action_conflict_style_zdiff3">zdiff3</label>)</span> Same as <span class="command">--merge</span>, but changes the way the conflicting hunks are presented, overriding the <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeconflictStyle"><span class="inline_code">merge.conflictStyle</span></a> configuration variable.</label></div>
+			</fieldset>
+
+			<p>(when not <span class="command">--patch</span>:)</p>
+			<div class="form_item"><input type="radio" id="git_checkout_action_from_index_overlay_no_option" name="git_checkout_action_from_index_overlay" value="" checked><label for="git_checkout_action_from_index_overlay_no_option">(Defaults to <span class="command">--overlay</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_checkout_action_from_index_overlay_has_overlay" name="git_checkout_action_from_index_overlay" value="true"><label for="git_checkout_action_from_index_overlay_has_overlay"><span class="command">--overlay</span> Never removes files from the index or the working tree.</label></div>
+			<div class="form_item"><input type="radio" id="git_checkout_action_from_index_overlay_has_no_overlay" name="git_checkout_action_from_index_overlay" value="false"><label for="git_checkout_action_from_index_overlay_has_no_overlay"><span class="command">--no-overlay</span> Files that appear in the index and working tree, but not in <span class="command">&lt;tree-ish&gt;</span> are removed, to make them match <span class="command">&lt;tree-ish&gt;</span> exactly.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<p>(when <span class="command">--patch</span>:)</p>
+			<fieldset>
+				<legend><p>context lines and hunks:</p></legend>
+				<div class="form_item">
+					<input type="checkbox" id="git_checkout_action_from_index_has_unified" name="git_checkout_action_from_index_has_unified">
+					<div class="subform basis-0 grow">
+						<label for="git_checkout_action_from_index_has_unified"><span class="command">--unified=&lt;n&gt;</span> Generate diffs with <span class="command">&lt;n&gt;</span> lines of context. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffcontext"><span class="inline_code">diff.context</span></a> which defaults to <span class="inline_code">3</span>.)</label>
+						<div class="form_item"><label for="git_checkout_action_from_index_unified_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_checkout_action_from_index_unified_n" name="git_checkout_action_from_index_unified_n" class="basis-0 grow command_input" value="3"></div>
+					</div>
+				</div>
+				<div class="form_item">
+					<input type="checkbox" id="git_checkout_action_from_index_has_inter_hunk_context" name="git_checkout_action_from_index_has_inter_hunk_context">
+					<div class="subform basis-0 grow">
+						<label for="git_checkout_action_from_index_has_inter_hunk_context"><span class="command">--inter-hunk-context=&lt;number&gt;</span> Show the context between diff hunks, up to the specified <span class="command">&lt;number&gt;</span> of lines, thereby fusing hunks that are close to each other. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffinterHunkContext"><span class="inline_code">diff.interHunkContext</span></a> which defaults to <span class="inline_code">0</span>.)</label>
+						<div class="form_item"><label for="git_checkout_action_from_index_inter_hunk_context_number"><span class="command">&lt;number&gt;</span>:</label><input type="text" id="git_checkout_action_from_index_inter_hunk_context_number" name="git_checkout_action_from_index_inter_hunk_context_number" class="basis-0 grow command_input" value="0"></div>
+					</div>
+				</div>
+			</fieldset>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="checkbox" id="git_checkout_has_ignore_skip_worktree_bits" name="git_checkout_has_ignore_skip_worktree_bits"><label for="git_checkout_has_ignore_skip_worktree_bits"><span class="command">--ignore-skip-worktree-bits</span> In sparse checkout mode, <span class="command">git checkout -- &lt;path&gt;...</span> would update only entries matched by <span class="command">&lt;path&gt;...</span> and sparse patterns in <span class="inline_code"><span class="command">$GIT_DIR</span>/info/sparse-checkout</span>. Ignores the sparse patterns and adds back any files in <span class="command">&lt;path&gt;...</span>.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_from\_treeish~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_checkout_action_from_treeish')">
+				<p>Check out paths from a tree-ish. (Overwrite both the index and the working tree with the contents at the <span class="command">&lt;tree-ish&gt;</span>.)</p>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_treeish_pathspec_list" name="git_checkout_action" value="from_treeish_pathspec_list"><label for="git_checkout_action_from_treeish_pathspec_list"><span class="command">git checkout &lt;tree-ish&gt; [--] &lt;pathspec&gt;...</span></label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_treeish_pathspec_from_file" name="git_checkout_action" value="from_treeish_pathspec_from_file"><label for="git_checkout_action_from_treeish_pathspec_from_file"><span class="command">git checkout --pathspec-from-file=&lt;file&gt; [--pathspec-file-nul] &lt;tree-ish&gt;</span></label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_treeish_patch" name="git_checkout_action" value="from_treeish_patch"><label for="git_checkout_action_from_treeish_patch"><span class="command">git checkout --patch &lt;tree-ish&gt; [--] [&lt;pathspec&gt;...]</span> Interactively select hunks in the difference between the <span class="command">&lt;tree-ish&gt;</span> and the working tree. The chosen hunks are then applied in reverse to the working tree and the index. (Implies <span class="command">--no-overlay</span>.)</label></div>
+			</legend>
+			<div id="git_checkout_action_from_treeish_pathspec_from_file_" class="subform">
+				<p><span class="command">--pathspec-from-file=&lt;file&gt;</span> Pathspec is passed in <span class="command">&lt;file&gt;</span> instead of commandline args.</p>
+				<div class="form_item"><label for="git_checkout_action_from_treeish_pathspec_from_file_file"><span class="command">&lt;file&gt;</span>:</label><textarea wrap="off" id="git_checkout_action_from_treeish_pathspec_from_file_file" name="git_checkout_action_from_treeish_pathspec_from_file_file" class="basis-0 grow command_input"></textarea></div>
+				<div class="form_item"><input type="checkbox" id="git_checkout_action_from_treeish_has_pathspec_file_nul" name="git_checkout_action_from_treeish_has_pathspec_file_nul"><label for="git_checkout_action_from_treeish_has_pathspec_file_nul"><span class="command">--pathspec-file-nul</span> Pathspec elements are separated with NUL character and all other characters are taken literally (including newlines and quotes).</label></div>
+			</div>
+			<div class="form_item"><label for="git_checkout_action_from_treeish_treeish"><span class="command">&lt;tree-ish&gt;</span>:</label><textarea wrap="off" id="git_checkout_action_from_treeish_treeish" name="git_checkout_action_from_treeish_treeish" class="basis-0 grow command_input">HEAD</textarea></div>
+			<fieldset id="git_checkout_action_from_treeish_pathspec_list_">
+				<legend><p><span class="command">&lt;pathspec&gt;...</span> Limits the paths affected by the operation.</p></legend>
+				<input id="git_checkout_action_from_treeish_pathspec_list_add" type="button" value="Add">
+				<div id="git_checkout_action_from_treeish_pathspec_list__"></div>
+				<script>
+					document.getElementById("git_checkout_action_from_treeish_pathspec_list_add").addEventListener("click",function(e){
+						document.getElementById("git_checkout_action_from_treeish_pathspec_list__").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_checkout_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_checkout_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_checkout_refresh();
+					})
+				</script>
+			</fieldset>
+
+			<div class="form_item"><input type="checkbox" id="git_checkout_action_from_treeish_has_force" name="git_checkout_action_from_treeish_has_force"><label for="git_checkout_action_from_treeish_has_force"><span class="command">--force</span> (Has no dedicated use in this action, see <span class="command">--recurse-submodules</span>.)</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<p>(when not <span class="command">--patch</span>:)</p>
+			<div class="form_item"><input type="radio" id="git_checkout_action_from_treeish_overlay_no_option" name="git_checkout_action_from_treeish_overlay" value="" checked><label for="git_checkout_action_from_treeish_overlay_no_option">(Defaults to <span class="command">--overlay</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_checkout_action_from_treeish_overlay_has_overlay" name="git_checkout_action_from_treeish_overlay" value="true"><label for="git_checkout_action_from_treeish_overlay_has_overlay"><span class="command">--overlay</span> Never removes files from the index or the working tree.</label></div>
+			<div class="form_item"><input type="radio" id="git_checkout_action_from_treeish_overlay_has_no_overlay" name="git_checkout_action_from_treeish_overlay" value="false"><label for="git_checkout_action_from_treeish_overlay_has_no_overlay"><span class="command">--no-overlay</span> Files that appear in the index and working tree, but not in <span class="command">&lt;tree-ish&gt;</span> are removed, to make them match <span class="command">&lt;tree-ish&gt;</span> exactly.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<p>(when <span class="command">--patch</span>:)</p>
+			<fieldset>
+				<legend><p>context lines and hunks:</p></legend>
+				<div class="form_item">
+					<input type="checkbox" id="git_checkout_action_from_treeish_has_unified" name="git_checkout_action_from_treeish_has_unified">
+					<div class="subform basis-0 grow">
+						<label for="git_checkout_action_from_treeish_has_unified"><span class="command">--unified=&lt;n&gt;</span> Generate diffs with <span class="command">&lt;n&gt;</span> lines of context. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffcontext"><span class="inline_code">diff.context</span></a> which defaults to <span class="inline_code">3</span>.)</label>
+						<div class="form_item"><label for="git_checkout_action_from_treeish_unified_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_checkout_action_from_treeish_unified_n" name="git_checkout_action_from_treeish_unified_n" class="basis-0 grow command_input" value="3"></div>
+					</div>
+				</div>
+				<div class="form_item">
+					<input type="checkbox" id="git_checkout_action_from_treeish_has_inter_hunk_context" name="git_checkout_action_from_treeish_has_inter_hunk_context">
+					<div class="subform basis-0 grow">
+						<label for="git_checkout_action_from_treeish_has_inter_hunk_context"><span class="command">--inter-hunk-context=&lt;number&gt;</span> Show the context between diff hunks, up to the specified <span class="command">&lt;number&gt;</span> of lines, thereby fusing hunks that are close to each other. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffinterHunkContext"><span class="inline_code">diff.interHunkContext</span></a> which defaults to <span class="inline_code">0</span>.)</label>
+						<div class="form_item"><label for="git_checkout_action_from_treeish_inter_hunk_context_number"><span class="command">&lt;number&gt;</span>:</label><input type="text" id="git_checkout_action_from_treeish_inter_hunk_context_number" name="git_checkout_action_from_treeish_inter_hunk_context_number" class="basis-0 grow command_input" value="0"></div>
+					</div>
+				</div>
+			</fieldset>
+		</fieldset>
+
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_checkout_action_switch_branches')">
+				<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches" name="git_checkout_action" value="switch_branches"><label for="git_checkout_action_switch_branches">
+					Check out paths from a commit-ish and switch branches.<br>
+					<span class="command">git checkout [--detach] [&lt;commit-ish&gt;]</span> (<span class="command">--detach</span> is implied when <span class="command">&lt;commit-ish&gt;</span> is not branch name)<br>
+					<span class="command">git checkout (-b &lt;new-branch&gt;|-B &lt;branch&gt;|--orphan=&lt;new-branch&gt;) [&lt;commit-ish&gt;]</span><br>
+				</label></div>
+			</legend>
+			<div class="form_item"><input type="checkbox" id="git_checkout_action_switch_branches_has_committish" name="git_checkout_action_switch_branches_has_committish"><label for="git_checkout_action_switch_branches_has_committish"><span class="command">&lt;commit-ish&gt;</span></label><label for="git_checkout_action_switch_branches_committish" class="hidden"><span class="command">&lt;commit-ish&gt;</span>:</label><textarea wrap="off" id="git_checkout_action_switch_branches_committish" name="git_checkout_action_switch_branches_committish" class="basis-0 grow command_input">HEAD</textarea></div>
+
+			<fieldset>
+				<legend><p>what to do with local modifications to one or more files that are different between the current branch and the branch to switch to:</p></legend>
+				<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_local_modification_action_no_option" name="git_checkout_action_switch_branches_local_modification_action" value="no_option" checked><label for="git_checkout_action_switch_branches_local_modification_action_no_option">Refuses to switch branches in order to preserve modifications in context.</label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_local_modification_action_force" name="git_checkout_action_switch_branches_local_modification_action" value="force"><label for="git_checkout_action_switch_branches_local_modification_action_force"><span class="command">--force</span> Proceed even if the index or the working tree differs from <span class="inline_code">HEAD</span>, and even if there are untracked files in the way.</label></div>
+				<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches\_merge\_conflict~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_checkout_action_switch_branches_merge_conflict')">
+					<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_local_modification_action_merge" name="git_checkout_action_switch_branches_local_modification_action" value="merge"><label for="git_checkout_action_switch_branches_local_modification_action_merge"><span class="command">--merge</span> A three-way merge between the current branch, working tree contents, and the new branch is done. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeconflictStyle"><span class="inline_code">merge.conflictStyle</span></a> which defaults to <span class="inline_code">merge</span>.)</label></div>
+					<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_local_modification_action_conflict" name="git_checkout_action_switch_branches_local_modification_action" value="conflict"><label for="git_checkout_action_switch_branches_local_modification_action_conflict"><span class="command">--conflict=(<input type="radio" id="git_checkout_action_switch_branches_local_modification_action_conflict_style_merge" name="git_checkout_action_switch_branches_local_modification_action_conflict_style" value="merge" checked><label for="git_checkout_action_switch_branches_local_modification_action_conflict_style_merge">merge</label>|<input type="radio" id="git_checkout_action_switch_branches_local_modification_action_conflict_style_diff3" name="git_checkout_action_switch_branches_local_modification_action_conflict_style" value="diff3"><label for="git_checkout_action_switch_branches_local_modification_action_conflict_style_diff3">diff3</label>|<input type="radio" id="git_checkout_action_switch_branches_local_modification_action_conflict_style_zdiff3" name="git_checkout_action_switch_branches_local_modification_action_conflict_style" value="zdiff3"><label for="git_checkout_action_switch_branches_local_modification_action_conflict_style_zdiff3">zdiff3</label>)</span> Same as <span class="command">--merge</span>, but changes the way the conflicting hunks are presented, overriding the <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeconflictStyle"><span class="inline_code">merge.conflictStyle</span></a> configuration variable.</label></div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend><p>where HEAD points to (<span class="command">&lt;commit-ish (branch)&gt;</span>, <span class="command">&lt;commit-ish (branch)&gt;</span>'s commit/<span class="command">&lt;commit-ish (commit)&gt;</span>, or <span class="command">&lt;new-branch&gt;</span>/<span class="command">&lt;branch&gt;</span> pointing to <span class="command">&lt;commit-ish&gt;</span>):</p></legend>
+				<fieldset>
+					<legend>
+						<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_HEAD_no_option" name="git_checkout_action_switch_branches_HEAD" value="no_option" checked><label for="git_checkout_action_switch_branches_HEAD_no_option">not <span class="command">--detach</span>/<span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--orphan</span> To oversimplify, checkout existent local branch (see examples).</label></div>
+					</legend>
+					<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches\_ignore\_other\_worktrees~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_checkout_action_switch_branches_ignore_other_worktrees')"><input type="checkbox" id="git_checkout_action_switch_branches_has_ignore_other_worktrees" name="git_checkout_action_switch_branches_has_ignore_other_worktrees"><label for="git_checkout_action_switch_branches_has_ignore_other_worktrees"><span class="command">--ignore-other-worktrees</span> <span class="command">git checkout</span> refuses when the wanted ref is already checked out by another worktree. Makes it check the ref out anyway. In other words, the ref can be held by more than one worktree.</label></div>
+					<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_guess_no_option" name="git_checkout_action_switch_branches_guess" value="" checked><label for="git_checkout_action_switch_branches_guess_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-checkoutguess"><span class="inline_code">checkout.guess</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+					<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_guess_has_guess" name="git_checkout_action_switch_branches_guess" value="true"><label for="git_checkout_action_switch_branches_guess_has_guess"><span class="command">--guess</span> If <span class="command">&lt;branch&gt;</span> is not found but there does exist a tracking branch in exactly one remote with a matching name, treat as equivalent to <span class="command">git checkout -b &lt;branch&gt; --track &lt;remote-tracking branch&gt;</span>.</label></div>
+					<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_guess_has_no_guess" name="git_checkout_action_switch_branches_guess" value="false"><label for="git_checkout_action_switch_branches_guess_has_no_guess"><span class="command">--no-guess</span></label></div>
+				</fieldset>
+				<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_HEAD_detach" name="git_checkout_action_switch_branches_HEAD" value="detach"><label for="git_checkout_action_switch_branches_HEAD_detach"><span class="command">--detach</span> Rather than checking out a branch to work on it, check out a commit for inspection and discardable experiments.</label></div>
+				<div class="form_item">
+					<input type="radio" id="git_checkout_action_switch_branches_HEAD_b" name="git_checkout_action_switch_branches_HEAD" value="b">
+					<div class="subform basis-0 grow">
+						<label for="git_checkout_action_switch_branches_HEAD_b"><span class="command">-b &lt;new-branch&gt;</span> Create a new branch named <span class="command">&lt;new-branch&gt;</span>, start it at <span class="command">&lt;commit-ish&gt;</span>, and check the resulting branch out.</label>
+						<div class="form_item"><label for="git_checkout_action_switch_branches_HEAD_b_new_branch"><span class="command">&lt;new-branch&gt;</span>:</label><input type="text" id="git_checkout_action_switch_branches_HEAD_b_new_branch" name="git_checkout_action_switch_branches_HEAD_b_new_branch" class="basis-0 grow command_input" value="master"></div>
+					</div>
+				</div>
+				<div class="form_item">
+					<input type="radio" id="git_checkout_action_switch_branches_HEAD_B" name="git_checkout_action_switch_branches_HEAD" value="B">
+					<div class="subform basis-0 grow">
+						<label for="git_checkout_action_switch_branches_HEAD_B"><span class="command">-B &lt;branch&gt;</span> Creates the branch <span class="command">&lt;branch&gt;</span>, start it at <span class="command">&lt;commit-ish&gt;</span>; if it already exists, then reset it to <span class="command">&lt;commit-ish&gt;</span>. And then check the resulting branch out.</label>
+						<div class="form_item"><label for="git_checkout_action_switch_branches_HEAD_B_branch"><span class="command">&lt;branch&gt;</span>:</label><input type="text" id="git_checkout_action_switch_branches_HEAD_B_branch" name="git_checkout_action_switch_branches_HEAD_B_branch" class="basis-0 grow command_input" value="master"></div>
+					</div>
+				</div>
+				<div class="form_item">
+					<input type="radio" id="git_checkout_action_switch_branches_HEAD_orphan" name="git_checkout_action_switch_branches_HEAD" value="orphan">
+					<div class="subform basis-0 grow">
+						<label for="git_checkout_action_switch_branches_HEAD_orphan"><span class="command">--orphan=&lt;new-branch&gt;</span> Create a new unborn branch, named <span class="command">&lt;new-branch&gt;</span>, started from <span class="command">&lt;commit-ish&gt;</span> and switch to it.</label>
+						<div class="form_item"><label for="git_checkout_action_switch_branches_HEAD_orphan_new_branch"><span class="command">&lt;new-branch&gt;</span>:</label><input type="text" id="git_checkout_action_switch_branches_HEAD_orphan_new_branch" name="git_checkout_action_switch_branches_HEAD_orphan_new_branch" class="basis-0 grow command_input" value="master"></div>
+					</div>
+				</div>
+			</fieldset>
+			<p>(when creating new branch (/<span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--orphan</span>):)</p>
+			<div class="form_item"><input type="checkbox" id="git_checkout_action_switch_branches_has_l" name="git_checkout_action_switch_branches_has_l"><label for="git_checkout_action_switch_branches_has_l"><span class="command">-l</span> Create the new branch’s reflog.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<p>(when creating new branch that has commit (/<span class="command">-b</span>/<span class="command">-B</span>):)</p>
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches\_track~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_checkout_action_switch_branches_track')">
+				<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_track_no_option" name="git_checkout_action_switch_branches_track" value="no_option" checked><label for="git_checkout_action_switch_branches_track_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchautoSetupMerge"><span class="inline_code">branch.autoSetupMerge</span></a> which defaults to <span class="inline_code">true</span>, and <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchautoSetupRebase"><span class="inline_code">branch.autoSetupRebase</span></a> which defaults to <span class="inline_code">never</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_track_track" name="git_checkout_action_switch_branches_track" value="track"><label for="git_checkout_action_switch_branches_track_track"><span class="command">--track<input type="checkbox" id="git_checkout_action_switch_branches_track_track_has_argument" name="git_checkout_action_switch_branches_track_track_has_argument"><label for="git_checkout_action_switch_branches_track_track_has_argument">[=(<input type="radio" id="git_checkout_action_switch_branches_track_track_action_direct" name="git_checkout_action_switch_branches_track_track_action" value="direct" checked><label for="git_checkout_action_switch_branches_track_track_action_direct">direct</label>|<input type="radio" id="git_checkout_action_switch_branches_track_track_action_inherit" name="git_checkout_action_switch_branches_track_track_action" value="inherit"><label for="git_checkout_action_switch_branches_track_track_action_inherit">inherit</label>)]</label></span> When creating a new branch, set up "upstream" configuration.<br>
+					<div class="ml-[1em]">
+						<span class="command">--track=direct</span> use the start-point branch itself as the upstream;<br>
+						<span class="command">--track=inherit</span> copy the upstream configuration of the start-point branch;<br>
+					</div></label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_track_no_track" name="git_checkout_action_switch_branches_track" value="no_track"><label for="git_checkout_action_switch_branches_track_no_track"><span class="command">--no-track</span> Do not set up "upstream" configuration, even if the <span class="inline_code">branch.autoSetupMerge</span> configuration variable is true.</label></div>
+			</div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches\_track~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_checkout_action_switch_branches_overwrite_ignore')">
+				<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_overwrite_ignore_no_option" name="git_checkout_action_switch_branches_overwrite_ignore" value="" checked><label for="git_checkout_action_switch_branches_overwrite_ignore_no_option">(Defaults to <span class="command">--overwrite-ignore</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_overwrite_ignore_has_overwrite_ignore" name="git_checkout_action_switch_branches_overwrite_ignore" value="true"><label for="git_checkout_action_switch_branches_overwrite_ignore_has_overwrite_ignore"><span class="command">--overwrite-ignore</span> Silently overwrite ignored files when switching branches.</label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_switch_branches_overwrite_ignore_has_no_overwrite_ignore" name="git_checkout_action_switch_branches_overwrite_ignore" value="false"><label for="git_checkout_action_switch_branches_overwrite_ignore_has_no_overwrite_ignore"><span class="command">--no-overwrite-ignore</span> Abort the operation when the new branch contains ignored files.</label></div>
+			</div>
+		</fieldset>
+
+		<div class="form_item"><input type="radio" id="git_checkout_recurse_submodules_no_option" name="git_checkout_recurse_submodules" value="" checked><label for="git_checkout_recurse_submodules_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulerecurse"><span class="inline_code">submodule.recurse</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+		<div class="form_item"><input type="radio" id="git_checkout_recurse_submodules_has_recurse_submodules" name="git_checkout_recurse_submodules" value="true"><label for="git_checkout_recurse_submodules_has_recurse_submodules"><span class="command">--recurse-submodules</span> Update the content of all active submodules according to the commit recorded in the superproject. If local modifications in a submodule would be overwritten the checkout will fail unless <span class="command">--force</span> is used.</label></div>
+		<div class="form_item"><input type="radio" id="git_checkout_recurse_submodules_has_no_recurse_submodules" name="git_checkout_recurse_submodules" value="false"><label for="git_checkout_recurse_submodules_has_no_recurse_submodules"><span class="command">--no-recurse-submodules</span> Submodules working trees will not be updated.</label></div>
+
+		<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+		<div class="form_item"><input type="checkbox" id="git_checkout_has_quiet" name="git_checkout_has_quiet"><label for="git_checkout_has_quiet"><span class="command">--quiet</span> Quiet, suppress feedback messages.</label></div>
+		<div class="form_item"><input type="radio" id="git_checkout_progress_has_no_progress" name="git_checkout_progress" value="false"><label for="git_checkout_progress_has_no_progress"><span class="command">--no-progress</span></label></div>
+		<div class="form_item"><input type="radio" id="git_checkout_progress_no_option" name="git_checkout_progress" value="" checked><label for="git_checkout_progress_no_option"> Progress status is reported on the standard error stream when it is attached to a terminal, unless <span class="command">--quiet</span> is specified.</label></div>
+		<div class="form_item"><input type="radio" id="git_checkout_progress_has_progress" name="git_checkout_progress" value="true"><label for="git_checkout_progress_has_progress"><span class="command">--progress</span> Enables progress reporting even if not attached to a terminal, regardless of <span class="command">--quiet</span>.</label></div>
+	</form>
+	<textarea readonly wrap="off" id="git_checkout_command" name="git_checkout_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_checkout_refresh(){
+			document.getElementById("git_checkout_action_from_index_pathspec_list").closest("fieldset").disabled = !(document.getElementById("git_checkout_action_from_index_pathspec_list").checked || document.getElementById("git_checkout_action_from_index_pathspec_from_file").checked || document.getElementById("git_checkout_action_from_index_patch").checked);
+			document.getElementById("git_checkout_action_from_index_pathspec_from_file_").classList.toggle("hidden", !document.getElementById("git_checkout_action_from_index_pathspec_from_file").checked);
+			document.getElementById("git_checkout_action_from_index_pathspec_list_").classList.toggle("hidden", !(document.getElementById("git_checkout_action_from_index_pathspec_list").checked || document.getElementById("git_checkout_action_from_index_patch").checked));
+			document.getElementById("git_checkout_action_from_index_unmerged_action_conflict_style_merge").disabled = !document.getElementById("git_checkout_action_from_index_unmerged_action_conflict").checked;
+			document.getElementById("git_checkout_action_from_index_unmerged_action_conflict_style_diff3").disabled = !document.getElementById("git_checkout_action_from_index_unmerged_action_conflict").checked;
+			document.getElementById("git_checkout_action_from_index_unmerged_action_conflict_style_zdiff3").disabled = !document.getElementById("git_checkout_action_from_index_unmerged_action_conflict").checked;
+			document.getElementById("git_checkout_action_from_index_overlay_no_option").disabled = document.getElementById("git_checkout_action_from_index_patch").checked;
+			document.getElementById("git_checkout_action_from_index_overlay_has_overlay").disabled = document.getElementById("git_checkout_action_from_index_patch").checked;
+			document.getElementById("git_checkout_action_from_index_overlay_has_no_overlay").disabled = document.getElementById("git_checkout_action_from_index_patch").checked;
+			document.getElementById("git_checkout_action_from_index_has_unified").closest("fieldset").disabled = !document.getElementById("git_checkout_action_from_index_patch").checked;
+			document.getElementById("git_checkout_action_from_index_unified_n").disabled = !document.getElementById("git_checkout_action_from_index_has_unified").checked;
+			document.getElementById("git_checkout_action_from_index_inter_hunk_context_number").disabled = !document.getElementById("git_checkout_action_from_index_has_inter_hunk_context").checked;
+
+			document.getElementById("git_checkout_action_from_treeish_pathspec_list").closest("fieldset").disabled = !(document.getElementById("git_checkout_action_from_treeish_pathspec_list").checked || document.getElementById("git_checkout_action_from_treeish_pathspec_from_file").checked || document.getElementById("git_checkout_action_from_treeish_patch").checked);
+			document.getElementById("git_checkout_action_from_treeish_pathspec_from_file_").classList.toggle("hidden", !document.getElementById("git_checkout_action_from_treeish_pathspec_from_file").checked);
+			document.getElementById("git_checkout_action_from_treeish_pathspec_list_").classList.toggle("hidden", !(document.getElementById("git_checkout_action_from_treeish_pathspec_list").checked || document.getElementById("git_checkout_action_from_treeish_patch").checked));
+			document.getElementById("git_checkout_action_from_treeish_overlay_no_option").disabled = document.getElementById("git_checkout_action_from_treeish_patch").checked;
+			document.getElementById("git_checkout_action_from_treeish_overlay_has_overlay").disabled = document.getElementById("git_checkout_action_from_treeish_patch").checked;
+			document.getElementById("git_checkout_action_from_treeish_overlay_has_no_overlay").disabled = document.getElementById("git_checkout_action_from_treeish_patch").checked;
+			document.getElementById("git_checkout_action_from_treeish_has_unified").closest("fieldset").disabled = !document.getElementById("git_checkout_action_from_treeish_patch").checked;
+			document.getElementById("git_checkout_action_from_treeish_unified_n").disabled = !document.getElementById("git_checkout_action_from_treeish_has_unified").checked;
+			document.getElementById("git_checkout_action_from_treeish_inter_hunk_context_number").disabled = !document.getElementById("git_checkout_action_from_treeish_has_inter_hunk_context").checked;
+
+			document.getElementById("git_checkout_action_switch_branches").closest("fieldset").disabled = !document.getElementById("git_checkout_action_switch_branches").checked;
+			document.getElementById("git_checkout_action_switch_branches_committish").disabled = !document.getElementById("git_checkout_action_switch_branches_has_committish").checked;
+			document.getElementById("git_checkout_action_switch_branches_local_modification_action_conflict_style_merge").disabled = !document.getElementById("git_checkout_action_switch_branches_local_modification_action_conflict").checked;
+			document.getElementById("git_checkout_action_switch_branches_local_modification_action_conflict_style_diff3").disabled = !document.getElementById("git_checkout_action_switch_branches_local_modification_action_conflict").checked;
+			document.getElementById("git_checkout_action_switch_branches_local_modification_action_conflict_style_zdiff3").disabled = !document.getElementById("git_checkout_action_switch_branches_local_modification_action_conflict").checked;
+			document.getElementById("git_checkout_action_switch_branches_HEAD_no_option").closest("fieldset").disabled = !document.getElementById("git_checkout_action_switch_branches_HEAD_no_option").checked;
+			document.getElementById("git_checkout_action_switch_branches_HEAD_b_new_branch").disabled = !document.getElementById("git_checkout_action_switch_branches_HEAD_b").checked;
+			document.getElementById("git_checkout_action_switch_branches_HEAD_B_branch").disabled = !document.getElementById("git_checkout_action_switch_branches_HEAD_B").checked;
+			document.getElementById("git_checkout_action_switch_branches_HEAD_orphan_new_branch").disabled = !document.getElementById("git_checkout_action_switch_branches_HEAD_orphan").checked;
+			document.getElementById("git_checkout_action_switch_branches_has_l").disabled = !(document.getElementById("git_checkout_action_switch_branches_HEAD_no_option").checked || document.getElementById("git_checkout_action_switch_branches_HEAD_b").checked || document.getElementById("git_checkout_action_switch_branches_HEAD_B").checked || document.getElementById("git_checkout_action_switch_branches_HEAD_orphan").checked);
+			let git_checkout_action_switch_branches_can_have_track = document.getElementById("git_checkout_action_switch_branches_HEAD_no_option").checked || document.getElementById("git_checkout_action_switch_branches_HEAD_b").checked || document.getElementById("git_checkout_action_switch_branches_HEAD_B").checked;
+			document.getElementById("git_checkout_action_switch_branches_track_no_option").disabled = !git_checkout_action_switch_branches_can_have_track;
+			document.getElementById("git_checkout_action_switch_branches_track_track").disabled = !git_checkout_action_switch_branches_can_have_track;
+			document.getElementById("git_checkout_action_switch_branches_track_track_has_argument").disabled = !(git_checkout_action_switch_branches_can_have_track && document.getElementById("git_checkout_action_switch_branches_track_track").checked);
+			document.getElementById("git_checkout_action_switch_branches_track_track_action_direct").disabled = !(git_checkout_action_switch_branches_can_have_track && document.getElementById("git_checkout_action_switch_branches_track_track").checked && document.getElementById("git_checkout_action_switch_branches_track_track_has_argument").checked);
+			document.getElementById("git_checkout_action_switch_branches_track_track_action_inherit").disabled = !(git_checkout_action_switch_branches_can_have_track && document.getElementById("git_checkout_action_switch_branches_track_track").checked && document.getElementById("git_checkout_action_switch_branches_track_track_has_argument").checked);
+			document.getElementById("git_checkout_action_switch_branches_track_no_track").disabled = !git_checkout_action_switch_branches_can_have_track;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("checkout");
+
+			let form_data = new FormData(document.getElementById("git_checkout_form"));
+			switch(form_data.get("git_checkout_action")){
+				case "from_index_pathspec_list":
+				case "from_index_pathspec_from_file":
+				case "from_index_patch":
+					switch(form_data.get("git_checkout_action")){
+						case "from_index_patch":
+							command_components.push("--patch");
+							break;
+					}
+					switch(form_data.get("git_checkout_action_from_index_unmerged_action")){
+						case "force":
+							command_components.push("--force");
+							break;
+						case "ours":
+							command_components.push("--ours");
+							break;
+						case "theirs":
+							command_components.push("--theirs");
+							break;
+						case "merge":
+							command_components.push("--merge");
+							break;
+						case "conflict":
+							switch(form_data.get("git_checkout_action_from_index_unmerged_action_conflict_style")){
+								case "merge":
+									command_components.push("--conflict=merge");
+									break;
+								case "diff3":
+									command_components.push("--conflict=diff3");
+									break;
+								case "zdiff3":
+									command_components.push("--conflict=zdiff3");
+									break;
+							}
+							break;
+					}
+					if(form_data.get("git_checkout_action") != "from_index_patch"){
+						switch(form_data.get("git_checkout_action_from_index_overlay")){
+							case "false":
+								command_components.push("--no-overlay");
+								break;
+							case "true":
+								command_components.push("--overlay");
+								break;
+						}
+					}
+					if(form_data.get("git_checkout_action") == "from_index_patch"){
+						if(form_data.get("git_checkout_action_from_index_has_unified")){
+							let element_value = form_data.get("git_checkout_action_from_index_unified_n"), element_has_error = element_value.length == 0;
+							command_components.push("--unified=" + shell_quote(element_value));
+							document.getElementById("git_checkout_action_from_index_unified_n").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						if(form_data.get("git_checkout_action_from_index_has_inter_hunk_context")){
+							let element_value = form_data.get("git_checkout_action_from_index_inter_hunk_context_number"), element_has_error = element_value.length == 0;
+							command_components.push("--inter-hunk-context=" + shell_quote(element_value));
+							document.getElementById("git_checkout_action_from_index_inter_hunk_context_number").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+					}
+					if(form_data.get("git_checkout_has_ignore_skip_worktree_bits"))
+						command_components.push("--ignore-skip-worktree-bits");
+					break;
+				case "from_treeish_pathspec_list":
+				case "from_treeish_pathspec_from_file":
+				case "from_treeish_patch":
+					switch(form_data.get("git_checkout_action")){
+						case "from_treeish_patch":
+							command_components.push("--patch");
+							break;
+					}
+
+					if(form_data.get("git_checkout_action_from_treeish_has_force"))
+						command_components.push("--force");
+					if(form_data.get("git_checkout_action") != "from_treeish_patch"){
+						switch(form_data.get("git_checkout_action_from_treeish_overlay")){
+							case "false":
+								command_components.push("--no-overlay");
+								break;
+							case "true":
+								command_components.push("--overlay");
+								break;
+						}
+					}
+					if(form_data.get("git_checkout_action") == "from_treeish_patch"){
+						if(form_data.get("git_checkout_action_from_treeish_has_unified")){
+							let element_value = form_data.get("git_checkout_action_from_treeish_unified_n"), element_has_error = element_value.length == 0;
+							command_components.push("--unified=" + shell_quote(element_value));
+							document.getElementById("git_checkout_action_from_treeish_unified_n").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						if(form_data.get("git_checkout_action_from_treeish_has_inter_hunk_context")){
+							let element_value = form_data.get("git_checkout_action_from_treeish_inter_hunk_context_number"), element_has_error = element_value.length == 0;
+							command_components.push("--inter-hunk-context=" + shell_quote(element_value));
+							document.getElementById("git_checkout_action_from_treeish_inter_hunk_context_number").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+					}
+					break;
+				case "switch_branches":
+					switch(form_data.get("git_checkout_action_switch_branches_local_modification_action")){
+						case "force":
+							command_components.push("--force");
+							break;
+						case "merge":
+							command_components.push("--merge");
+							break;
+						case "conflict":
+							switch(form_data.get("git_checkout_action_switch_branches_local_modification_action_conflict_style")){
+								case "merge":
+									command_components.push("--conflict=merge");
+									break;
+								case "diff3":
+									command_components.push("--conflict=diff3");
+									break;
+								case "zdiff3":
+									command_components.push("--conflict=zdiff3");
+									break;
+							}
+							break;
+					}
+					switch(form_data.get("git_checkout_action_switch_branches_HEAD")){
+						case "no_option":
+							if(form_data.get("git_checkout_action_switch_branches_has_ignore_other_worktrees"))
+								command_components.push("--ignore-other-worktrees");
+							switch(form_data.get("git_checkout_action_switch_branches_guess")){
+								case "false":
+									command_components.push("--no-guess");
+									break;
+								case "true":
+									command_components.push("--guess");
+									break;
+							}
+							break;
+						case "detach":
+							command_components.push("--detach");
+							break;
+						case "b":
+							command_components.push("-b");
+							{
+								let element_value = form_data.get("git_checkout_action_switch_branches_HEAD_b_new_branch"), element_has_error = element_value.length == 0;
+								command_components.push(shell_quote(element_value));
+								document.getElementById("git_checkout_action_switch_branches_HEAD_b_new_branch").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							break;
+						case "B":
+							command_components.push("-B");
+							{
+								let element_value = form_data.get("git_checkout_action_switch_branches_HEAD_B_branch"), element_has_error = element_value.length == 0;
+								command_components.push(shell_quote(element_value));
+								document.getElementById("git_checkout_action_switch_branches_HEAD_B_branch").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							break;
+						case "orphan":
+							{
+								let element_value = form_data.get("git_checkout_action_switch_branches_HEAD_orphan_new_branch"), element_has_error = element_value.length == 0;
+								command_components.push("--orphan=" + shell_quote(element_value));
+								document.getElementById("git_checkout_action_switch_branches_HEAD_orphan_new_branch").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							break;
+					}
+					if(form_data.get("git_checkout_action_switch_branches_HEAD") == "no_option" || form_data.get("git_checkout_action_switch_branches_HEAD") == "b" || form_data.get("git_checkout_action_switch_branches_HEAD") == "B" || form_data.get("git_checkout_action_switch_branches_HEAD") == "orphan"){
+						if(form_data.get("git_checkout_action_switch_branches_has_l"))
+							command_components.push("-l");
+					}
+					if(form_data.get("git_checkout_action_switch_branches_HEAD") == "no_option" || form_data.get("git_checkout_action_switch_branches_HEAD") == "b" || form_data.get("git_checkout_action_switch_branches_HEAD") == "B"){
+						switch(form_data.get("git_checkout_action_switch_branches_track")){
+							case "track":
+								if(form_data.get("git_checkout_action_switch_branches_track_track_has_argument")){
+									switch(form_data.get("git_checkout_action_switch_branches_track_track_action")){
+										case "direct":
+											command_components.push("--track=direct");
+											break;
+										case "inherit":
+											command_components.push("--track=inherit");
+											break;
+									}
+								}
+								else{
+									command_components.push("--track");
+								}
+								break;
+							case "no_track":
+								command_components.push("--no-track");
+								break;
+						}
+					}
+					switch(form_data.get("git_checkout_action_switch_branches_overwrite_ignore")){
+						case "false":
+							command_components.push("--no-overwrite-ignore");
+							break;
+						case "true":
+							command_components.push("--overwrite-ignore");
+							break;
+					}
+					break;
+			}
+			switch(form_data.get("git_checkout_recurse_submodules")){
+				case "false":
+					command_components.push("--no-recurse-submodules");
+					break;
+				case "true":
+					command_components.push("--recurse-submodules");
+					break;
+			}
+			if(form_data.get("git_checkout_has_quiet"))
+				command_components.push("--quiet");
+			switch(form_data.get("git_checkout_progress")){
+				case "false":
+					command_components.push("--no-progress");
+					break;
+				case "true":
+					command_components.push("--progress");
+					break;
+			}
+
+			switch(form_data.get("git_checkout_action")){
+				case "from_index_pathspec_list":
+					command_components.push("--");
+					Array.from(document.getElementById("git_checkout_action_from_index_pathspec_list__").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "from_index_pathspec_from_file":
+					let element_value = form_data.get("git_checkout_action_from_index_pathspec_from_file_file"), element_has_error = element_value.length == 0;
+					command_components.push("--pathspec-from-file=" + shell_quote(element_value));
+					document.getElementById("git_checkout_action_from_index_pathspec_from_file_file").classList.toggle("error_input", element_has_error);
+					has_error ||= element_has_error;
+					if(form_data.get("git_checkout_action_from_index_has_pathspec_file_nul"))
+						command_components.push("--pathspec-file-nul");
+					break;
+				case "from_index_patch":
+					command_components.push("--");
+					Array.from(document.getElementById("git_checkout_action_from_index_pathspec_list__").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "from_treeish_pathspec_list":
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_checkout_action_from_treeish_treeish"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_checkout_action_from_treeish_treeish").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+
+					command_components.push("--");
+					Array.from(document.getElementById("git_checkout_action_from_treeish_pathspec_list__").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "from_treeish_pathspec_from_file":
+					{
+						let element_value = form_data.get("git_checkout_action_from_treeish_pathspec_from_file_file"), element_has_error = element_value.length == 0;
+						command_components.push("--pathspec-from-file=" + shell_quote(element_value));
+						document.getElementById("git_checkout_action_from_treeish_pathspec_from_file_file").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_checkout_action_from_treeish_has_pathspec_file_nul"))
+						command_components.push("--pathspec-file-nul");
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_checkout_action_from_treeish_treeish"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_checkout_action_from_treeish_treeish").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "from_treeish_patch":
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_checkout_action_from_treeish_treeish"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_checkout_action_from_treeish_treeish").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+
+					command_components.push("--");
+					Array.from(document.getElementById("git_checkout_action_from_treeish_pathspec_list__").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "switch_branches":
+					if(form_data.get("git_checkout_action_switch_branches_has_committish")){
+						command_components.push("--end-of-options");
+						let element_value = form_data.get("git_checkout_action_switch_branches_committish"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_checkout_action_switch_branches_committish").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+			}
+
+			let git_checkout_command = document.getElementById("git_checkout_command");
+			git_checkout_command.classList.toggle("error_output", has_error);
+			git_checkout_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_checkout_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_checkout_refresh);
+		});
+		Array.from(document.getElementById("git_checkout_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_checkout_refresh);
+		});
+	</script>
+</div>

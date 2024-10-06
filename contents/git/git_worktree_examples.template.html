@@ -1,0 +1,1420 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_list~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree list</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1; git -C './repo' branch branch2; git -C './repo' branch branch3; git -C './repo' branch branch4; git -C './repo' branch branch5; git -C './repo' branch branch6
+
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' worktree add '../worktree2' branch2
+			git -C './repo' worktree add --lock '../worktree3' branch3
+			git -C './repo' worktree add --lock '../worktree4' branch4
+			git -C './repo' worktree add --lock --reason='lock reason' '../worktree5' branch5
+			git -C './repo' worktree add --lock --reason='lock reason' '../worktree6' branch6
+			rm --force --recursive -- './worktree2' './worktree4' './worktree6'
+
+			git -C './repo' worktree list | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' worktree list --verbose | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' worktree list --porcelain | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' worktree list --porcelain -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree add</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+
+			git -C './worktree1' commit --message="$((++number))" --allow-empty
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+			tree '.'
+			treex './repo/.git/worktrees' './worktree1'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree add --force</span> when intending to checkout a branch in the new worktree and the new worktree's intended branch to checkout is already checked out by another worktree</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' checkout -b branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' worktree add --force '../worktree1' branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree add --force</span> create a new worktree when <span class="command">&lt;path&gt;</span> is already assigned to some worktree but is missing (if intending to checkout a branch in the new worktree and the new worktree's intended branch to checkout is already checked out by another worktree, still only needs 1 <span class="command">--force</span>)</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' worktree list --verbose
+			rm --force --recursive -- './worktree1'
+			git -C './repo' worktree list --verbose
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' worktree add --force '../worktree1' branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree add --force --force</span> create a new worktree when <span class="command">&lt;path&gt;</span> is already assigned to some worktree but is missing and locked (if intending to checkout a branch in the new worktree and the new worktree's intended branch to checkout is already checked out by another worktree, still only needs 2 <span class="command">--force</span>s)</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add --lock '../worktree1' branch1
+			git -C './repo' worktree list --verbose
+			rm --force --recursive -- './worktree1'
+			git -C './repo' worktree list --verbose
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' worktree add --force '../worktree1' branch1
+			git -C './repo' worktree add --force --force '../worktree1' branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree add --orphan</span></h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3">not <span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--detach</span></h3>
+			<p class="paragraph">if without <span class="command">--orphan</span> would checkout existent local branch, error out; otherwise create a new worktree with empty index, empty working tree and unborn branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' branch branch1
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+
+					git -C './repo' worktree add --orphan '../branch1'
+					git -C './repo' worktree add --orphan '../worktree1'
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+					git -C './worktree1' branch --show-current
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">-b</span></h3>
+			<p class="paragraph">create a new worktree with empty index, empty working tree and unborn branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+
+					git -C './repo' worktree add --orphan -b branch1 '../worktree1'
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+					git -C './worktree1' branch --show-current
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">-B</span></h3>
+			<p class="paragraph">if without <span class="command">--orphan</span> would reset existent local branch, error out; otherwise create a new worktree with empty index, empty working tree and unborn branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' branch branch1
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+
+					git -C './repo' worktree add --orphan -B branch1 '../worktree1'
+					git -C './repo' branch --delete branch1
+					git -C './repo' worktree add --orphan -B branch1 '../worktree1'
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+					git -C './worktree1' branch --show-current
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--detach</span></h3>
+			<p class="paragraph">isn't allowed</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+
+					git -C './repo' worktree add --orphan --detach '../worktree1'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree add</span> (without <span class="command">--orphan</span>) <span class="command">&lt;commit-ish&gt;</span> is given or omitted <span class="command">&lt;commit-ish&gt;</span> defaults to <span class="inline_code">HEAD</span> and <span class="inline_code">HEAD</span> isn't unborn branch</h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3">not <span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--detach</span></h3>
+			<p class="paragraph">(see below)</p>
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">-b</span></h3>
+			<p class="paragraph">create new branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' branch branch1
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+
+					git -C './repo' worktree add -b branch1 '../worktree1'
+					git -C './repo' worktree add -b branch2 '../worktree1'
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">-B</span></h3>
+			<p class="paragraph">create new branch or reset existent local branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' branch branch1
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+
+					git -C './repo' worktree add -b branch1 '../worktree1'
+					git -C './repo' worktree add -B branch1 '../worktree1'
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--detach</span></h3>
+			<p class="paragraph">new worktree's <span class="inline_code">HEAD</span> is detached</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+
+					git -C './repo' worktree add --detach '../worktree1'
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree add</span> (without <span class="command">--orphan</span>) omitted <span class="command">&lt;commit-ish&gt;</span> defaults to <span class="inline_code">HEAD</span> and <span class="inline_code">HEAD</span> is unborn branch</h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3">not <span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--detach</span></h3>
+			<p class="paragraph">(see below)</p>
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">-b</span></h3>
+			<p class="paragraph">behaves as if <span class="command">--orphan</span> is used</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+
+					git -C './repo' worktree add -b branch1 '../worktree1'
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+					git -C './worktree1' branch --show-current
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">-B</span></h3>
+			<p class="paragraph">behaves as if <span class="command">--orphan</span> is used</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' checkout --orphan branch1
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+
+					git -C './repo' worktree add -B branch1 '../worktree1'
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+					git -C './worktree1' branch --show-current
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--detach</span></h3>
+			<p class="paragraph">error out with message saying <span class="command">--orphan</span> should be used</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+
+					git -C './repo' worktree add --detach '../worktree1'
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree add</span> (without <span class="command">--orphan</span>) (not <span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--detach</span>)</h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3">if <span class="command">&lt;commit-ish&gt;</span> is existent local branch name</h3>
+			<p class="paragraph">checkout the existent local branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' branch branch1
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+
+					git -C './repo' worktree add '../worktree1' branch1
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './worktree1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+
+					git -C './worktree1' commit --message="$((++number))" --allow-empty
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">if <span class="command">&lt;commit-ish&gt;</span> isn't existent local branch name</h3>
+			<p class="paragraph">when 0 or more than 1 remotes have tracking branch with matching name</p>
+			<div class="ml-[2em]">
+				<p class="paragraph">error out</p>
+			</div>
+			<p class="paragraph">when more than 1 remotes have tracking branch with matching name but one of the remote is <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-checkoutdefaultRemote"><span class="inline_code">checkout.defaultRemote</span></a>, or 1 remote has tracking branch with matching name</p>
+			<div class="ml-[2em]">
+				<p class="paragraph">equivalent to <span class="command">git worktree add -b &lt;branch&gt; --track &lt;path&gt; &lt;remote-tracking branch&gt;</span></p>
+			</div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server1' './server2' './client/repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server1' init --bare './repo.git'
+					git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server1/repo.git' branch branch2; git -C './server1/repo.git' branch branch3
+
+					git -C './server2' init --bare './repo.git'
+					git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server2/repo.git' branch branch2
+
+					git -C './client/repo' init
+					git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+					git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' fetch --all
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+
+					git -C './client/repo' worktree add '../worktree1' branch1
+					git -C './client/repo' worktree add '../worktree2' branch2
+					git -C './client/repo' -c checkout.defaultRemote='server1' worktree add '../worktree2' branch2
+					git -C './client/repo' worktree add '../worktree3' branch3
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+					git -C './client/worktree2' branch --list --all --verbose --verbose
+					git -C './client/worktree2' worktree list --verbose
+					git -C './client/worktree2' lg --all
+					git -C './client/worktree3' branch --list --all --verbose --verbose
+					git -C './client/worktree3' worktree list --verbose
+					git -C './client/worktree3' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">if <span class="command">&lt;commit-ish&gt;</span> is omitted and basename of <span class="command">&lt;path&gt;</span> is existent local branch name</h3>
+			<p class="paragraph">checkout the existent local branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' branch branch1
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+
+					git -C './repo' worktree add '../branch1'
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './branch1' worktree list --verbose
+					git -C './branch1' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">if <span class="command">&lt;commit-ish&gt;</span> is omitted and basename of <span class="command">&lt;path&gt;</span> isn't existent local branch name</h3>
+			<p class="paragraph">(see below)</p>
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree add</span> (without <span class="command">--orphan</span>) (not <span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--detach</span>) (<span class="command">&lt;commit-ish&gt;</span> is omitted and basename of <span class="command">&lt;path&gt;</span> isn't existent local branch name)</h2>
+	<div>
+		<h3 class="heading3">omitted <span class="command">&lt;commit-ish&gt;</span> defaults to <span class="inline_code">HEAD</span> and <span class="inline_code">HEAD</span> isn't unborn branch</h3>
+		<p class="paragraph">create new branch</p>
+		{{
+			git config set --system --all 'color.ui' 'always';
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+			"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				git -C './repo' init
+				git -C './repo' commit --message="$((++number))" --allow-empty
+				git -C './repo' branch branch1
+				git -C './repo' worktree list --verbose
+				git -C './repo' lg --all
+
+				git -C './repo' worktree add '../worktree1'
+				git -C './repo' worktree list --verbose
+				git -C './repo' lg --all
+				git -C './worktree1' worktree list --verbose
+				git -C './worktree1' lg --all
+			EOF0
+			git config unset --system --all 'color.ui';
+		}}
+	</div>
+
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	<h3 class="heading3">omitted <span class="command">&lt;commit-ish&gt;</span> defaults to <span class="inline_code">HEAD</span> and <span class="inline_code">HEAD</span> is unborn branch</h3>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3">no local branches &amp;&amp; (! <span class="command">--guess-remote</span> || no remotes)</h3>
+			<p class="paragraph">behaves as if <span class="command">--orphan</span> is used</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+
+					git -C './repo' worktree add '../worktree1'
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './repo' branch --show-current
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+					git -C './worktree1' branch --show-current
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">no local branches &amp;&amp; <span class="command">--guess-remote</span> &amp;&amp; has remotes &amp;&amp; no remote branches</h3>
+			<p class="paragraph">needs <span class="command">--force</span>, behaves as if <span class="command">--orphan</span> is used</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client/repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+
+					git -C './client/repo' init
+					git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+					git -C './client/repo' branch --show-current
+
+					git -C './client/repo' worktree add --guess-remote '../worktree'
+					git -C './client/repo' worktree add --guess-remote --force '../worktree'
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+					git -C './client/repo' branch --show-current
+					git -C './client/worktree' worktree list --verbose
+					git -C './client/worktree' lg --all
+					git -C './client/worktree' branch --show-current
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">no local branches &amp;&amp; <span class="command">--guess-remote</span> &amp;&amp; has remotes &amp;&amp; at least 1 remote branches ||<br>has local branches (no local branch with matching name) &amp;&amp; <span class="command">--guess-remote</span> &amp;&amp; has remotes &amp;&amp; at least 1 remote branches</h3>
+			<p class="paragraph">when 0 or more than 1 remotes have tracking branch with matching name</p>
+			<div class="ml-[2em]">
+				<p class="paragraph">error out saying "use <span class="command">--orphan</span>"</p>
+			</div>
+			<p class="paragraph">when more than 1 remotes have tracking branch with matching name but one of the remote is <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-checkoutdefaultRemote"><span class="inline_code">checkout.defaultRemote</span></a>, or 1 remote has tracking branch with matching name</p>
+			<div class="ml-[2em]">
+				<p class="paragraph">equivalent to <span class="command">git worktree add -b "$(basename &lt;path&gt;)" --track &lt;path&gt; &lt;remote-tracking branch&gt;</span></p>
+			</div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server1' './server2' './client/repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server1' init --bare './repo.git'
+					git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server1/repo.git' branch branch2; git -C './server1/repo.git' branch branch3
+
+					git -C './server2' init --bare './repo.git'
+					git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server2/repo.git' branch branch2
+
+					git -C './client/repo' init
+					git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+					git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' fetch --all
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+
+					git -C './client/repo' worktree add --guess-remote '../branch1'
+					git -C './client/repo' worktree add --guess-remote --force '../branch1'
+					git -C './client/repo' worktree add --guess-remote --force --force '../branch1'
+					git -C './client/repo' worktree add --guess-remote '../branch2'
+					git -C './client/repo' worktree add --guess-remote --force '../branch2'
+					git -C './client/repo' worktree add --guess-remote --force --force '../branch2'
+					git -C './client/repo' -c checkout.defaultRemote='server1' worktree add --guess-remote '../branch2'
+					git -C './client/repo' worktree add --guess-remote '../branch3'
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+					git -C './client/branch2' branch --list --all --verbose --verbose
+					git -C './client/branch2' worktree list --verbose
+					git -C './client/branch2' lg --all
+					git -C './client/branch3' branch --list --all --verbose --verbose
+					git -C './client/branch3' worktree list --verbose
+					git -C './client/branch3' lg --all
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server1' './server2' './client/repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server1' init --bare './repo.git'
+					git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server1/repo.git' branch branch2; git -C './server1/repo.git' branch branch3
+
+					git -C './server2' init --bare './repo.git'
+					git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server2/repo.git' branch branch2
+
+					git -C './client/repo' init
+					git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+					git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' fetch --all
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+
+					git -C './client/repo' branch --show-current
+					HEAD_old="$(git -C './client/repo' symbolic-ref HEAD)"; echo "$HEAD_old"
+					git -C './client/repo' checkout --orphan branch0
+					git -C './client/repo' branch --show-current
+					git -C './client/repo' symbolic-ref HEAD
+					git -C './client/repo' commit --message="$((++number))" --allow-empty
+					git -C './client/repo' symbolic-ref HEAD "$HEAD_old"
+					git -C './client/repo' branch --show-current
+					git -C './client/repo' symbolic-ref HEAD
+
+					git -C './client/repo' worktree add --guess-remote '../branch1'
+					git -C './client/repo' worktree add --guess-remote --force '../branch1'
+					git -C './client/repo' worktree add --guess-remote --force --force '../branch1'
+					git -C './client/repo' worktree add --guess-remote '../branch2'
+					git -C './client/repo' worktree add --guess-remote --force '../branch2'
+					git -C './client/repo' worktree add --guess-remote --force --force '../branch2'
+					git -C './client/repo' -c checkout.defaultRemote='server1' worktree add --guess-remote '../branch2'
+					git -C './client/repo' worktree add --guess-remote '../branch3'
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+					git -C './client/branch2' branch --list --all --verbose --verbose
+					git -C './client/branch2' worktree list --verbose
+					git -C './client/branch2' lg --all
+					git -C './client/branch3' branch --list --all --verbose --verbose
+					git -C './client/branch3' worktree list --verbose
+					git -C './client/branch3' lg --all
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">has local branches (no local branch with matching name) &amp;&amp; ! (<span class="command">--guess-remote</span> &amp;&amp; has remotes &amp;&amp; at least 1 remote branches)</h3>
+			<p class="paragraph">error out saying "use <span class="command">--orphan</span>"</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client/repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+
+					git -C './client/repo' init
+					git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+
+					git -C './client/repo' branch --show-current
+					HEAD_old="$(git -C './client/repo' symbolic-ref HEAD)"; echo "$HEAD_old"
+					git -C './client/repo' checkout --orphan branch1
+					git -C './client/repo' branch --show-current
+					git -C './client/repo' symbolic-ref HEAD
+					git -C './client/repo' commit --message="$((++number))" --allow-empty
+					git -C './client/repo' symbolic-ref HEAD "$HEAD_old"
+					git -C './client/repo' branch --show-current
+					git -C './client/repo' symbolic-ref HEAD
+
+					git -C './client/repo' worktree add '../branch2'
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree add --track/--no-track</span></h2>
+	<p class="paragraph">use <span class="command">--no-track</span> to override the default behavior for remote-tracking branches</p>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3"><span class="command">git worktree add</span> (without <span class="command">--orphan</span>) (<span class="command">&lt;commit-ish&gt;</span> is given)</h3>
+			<p class="paragraph"><span class="command">-b</span></p>
+			<p class="paragraph">create new branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client/repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server/repo.git' branch branch1
+
+					git -C './client/repo' init
+					git -C './client/repo' commit --message="$((++number))" --allow-empty
+					git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' fetch --all
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+
+					git -C './client/repo' worktree add -b branch11 '../worktree11' remotes/server/branch1
+					git -C './client/repo' worktree add -b branch12 --no-track '../worktree12' remotes/server/branch1
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+					git -C './client/worktree11' branch --list --all --verbose --verbose
+					git -C './client/worktree11' worktree list --verbose
+					git -C './client/worktree11' lg --all
+					git -C './client/worktree12' branch --list --all --verbose --verbose
+					git -C './client/worktree12' worktree list --verbose
+					git -C './client/worktree12' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">git worktree add</span> (without <span class="command">--orphan</span>) (<span class="command">&lt;commit-ish&gt;</span> is given)</h3>
+			<p class="paragraph"><span class="command">-B</span></p>
+			<p class="paragraph">create new branch or reset existent local branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client/repo' './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server/repo.git' branch branch1
+
+					git -C './client/repo' init
+					git -C './client/repo' commit --message="$((++number))" --allow-empty
+					git -C './client/repo' branch branch11
+					git -C './client/repo' branch branch12
+					git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' fetch --all
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+
+					git -C './client/repo' worktree add -B branch11 '../worktree11' remotes/server/branch1
+					git -C './client/repo' worktree add -B branch12 --no-track '../worktree12' remotes/server/branch1
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+					git -C './client/worktree11' branch --list --all --verbose --verbose
+					git -C './client/worktree11' worktree list --verbose
+					git -C './client/worktree11' lg --all
+					git -C './client/worktree12' branch --list --all --verbose --verbose
+					git -C './client/worktree12' worktree list --verbose
+					git -C './client/worktree12' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">git worktree add</span> (without <span class="command">--orphan</span>) (<span class="command">&lt;commit-ish&gt;</span> isn't existent local branch name)</h3>
+			<p class="paragraph">(not <span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--detach</span>)</p>
+			<p class="paragraph"><span class="command">--no-track</span> reverses <span class="command">--track</span> in <span class="command">git worktree add --track -b &lt;branch&gt; &lt;path&gt; &lt;remote-tracking branch&gt;</span></p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server1' './server2' './client/repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server1' init --bare './repo.git'
+					git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server1/repo.git' branch branch2; git -C './server1/repo.git' branch branch3
+
+					git -C './server2' init --bare './repo.git'
+					git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server2/repo.git' branch branch2
+
+					git -C './client/repo' init
+					git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+					git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' fetch --all
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+
+					git -C './client/repo' worktree add '../worktree1' branch1
+					git -C './client/repo' worktree add --no-track '../worktree2' branch2
+					git -C './client/repo' -c checkout.defaultRemote='server1' worktree add --no-track '../worktree2' branch2
+					git -C './client/repo' worktree add --no-track '../worktree3' branch3
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' worktree list --verbose
+					git -C './client/repo' lg --all
+					git -C './client/worktree2' branch --list --all --verbose --verbose
+					git -C './client/worktree2' worktree list --verbose
+					git -C './client/worktree2' lg --all
+					git -C './client/worktree3' branch --list --all --verbose --verbose
+					git -C './client/worktree3' worktree list --verbose
+					git -C './client/worktree3' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_move~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree move</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+
+			git -C './worktree1' worktree move '../repo' '../repository'
+			git -C './repo' worktree move '../worktree1' '../worktree2'
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree2' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree2' worktree list --verbose
+			git -C './worktree2' lg --all
+			tree '.'
+			treex './repo/.git/worktrees' './worktree2'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_move~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree move --force --force</span> move a locked worktree</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add --lock '../worktree1' branch1
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+
+			git -C './repo' worktree move '../worktree1' '../worktree2'
+			git -C './repo' worktree move --force '../worktree1' '../worktree2'
+			git -C './repo' worktree move --force --force '../worktree1' '../worktree2'
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree2' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree2' worktree list --verbose
+			git -C './worktree2' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_move~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree move --force</span> if the destination is already assigned to some other worktree but is missing (but if the source is locked, then needs 2 <span class="command">--force</span>s)</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1; git -C './repo' branch branch2
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' worktree add '../worktree2' branch2
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+			git -C './worktree2' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree2' worktree list --verbose
+			git -C './worktree2' lg --all
+
+			rm --force --recursive -- './worktree2'
+			git -C './repo' worktree move '../worktree1' '../worktree2'
+			git -C './repo' worktree move --force '../worktree1' '../worktree2'
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree2' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree2' worktree list --verbose
+			git -C './worktree2' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_move~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree move --force --force</span> if the destination is already assigned to some other worktree but is missing and locked (if the source is locked, still only needs 2 <span class="command">--force</span>s)</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1; git -C './repo' branch branch2
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' worktree add --lock '../worktree2' branch2
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+			git -C './worktree2' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree2' worktree list --verbose
+			git -C './worktree2' lg --all
+
+			rm --force --recursive -- './worktree2'
+			git -C './repo' worktree move '../worktree1' '../worktree2'
+			git -C './repo' worktree move --force '../worktree1' '../worktree2'
+			git -C './repo' worktree move --force --force '../worktree1' '../worktree2'
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree2' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree2' worktree list --verbose
+			git -C './worktree2' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_remove~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree remove</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+			tree '.'
+
+			git -C './worktree1' worktree remove '../repo'
+			git -C './repo' worktree remove '../worktree1'
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			tree '.'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_remove~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree remove --force</span> remove dirty worktree</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+
+			touch -- './worktree1/file'
+			git -C './repo' worktree remove '../worktree1'
+			git -C './repo' worktree remove --force '../worktree1'
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_remove~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree remove --force --force</span> remove locked worktree (if worktree is dirty, still only needs 2 <span class="command">--force</span>s)</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add --lock '../worktree1' branch1
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+
+			git -C './repo' worktree remove '../worktree1'
+			git -C './repo' worktree remove --force '../worktree1'
+			git -C './repo' worktree remove --force --force '../worktree1'
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_prune~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree prune</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+			tree '.'
+
+			rm --force --recursive -- './worktree1'
+			git -C './repo' worktree list --verbose
+			git -C './repo' worktree lock '../worktree1'
+			git -C './repo' worktree list --verbose
+			git -C './repo' worktree prune --dry-run
+			git -C './repo' worktree list --verbose
+			git -C './repo' worktree prune --verbose
+			git -C './repo' worktree list --verbose
+			git -C './repo' worktree unlock '../worktree1'
+			git -C './repo' worktree list --verbose
+			git -C './repo' worktree prune --dry-run
+			git -C './repo' worktree list --verbose
+			git -C './repo' worktree prune --verbose
+			git -C './repo' worktree list --verbose
+			tree '.'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_lock~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_unlock~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree lock</span><br><span class="command">git worktree unlock</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+			treex './repo/.git/worktrees'
+
+			git -C './repo' worktree lock '../worktree1'
+			treex './repo/.git/worktrees'
+			git -C './repo' worktree unlock '../worktree1'
+			treex './repo/.git/worktrees'
+
+			git -C './repo' worktree lock --reason='lock reason' '../worktree1'
+			treex './repo/.git/worktrees'
+			git -C './repo' worktree unlock '../worktree1'
+			treex './repo/.git/worktrees'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_repair~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree repair</span> If linked worktrees have been moved manually,</h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3">from moved linked worktree, fix itself by giving empty path list</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' branch branch1; git -C './repo' branch branch2
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+
+					git -C './repo' worktree add '../worktree1' branch1
+					git -C './repo' worktree add '../worktree2' branch2
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+					git -C './worktree2' worktree list --verbose
+					git -C './worktree2' lg --all
+					treex './repo/.git/worktrees' './worktree1' './worktree2'
+
+					mv './worktree1' './worktree1_'
+					mv './worktree2' './worktree2_'
+					git -C './worktree1_' worktree repair
+					treex './repo/.git/worktrees'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">from moved linked worktree, fix itself by giving path of itself</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' branch branch1; git -C './repo' branch branch2
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+
+					git -C './repo' worktree add '../worktree1' branch1
+					git -C './repo' worktree add '../worktree2' branch2
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+					git -C './worktree2' worktree list --verbose
+					git -C './worktree2' lg --all
+					treex './repo/.git/worktrees' './worktree1' './worktree2'
+
+					mv './worktree1' './worktree1_'
+					mv './worktree2' './worktree2_'
+					git -C './worktree1_' worktree repair '.'
+					treex './repo/.git/worktrees'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">from moved linked worktree, fix other moved linked worktrees</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' branch branch1; git -C './repo' branch branch2
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+
+					git -C './repo' worktree add '../worktree1' branch1
+					git -C './repo' worktree add '../worktree2' branch2
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+					git -C './worktree2' worktree list --verbose
+					git -C './worktree2' lg --all
+					treex './repo/.git/worktrees' './worktree1' './worktree2'
+
+					mv './worktree1' './worktree1_'
+					mv './worktree2' './worktree2_'
+					git -C './worktree1_' worktree repair '../worktree2_'
+					treex './repo/.git/worktrees'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">from moved linked worktree, fix itself and other moved linked worktrees by giving paths of itself and other moved linked worktrees</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' branch branch1; git -C './repo' branch branch2
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+
+					git -C './repo' worktree add '../worktree1' branch1
+					git -C './repo' worktree add '../worktree2' branch2
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+					git -C './worktree2' worktree list --verbose
+					git -C './worktree2' lg --all
+					treex './repo/.git/worktrees' './worktree1' './worktree2'
+
+					mv './worktree1' './worktree1_'
+					mv './worktree2' './worktree2_'
+					git -C './worktree1_' worktree repair '.' '../worktree2_'
+					treex './repo/.git/worktrees'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">from main worktree, fix moved linked worktrees</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' init
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' branch branch1; git -C './repo' branch branch2
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+
+					git -C './repo' worktree add '../worktree1' branch1
+					git -C './repo' worktree add '../worktree2' branch2
+					git -C './repo' worktree list --verbose
+					git -C './repo' lg --all
+					git -C './worktree1' worktree list --verbose
+					git -C './worktree1' lg --all
+					git -C './worktree2' worktree list --verbose
+					git -C './worktree2' lg --all
+					treex './repo/.git/worktrees' './worktree1' './worktree2'
+
+					mv './worktree1' './worktree1_'
+					mv './worktree2' './worktree2_'
+					git -C './repo' worktree repair '../worktree1_' '../worktree2_'
+					treex './repo/.git/worktrees'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_repair~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree repair</span> If main worktree has been moved manually, run <span class="command">repair</span> in the main worktree.</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1; git -C './repo' branch branch2
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' worktree add '../worktree2' branch2
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+			git -C './worktree2' worktree list --verbose
+			git -C './worktree2' lg --all
+			treex './repo/.git/worktrees' './worktree1' './worktree2'
+
+			mv './repo' './repo_'
+			git -C './worktree1' worktree repair '../repo_'
+			git -C './repo_' worktree repair
+			treex './worktree1' './worktree2'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_worktree~*_&]:block [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_repair~*_&]:block">
+	<h2 class="heading2"><span class="command">git worktree repair</span> If both the main worktree and linked worktrees have been moved manually, then running <span class="command">repair</span> in the main worktree and specifying the new <span class="command">&lt;path&gt;</span> of each linked worktree will reestablish all connections in both directions.</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1; git -C './repo' branch branch2
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' worktree add '../worktree2' branch2
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+			git -C './worktree2' worktree list --verbose
+			git -C './worktree2' lg --all
+			treex './repo/.git/worktrees' './worktree1' './worktree2'
+
+			mv './repo' './repo_'
+			mv './worktree1' './worktree1_'
+			mv './worktree2' './worktree2_'
+			git -C './worktree1_' worktree repair '../worktree2_' '../repo_'
+			git -C './repo_' worktree repair '../worktree1_' '../worktree2_'
+			treex './repo_/.git/worktrees' './worktree1_' './worktree2_'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
