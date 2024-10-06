@@ -1,0 +1,334 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_add~*_&]:block [#reference\_desk\_dispatcher\_example.git\_add\_filter\_by\_existence~*_&]:block">
+	<h2 class="heading2"><span class="command">git add</span> filter by existence</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'; mkdir -- './repo/dir'
+			echo '1' >'./repo/file_add'; echo '2' >'./repo/file_modify'; echo '4' >'./repo/file_remove'; git -C './repo' add './file_modify' './file_remove'; echo '3' >'./repo/file_modify'; rm -- './repo/file_remove'
+			echo '5' >'./repo/dir/file_add'; echo '6' >'./repo/dir/file_modify'; echo '8' >'./repo/dir/file_remove'; git -C './repo/dir' add './file_modify' './file_remove'; echo '7' >'./repo/dir/file_modify'; rm -- './repo/dir/file_remove'
+			mkdir -- './repo/dir_add' './repo/dir/dir_add'; echo '9' >'./repo/dir_add/file'; echo '10' >'./repo/dir/dir_add/file'
+			git -C './repo' ls-files --stage --others
+			git -C './repo' status --verbose --verbose
+			git -C './repo/dir' ls-files --stage --others
+			git -C './repo/dir' status --verbose --verbose '.'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3">not <span class="command">--all</span>/<span class="command">--update</span>/<span class="command">--ignore-removal</span></h3>
+			<p class="paragraph">no <span class="command">&lt;pathspec&gt;</span>: no-op</p>
+			<p class="paragraph"><span class="command">&lt;pathspec&gt;</span>: add/modify/remove</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo/dir' add --dry-run
+					git -C './repo/dir' add --dry-run '.'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--all</span></h3>
+			<p class="paragraph">no <span class="command">&lt;pathspec&gt;</span>: add/modify/remove entire working tree</p>
+			<p class="paragraph"><span class="command">&lt;pathspec&gt;</span>: add/modify/remove</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo/dir' add --dry-run --all
+					git -C './repo/dir' add --dry-run --all '.'
+				EOF0
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--update</span></h3>
+			<p class="paragraph">no <span class="command">&lt;pathspec&gt;</span>: modify/remove entire working tree</p>
+			<p class="paragraph"><span class="command">&lt;pathspec&gt;</span>: modify/remove</p>
+			{{
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo/dir' add --dry-run --update
+					git -C './repo/dir' add --dry-run --update '.'
+				EOF0
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--ignore-removal</span></h3>
+			<p class="paragraph">no <span class="command">&lt;pathspec&gt;</span>: no-op</p>
+			<p class="paragraph"><span class="command">&lt;pathspec&gt;</span>: add/modify</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd './test_git';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo/dir' add --dry-run --ignore-removal
+					git -C './repo/dir' add --dry-run --ignore-removal '.'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_add~*_&]:block [#reference\_desk\_dispatcher\_example.git\_add\_filter\_by\_gitignore\_patterns~*_&]:block">
+	<h2 class="heading2"><span class="command">git add --force</span> filter by <span class="inline_code">gitignore</span> patterns</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'; mkdir -- './repo/dir' './repo/dir/dir'
+			touch -- './repo/file_add' './repo/file_new' './repo/dir/file_add' './repo/dir/file_new' './repo/dir/dir/file_add' './repo/dir/dir/file_new'
+			echo '*_add' > './repo/.gitignore'
+			git -C './repo' add --dry-run '.'
+			git -C './repo' add --dry-run --force '.'
+			git -C './repo' add --dry-run '*'
+			git -C './repo' add --dry-run --force '*'
+			git -C './repo' add --dry-run '*/*'
+			git -C './repo' add --dry-run --force '*/*'
+			git -C './repo' add --dry-run './file_add'
+			git -C './repo' add --dry-run --force './file_add'
+			git -C './repo' add --dry-run './file_new'
+			git -C './repo' add --dry-run --force './file_new'
+			git -C './repo' add --dry-run 'file_add'
+			git -C './repo' add --dry-run --force 'file_add'
+			git -C './repo' add --dry-run 'file_new'
+			git -C './repo' add --dry-run --force 'file_new'
+			git -C './repo' add --dry-run '*file_add'
+			git -C './repo' add --dry-run --force '*file_add'
+			git -C './repo' add --dry-run '*file_new'
+			git -C './repo' add --dry-run --force '*file_new'
+			git -C './repo' add --dry-run '*file*'
+			git -C './repo' add --dry-run --force '*file*'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_add~*_&]:block [#reference\_desk\_dispatcher\_example.git\_add\_action\_intent\_to\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git add --intent-to-add</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'; mkdir -- './repo/dir'
+			echo '1' >'./repo/file_add'; echo '2' >'./repo/file_modify'; echo '4' >'./repo/file_remove'; git -C './repo' add './file_modify' './file_remove'; echo '3' >'./repo/file_modify'; rm -- './repo/file_remove'
+			echo '5' >'./repo/dir/file_add'; echo '6' >'./repo/dir/file_modify'; echo '8' >'./repo/dir/file_remove'; git -C './repo/dir' add './file_modify' './file_remove'; echo '7' >'./repo/dir/file_modify'; rm -- './repo/dir/file_remove'
+			mkdir -- './repo/dir_add' './repo/dir/dir_add'; echo '9' >'./repo/dir_add/file'; echo '10' >'./repo/dir/dir_add/file'
+			git -C './repo' ls-files --stage --others
+			git -C './repo' status --verbose --verbose
+			git -C './repo/dir' ls-files --stage --others
+			git -C './repo/dir' status --verbose --verbose '.'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3">not <span class="command">--all</span>/<span class="command">--update</span>/<span class="command">--ignore-removal</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				git init --quiet './repo'; mkdir -- './repo/dir'
+				echo '1' >'./repo/file_add'; echo '2' >'./repo/file_modify'; echo '4' >'./repo/file_remove'; git -C './repo' add './file_modify' './file_remove'; echo '3' >'./repo/file_modify'; rm -- './repo/file_remove'
+				echo '5' >'./repo/dir/file_add'; echo '6' >'./repo/dir/file_modify'; echo '8' >'./repo/dir/file_remove'; git -C './repo/dir' add './file_modify' './file_remove'; echo '7' >'./repo/dir/file_modify'; rm -- './repo/dir/file_remove'
+				mkdir -- './repo/dir_add' './repo/dir/dir_add'; echo '9' >'./repo/dir_add/file'; echo '10' >'./repo/dir/dir_add/file'
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo/dir' add --intent-to-add
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo/dir' ls-files --stage --others
+					git -C './repo/dir' status --verbose --verbose '.'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				git init --quiet './repo'; mkdir -- './repo/dir'
+				echo '1' >'./repo/file_add'; echo '2' >'./repo/file_modify'; echo '4' >'./repo/file_remove'; git -C './repo' add './file_modify' './file_remove'; echo '3' >'./repo/file_modify'; rm -- './repo/file_remove'
+				echo '5' >'./repo/dir/file_add'; echo '6' >'./repo/dir/file_modify'; echo '8' >'./repo/dir/file_remove'; git -C './repo/dir' add './file_modify' './file_remove'; echo '7' >'./repo/dir/file_modify'; rm -- './repo/dir/file_remove'
+				mkdir -- './repo/dir_add' './repo/dir/dir_add'; echo '9' >'./repo/dir_add/file'; echo '10' >'./repo/dir/dir_add/file'
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo/dir' add --intent-to-add '.'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo/dir' ls-files --stage --others
+					git -C './repo/dir' status --verbose --verbose '.'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--all</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				git init --quiet './repo'; mkdir -- './repo/dir'
+				echo '1' >'./repo/file_add'; echo '2' >'./repo/file_modify'; echo '4' >'./repo/file_remove'; git -C './repo' add './file_modify' './file_remove'; echo '3' >'./repo/file_modify'; rm -- './repo/file_remove'
+				echo '5' >'./repo/dir/file_add'; echo '6' >'./repo/dir/file_modify'; echo '8' >'./repo/dir/file_remove'; git -C './repo/dir' add './file_modify' './file_remove'; echo '7' >'./repo/dir/file_modify'; rm -- './repo/dir/file_remove'
+				mkdir -- './repo/dir_add' './repo/dir/dir_add'; echo '9' >'./repo/dir_add/file'; echo '10' >'./repo/dir/dir_add/file'
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo/dir' add --intent-to-add --all
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo/dir' ls-files --stage --others
+					git -C './repo/dir' status --verbose --verbose '.'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				git init --quiet './repo'; mkdir -- './repo/dir'
+				echo '1' >'./repo/file_add'; echo '2' >'./repo/file_modify'; echo '4' >'./repo/file_remove'; git -C './repo' add './file_modify' './file_remove'; echo '3' >'./repo/file_modify'; rm -- './repo/file_remove'
+				echo '5' >'./repo/dir/file_add'; echo '6' >'./repo/dir/file_modify'; echo '8' >'./repo/dir/file_remove'; git -C './repo/dir' add './file_modify' './file_remove'; echo '7' >'./repo/dir/file_modify'; rm -- './repo/dir/file_remove'
+				mkdir -- './repo/dir_add' './repo/dir/dir_add'; echo '9' >'./repo/dir_add/file'; echo '10' >'./repo/dir/dir_add/file'
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo/dir' add --intent-to-add --all '.'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo/dir' ls-files --stage --others
+					git -C './repo/dir' status --verbose --verbose '.'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--update</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				git init --quiet './repo'; mkdir -- './repo/dir'
+				echo '1' >'./repo/file_add'; echo '2' >'./repo/file_modify'; echo '4' >'./repo/file_remove'; git -C './repo' add './file_modify' './file_remove'; echo '3' >'./repo/file_modify'; rm -- './repo/file_remove'
+				echo '5' >'./repo/dir/file_add'; echo '6' >'./repo/dir/file_modify'; echo '8' >'./repo/dir/file_remove'; git -C './repo/dir' add './file_modify' './file_remove'; echo '7' >'./repo/dir/file_modify'; rm -- './repo/dir/file_remove'
+				mkdir -- './repo/dir_add' './repo/dir/dir_add'; echo '9' >'./repo/dir_add/file'; echo '10' >'./repo/dir/dir_add/file'
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo/dir' add --intent-to-add --update
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo/dir' ls-files --stage --others
+					git -C './repo/dir' status --verbose --verbose '.'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				git init --quiet './repo'; mkdir -- './repo/dir'
+				echo '1' >'./repo/file_add'; echo '2' >'./repo/file_modify'; echo '4' >'./repo/file_remove'; git -C './repo' add './file_modify' './file_remove'; echo '3' >'./repo/file_modify'; rm -- './repo/file_remove'
+				echo '5' >'./repo/dir/file_add'; echo '6' >'./repo/dir/file_modify'; echo '8' >'./repo/dir/file_remove'; git -C './repo/dir' add './file_modify' './file_remove'; echo '7' >'./repo/dir/file_modify'; rm -- './repo/dir/file_remove'
+				mkdir -- './repo/dir_add' './repo/dir/dir_add'; echo '9' >'./repo/dir_add/file'; echo '10' >'./repo/dir/dir_add/file'
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo/dir' add --intent-to-add --update '.'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo/dir' ls-files --stage --others
+					git -C './repo/dir' status --verbose --verbose '.'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--ignore-removal</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				git init --quiet './repo'; mkdir -- './repo/dir'
+				echo '1' >'./repo/file_add'; echo '2' >'./repo/file_modify'; echo '4' >'./repo/file_remove'; git -C './repo' add './file_modify' './file_remove'; echo '3' >'./repo/file_modify'; rm -- './repo/file_remove'
+				echo '5' >'./repo/dir/file_add'; echo '6' >'./repo/dir/file_modify'; echo '8' >'./repo/dir/file_remove'; git -C './repo/dir' add './file_modify' './file_remove'; echo '7' >'./repo/dir/file_modify'; rm -- './repo/dir/file_remove'
+				mkdir -- './repo/dir_add' './repo/dir/dir_add'; echo '9' >'./repo/dir_add/file'; echo '10' >'./repo/dir/dir_add/file'
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo/dir' add --intent-to-add --ignore-removal
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo/dir' ls-files --stage --others
+					git -C './repo/dir' status --verbose --verbose '.'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				git init --quiet './repo'; mkdir -- './repo/dir'
+				echo '1' >'./repo/file_add'; echo '2' >'./repo/file_modify'; echo '4' >'./repo/file_remove'; git -C './repo' add './file_modify' './file_remove'; echo '3' >'./repo/file_modify'; rm -- './repo/file_remove'
+				echo '5' >'./repo/dir/file_add'; echo '6' >'./repo/dir/file_modify'; echo '8' >'./repo/dir/file_remove'; git -C './repo/dir' add './file_modify' './file_remove'; echo '7' >'./repo/dir/file_modify'; rm -- './repo/dir/file_remove'
+				mkdir -- './repo/dir_add' './repo/dir/dir_add'; echo '9' >'./repo/dir_add/file'; echo '10' >'./repo/dir/dir_add/file'
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo/dir' add --intent-to-add --ignore-removal '.'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo/dir' ls-files --stage --others
+					git -C './repo/dir' status --verbose --verbose '.'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_add~*_&]:block [#reference\_desk\_dispatcher\_example.git\_add\_action\_dry\_run~*_&]:block">
+	<h2 class="heading2"><span class="command">git add --dry-run</span><br><span class="command">git add --dry-run --ignore-missing</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'; mkdir -- './repo/dir' './repo/dir/dir'
+			touch -- './repo/file_add' './repo/file_new' './repo/dir/file_add' './repo/dir/file_new' './repo/dir/dir/file_add' './repo/dir/dir/file_new'
+			echo '*_add' > './repo/.gitignore'
+			git -C './repo' add --dry-run '.'
+			git -C './repo' add --dry-run --ignore-missing '.'
+			git -C './repo' add --dry-run '*'
+			git -C './repo' add --dry-run --ignore-missing '*'
+			git -C './repo' add --dry-run '*/*'
+			git -C './repo' add --dry-run --ignore-missing '*/*'
+			git -C './repo' add --dry-run './file_add'
+			git -C './repo' add --dry-run --ignore-missing './file_add'
+			git -C './repo' add --dry-run './file_new'
+			git -C './repo' add --dry-run --ignore-missing './file_new'
+			git -C './repo' add --dry-run 'file_add'
+			git -C './repo' add --dry-run --ignore-missing 'file_add'
+			git -C './repo' add --dry-run 'file_new'
+			git -C './repo' add --dry-run --ignore-missing 'file_new'
+			git -C './repo' add --dry-run '*file_add'
+			git -C './repo' add --dry-run --ignore-missing '*file_add'
+			git -C './repo' add --dry-run '*file_new'
+			git -C './repo' add --dry-run --ignore-missing '*file_new'
+			git -C './repo' add --dry-run '*file*'
+			git -C './repo' add --dry-run --ignore-missing '*file*'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_add~*_&]:block [#reference\_desk\_dispatcher\_example.git\_add\_action\_renormalize~*_&]:block">
+	<h2 class="heading2"><span class="command">git add --renormalize</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo '* -text' >'./repo/.gitattributes'
+			echo -e '1\r\n2' >'./repo/file_modify'; git -C './repo' add './file_modify'
+			git -C './repo' show ':./file_modify' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			<'./repo/file_modify' special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			echo '* text' >'./repo/.gitattributes'
+			git -c 'core.autocrlf=false' -C './repo' add --renormalize '.'
+			git -C './repo' show ':./file_modify' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			<'./repo/file_modify' special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

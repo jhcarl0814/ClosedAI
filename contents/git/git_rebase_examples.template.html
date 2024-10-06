@@ -1,0 +1,622 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_rebase~*_&]:block">
+	<h2 class="heading2"><span class="command">git rebase</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		git config set --system --all 'color.advice' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
+			git -C './repo' checkout -b branch1; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch2; echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch1
+			git -C './repo' lg --all --patch
+			git -C './repo' rebase branch2 branch1
+
+			git -C './repo' lg --all --patch
+			git -C './repo' ls-files --stage --others
+			git -C './repo' status --verbose --verbose
+			git -C './repo' show :1:file
+			git -C './repo' show :2:file
+			git -C './repo' show :3:file
+
+			git -C './repo' show REBASE_HEAD
+			git -C './repo' rebase --show-current-patch
+			git -C './repo' show REBASE_HEAD~1:file
+			git -C './repo' show HEAD:file
+			git -C './repo' show REBASE_HEAD:file
+			git -C './repo' show AUTO_MERGE:file
+
+			git -C './repo' diff
+			git -C './repo' diff --base
+			git -C './repo' diff REBASE_HEAD~1
+			git -C './repo' diff --ours
+			git -C './repo' diff HEAD
+			git -C './repo' diff --theirs
+			git -C './repo' diff REBASE_HEAD
+			git -C './repo' diff AUTO_MERGE
+		EOF0
+		git config unset --system --all 'color.advice';
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_rebase~*_&]:block">
+	<h2 class="heading2"><span class="command">git rebase</span></h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3"><span class="command">--no-fork-point [&lt;upstream&gt; [&lt;branch&gt;]]</span> (transplant <span class="command">&lt;upstream&gt;..&lt;branch&gt;</span> onto <span class="command">&lt;upstream&gt;</span>)</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client' clone '../server/repo.git' './repo'
+					echo '3' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' commit --message="$((++number))"
+					git -C './client/repo' lg --all --patch
+
+					git -C './server/repo.git' reset --soft HEAD~1
+					echo '4' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client/repo' fetch --all
+					git -C './client/repo' lg --all --patch
+					git -C './client/repo' -c 'core.editor=cat' rebase --no-fork-point --interactive
+					git -C './client/repo' lg --all --patch
+					git -C './client/repo' rebase --skip
+					echo '5' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' -c 'core.editor=:' rebase --continue
+					git -C './client/repo' lg --all --patch
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--no-fork-point --onto=&lt;newbase&gt; [&lt;upstream&gt; [&lt;branch&gt;]]</span> (transplant <span class="command">&lt;upstream&gt;..&lt;branch&gt;</span> onto <span class="command">&lt;newbase&gt;</span>)</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client' clone '../server/repo.git' './repo'
+					branch_default_name="$(git -C './client/repo' branch --show-current)"; echo "$branch_default_name"
+					echo '3' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' commit --message="$((++number))"
+					git -C './client/repo' lg --all --patch
+
+					git -C './server/repo.git' reset --soft HEAD~1
+					echo '4' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client/repo' fetch --all
+					git -C './client/repo' lg --all --patch
+					git -C './client/repo' -c 'core.editor=cat' rebase --onto=HEAD@{upstream} --interactive "$(git -C './client/repo' merge-base --fork-point HEAD@{upstream} HEAD)" HEAD
+					git -C './client/repo' lg --all --patch
+					echo '5' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' -c 'core.editor=:' rebase --continue
+					git -C './client/repo' lg --all --patch
+					git -C './client/repo' checkout -B "$branch_default_name"
+					git -C './client/repo' lg --all --patch
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client' clone '../server/repo.git' './repo'
+					echo '3' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' commit --message="$((++number))"
+					git -C './client/repo' lg --all --patch
+
+					git -C './server/repo.git' reset --soft HEAD~1
+					echo '4' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client/repo' fetch --all
+					git -C './client/repo' lg --all --patch
+					git -C './client/repo' -c 'core.editor=cat' rebase --onto=HEAD@{upstream} --interactive "$(git -C './client/repo' merge-base --fork-point HEAD@{upstream} HEAD)" "$(git -C './client/repo' branch --show-current)"
+					git -C './client/repo' lg --all --patch
+					echo '5' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' -c 'core.editor=:' rebase --continue
+					git -C './client/repo' lg --all --patch
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--no-fork-point --keep-base [&lt;upstream&gt; [&lt;branch&gt;]]</span> (transplant <span class="command">&lt;upstream&gt;..&lt;branch&gt;</span> onto <span class="command">&lt;upstream&gt;...&lt;branch&gt;</span>)</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client' clone '../server/repo.git' './repo'
+					echo '3' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' commit --message="$((++number))"
+					git -C './client/repo' lg --all --patch
+
+					git -C './server/repo.git' reset --soft HEAD~1
+					echo '4' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client/repo' fetch --all
+					git -C './client/repo' lg --all --patch
+					git -C './client/repo' -c 'core.editor=sed --in-place -- '\''1d'\''' rebase --keep-base --no-fork-point --interactive
+					git -C './client/repo' lg --all --patch
+					echo '5' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' -c 'core.editor=:' rebase --continue
+					git -C './client/repo' lg --all --patch
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--fork-point [&lt;upstream&gt; [&lt;branch&gt;]]</span> (transplant <span class="command">fork_point..&lt;branch&gt;</span> onto <span class="command">&lt;upstream&gt;</span>)</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client' clone '../server/repo.git' './repo'
+					echo '3' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' commit --message="$((++number))"
+					git -C './client/repo' lg --all --patch
+
+					git -C './server/repo.git' reset --soft HEAD~1
+					echo '4' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client/repo' fetch --all
+					git -C './client/repo' lg --all --patch
+					git -C './client/repo' -c 'core.editor=cat' rebase --fork-point --interactive
+					git -C './client/repo' lg --all --patch
+					echo '5' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' -c 'core.editor=:' rebase --continue
+					git -C './client/repo' lg --all --patch
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--fork-point --onto=&lt;newbase&gt; [&lt;upstream&gt; [&lt;branch&gt;]]</span> (transplant <span class="command">fork_point..&lt;branch&gt;</span> onto <span class="command">&lt;newbase&gt;</span>)</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always'
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client' clone '../server/repo.git' './repo'
+					echo '3' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' commit --message="$((++number))"
+					git -C './client/repo' lg --all --patch
+
+					git -C './server/repo.git' reset --soft HEAD~1
+					echo '4' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client/repo' fetch --all
+					git -C './client/repo' branch collect_my_changes_into_this_branch
+					git -C './client/repo' lg --all --patch
+					git -C './client/repo' -c 'core.editor=cat' rebase --fork-point --onto=HEAD@{upstream}...HEAD --interactive HEAD@{upstream} collect_my_changes_into_this_branch
+					git -C './client/repo' lg --all --patch
+					echo '5' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' -c 'core.editor=:' rebase --continue
+					git -C './client/repo' lg --all --patch
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--fork-point --keep-base [&lt;upstream&gt; [&lt;branch&gt;]]</span> (transplant <span class="command">fork_point..&lt;branch&gt;</span> onto <span class="command">&lt;upstream&gt;...&lt;branch&gt;</span>)</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client' clone '../server/repo.git' './repo'
+					echo '3' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' commit --message="$((++number))"
+					git -C './client/repo' lg --all --patch
+
+					git -C './server/repo.git' reset --soft HEAD~1
+					echo '4' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+					git -C './server/repo.git' lg --all --patch
+
+					git -C './client/repo' fetch --all
+					git -C './client/repo' lg --all --patch
+					git -C './client/repo' -c 'core.editor=cat' rebase --fork-point --keep-base --interactive
+					git -C './client/repo' lg --all --patch
+					echo '5' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' -c 'core.editor=:' rebase --continue
+					git -C './client/repo' lg --all --patch
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--root [&lt;branch&gt;]</span> (transplant ancestors of <span class="command">&lt;branch&gt;</span> onto root)</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
+					git -C './repo' checkout -b branch1; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch2; echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" branch2
+					echo '4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+					git -C './repo' -c 'core.editor=cat' rebase --root --interactive
+					git -C './repo' lg --all --patch --diff-merges=separate
+					echo '5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
+					git -C './repo' checkout -b branch1; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch2; echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" branch2
+					echo '4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+					git -C './repo' -c 'core.editor=cat' rebase --root --rebase-merges --interactive
+					git -C './repo' lg --all --patch --diff-merges=separate
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
+					git -C './repo' checkout --orphan branch2; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" --allow-unrelated-histories branch2
+					echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+					git -C './repo' -c 'core.editor=cat' rebase --root --interactive
+					git -C './repo' lg --all --patch --diff-merges=separate
+					echo '4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
+					git -C './repo' checkout --orphan branch2; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" --allow-unrelated-histories branch2
+					echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+					git -C './repo' -c 'core.editor=cat' rebase --root --rebase-merges --interactive
+					git -C './repo' lg --all --patch --diff-merges=separate
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--root --onto=&lt;newbase&gt; [&lt;branch&gt;]</span> (transplant ancestors of <span class="command">&lt;branch&gt;</span> onto <span class="command">&lt;newbase&gt;</span>)</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
+					git -C './repo' checkout -b branch1; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch2; echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" branch2
+					echo '4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' checkout --orphan branch3; echo '5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' lg --all --patch --diff-merges=separate
+					git -C './repo' -c 'core.editor=cat' rebase --onto=branch3 --root --interactive
+					git -C './repo' lg --all --patch --diff-merges=separate
+					echo '6' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '7' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '8' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
+					git -C './repo' checkout -b branch1; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch2; echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" branch2
+					echo '4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' checkout --orphan branch3; echo '5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' lg --all --patch --diff-merges=separate
+					git -C './repo' -c 'core.editor=cat' rebase --onto=branch3 --root --rebase-merges --interactive
+					git -C './repo' lg --all --patch --diff-merges=separate
+					echo '6' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '8' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '7' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '9' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
+					git -C './repo' checkout --orphan branch2; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" --allow-unrelated-histories branch2
+					echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' checkout --orphan branch3; echo '4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' lg --all --patch --diff-merges=separate
+					git -C './repo' -c 'core.editor=cat' rebase --onto=branch3 --root --interactive
+					git -C './repo' lg --all --patch --diff-merges=separate
+					echo '5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '6' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
+					git -C './repo' checkout --orphan branch2; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" --allow-unrelated-histories branch2
+					echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' checkout --orphan branch3; echo '4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' lg --all --patch --diff-merges=separate
+					git -C './repo' -c 'core.editor=cat' rebase --onto=branch3 --root --rebase-merges --interactive
+					git -C './repo' lg --all --patch --diff-merges=separate
+					echo '6' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '7' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_rebase~*_&]:block [#reference\_desk\_dispatcher\_example.git\_rebase\_rebase\_merges~*_&]:block">
+	<h2 class="heading2"><span class="command">git rebase --no-rebase-merges/--rebase-merges[=(no-rebase-cousins|rebase-cousins)]</span></h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3"><span class="command">--no-rebase-merges</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
+					echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1; echo '4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch2; echo '5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" branch2
+					echo '6' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' checkout --orphan branch3; echo '7' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" --allow-unrelated-histories branch3
+					echo '8' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+					git -C './repo' -c 'core.editor=cat' rebase --interactive "$branch_default_name" branch1
+					git -C './repo' lg --all --patch --diff-merges=separate
+					echo '9' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '10' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '11' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--rebase-merges=no-rebase-cousins</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
+					echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1; echo '4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch2; echo '5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" branch2
+					echo '6' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' checkout --orphan branch3; echo '7' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" --allow-unrelated-histories branch3
+					echo '8' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+					git -C './repo' -c 'core.editor=cat' rebase --interactive --rebase-merges=no-rebase-cousins "$branch_default_name" branch1
+					echo '9' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '10' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '11' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--rebase-merges=rebase-cousins</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
+					echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1; echo '4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch2; echo '5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" branch2
+					echo '6' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' checkout --orphan branch3; echo '7' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout branch1
+					git -C './repo' merge --message="$((++number))" --allow-unrelated-histories branch3
+					echo '8' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+					git -C './repo' -c 'core.editor=cat' rebase --interactive --rebase-merges=rebase-cousins "$branch_default_name" branch1
+					echo '10' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '12' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '9' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '11' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '13' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_rebase~*_&]:block [#reference\_desk\_dispatcher\_example.git\_rebase\_update\_refs~*_&]:block">
+	<h2 class="heading2"><span class="command">git rebase --no-update-refs/--update-refs</span> (refuses to update branches that are checked out in a worktree)</h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3"><span class="command">--no-update-refs</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch3; git -C './repo' tag tag1; git -C './repo' branch branch2
+					git -C './repo' checkout -b branch1; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch4; git -C './repo' tag tag2
+					git -C './repo' checkout branch2; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch5; git -C './repo' tag tag3
+					git -C './repo' checkout branch1
+					git -C './repo' lg --all --patch
+					git -C './repo' rebase branch2 branch1
+					git -C './repo' lg --all --patch
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--update-refs</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch3; git -C './repo' tag tag1; git -C './repo' branch branch2
+					git -C './repo' checkout -b branch1; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch41; git -C './repo' branch branch42; git -C './repo' tag tag2
+					git -C './repo' checkout branch2; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch5; git -C './repo' tag tag3
+					git -C './repo' checkout branch1
+					git -C './repo' worktree add '../worktree' branch41
+					git -C './repo' lg --all --patch
+					git -C './repo' rebase --update-refs branch2 branch1
+					git -C './repo' lg --all --patch
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

@@ -1,0 +1,218 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_with\_command~*_&]:block [#reference\_desk\_dispatcher\_example.git\_with\_command\_exec\_path~*_&]:block">
+	<h2 class="heading2"><span class="command">git --exec-path=&lt;path&gt; &lt;command&gt; [&lt;args&gt;]</span></h2>
+	{{
+		cd '/'; cd '/';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git --exec-path="abc" --exec-path
+			git --exec-path="123" --exec-path
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_with\_command~*_&]:block [#reference\_desk\_dispatcher\_example.git\_with\_command\_config~*_&]:block">
+	<h2 class="heading2"><span class="command">git -c &lt;name&gt;=&lt;value&gt; &lt;command&gt; [&lt;args&gt;]</span></h2>
+	{{
+		cd '/'; cd '/';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -c section.key=value config get section.key
+			git -c section.key=value1 -c section.key=value2 config get section.key
+			git -c section.key=value1 -c section.key=value2 config get --all section.key
+			git -c section.key -c section.key= -c section.key=value3 config get --all section.key
+			git -c section.key -c section.key= -c section.key=value3 config get --type=bool --all section.key
+			git -c section.key -c section.key= -c section.key=nO -c section.key=oFf -c section.key=fAlSe -c section.key=0 -c section.key=yEs -c section.key=oN -c section.key=tRuE -c section.key=1 config get --type=bool --all section.key
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_with\_command~*_&]:block [#reference\_desk\_dispatcher\_example.git\_with\_command\_config\_env~*_&]:block">
+	<h2 class="heading2"><span class="command">git --config-env=&lt;name&gt;=&lt;env_var_name&gt; &lt;command&gt; [&lt;args&gt;]</span></h2>
+	{{
+		cd '/'; cd '/';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git --config-env=section.key config get section.key
+			git --config-env=section.key= config get section.key
+			git --config-env=section.key=ENV_VAR1 config get section.key
+			ENV_VAR1= git --config-env=section.key=ENV_VAR1 config get section.key
+			ENV_VAR1=value git --config-env=section.key=ENV_VAR1 config get section.key
+			ENV_VAR1=value1 ENV_VAR2=value2 git --config-env=section.key=ENV_VAR1 --config-env=section.key=ENV_VAR2 config get section.key
+			ENV_VAR1=value1 ENV_VAR2=value2 git --config-env=section.key=ENV_VAR1 --config-env=section.key=ENV_VAR2 config get --all section.key
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_with\_command~*_&]:block [#reference\_desk\_dispatcher\_example.git\_with\_command\_current\_working\_directory~*_&]:block">
+	<h2 class="heading2"><span class="command">git -C &lt;path&gt; &lt;command&gt; [&lt;args&gt;]</span></h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			{{
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo1' './repo2';
+				cd './repo2';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					cd '../repo1'
+					git init
+					git status
+				EOF0
+			}}
+		</div>
+		<div>
+		{{
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo1' './repo2';
+			cd './repo2';
+			"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				git -C '../repo1' init
+				git -C '../repo1' status
+			EOF0
+		}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_with\_command~*_&]:block [#reference\_desk\_dispatcher\_example.git\_with\_command\_current\_working\_directory~*_&]:block [#reference\_desk\_dispatcher\_example.git\_with\_command\_git\_dir\_work\_tree~*_&]:block">
+	<h2 class="heading2"><span class="command">git -C &lt;path&gt; &lt;command&gt; [&lt;args&gt;]</span><br><span class="command">git --git-dir=&lt;path&gt; &lt;command&gt; [&lt;args&gt;]</span><br><span class="command">git --work-tree=&lt;path&gt; &lt;command&gt; [&lt;args&gt;]</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo1' './repo2';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo1' init; git -C './repo2' init
+			mkdir --parents -- './repo1/dir' './repo2/dir'
+			touch -- './repo1/file11' './repo1/file12' './repo1/dir/file13' './repo1/dir/file14' './repo2/file21' './repo2/file22' './repo2/dir/file23' './repo2/dir/file24'
+			git -C './repo1' add './file11' './dir/file13'; git -C './repo2' add './file21' './dir/file23';
+			cd './repo1/dir'
+			git rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git status
+			git status '.'
+			cd '../../repo2/dir'
+			git --git-dir '../../repo1/.git' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git --git-dir '../../repo1/.git' status
+			git --git-dir '../../repo1/.git' status '.'
+			git --git-dir '../../repo1/.git' --work-tree '../../repo1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git --git-dir '../../repo1/.git' --work-tree '../../repo1' status
+			git --git-dir '../../repo1/.git' --work-tree '../../repo1' status '.'
+			git -C '..' --git-dir '../repo1/.git' --work-tree '../repo1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C '..' --git-dir '../repo1/.git' --work-tree '../repo1' status
+			git -C '..' --git-dir '../repo1/.git' --work-tree '../repo1' status '.'
+			git -C '..' -C '../repo1' -C './dir' --git-dir '../.git' --work-tree '..' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git -C '..' -C '../repo1' -C './dir' --git-dir '../.git' --work-tree '..' status
+			git -C '..' -C '../repo1' -C './dir' --git-dir '../.git' --work-tree '..' status '.'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_with\_command~*_&]:block [#reference\_desk\_dispatcher\_example.git\_with\_command\_bare~*_&]:block [#reference\_desk\_dispatcher\_example.git\_with\_command\_git\_dir\_work\_tree~*_&]:block">
+	<h2 class="heading2"><span class="command">git --bare &lt;command&gt; [&lt;args&gt;]</span><br><span class="command">git --git-dir=&lt;path&gt; &lt;command&gt; [&lt;args&gt;]</span><br><span class="command">git --work-tree=&lt;path&gt; &lt;command&gt; [&lt;args&gt;]</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo1';
+		cd './repo1';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init
+			git rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git --bare rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git --bare --git-dir='./.git' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir
+			git --bare --git-dir='./.git' rev-parse --path-format=absolute --show-toplevel
+			git --bare --git-dir='./.git' --work-tree='.' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_with\_command~*_&]:block [#reference\_desk\_dispatcher\_example.git\_with\_command\_namespace~*_&]:block">
+	<h2 class="heading2"><span class="command">git --namespace=&lt;name&gt; &lt;command&gt; [&lt;args&gt;]</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './client1' './tester11' './tester12' './client2' './server';
+		"$SHELL" -i 0<<'EOF0' 2>&1 | ansi2html_pre
+git -C './server' init --bare './repo.git';
+git -C './client1' clone 'file://'"$(realpath './server/repo.git')" 'repo'
+git -C './client1/repo' remote --verbose show
+git -C './client1/repo' branch --list --all --verbose --verbose
+git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+git -C './client1/repo' fetch origin
+git -C './client1/repo' branch --list --all --verbose --verbose
+branch_remote_default_path="$(git -C './client1/repo' symbolic-ref 'refs/remotes/origin/HEAD')"; echo "$branch_remote_default_path"
+branch_remote_default_name="${branch_remote_default_path#'refs/remotes/origin/'}"; echo "$branch_remote_default_name"
+git -C './client1/repo' checkout "$branch_remote_default_name"
+git -C './client1/repo' branch --list --all --verbose --verbose
+
+git -C './client1/repo' checkout -b tests
+git -C './client1/repo' commit --message="$((++number))" --allow-empty
+git -C './client1/repo' --namespace='client1' push origin tests
+git -C './client1/repo' lg --all
+
+git -C './client2' clone 'file://'"$(realpath './server/repo.git')" 'repo'
+git -C './client2/repo' branch --list --all --verbose --verbose
+
+git -C './client2/repo' checkout -b tests
+git -C './client2/repo' commit --message="$((++number))" --allow-empty
+git -C './client2/repo' --namespace='client2' push origin tests
+git -C './client2/repo' lg --all
+
+git -C './client1/repo' show-ref --head
+git -C './client2/repo' show-ref --head
+git -C './server/repo.git' show-ref --head
+git -C './server/repo.git' lg --all --clear-decorations
+
+git ls-remote --symref 'file://'"$(realpath './server/repo.git')"
+git -C './tester11' --namespace='client1' clone --branch tests 'file://'"$(realpath './server/repo.git')" 'repo'
+git -C './tester11/repo' branch --list --all --verbose --verbose
+git -C './tester11/repo' lg --all
+
+IFS= read -rd '' windows_path < <(cygpath --windows "$(realpath './server/repo.git')" | awk --characters-as-bytes --assign BINMODE='rw' '
+    BEGIN {
+        RS = "\r\n|\n|\r";
+        FS = "";
+    }
+    {
+        for(i = 1; i <= NF; ++i) {
+            if($i == "%")
+                printf("%%%%");
+            else if($i == " ")
+                printf("%% ");
+            else
+                printf("%s", $i);
+        }
+        printf("%s", RT);
+    }
+'); echo "$windows_path"
+git -C './tester12' -c protocol.ext.allow=always clone --branch tests ext::'git --namespace=client1 %s '"${windows_path%?}" 'repo'
+git -C './tester12/repo' branch --list --all --verbose --verbose
+git -C './tester12/repo' lg --all
+EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_with\_command~*_&]:block [#reference\_desk\_dispatcher\_example.git\_with\_command\_pathspecs~*_&]:block">
+	<h2 class="heading2"><span class="command">git --literal-pathspecs &lt;command&gt; [&lt;args&gt;]</span><br><span class="command">git --glob-pathspecs &lt;command&gt; [&lt;args&gt;]</span><br><span class="command">git --noglob-pathspecs &lt;command&gt; [&lt;args&gt;]</span><br><span class="command">git --icase-pathspecs &lt;command&gt; [&lt;args&gt;]</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo'
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			touch -- './repo/abcd' './repo/ab*cd'
+			git -C './repo' status
+			git -C './repo' status 'abcd'
+			git -C './repo' status 'ab*cd'
+			git -C './repo' status $'ab\357\200\252cd'
+			git -C './repo' --literal-pathspecs status 'abcd'
+			git -C './repo' --literal-pathspecs status 'ab*cd'
+			git -C './repo' --literal-pathspecs status $'ab\357\200\252cd'
+			git -C './repo' --glob-pathspecs status 'abcd'
+			git -C './repo' --glob-pathspecs status 'ab*cd'
+			git -C './repo' --glob-pathspecs status $'ab\357\200\252cd'
+			git -C './repo' --noglob-pathspecs status 'abcd'
+			git -C './repo' --noglob-pathspecs status 'ab*cd'
+			git -C './repo' --noglob-pathspecs status $'ab\357\200\252cd'
+			git -C './repo' --icase-pathspecs status 'Abcd'
+			git -C './repo' --icase-pathspecs status 'Ab*cd'
+			git -C './repo' --icase-pathspecs status $'Ab\357\200\252cd'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

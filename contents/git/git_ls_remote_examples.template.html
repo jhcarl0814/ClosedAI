@@ -1,0 +1,152 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_remote\_action\_no\_option~*_&]:block">
+	<h2 class="heading2"><span class="command">git ls-remote</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server1' init --bare './repo.git'
+			branch_default_path="$(git -C './server1/repo.git' symbolic-ref HEAD)"; echo "$branch_default_path"
+			git -C './server1/repo.git' branch --show-current
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server1/repo.git' tag tag
+			git -C './server1/repo.git' tag --annotate --message='' tag_annotated
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server1/repo.git' symbolic-ref HEAD 'refs/heads2/branch'
+			git -C './server1/repo.git' symbolic-ref HEAD
+			git -C './server1/repo.git' branch --show-current
+			git -C './server1/repo.git' symbolic-ref 'refs/heads2/HEAD' 'refs/heads2/branch'
+			git -C './server1/repo.git' symbolic-ref 'refs/heads2/HEAD'
+			git -C './server1/repo.git' update-ref 'refs/heads2/branch' tag
+			git -C './server1/repo.git' show-ref 'refs/heads2/branch'
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server1/repo.git' symbolic-ref HEAD "$branch_default_path"
+			git -C './server1/repo.git' symbolic-ref HEAD
+			git -C './server1/repo.git' branch --show-current
+			cp --no-target-directory -- './server1/repo.git/HEAD' './server1/repo.git/HEAD2'
+			git -C './server1/repo.git' symbolic-ref HEAD2
+			git -C './server1/repo.git' lg --all --clear-decorations
+			git -C './server1/repo.git' lg --clear-decorations HEAD2
+
+			git -C './server2' init --bare './repo.git'
+			cp --no-target-directory -- './server2/repo.git/HEAD' './server2/repo.git/HEAD2'
+			git -C './server2/repo.git' lg --all --clear-decorations
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote add server1 '../../server1/repo.git'
+			git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' ls-remote
+			branch_default_name="$(git -C './client/repo' branch --show-current)"; echo "$branch_default_name"
+			git -C './client/repo' -c 'branch.'"$branch_default_name"'.remote=server1' ls-remote
+			git -C './client/repo' -c 'branch.'"$branch_default_name"'.remote=server2' ls-remote
+			git -C './client/repo' ls-remote server1
+			git -C './client/repo' ls-remote server2
+			git -C './client/repo' ls-remote '.'
+			git -C './client/repo' fetch --all
+			git -C './client/repo' ls-remote '.'
+			git -C './client/repo' checkout "$branch_default_name"
+			git -C './client/repo' ls-remote '.'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_remote\_action\_no\_option~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_remote\_action\_no\_option\_pattern~*_&]:block">
+	<h2 class="heading2"><span class="command">git ls-remote [&lt;pattern&gt;…]</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			branch_default_path="$(git -C './server/repo.git' symbolic-ref HEAD)"; echo "$branch_default_path"
+			git -C './server/repo.git' branch --show-current
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' tag tag
+			git -C './server/repo.git' tag --annotate --message='' tag_annotated
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' symbolic-ref HEAD 'refs/heads2/branch'
+			git -C './server/repo.git' symbolic-ref HEAD
+			git -C './server/repo.git' branch --show-current
+			git -C './server/repo.git' symbolic-ref 'refs/heads2/HEAD' 'refs/heads2/branch'
+			git -C './server/repo.git' symbolic-ref 'refs/heads2/HEAD'
+			git -C './server/repo.git' update-ref 'refs/heads2/branch' tag
+			git -C './server/repo.git' show-ref 'refs/heads2/branch'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' symbolic-ref HEAD "$branch_default_path"
+			git -C './server/repo.git' symbolic-ref HEAD
+			git -C './server/repo.git' branch --show-current
+			cp --no-target-directory -- './server/repo.git/HEAD' './server/repo.git/HEAD2'
+			git -C './server/repo.git' symbolic-ref HEAD2
+			git -C './server/repo.git' lg --all --clear-decorations
+			git -C './server/repo.git' lg --clear-decorations HEAD2
+
+			git ls-remote './server/repo.git'
+			git ls-remote './server/repo.git' HEAD
+			git ls-remote './server/repo.git' HEAD2
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_remote\_action\_no\_option~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_remote\_action\_no\_option\_what~*_&]:block">
+	<h2 class="heading2"><span class="command">git ls-remote [--branches] [--tags]</span><br><span class="command">git ls-remote --refs</span><br><span class="command">git ls-remote --symref</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			branch_default_path="$(git -C './server/repo.git' symbolic-ref HEAD)"; echo "$branch_default_path"
+			git -C './server/repo.git' branch --show-current
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' tag tag
+			git -C './server/repo.git' tag --annotate --message='' tag_annotated
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' symbolic-ref HEAD 'refs/heads2/branch'
+			git -C './server/repo.git' symbolic-ref HEAD
+			git -C './server/repo.git' branch --show-current
+			git -C './server/repo.git' symbolic-ref 'refs/heads2/HEAD' 'refs/heads2/branch'
+			git -C './server/repo.git' symbolic-ref 'refs/heads2/HEAD'
+			git -C './server/repo.git' update-ref 'refs/heads2/branch' tag
+			git -C './server/repo.git' show-ref 'refs/heads2/branch'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' symbolic-ref HEAD "$branch_default_path"
+			git -C './server/repo.git' symbolic-ref HEAD
+			git -C './server/repo.git' branch --show-current
+			cp --no-target-directory -- './server/repo.git/HEAD' './server/repo.git/HEAD2'
+			git -C './server/repo.git' symbolic-ref HEAD2
+			git -C './server/repo.git' lg --all --clear-decorations
+			git -C './server/repo.git' lg --clear-decorations HEAD2
+
+			git ls-remote './server/repo.git'
+			git ls-remote --refs './server/repo.git'
+			git ls-remote --symref './server/repo.git'
+			git ls-remote --symref --refs './server/repo.git'
+			git ls-remote --branches './server/repo.git'
+			git ls-remote --tags './server/repo.git'
+			git ls-remote --tags --refs './server/repo.git'
+			git ls-remote --branches --tags './server/repo.git'
+			git ls-remote --branches --tags --refs './server/repo.git'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_remote\_action\_get\_url~*_&]:block">
+	<h2 class="heading2"><span class="command">git ls-remote --get-url</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git ls-remote --get-url './server/repo.git'
+			git -c 'url.scheme://authority/path/.insteadOf=./' ls-remote --get-url './server/repo.git'
+			git ls-remote --get-url 'file://'"$(realpath './server/repo.git')"
+			git -c 'url.scheme://authority/path/.insteadOf=file:///' ls-remote --get-url 'file://'"$(realpath './server/repo.git')"
+			git ls-remote --get-url 'file://'"$(realpath '.')"'/server/repo.git'
+			git -c 'url.scheme://authority/path/.insteadOf=file:///' ls-remote --get-url 'file://'"$(realpath '.')"'/server/repo.git'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

@@ -1,0 +1,570 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_clone~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone')">git clone &lt;repository&gt; [&lt;directory&gt;]</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-clone">https://git-scm.com/docs/git-clone</a></p>
+	<p class="paragraph">Clone a repository into a new directory.</p>
+	<form id="git_clone_form">
+		<p><span class="command">&lt;repository&gt;</span> The (possibly remote) <span class="command">&lt;repository&gt;</span> to clone from.</p>
+		<div class="form_item"><label for="git_clone_repository" class="hidden"><span class="command">&lt;repository&gt;</span>:</label><textarea wrap="off" id="git_clone_repository" name="git_clone_repository" class="basis-0 grow command_input" placeholder="scheme://authority/path/repo.git"></textarea></div>
+
+		<div class="form_item">
+			<input type="checkbox" id="git_clone_has_directory" name="git_clone_has_directory">
+			<div class="subform basis-0 grow">
+				<label for="git_clone_has_directory"><span class="command">&lt;directory&gt;</span> The name of a new directory to clone into.</label>
+				<div class="form_item"><label for="git_clone_directory" class="hidden"><span class="command">&lt;directory&gt;</span>:</label><textarea wrap="off" id="git_clone_directory" name="git_clone_directory" class="basis-0 grow command_input" placeholder="./repo"></textarea></div>
+			</div>
+		</div>
+
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_progress~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_progress')"><p>progress reporting:</p></legend>
+			<div class="form_item"><input type="radio" id="git_clone_progress_quiet" name="git_clone_progress" value="quiet"><label for="git_clone_progress_quiet"><span class="command">--quiet</span> Operate quietly. Progress is not reported to the standard error stream.</label></div>
+			<div class="form_item"><input type="radio" id="git_clone_progress_no_option" name="git_clone_progress" value="no_option" checked><label for="git_clone_progress_no_option">Progress status is reported on the standard error stream when it is attached to a terminal.</label></div>
+			<div class="form_item"><input type="radio" id="git_clone_progress_progress" name="git_clone_progress" value="progress"><label for="git_clone_progress_progress"><span class="command">--progress</span> Forces progress status even if the standard error stream is not directed to a terminal.</label></div>
+		</fieldset>
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_verbose~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_verbose')"><input type="checkbox" id="git_clone_has_verbose" name="git_clone_has_verbose"><label for="git_clone_has_verbose"><span class="command">--verbose</span> Run verbosely. Does not affect the reporting of progress status to the standard error stream.</label></div>
+
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_resulting\_type~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_resulting_type')"><p>resulting type:</p></legend>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_clone_resulting_type_no_option" name="git_clone_resulting_type" value="no_option" checked><label for="git_clone_resulting_type_no_option"></label></div>
+				</legend>
+
+				<fieldset>
+					<legend><p><span class="command">--recurse-submodules[=&lt;pathspec&gt;]</span> After the clone is created, initialize and clone submodules within based on the provided <span class="command">&lt;pathspec&gt;</span>. If no <span class="command">=&lt;pathspec&gt;</span> is provided, all submodules are initialized and cloned. Is ignored if the cloned repository does not have a worktree/checkout (i.e. if any of <span class="command">--no-checkout</span>, <span class="command">--bare</span>, or <span class="command">--mirror</span> is given).</p></legend>
+					<input id="git_clone_recurse_submodules_list_add" type="button" value="Add">
+					<div id="git_clone_recurse_submodules_list" class="subform"></div>
+					<script>
+						document.getElementById("git_clone_recurse_submodules_list_add").addEventListener("click",function(e){
+							let checkbox, checkbox2, textarea;
+							document.getElementById("git_clone_recurse_submodules_list").append(create_element("div", { className: "form_item", }, {}, [
+								checkbox = create_element("input", { type: "checkbox", checked: true, }),
+								create_element("div", { className: "subform basis-0 grow", }, {}, [
+									create_element("div", { className: "form_item", }, {}, [
+										checkbox2 = create_element("input", { type: "checkbox", checked: false, id: "git_clone_recurse_submodules_list_item" + document.getElementById("git_clone_recurse_submodules_list").childElementCount + "_has_pathspec", }),
+										create_element("label", { innerHTML: "<span class=\"command\">=&lt;pathspec&gt;</span>", htmlFor: checkbox2.id, }),
+									]),
+									textarea = create_element("textarea", { wrap: "off", className: "command_input", disabled: true, }),
+								]),
+							]));
+							textarea.addEventListener("input", git_clone_refresh);
+							checkbox2.addEventListener("input", function(e){ textarea.disabled = !(checkbox.checked && checkbox2.checked); git_clone_refresh(); });
+							checkbox.addEventListener("input", function(e){ checkbox2.disabled = !checkbox.checked; textarea.disabled = !(checkbox.checked && checkbox2.checked); git_clone_refresh(); });
+							git_clone_refresh();
+						})
+					</script>
+				</fieldset>
+
+				<fieldset class="border-none p-[0px]">
+					<div class="form_item">
+						<input type="checkbox" id="git_clone_has_jobs" name="git_clone_has_jobs">
+						<div class="subform basis-0 grow">
+							<label for="git_clone_has_jobs"><span class="command">--jobs=&lt;n&gt;</span> The number of submodules fetched at the same time. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulefetchJobs"><span class="inline_code">submodule.fetchJobs</span></a> which defaults to <span class="inline_code">1</span>.)</label>
+							<div class="form_item"><label for="git_clone_jobs_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_clone_jobs_n" name="git_clone_jobs_n" class="basis-0 grow command_input" value="1"></div>
+						</div>
+					</div>
+
+					<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+					<div class="form_item"><input type="radio" id="git_clone_remote_submodules_no_option" name="git_clone_remote_submodules" value="" checked><label for="git_clone_remote_submodules_no_option">(Defaults to <span class="command">--no-remote-submodules</span>.)</label></div>
+					<div class="form_item"><input type="radio" id="git_clone_remote_submodules_has_no_remote_submodules" name="git_clone_remote_submodules" value="false"><label for="git_clone_remote_submodules_has_no_remote_submodules"><span class="command">--no-remote-submodules</span></label></div>
+					<div class="form_item"><input type="radio" id="git_clone_remote_submodules_has_remote_submodules" name="git_clone_remote_submodules" value="true"><label for="git_clone_remote_submodules_has_remote_submodules"><span class="command">--remote-submodules</span> All submodules which are cloned will use the status of the submodule’s remote-tracking branch to update the submodule, rather than the superproject’s recorded SHA-1.</label></div>
+				</fieldset>
+			</fieldset>
+			<div class="form_item"><input type="radio" id="git_clone_resulting_type_bare" name="git_clone_resulting_type" value="bare"><label for="git_clone_resulting_type_bare"><span class="command">--bare</span> Make a bare Git repository. (Implies <span class="command">--no-checkout</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_clone_resulting_type_mirror" name="git_clone_resulting_type" value="mirror"><label for="git_clone_resulting_type_mirror"><span class="command">--mirror</span> Set up a mirror of the source repository. (Implies <span class="command">--bare</span>.)</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>initial state:</p></legend>
+			<fieldset>
+				<legend><p>checkout (no <span class="command">--bare</span>/<span class="command">--mirror</span>):</p></legend>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_checkout~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_checkout')"><input type="checkbox" id="git_clone_checkout_has_no_checkout" name="git_clone_checkout_has_no_checkout"><label for="git_clone_checkout_has_no_checkout"><span class="command">--no-checkout</span> No checkout of <span class="inline_code">HEAD</span> is performed after the clone is complete.</label></div>
+				<div class="form_item"><input type="checkbox" id="git_clone_checkout_has_sparse" name="git_clone_checkout_has_sparse"><label for="git_clone_checkout_has_sparse"><span class="command">--sparse</span> Employ a sparse-checkout, with only files in the toplevel directory initially being present.</label></div>
+			</fieldset>
+
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_template~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_template')">
+				<input type="checkbox" id="git_clone_has_template" name="git_clone_has_template">
+				<div class="subform basis-0 grow">
+					<label for="git_clone_has_template"><span class="command">--template=&lt;template-directory&gt;</span> Specify the directory from which templates will be used. (Defaults to <span class="command">$GIT_TEMPLATE_DIR</span> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-inittemplateDir"><span class="inline_code">init.templateDir</span></a> / <span class="command">/usr/share/git-core/templates</span>.)</label>
+					<div class="form_item"><label for="git_clone_template"><span class="command">&lt;template-directory&gt;</span>:</label><textarea wrap="off" id="git_clone_template" name="git_clone_template" class="basis-0 grow command_input"></textarea></div>
+				</div>
+			</div>
+
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_separate\_git\_dir~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_separate_git_dir')">
+				<input type="checkbox" id="git_clone_has_separate_git_dir" name="git_clone_has_separate_git_dir">
+				<div class="subform basis-0 grow">
+					<label for="git_clone_has_separate_git_dir"><span class="command">--separate-git-dir=&lt;git-dir&gt;</span> Instead of placing the cloned repository where it is supposed to be, place the cloned repository at the specified directory, then make a filesystem-agnostic Git symbolic link to there.</label>
+					<div class="form_item"><label for="git_clone_separate_git_dir"><span class="command">&lt;git-dir&gt;</span>:</label><textarea wrap="off" id="git_clone_separate_git_dir" name="git_clone_separate_git_dir" class="basis-0 grow command_input"></textarea></div>
+				</div>
+			</div>
+
+			<fieldset>
+				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_config~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_config')"><p><span class="command">--config=&lt;key&gt;=&lt;value&gt;</span> Set a configuration variable in the newly-created repository; this takes effect immediately after the repository is initialized, but before the remote history is fetched or any files checked out.</p></legend>
+				<input id="git_clone_config_list_add" type="button" value="Add">
+				<div id="git_clone_config_list" class="subform"></div>
+				<script>
+					document.getElementById("git_clone_config_list_add").addEventListener("click",function(e){
+						document.getElementById("git_clone_config_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_clone_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_clone_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_clone_refresh();
+					})
+				</script>
+			</fieldset>
+
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_origin~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_origin')">
+				<input type="checkbox" id="git_clone_has_origin" name="git_clone_has_origin">
+				<div class="subform basis-0 grow">
+					<label for="git_clone_has_origin"><span class="command">--origin=&lt;name&gt;</span> Instead of using the remote name <span class="inline_code">origin</span> to keep track of the upstream repository, use <span class="command">&lt;name&gt;</span>. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-clonedefaultRemoteName"><span class="inline_code">clone.defaultRemoteName</span></a> which defaults to <span class="inline_code">origin</span>.)</label>
+					<div class="form_item"><label for="git_clone_origin"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_clone_origin" name="git_clone_origin" class="basis-0 grow command_input" value="origin"></div>
+				</div>
+			</div>
+
+			<fieldset>
+				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_HEAD~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_HEAD')"><p><span class="inline_code">HEAD</span> and branches:</p></legend>
+				<div class="form_item"><input type="radio" id="git_clone_HEAD_no_option" name="git_clone_HEAD" value="no_option" checked><label for="git_clone_HEAD_no_option"></label></div>
+				<div class="form_item">
+					<input type="radio" id="git_clone_HEAD_has_branch" name="git_clone_HEAD" value="has_branch">
+					<div class="subform basis-0 grow">
+						<label for="git_clone_HEAD_has_branch"><span class="command">--branch=&lt;name&gt;</span> Instead of pointing the newly created <span class="inline_code">HEAD</span> to the branch pointed to by the cloned repository’s <span class="inline_code">HEAD</span>, point to <span class="command">&lt;name&gt;</span> branch instead.</label>
+						<div class="form_item"><label for="git_clone_HEAD_branch"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_clone_HEAD_branch" name="git_clone_HEAD_branch" class="basis-0 grow command_input" value="master"></div>
+					</div>
+				</div>
+				<div class="form_item">
+					<input type="radio" id="git_clone_HEAD_has_revision" name="git_clone_HEAD" value="has_revision">
+					<div class="subform basis-0 grow">
+						<label for="git_clone_HEAD_has_revision"><span class="command">--revision=&lt;rev&gt;</span> Create a new repository, and fetch the history leading to the given revision <span class="command">&lt;rev&gt;</span> (and nothing else), without making any remote-tracking branch, and without making any local branch, and detach <span class="inline_code">HEAD</span> to <span class="command">&lt;rev&gt;</span>. <span id="git_clone_mirror_HEAD_has_revision_warning">Incompatible with <span class="command">--mirror</span>.</span></label>
+						<div class="form_item"><label for="git_clone_HEAD_revision"><span class="command">&lt;rev&gt;</span>:</label><textarea wrap="off" id="git_clone_HEAD_revision" name="git_clone_HEAD_revision" class="basis-0 grow command_input">HEAD</textarea></div>
+					</div>
+				</div>
+			</fieldset>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>when source is on the local machine, how to save disk space:</p></legend>
+			<div class="form_item"><input type="radio" id="git_clone_local_no_option" name="git_clone_local" value="no_option" checked><label for="git_clone_local_no_option">(Defaults to <span class="command">--local</span> if the repository is specified as a local path (e.g., <span class="command">/path/to/repo</span>).)</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_shared~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_shared')"><input type="radio" id="git_clone_local_shared" name="git_clone_local" value="shared"><label for="git_clone_local_shared"><span class="command">--shared</span> When the repository to clone is on the local machine, instead of using hard links, automatically setup <span class="inline_code">.git/objects/info/alternates</span> to share the objects with the source repository. The resulting repository starts out without any object of its own.</label></div>
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_local\_local\_no\_hardlinks\_no\_local~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_local_local_no_hardlinks_no_local')">
+				<div class="form_item"><input type="radio" id="git_clone_local_local" name="git_clone_local" value="local"><label for="git_clone_local_local"><span class="command">--local</span> When the repository to clone from is on a local machine, bypasses the normal "Git aware" transport mechanism and clones the repository by making a copy of <span class="inline_code">HEAD</span> and everything under objects and refs directories. The files under <span class="inline_code">.git/objects/</span> directory are hardlinked to save space when possible.</label></div>
+				<div class="form_item"><input type="radio" id="git_clone_local_no_hardlinks" name="git_clone_local" value="no_hardlinks"><label for="git_clone_local_no_hardlinks"><span class="command">--no-hardlinks</span> Force the cloning process from a repository on a local filesystem to copy the files under the <span class="inline_code">.git/objects</span> directory instead of using hardlinks.</label></div>
+				<div class="form_item"><input type="radio" id="git_clone_local_no_local" name="git_clone_local" value="no_local"><label for="git_clone_local_no_local"><span class="command">--no-local</span> Override the default when a local path (e.g., <span class="command">/path/to/repo</span>) is given, using the regular Git transport instead.</label></div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>saving throughput:</p></legend>
+			<div class="form_item"><input type="radio" id="git_clone_reference_no_option" name="git_clone_reference" value="no_option" checked><label for="git_clone_reference_no_option"></label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_reference~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_reference')"><input type="radio" id="git_clone_reference_has_reference" name="git_clone_reference" value="has_reference"><label for="git_clone_reference_has_reference"><span class="command">--reference=&lt;repository&gt;</span> If the reference <span class="command">&lt;repository&gt;</span> is on the local machine, automatically setup <span class="inline_code">.git/objects/info/alternates</span> to obtain objects from the reference <span class="command">&lt;repository&gt;</span>.</label></div>
+			<div class="form_item"><input type="radio" id="git_clone_reference_has_reference_if_able" name="git_clone_reference" value="has_reference_if_able"><label for="git_clone_reference_has_reference_if_able"><span class="command">--reference-if-able=&lt;repository&gt;</span> A non existing directory is skipped with a warning instead of aborting the clone.</label></div>
+
+			<fieldset class="border-none p-[0px]">
+				<div class="form_item"><label for="git_clone_reference_repository"><span class="command">&lt;repository&gt;</span>:</label><textarea wrap="off" id="git_clone_reference_repository" name="git_clone_reference_repository" class="basis-0 grow command_input"></textarea></div>
+
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_dissociate~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_dissociate')"><input type="checkbox" id="git_clone_has_dissociate" name="git_clone_has_dissociate"><label for="git_clone_has_dissociate"><span class="command">--dissociate</span> Borrow the objects from reference repositories specified with the <span class="command">--reference</span> options only to reduce network transfer, and stop borrowing from them after a clone is made by making necessary local copies of borrowed objects.</label></div>
+			</fieldset>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item">
+				<input type="checkbox" id="git_clone_has_bundle_uri" name="git_clone_has_bundle_uri">
+				<div class="subform basis-0 grow">
+					<label for="git_clone_has_bundle_uri"><span class="command">--bundle-uri=&lt;uri&gt;</span> Before fetching from the remote, fetch a bundle from the given <span class="command">&lt;uri&gt;</span> and unbundle the data into the local repository. <span id="git_clone_has_bundle_uri_shallow_warning">Incompatible with <span class="command">--depth</span>, <span class="command">--shallow-since</span>, and <span class="command">--shallow-exclude</span>.</span></label>
+					<div class="form_item"><label for="git_clone_bundle_uri"><span class="command">&lt;uri&gt;</span>:</label><input type="text" id="git_clone_bundle_uri" name="git_clone_bundle_uri" class="basis-0 grow command_input" value=""></div>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>(limit the set of requested commits:)</p></legend>
+			<div class="form_item"><input type="radio" id="git_clone_tags_no_option" name="git_clone_tags" value="" checked><label for="git_clone_tags_no_option">(Defaults to <span class="command">--tags</span>.)</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_tags~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_tags')"><input type="radio" id="git_clone_tags_has_no_tags" name="git_clone_tags" value="false"><label for="git_clone_tags_has_no_tags"><span class="command">--no-tags</span> Tags are not cloned. Ensures that future <span class="command">git pull</span> and <span class="command">git fetch</span> won’t follow any tags by setting the <span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenametagOpt">remote.&lt;remote&gt;.tagOpt</a>=<a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt---no-tags">--no-tags</a></span> configuration.</label></div>
+			<div class="form_item"><input type="radio" id="git_clone_tags_has_tags" name="git_clone_tags" value="true"><label for="git_clone_tags_has_tags"><span class="command">--tags</span> Cancels out a previous <span class="command">--no-tags</span>.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_clone_single_branch_no_option" name="git_clone_single_branch" value="" checked><label for="git_clone_single_branch_no_option">(Defaults to <span class="command">--no-single-branch</span>.)</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_single\_branch~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_single_branch')"><input type="radio" id="git_clone_single_branch_has_no_single_branch" name="git_clone_single_branch" value="false"><label for="git_clone_single_branch_has_no_single_branch"><span class="command">--no-single-branch</span></label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_single\_branch~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_single_branch')"><input type="radio" id="git_clone_single_branch_has_single_branch" name="git_clone_single_branch" value="true"><label for="git_clone_single_branch_has_single_branch"><span class="command">--single-branch</span> Clone only the history leading to the tip of a single branch, either specified by the <span class="command">--branch</span> option or the primary branch remote’s <span class="inline_code">HEAD</span> points at.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<fieldset>
+				<legend><p>shallow clone:</p></legend>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_depth~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_depth')">
+					<input type="checkbox" id="git_clone_has_depth" name="git_clone_has_depth">
+					<div class="subform basis-0 grow">
+						<label for="git_clone_has_depth"><span class="command">--depth=&lt;depth&gt;</span> Create a shallow clone with a history truncated to the specified number of commits. (Implies <span class="command">--single-branch</span> unless <span class="command">--no-single-branch</span> is given to fetch the histories near the tips of all branches.)</label>
+						<div class="form_item"><label for="git_clone_depth"><span class="command">&lt;depth&gt;</span>:</label><input type="text" id="git_clone_depth" name="git_clone_depth" class="basis-0 grow command_input" placeholder="1"></div>
+					</div>
+				</div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<fieldset class="border-none p-[0px]">
+					<div class="form_item"><input type="radio" id="git_clone_shallow_submodules_no_option" name="git_clone_shallow_submodules" value="" checked><label for="git_clone_shallow_submodules_no_option">(Defaults to <span class="command">--no-shallow-submodules</span>.)</label></div>
+					<div class="form_item"><input type="radio" id="git_clone_shallow_submodules_has_no_shallow_submodules" name="git_clone_shallow_submodules" value="false"><label for="git_clone_shallow_submodules_has_no_shallow_submodules"><span class="command">--no-shallow-submodules</span></label></div>
+					<div class="form_item"><input type="radio" id="git_clone_shallow_submodules_has_shallow_submodules" name="git_clone_shallow_submodules" value="true"><label for="git_clone_shallow_submodules_has_shallow_submodules"><span class="command">--shallow-submodules</span> All submodules which are cloned will be shallow with a depth of 1.</label></div>
+				</fieldset>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div class="form_item">
+					<input type="checkbox" id="git_clone_has_shallow_since" name="git_clone_has_shallow_since">
+					<div class="subform basis-0 grow">
+						<label for="git_clone_has_shallow_since"><span class="command">--shallow-since=&lt;date&gt;</span> Create a shallow clone with a history after the specified time.</label>
+						<div class="form_item"><label for="git_clone_shallow_since_date"><span class="command">&lt;date&gt;</span>:</label><input type="text" id="git_clone_shallow_since_date" name="git_clone_shallow_since_date" class="basis-0 grow command_input" value=""></div>
+					</div>
+				</div>
+
+				<fieldset>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_shallow\_exclude~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_shallow_exclude')"><p><span class="command">--shallow-exclude=&lt;ref&gt;</span> Create a shallow clone with a history, excluding commits reachable from a specified remote branch or tag.</p></legend>
+					<input id="git_clone_shallow_exclude_list_add" type="button" value="Add">
+					<div id="git_clone_shallow_exclude_list" class="subform"></div>
+					<script>
+						document.getElementById("git_clone_shallow_exclude_list_add").addEventListener("click",function(e){
+							document.getElementById("git_clone_shallow_exclude_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_clone_refresh);
+								checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_clone_refresh(); });
+								div.append(checkbox, textarea);
+								return div;
+							})());
+							git_clone_refresh();
+						})
+					</script>
+				</fieldset>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend><p>partial clone (limit the number of blobs and trees downloaded within a given range of commits):</p></legend>
+			<fieldset>
+				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_filter~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_filter')"><p><span class="command">--filter=&lt;filter-spec&gt;</span> Use the partial clone feature and request that the server sends a subset of reachable objects according to a given object filter.</p></legend>
+				<input id="git_clone_filter_list_add" type="button" value="Add">
+				<div id="git_clone_filter_list" class="subform"></div>
+				<script>
+					document.getElementById("git_clone_filter_list_add").addEventListener("click",function(e){
+						document.getElementById("git_clone_filter_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_clone_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_clone_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_clone_refresh();
+					})
+				</script>
+			</fieldset>
+
+			<fieldset class="border-none p-[0px]">
+				<div class="form_item"><input type="checkbox" id="git_clone_has_also_filter_submodules" name="git_clone_has_also_filter_submodules"><label for="git_clone_has_also_filter_submodules"><span class="command">--also-filter-submodules</span> Also apply the partial clone filter to any submodules in the repository. (Requires <span class="command">--filter</span> and <span class="command">--recurse-submodules</span>.) (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-clonefilterSubmodules"><span class="inline_code">clone.filterSubmodules</span></a>.)</label></div>
+			</fieldset>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>server options:</p></legend>
+			<div class="form_item">
+				<input type="checkbox" id="git_clone_has_upload_pack" name="git_clone_has_upload_pack">
+				<div class="subform basis-0 grow">
+					<label for="git_clone_has_upload_pack"><span class="command">--upload-pack=&lt;upload-pack&gt;</span> When the repository to clone from is accessed via ssh, specifies a non-default path for the command run on the other end. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameuploadpack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.uploadpack</span></a>.)</label>
+					<div class="form_item"><label for="git_clone_upload_pack"><span class="command">&lt;upload-pack&gt;</span>:</label><textarea wrap="off" id="git_clone_upload_pack" name="git_clone_upload_pack" class="basis-0 grow command_input"></textarea></div>
+				</div>
+			</div>
+
+			<fieldset>
+				<legend><p><span class="command">--server-option=&lt;option&gt;</span> Transmit the given string to the server when communicating using protocol version 2. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameserverOption"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.serverOption</span></a>.)</p></legend>
+				<input id="git_clone_server_option_list_add" type="button" value="Add">
+				<div id="git_clone_server_option_list" class="subform"></div>
+				<script>
+					document.getElementById("git_clone_server_option_list_add").addEventListener("click",function(e){
+						document.getElementById("git_clone_server_option_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_clone_refresh);
+							checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_clone_refresh(); });
+							div.append(checkbox, input);
+							return div;
+						})());
+						git_clone_refresh();
+					})
+				</script>
+			</fieldset>
+
+			<div class="form_item"><input type="radio" id="git_clone_reject_shallow_no_option" name="git_clone_reject_shallow" value="" checked><label for="git_clone_reject_shallow_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-clonerejectShallow"><span class="inline_code">clone.rejectShallow</span></a>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_clone_reject_shallow_has_no_reject_shallow" name="git_clone_reject_shallow" value="false"><label for="git_clone_reject_shallow_has_no_reject_shallow"><span class="command">--no-reject-shallow</span></label></div>
+			<div class="form_item"><input type="radio" id="git_clone_reject_shallow_has_reject_shallow" name="git_clone_reject_shallow" value="true"><label for="git_clone_reject_shallow_has_reject_shallow"><span class="command">--reject-shallow</span> Fail if the source repository is a shallow repository.</label></div>
+		</fieldset>
+	</form>
+	<textarea readonly wrap="off" id="git_clone_command" name="git_clone_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_clone_refresh(){
+			document.getElementById("git_clone_directory").disabled = !document.getElementById("git_clone_has_directory").checked;
+			document.getElementById("git_clone_resulting_type_no_option").closest("fieldset").disabled = !document.getElementById("git_clone_resulting_type_no_option").checked;
+			let can_have_recurse_submodules = document.getElementById("git_clone_resulting_type_no_option").checked && !document.getElementById("git_clone_checkout_has_no_checkout").checked;
+			document.getElementById("git_clone_recurse_submodules_list_add").closest("fieldset").disabled = !can_have_recurse_submodules;
+			let has_recurse_submodules = can_have_recurse_submodules && Array.from(document.getElementById("git_clone_recurse_submodules_list").querySelectorAll(":scope>div>input:checked")).length != 0;
+			document.getElementById("git_clone_has_jobs").closest("fieldset").disabled = !has_recurse_submodules;
+			document.getElementById("git_clone_jobs_n").disabled = !document.getElementById("git_clone_has_jobs").checked;
+
+			document.getElementById("git_clone_checkout_has_no_checkout").closest("fieldset").disabled = !document.getElementById("git_clone_resulting_type_no_option").checked;
+			document.getElementById("git_clone_template").disabled = !document.getElementById("git_clone_has_template").checked;
+			document.getElementById("git_clone_separate_git_dir").disabled = !document.getElementById("git_clone_has_separate_git_dir").checked;
+			document.getElementById("git_clone_origin").disabled = !document.getElementById("git_clone_has_origin").checked;
+			document.getElementById("git_clone_HEAD_branch").disabled = !document.getElementById("git_clone_HEAD_has_branch").checked;
+			document.getElementById("git_clone_HEAD_revision").disabled = !document.getElementById("git_clone_HEAD_has_revision").checked;
+
+			document.getElementById("git_clone_reference_repository").closest("fieldset").disabled = !(document.getElementById("git_clone_reference_has_reference").checked || document.getElementById("git_clone_reference_has_reference_if_able").checked);
+			document.getElementById("git_clone_bundle_uri").disabled = !document.getElementById("git_clone_has_bundle_uri").checked;
+
+			document.getElementById("git_clone_depth").disabled = !document.getElementById("git_clone_has_depth").checked;
+			document.getElementById("git_clone_shallow_submodules_no_option").closest("fieldset").disabled = !has_recurse_submodules;
+			document.getElementById("git_clone_shallow_since_date").disabled = !document.getElementById("git_clone_has_shallow_since").checked;
+
+			document.getElementById("git_clone_has_also_filter_submodules").closest("fieldset").disabled = !(has_recurse_submodules && Array.from(document.getElementById("git_clone_filter_list").querySelectorAll("textarea:enabled")).length != 0);
+
+			document.getElementById("git_clone_upload_pack").disabled = !document.getElementById("git_clone_has_upload_pack").checked;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("clone");
+
+			let form_data = new FormData(document.getElementById("git_clone_form"));
+			switch(form_data.get("git_clone_progress")){
+				case "quiet":
+					command_components.push("--quiet");
+					break;
+				case "progress":
+					command_components.push("--progress");
+					break;
+			}
+			if(form_data.get("git_clone_has_verbose"))
+				command_components.push("--verbose");
+			switch(form_data.get("git_clone_resulting_type")){
+				case "no_option":
+					if(can_have_recurse_submodules){
+						Array.from(document.getElementById("git_clone_recurse_submodules_list").querySelectorAll(":scope>div:has(>input:checked)")).forEach(function(div){
+							if(!div.querySelector(":scope>div input").checked){
+								command_components.push("--recurse-submodules");
+							}
+							else{
+								command_components.push("--recurse-submodules=" + shell_quote(div.querySelector(":scope>div textarea").value));
+							}
+						});
+						if(has_recurse_submodules){
+							if(form_data.get("git_clone_has_jobs")){
+								let element_value = form_data.get("git_clone_jobs_n"), element_has_error = element_value.length == 0;
+								command_components.push("--jobs=" + shell_quote(element_value));
+								document.getElementById("git_clone_jobs_n").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							switch(form_data.get("git_clone_remote_submodules")){
+								case "false":
+									command_components.push("--no-remote-submodules");
+									break;
+								case "true":
+									command_components.push("--remote-submodules");
+									break;
+							}
+						}
+					}
+					break;
+				case "bare":
+					command_components.push("--bare");
+					break;
+				case "mirror":
+					command_components.push("--mirror");
+					break;
+			}
+			if(form_data.get("git_clone_resulting_type") == "no_option"){
+				if(form_data.get("git_clone_checkout_has_no_checkout"))
+					command_components.push("--no-checkout");
+				if(form_data.get("git_clone_checkout_has_sparse"))
+					command_components.push("--sparse");
+			}
+			if(form_data.get("git_clone_has_template")){
+				let element_value = form_data.get("git_clone_template"), element_has_error = element_value.length == 0;
+				command_components.push("--template=" + shell_quote(element_value));
+				document.getElementById("git_clone_template").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(form_data.get("git_clone_has_separate_git_dir")){
+				let element_value = form_data.get("git_clone_separate_git_dir"), element_has_error = element_value.length == 0;
+				command_components.push("--separate-git-dir=" + shell_quote(element_value));
+				document.getElementById("git_clone_separate_git_dir").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			Array.from(document.getElementById("git_clone_config_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				command_components.push("--config=" + shell_quote(textarea.value));
+			});
+			if(form_data.get("git_clone_has_origin")){
+				let element_value = form_data.get("git_clone_origin"), element_has_error = element_value.length == 0;
+				command_components.push("--origin=" + shell_quote(element_value));
+				document.getElementById("git_clone_origin").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			{
+				let elements_has_error = document.getElementById("git_clone_resulting_type_mirror").checked && document.getElementById("git_clone_HEAD_has_revision").checked;
+				document.getElementById("git_clone_mirror_HEAD_has_revision_warning").classList.toggle("bg-[#FF8888]", elements_has_error);
+				has_error ||= elements_has_error;
+			}
+			switch(form_data.get("git_clone_HEAD")){
+				case "has_branch":
+					{
+						let element_value = form_data.get("git_clone_HEAD_branch"), element_has_error = element_value.length == 0;
+						command_components.push("--branch=" + shell_quote(element_value));
+						document.getElementById("git_clone_HEAD_branch").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "has_revision":
+					{
+						let element_value = form_data.get("git_clone_HEAD_revision"), element_has_error = element_value.length == 0;
+						command_components.push("--revision=" + shell_quote(element_value));
+						document.getElementById("git_clone_HEAD_revision").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+			}
+			switch(form_data.get("git_clone_local")){
+				case "shared":
+					command_components.push("--shared");
+					break;
+				case "local":
+					command_components.push("--local");
+					break;
+				case "no_hardlinks":
+					command_components.push("--no-hardlinks");
+					break;
+				case "no_local":
+					command_components.push("--no-local");
+					break;
+			}
+			switch(form_data.get("git_clone_reference")){
+				case "has_reference":
+					{
+						let element_value = form_data.get("git_clone_reference_repository"), element_has_error = element_value.length == 0;
+						command_components.push("--reference=" + shell_quote(element_value));
+						document.getElementById("git_clone_reference_repository").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_clone_has_dissociate"))
+						command_components.push("--dissociate");
+					break;
+				case "has_reference_if_able":
+					{
+						let element_value = form_data.get("git_clone_reference_repository"), element_has_error = element_value.length == 0;
+						command_components.push("--reference-if-able=" + shell_quote(element_value));
+						document.getElementById("git_clone_reference_repository").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_clone_has_dissociate"))
+						command_components.push("--dissociate");
+					break;
+			}
+
+			{
+				let elements_has_error = document.getElementById("git_clone_has_bundle_uri").checked && (document.getElementById("git_clone_has_depth").checked || document.getElementById("git_clone_has_shallow_since").checked || Array.from(document.getElementById("git_clone_shallow_exclude_list").querySelectorAll("textarea:enabled")).length != 0);
+				document.getElementById("git_clone_has_bundle_uri_shallow_warning").classList.toggle("bg-[#FF8888]", elements_has_error);
+				has_error ||= elements_has_error;
+			}
+			if(form_data.get("git_clone_has_bundle_uri")){
+				let element_value = form_data.get("git_clone_bundle_uri"), element_has_error = element_value.length == 0;
+				command_components.push("--bundle-uri=" + shell_quote(element_value));
+				document.getElementById("git_clone_bundle_uri").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+
+			switch(form_data.get("git_clone_tags")){
+				case "false":
+					command_components.push("--no-tags");
+					break;
+				case "true":
+					command_components.push("--tags");
+					break;
+			}
+			switch(form_data.get("git_clone_single_branch")){
+				case "false":
+					command_components.push("--no-single-branch");
+					break;
+				case "true":
+					command_components.push("--single-branch");
+					break;
+			}
+			if(form_data.get("git_clone_has_depth")){
+				let element_value = form_data.get("git_clone_depth"), element_has_error = element_value.length == 0;
+				command_components.push("--depth=" + shell_quote(element_value));
+				document.getElementById("git_clone_depth").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(has_recurse_submodules){
+				switch(form_data.get("git_clone_shallow_submodules")){
+					case "false":
+						command_components.push("--no-shallow-submodules");
+						break;
+					case "true":
+						command_components.push("--shallow-submodules");
+						break;
+				}
+			}
+			if(form_data.get("git_clone_has_shallow_since")){
+				let element_value = form_data.get("git_clone_shallow_since_date"), element_has_error = element_value.length == 0;
+				command_components.push("--shallow-since=" + shell_quote(element_value));
+				document.getElementById("git_clone_shallow_since_date").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			Array.from(document.getElementById("git_clone_shallow_exclude_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				let element_value = textarea.value, element_has_error = element_value.length == 0;
+				command_components.push("--shallow-exclude=" + shell_quote(element_value));
+				textarea.classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			});
+
+			Array.from(document.getElementById("git_clone_filter_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				command_components.push("--filter=" + shell_quote(textarea.value));
+			});
+			if(has_recurse_submodules && Array.from(document.getElementById("git_clone_filter_list").querySelectorAll("textarea:enabled")).length != 0){
+				if(form_data.get("git_clone_has_also_filter_submodules"))
+					command_components.push("--also-filter-submodules");
+			}
+
+			if(form_data.get("git_clone_has_upload_pack")){
+				let element_value = form_data.get("git_clone_upload_pack"), element_has_error = element_value.length == 0;
+				command_components.push("--upload-pack=" + shell_quote(element_value));
+				document.getElementById("git_clone_upload_pack").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			Array.from(document.getElementById("git_clone_server_option_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+				command_components.push("--server-option=" + shell_quote(input.value));
+			});
+			switch(form_data.get("git_clone_reject_shallow")){
+				case "false":
+					command_components.push("--no-reject-shallow");
+					break;
+				case "true":
+					command_components.push("--reject-shallow");
+					break;
+			}
+
+			command_components.push("--end-of-options");
+			let element_value = form_data.get("git_clone_repository"), element_has_error = element_value.length == 0;
+			command_components.push(shell_quote(element_value));
+			document.getElementById("git_clone_repository").classList.toggle("error_input", element_has_error);
+			has_error ||= element_has_error;
+			if(form_data.get("git_clone_has_directory")){
+				let element_value = form_data.get("git_clone_directory"), element_has_error = element_value.length == 0;
+				command_components.push(shell_quote(element_value));
+				document.getElementById("git_clone_directory").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+
+			let git_clone_command = document.getElementById("git_clone_command");
+			git_clone_command.classList.toggle("error_output", has_error);
+			git_clone_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_clone_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_clone_refresh);
+		});
+		Array.from(document.getElementById("git_clone_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_clone_refresh);
+		});
+	</script>
+</div>

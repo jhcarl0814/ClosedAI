@@ -1,0 +1,1522 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_diff~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff')">git diff</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-diff">https://git-scm.com/docs/git-diff</a></p>
+	<p class="paragraph">Show changes between commits, commit and working tree, etc.</p>
+	<form id="git_diff_form">
+		<p>Choose an action to perform:</p>
+		<div class="form_item"><input type="radio" id="git_diff_action_no_option" name="git_diff_action" value="no_option" checked><label for="git_diff_action_no_option"></label></div>
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_check~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_check')"><input type="radio" id="git_diff_action_check" name="git_diff_action" value="check"><label for="git_diff_action_check"><span class="command">--check</span> Warn if changes introduce conflict markers or whitespace errors.</label></div>
+		<fieldset>
+			<legend>
+				<div class="form_item"><input type="radio" id="git_diff_action_exit_code" name="git_diff_action" value="exit_code"><label for="git_diff_action_exit_code"><span class="command">--exit-code</span> Make the program exit with codes similar to <span class="command">diff</span>. That is, it exits with 1 if there were differences and 0 means no differences.</label></div>
+			</legend>
+			<div class="form_item"><input type="checkbox" id="git_diff_has_quiet" name="git_diff_has_quiet"><label for="git_diff_has_quiet"><span class="command">--quiet</span> Disable all output of the program. Disables execution of external diff helpers whose exit code is not trusted.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>what to diff:</p></legend>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_diff_what_working_tree_vs_index" name="git_diff_what" value="working_tree_vs_index" checked><label for="git_diff_what_working_tree_vs_index"><span class="command">[&lt;path&gt;…]</span> Working tree vs index.</label></div>
+				</legend>
+				<div class="form_item"><input type="radio" id="git_diff_working_tree_vs_index_unmerged_entries_no_option" name="git_diff_working_tree_vs_index_unmerged_entries" value="no_option" checked><label for="git_diff_working_tree_vs_index_unmerged_entries_no_option"></label></div>
+				<div class="form_item"><input type="radio" id="git_diff_working_tree_vs_index_unmerged_entries_0" name="git_diff_working_tree_vs_index_unmerged_entries" value="0"><label for="git_diff_working_tree_vs_index_unmerged_entries_0"><span class="command">-0</span> Omit diff output for unmerged entries and just show "Unmerged".</label></div>
+				<div class="form_item"><input type="radio" id="git_diff_working_tree_vs_index_unmerged_entries_base" name="git_diff_working_tree_vs_index_unmerged_entries" value="base"><label for="git_diff_working_tree_vs_index_unmerged_entries_base"><span class="command">--base</span>(/<span class="command">-1</span>) Compare the working tree with the "base" version (stage #1).</label></div>
+				<div class="form_item"><input type="radio" id="git_diff_working_tree_vs_index_unmerged_entries_ours" name="git_diff_working_tree_vs_index_unmerged_entries" value="ours"><label for="git_diff_working_tree_vs_index_unmerged_entries_ours"><span class="command">--ours</span>(/<span class="command">-2</span>) Compare the working tree with "our branch" (stage #2).</label></div>
+				<div class="form_item"><input type="radio" id="git_diff_working_tree_vs_index_unmerged_entries_theirs" name="git_diff_working_tree_vs_index_unmerged_entries" value="theirs"><label for="git_diff_working_tree_vs_index_unmerged_entries_theirs"><span class="command">--theirs</span>(/<span class="command">-3</span>) Compare the working tree with "their branch" (stage #3).</label></div>
+			</fieldset>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_diff_what_index_vs_commit" name="git_diff_what" value="index_vs_commit"><label for="git_diff_what_index_vs_commit"><span class="command">--cached [&lt;commit&gt;] [&lt;path&gt;…]</span> Index vs <span class="command">&lt;commit&gt;</span>.</label></div>
+				</legend>
+				<div class="form_item"><input type="checkbox" id="git_diff_what_index_vs_commit_has_merge_base" name="git_diff_what_index_vs_commit_has_merge_base"><label for="git_diff_what_index_vs_commit_has_merge_base"><span class="command">--merge-base</span> Instead of using <span class="command">&lt;commit&gt;</span>, use the merge base of <span class="command">&lt;commit&gt;</span> and <span class="inline_code">HEAD</span>.</label></div>
+			</fieldset>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_diff_what_working_tree_vs_commit" name="git_diff_what" value="working_tree_vs_commit"><label for="git_diff_what_working_tree_vs_commit"><span class="command">&lt;commit&gt; [&lt;path&gt;…]</span> Working tree vs <span class="command">&lt;commit&gt;</span>.</label></div>
+				</legend>
+				<div class="form_item"><input type="checkbox" id="git_diff_what_working_tree_vs_commit_has_merge_base" name="git_diff_what_working_tree_vs_commit_has_merge_base"><label for="git_diff_what_working_tree_vs_commit_has_merge_base"><span class="command">--merge-base</span> Instead of using <span class="command">&lt;commit&gt;</span>, use the merge base of <span class="command">&lt;commit&gt;</span> and <span class="inline_code">HEAD</span>.</label></div>
+			</fieldset>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_diff_what_commit_vs_commit1" name="git_diff_what" value="commit_vs_commit1"><label for="git_diff_what_commit_vs_commit1"><span class="command">&lt;commit1&gt; &lt;commit2&gt; [&lt;path&gt;…]</span> <span class="command">&lt;commit2&gt;</span> vs <span class="command">&lt;commit1&gt;</span>.</label></div>
+				</legend>
+				<div class="form_item"><input type="checkbox" id="git_diff_what_commit_vs_commit1_has_merge_base" name="git_diff_what_commit_vs_commit1_has_merge_base"><label for="git_diff_what_commit_vs_commit1_has_merge_base"><span class="command">--merge-base</span> Use the merge base of the two commits for the "before" side. </label></div>
+			</fieldset>
+			<div class="form_item"><input type="radio" id="git_diff_what_commit_vs_commit2" name="git_diff_what" value="commit_vs_commit2"><label for="git_diff_what_commit_vs_commit2"><span class="command">[&lt;commit1&gt;]..[&lt;commit2&gt;] [&lt;path&gt;…]</span> <span class="command">&lt;commit2&gt;</span> vs <span class="command">&lt;commit1&gt;</span>.</label></div>
+			<div class="form_item"><input type="radio" id="git_diff_what_commit_vs_commit3" name="git_diff_what" value="commit_vs_commit3"><label for="git_diff_what_commit_vs_commit3"><span class="command">[&lt;commit1&gt;]...[&lt;commit2&gt;] [&lt;path&gt;…]</span> <span class="command">&lt;commit2&gt;</span> vs (Merge base of <span class="command">&lt;commit1&gt;</span> and <span class="command">&lt;commit2&gt;</span>).</label></div>
+			<div class="form_item"><input type="radio" id="git_diff_what_combined_diff" name="git_diff_what" value="combined_diff"><label for="git_diff_what_combined_diff"><span class="command">&lt;commit_merge&gt; &lt;commit_parent&gt;… [&lt;path&gt;…]</span> Combined diff.</label></div>
+			<div class="form_item"><input type="radio" id="git_diff_what_blob_vs_blob" name="git_diff_what" value="blob_vs_blob"><label for="git_diff_what_blob_vs_blob"><span class="command">&lt;blob1&gt; &lt;blob2&gt;</span> <span class="command">&lt;blob2&gt;</span> vs <span class="command">&lt;blob1&gt;</span>.</label></div>
+			<div class="form_item"><input type="radio" id="git_diff_what_path_vs_path" name="git_diff_what" value="path_vs_path"><label for="git_diff_what_path_vs_path"><span class="command">--no-index &lt;path1&gt; &lt;path2&gt; [&lt;pathspec&gt;...]</span> <span class="command">&lt;path2&gt;</span> vs <span class="command">&lt;path1&gt;</span>. (Implies <span class="command">--exit-code</span>.)</label></div>
+
+			<div class="form_item" id="git_diff_commit__"><input type="checkbox" id="git_diff_has_commit" name="git_diff_has_commit"><label for="git_diff_has_commit" id="git_diff_has_commit_"><span class="command">&lt;commit&gt;</span></label><label for="git_diff_commit" id="git_diff_commit_"><span class="command">&lt;commit&gt;</span>:</label><textarea wrap="off" id="git_diff_commit" name="git_diff_commit" class="basis-0 grow command_input">HEAD</textarea></div>
+			<div class="form_item" id="git_diff_commit1__"><input type="checkbox" id="git_diff_has_commit1" name="git_diff_has_commit1"><label for="git_diff_has_commit1" id="git_diff_has_commit1_"><span class="command">&lt;commit1&gt;</span></label><label for="git_diff_commit1" id="git_diff_commit1_"><span class="command">&lt;commit1&gt;</span>:</label><textarea wrap="off" id="git_diff_commit1" name="git_diff_commit1" class="basis-0 grow command_input">HEAD</textarea></div>
+			<div class="form_item" id="git_diff_commit2__"><input type="checkbox" id="git_diff_has_commit2" name="git_diff_has_commit2"><label for="git_diff_has_commit2" id="git_diff_has_commit2_"><span class="command">&lt;commit2&gt;</span></label><label for="git_diff_commit2" id="git_diff_commit2_"><span class="command">&lt;commit2&gt;</span>:</label><textarea wrap="off" id="git_diff_commit2" name="git_diff_commit2" class="basis-0 grow command_input">HEAD</textarea></div>
+			<div class="form_item" id="git_diff_commit_merge_"><label for="git_diff_commit_merge"><span class="command">&lt;commit_merge&gt;</span>:</label><textarea wrap="off" id="git_diff_commit_merge" name="git_diff_commit_merge" class="basis-0 grow command_input">HEAD</textarea></div>
+			<fieldset id="git_diff_commit_parent">
+				<legend><p><span class="command">&lt;commit_parent&gt;…</span></p></legend>
+				<input id="git_diff_commit_parent_list_add" type="button" value="Add">
+				<div id="git_diff_commit_parent_list" class="subform"></div>
+				<script>
+					document.getElementById("git_diff_commit_parent_list_add").addEventListener("click",function(e){
+						document.getElementById("git_diff_commit_parent_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_diff_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_diff_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_diff_refresh();
+					})
+				</script>
+			</fieldset>
+			<div class="form_item" id="git_diff_blob1_"><label for="git_diff_blob1"><span class="command">&lt;blob1&gt;</span>:</label><textarea wrap="off" id="git_diff_blob1" name="git_diff_blob1" class="basis-0 grow command_input"></textarea></div>
+			<div class="form_item" id="git_diff_blob2_"><label for="git_diff_blob2"><span class="command">&lt;blob2&gt;</span>:</label><textarea wrap="off" id="git_diff_blob2" name="git_diff_blob2" class="basis-0 grow command_input"></textarea></div>
+			<div class="form_item" id="git_diff_path1_"><label for="git_diff_path1"><span class="command">&lt;path1&gt;</span>:</label><textarea wrap="off" id="git_diff_path1" name="git_diff_path1" class="basis-0 grow command_input"></textarea></div>
+			<div class="form_item" id="git_diff_path2_"><label for="git_diff_path2"><span class="command">&lt;path2&gt;</span>:</label><textarea wrap="off" id="git_diff_path2" name="git_diff_path2" class="basis-0 grow command_input"></textarea></div>
+			<fieldset id="git_diff_path">
+				<legend><p><span class="command">&lt;path&gt;...</span> Are used to limit the diff to the named paths (you can give directory names and get diff for all files under them).</p></legend>
+				<input id="git_diff_path_list_add" type="button" value="Add">
+				<div id="git_diff_path_list" class="subform"></div>
+				<script>
+					document.getElementById("git_diff_path_list_add").addEventListener("click",function(e){
+						document.getElementById("git_diff_path_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_diff_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_diff_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_diff_refresh();
+					})
+				</script>
+			</fieldset>
+			<fieldset id="git_diff_pathspec">
+				<legend><p><span class="command">&lt;pathspec&gt;...</span> If both paths point to directories, additional pathspecs may be provided. These will limit the files included in the difference. All such pathspecs must be relative as they apply to both sides of the diff.</p></legend>
+				<input id="git_diff_pathspec_list_add" type="button" value="Add">
+				<div id="git_diff_pathspec_list" class="subform"></div>
+				<script>
+					document.getElementById("git_diff_pathspec_list_add").addEventListener("click",function(e){
+						document.getElementById("git_diff_pathspec_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_diff_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_diff_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_diff_refresh();
+					})
+				</script>
+			</fieldset>
+
+			<div class="form_item"><input type="radio" id="git_diff_relative_no_option" name="git_diff_relative" value="no_option" checked><label for="git_diff_relative_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffrelative"><span class="inline_code">diff.relative</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_diff_relative_no_relative" name="git_diff_relative" value="no_relative"><label for="git_diff_relative_no_relative"><span class="command">--no-relative</span> Countermand both <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffrelative"><span class="inline_code">diff.relative</span></a> config option and previous <span class="command">--relative</span>.</label></div>
+			<div class="form_item">
+				<input type="radio" id="git_diff_relative_relative" name="git_diff_relative" value="relative">
+				<div class="subform basis-0 grow">
+					<label for="git_diff_relative_relative"><span class="command">--relative<input type="checkbox" id="git_diff_relative_relative_has_argument" name="git_diff_relative_relative_has_argument"><label for="git_diff_relative_relative_has_argument">[=&lt;path&gt;]</label></span> When run from a subdirectory of the project, exclude changes outside the directory and show pathnames relative to it. When not in a subdirectory (e.g. in a bare repository), name which subdirectory to make the output relative to by giving a <span class="command">&lt;path&gt;</span> as an argument.</label>
+					<div class="form_item"><label for="git_diff_relative_relative_path"><span class="command">&lt;path&gt;</span>:</label><textarea wrap="off" id="git_diff_relative_relative_path" name="git_diff_relative_relative_path" class="basis-0 grow command_input"></textarea></div>
+				</div>
+			</div>
+
+			<div class="form_item"><input type="checkbox" id="git_diff_has_ignore_submodules" name="git_diff_has_ignore_submodules"><label for="git_diff_has_ignore_submodules"><span class="command">--ignore-submodules<input type="checkbox" id="git_diff_ignore_submodules_has_argument" name="git_diff_ignore_submodules_has_argument"><label for="git_diff_ignore_submodules_has_argument">[=(<input type="radio" id="git_diff_ignore_submodules_when_none" name="git_diff_ignore_submodules_when" value="none"><label for="git_diff_ignore_submodules_when_none">none</label>|<input type="radio" id="git_diff_ignore_submodules_when_untracked" name="git_diff_ignore_submodules_when" value="untracked"><label for="git_diff_ignore_submodules_when_untracked">untracked</label>|<input type="radio" id="git_diff_ignore_submodules_when_dirty" name="git_diff_ignore_submodules_when" value="dirty"><label for="git_diff_ignore_submodules_when_dirty">dirty</label>|<input type="radio" id="git_diff_ignore_submodules_when_all" name="git_diff_ignore_submodules_when" value="all" checked><label for="git_diff_ignore_submodules_when_all">all</label>)]</label></span> Ignore changes to submodules in the diff generation. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulenameignore"><span class="inline_code">submodule.<span class="command">&lt;name&gt;</span>.ignore</span></a> which defaults to <span class="inline_code">none</span>, <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffignoreSubmodules"><span class="inline_code">diff.ignoreSubmodules</span></a> which defaults to <span class="inline_code">untracked</span>.)<br>
+				<div class="ml-[1em]">
+					<span class="command">none</span> Consider the submodule modified when it either contains untracked or modified files or its <span class="inline_code">HEAD</span> differs from the commit recorded in the superproject and can be used to override any settings of the <span class="inline_code">ignore</span> option in <span class="command">git-config</span> or <span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/.gitmodules</span>.<br>
+					<span class="command">untracked</span> Submodules are not considered dirty when they only contain untracked content (but they are still scanned for modified content).<br>
+					<span class="command">dirty</span> Ignores all changes to the work tree of submodules, only changes to the commits stored in the superproject are shown.<br>
+					<span class="command">all</span> Hides all changes to submodules.<br>
+				</div></label></div>
+
+			<div class="form_item">
+				<input type="checkbox" id="git_diff_has_diff_filter" name="git_diff_has_diff_filter">
+				<div class="subform basis-0 grow">
+					<label for="git_diff_has_diff_filter"><span class="command">--diff-filter=(A|C|D|M|R|T|U|X|B)...[*]</span> Select only files matching criteria.</label>
+					<div class="form_item"><label for="git_diff_diff_filter_criteria"><span class="command">&lt;criteria&gt;</span>:</label><input type="text" id="git_diff_diff_filter_criteria" name="git_diff_diff_filter_criteria" class="basis-0 grow command_input" value=""></div>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>how to diff:</p></legend>
+			<div class="form_item"><input type="radio" id="git_diff_ext_diff_no_option" name="git_diff_ext_diff" value="" checked><label for="git_diff_ext_diff_no_option"></label></div>
+			<div class="form_item"><input type="radio" id="git_diff_ext_diff_has_ext_diff" name="git_diff_ext_diff" value="true"><label for="git_diff_ext_diff_has_ext_diff"><span class="command">--ext-diff</span> Allow an external diff helper to be executed.</label></div>
+			<div class="form_item"><input type="radio" id="git_diff_ext_diff_has_no_ext_diff" name="git_diff_ext_diff" value="false"><label for="git_diff_ext_diff_has_no_ext_diff"><span class="command">--no-ext-diff</span> Disallow external diff drivers.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_diff\_algorithm~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_diff_algorithm')">
+				<div class="form_item"><input type="radio" id="git_diff_diff_algorithm_no_option" name="git_diff_diff_algorithm" value="no_option" checked><label for="git_diff_diff_algorithm_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffalgorithm"><span class="inline_code">diff.algorithm</span></a> which defaults to <span class="inline_code">default</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_diff_diff_algorithm_diff_algorithm" name="git_diff_diff_algorithm" value="diff_algorithm"><label for="git_diff_diff_algorithm_diff_algorithm"><span class="command">--diff-algorithm=(<input type="radio" id="git_diff_diff_algorithm_diff_algorithm_default" name="git_diff_diff_algorithm_diff_algorithm" value="default" checked><label for="git_diff_diff_algorithm_diff_algorithm_default"><span class="command">default</span></label>|<input type="radio" id="git_diff_diff_algorithm_diff_algorithm_myers" name="git_diff_diff_algorithm_diff_algorithm" value="myers"><label for="git_diff_diff_algorithm_diff_algorithm_myers"><span class="command">myers</span></label>|<input type="radio" id="git_diff_diff_algorithm_diff_algorithm_minimal" name="git_diff_diff_algorithm_diff_algorithm" value="minimal"><label for="git_diff_diff_algorithm_diff_algorithm_minimal"><span class="command">minimal</span></label>|<input type="radio" id="git_diff_diff_algorithm_diff_algorithm_patience" name="git_diff_diff_algorithm_diff_algorithm" value="patience"><label for="git_diff_diff_algorithm_diff_algorithm_patience"><span class="command">patience</span></label>|<input type="radio" id="git_diff_diff_algorithm_diff_algorithm_histogram" name="git_diff_diff_algorithm_diff_algorithm" value="histogram"><label for="git_diff_diff_algorithm_diff_algorithm_histogram"><span class="command">histogram</span></label>)</span> Choose a diff algorithm.<br>
+					<div class="ml-[1em]">
+						<span class="command">default</span> <span class="command">myers</span>.<br>
+						<span class="command">myers</span> The basic greedy diff algorithm.<br>
+						<span class="command">minimal</span> Spend extra time to make sure the smallest possible diff is produced.<br>
+						<span class="command">patience</span> Use "patience diff" algorithm when generating patches.<br>
+						<span class="command">histogram</span> Extends the patience algorithm to "support low-occurrence common elements".<br>
+					</div></label></div>
+				<fieldset>
+					<legend>
+						<div class="form_item"><input type="radio" id="git_diff_diff_algorithm_anchored" name="git_diff_diff_algorithm" value="anchored"><label for="git_diff_diff_algorithm_anchored"><span class="command">--anchored=&lt;text&gt;</span> Generate a diff using the "anchored diff" algorithm.</label></div>
+					</legend>
+					<input id="git_diff_anchored_list_add" type="button" value="Add">
+					<div id="git_diff_anchored_list" class="subform"></div>
+					<script>
+						document.getElementById("git_diff_anchored_list_add").addEventListener("click",function(e){
+							document.getElementById("git_diff_anchored_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_diff_refresh);
+								checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_diff_refresh(); });
+								div.append(checkbox, input);
+								return div;
+							})());
+							git_diff_refresh();
+						})
+					</script>
+				</fieldset>
+			</div>
+
+			<div class="form_item"><input type="radio" id="git_diff_indent_heuristic_no_option" name="git_diff_indent_heuristic" value="" checked><label for="git_diff_indent_heuristic_no_option">(Defaults to <span class="command">--indent-heuristic</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_diff_indent_heuristic_has_indent_heuristic" name="git_diff_indent_heuristic" value="true"><label for="git_diff_indent_heuristic_has_indent_heuristic"><span class="command">--indent-heuristic</span> Enable the heuristic that shifts diff hunk boundaries to make patches easier to read.</label></div>
+			<div class="form_item"><input type="radio" id="git_diff_indent_heuristic_has_no_indent_heuristic" name="git_diff_indent_heuristic" value="false"><label for="git_diff_indent_heuristic_has_no_indent_heuristic"><span class="command">--no-indent-heuristic</span> Disable the indent heuristic.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_diff_color_moved_no_option" name="git_diff_color_moved" value="no_option" checked><label for="git_diff_color_moved_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffcolorMoved"><span class="inline_code">diff.colorMoved</span></a> which defaults to <span class="inline_code">no</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_diff_color_moved_no_color_moved" name="git_diff_color_moved" value="no_color_moved"><label for="git_diff_color_moved_no_color_moved"><span class="command">--no-color-moved</span> Turn off move detection. is the same as <span class="command">--color-moved=no</span>.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_color\_moved~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_color_moved')"><input type="radio" id="git_diff_color_moved_color_moved" name="git_diff_color_moved" value="color_moved"><label for="git_diff_color_moved_color_moved"><span class="command">--color-moved<input type="checkbox" id="git_diff_color_moved_color_moved_has_argument" name="git_diff_color_moved_color_moved_has_argument"><label for="git_diff_color_moved_color_moved_has_argument">[=(<input type="radio" id="git_diff_color_moved_mode_no" name="git_diff_color_moved_mode" value="no"><label for="git_diff_color_moved_mode_no">no</label>|<input type="radio" id="git_diff_color_moved_mode_default" name="git_diff_color_moved_mode" value="default" checked><label for="git_diff_color_moved_mode_default">default</label>|<input type="radio" id="git_diff_color_moved_mode_plain" name="git_diff_color_moved_mode" value="plain"><label for="git_diff_color_moved_mode_plain">plain</label>|<input type="radio" id="git_diff_color_moved_mode_blocks" name="git_diff_color_moved_mode" value="blocks"><label for="git_diff_color_moved_mode_blocks">blocks</label>|<input type="radio" id="git_diff_color_moved_mode_zebra" name="git_diff_color_moved_mode" value="zebra"><label for="git_diff_color_moved_mode_zebra">zebra</label>|<input type="radio" id="git_diff_color_moved_mode_dimmed_zebra" name="git_diff_color_moved_mode" value="dimmed_zebra"><label for="git_diff_color_moved_mode_dimmed_zebra">dimmed-zebra</label>)]</label></span> Moved lines of code are colored differently.<br>
+				<div class="ml-[1em]">
+					<span class="command">no</span> Moved lines are not highlighted.<br>
+					<span class="command">default</span> <span class="command">zebra</span>.<br>
+					<span class="command">plain</span> Any line that is added in one location and was removed in another location will be colored with <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-colordiffslot"><span class="inline_code">color.diff.newMoved</span></a>. Similarly <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-colordiffslot"><span class="inline_code">color.diff.oldMoved</span></a> will be used for removed lines that are added somewhere else in the diff.<br>
+					<span class="command">blocks</span> Blocks of moved text of at least 20 alphanumeric characters are detected greedily. The detected blocks are painted using either the <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-colordiffslot"><span class="inline_code">color.diff.{old,new}Moved</span></a> color.<br>
+					<span class="command">zebra</span> Blocks of moved text are detected as in <span class="command">blocks</span> mode. The blocks are painted using either the <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-colordiffslot"><span class="inline_code">color.diff.{old,new}Moved</span></a> color or <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-colordiffslot"><span class="inline_code">color.diff.{old,new}MovedAlternative</span></a>.<br>
+					<span class="command">dimmed-zebra</span> Similar to <span class="command">zebra</span>, but additional dimming of uninteresting parts of moved code is performed. The bordering lines of two adjacent blocks are considered interesting, the rest is uninteresting.<br>
+				</div></label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_diff_color_moved_ws_no_option" name="git_diff_color_moved_ws" value="no_option" checked><label for="git_diff_color_moved_ws_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffcolorMovedWS"><span class="inline_code">diff.colorMovedWS</span></a> which defaults to <span class="inline_code">no</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_diff_color_moved_ws_no_color_moved_ws" name="git_diff_color_moved_ws" value="no_color_moved_ws"><label for="git_diff_color_moved_ws_no_color_moved_ws"><span class="command">--no-color-moved-ws</span> Do not ignore whitespace when performing move detection. Is the same as <span class="command">--color-moved-ws=no</span>.</label></div>
+			<div class="form_item">
+				<input type="radio" id="git_diff_color_moved_ws_color_moved_ws" name="git_diff_color_moved_ws" value="color_moved_ws">
+				<div class="subform basis-0 grow">
+					<label for="git_diff_color_moved_ws_color_moved_ws"><span class="command">--color-moved-ws<input type="checkbox" id="git_diff_color_moved_ws_color_moved_ws_has_argument" name="git_diff_color_moved_ws_color_moved_ws_has_argument"><label for="git_diff_color_moved_ws_color_moved_ws_has_argument">[=&lt;mode&gt;,...]</label></span> Configures how whitespace is ignored when performing the move detection for <span class="command">--color-moved</span>.<br>
+						<div class="ml-[1em]">
+							<span class="command">no</span> Do not ignore whitespace when performing move detection.<br>
+							<span class="command">ignore-space-at-eol</span> Ignore changes in whitespace at EOL.<br>
+							<span class="command">ignore-space-change</span> Ignore changes in amount of whitespace.<br>
+							<span class="command">ignore-all-space</span> Ignore whitespace when comparing lines.<br>
+							<span class="command">allow-indentation-change</span> Initially ignore any whitespace in the move detection, then group the moved code blocks only into a block if the change in whitespace is the same per line. Is incompatible with the other modes.<br>
+						</div></label>
+					<div class="form_item"><label for="git_diff_color_moved_ws_color_moved_ws_modes"><span class="command">&lt;mode&gt;,...</span>:</label><input type="text" id="git_diff_color_moved_ws_color_moved_ws_modes" name="git_diff_color_moved_ws_color_moved_ws_modes" class="basis-0 grow command_input" value=""></div>
+				</div>
+			</div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_word\_diff\_and\_word\_diff\_regex~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_word_diff_and_word_diff_regex')">
+				<div class="form_item"><input type="checkbox" id="git_diff_has_word_diff" name="git_diff_has_word_diff"><label for="git_diff_has_word_diff"><span class="command">--word-diff<input type="checkbox" id="git_diff_word_diff_has_argument" name="git_diff_word_diff_has_argument"><label for="git_diff_word_diff_has_argument">[=(<input type="radio" id="git_diff_word_diff_mode_color" name="git_diff_word_diff_mode" value="color"><label for="git_diff_word_diff_mode_color">color</label>|<input type="radio" id="git_diff_word_diff_mode_plain" name="git_diff_word_diff_mode" value="plain" checked><label for="git_diff_word_diff_mode_plain">plain</label>|<input type="radio" id="git_diff_word_diff_mode_porcelain" name="git_diff_word_diff_mode" value="porcelain"><label for="git_diff_word_diff_mode_porcelain">porcelain</label>|<input type="radio" id="git_diff_word_diff_mode_none" name="git_diff_word_diff_mode" value="none"><label for="git_diff_word_diff_mode_none">none</label>)]</label></span><br>
+					<div class="ml-[1em]">
+						<span class="command">color</span> Highlight changed words using only colors. (Implies <span class="command">--color</span>.)<br>
+						<span class="command">plain</span> Show words as <span class="inline_code">[-removed-]</span> and <span class="inline_code">{+added+}</span>.<br>
+						<span class="command">porcelain</span> Use a special line-based format intended for script consumption.<br>
+						<span class="command">none</span> Disable word diff again.<br>
+					</div></label></div>
+				<div class="form_item">
+					<input type="checkbox" id="git_diff_has_word_diff_regex" name="git_diff_has_word_diff_regex">
+					<div class="subform basis-0 grow">
+						<label for="git_diff_has_word_diff_regex"><span class="command">--word-diff-regex=&lt;regex&gt;</span> Use <span class="command">&lt;regex&gt;</span> to decide what a word is, instead of considering runs of non-whitespace to be a word. (Implies <span class="command">--word-diff=plain</span> unless it was already enabled.) (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffdriverwordRegex"><span class="inline_code">diff.&lt;driver&gt;.wordRegex</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffwordRegex"><span class="inline_code">diff.wordRegex</span></a> which defaults to "words are delimited by whitespace".)</label>
+						<div class="form_item"><label for="git_diff_word_diff_regex_regex"><span class="command">&lt;regex&gt;</span>:</label><input type="text" id="git_diff_word_diff_regex_regex" name="git_diff_word_diff_regex_regex" class="basis-0 grow command_input" value=""></div>
+					</div>
+				</div>
+			</div>
+
+			<fieldset>
+				<legend><p>diffcore-break: for splitting up complete rewrites</p></legend>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_break\_rewrites~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_break_rewrites')">
+					<input type="checkbox" id="git_diff_has_break_rewrite_break" name="git_diff_has_break_rewrite_break">
+					<div class="subform basis-0 grow">
+						<label for="git_diff_has_break_rewrite_break"><span class="command">--break-rewrites<input type="checkbox" id="git_diff_break_rewrite_break_has_argument" name="git_diff_break_rewrite_break_has_argument"><label for="git_diff_break_rewrite_break_has_argument">[=&lt;n&gt;]</label></span> Break complete rewrite changes into pairs of delete and create. When used with <span class="command">--find-renames</span>, a totally-rewritten file is also considered as the source of a rename (usually <span class="command">--find-renames</span> only considers a file that disappeared as the source of a rename). A change with addition and deletion at least <span class="command">&lt;n&gt;</span> of the size of the smaller of the original and the result is eligible for being picked up as a possible source of a rename to another file.</label>
+						<div class="form_item"><label for="git_diff_break_rewrite_break_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_diff_break_rewrite_break_n" name="git_diff_break_rewrite_break_n" class="basis-0 grow command_input" value="50%"></div>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend><p>diffcore-rename: for detecting renames and copies</p></legend>
+				<div class="form_item"><input type="radio" id="git_diff_rename_no_option" name="git_diff_rename" value="no_option" checked><label for="git_diff_rename_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffrenames"><span class="inline_code">diff.renames</span></a> which defaults to <span class="inline_code">true</span>.)</label></div>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_no\_renames~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_no_renames')"><input type="radio" id="git_diff_rename_no_renames" name="git_diff_rename" value="no_renames"><label for="git_diff_rename_no_renames"><span class="command">--no-renames</span> Turn off rename detection, even when the configuration file gives the default to do so.</label></div>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_find\_renames~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_find_renames')">
+					<input type="radio" id="git_diff_rename_find_renames" name="git_diff_rename" value="find_renames">
+					<div class="subform basis-0 grow">
+						<label for="git_diff_rename_find_renames"><span class="command">--find-renames<input type="checkbox" id="git_diff_rename_find_renames_has_argument" name="git_diff_rename_find_renames_has_argument"><label for="git_diff_rename_find_renames_has_argument">[=&lt;n&gt;]</label></span> Detect renames.</label>
+						<div class="form_item"><label for="git_diff_rename_find_renames_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_diff_rename_find_renames_n" name="git_diff_rename_find_renames_n" class="basis-0 grow command_input" value="50%"></div>
+					</div>
+				</div>
+				<fieldset>
+					<legend>
+						<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_find\_copies~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_find_copies')">
+							<input type="radio" id="git_diff_rename_find_copies" name="git_diff_rename" value="find_copies">
+							<div class="subform basis-0 grow">
+								<label for="git_diff_rename_find_copies"><span class="command">--find-copies<input type="checkbox" id="git_diff_rename_find_copies_has_argument" name="git_diff_rename_find_copies_has_argument"><label for="git_diff_rename_find_copies_has_argument">[=&lt;n&gt;]</label></span> Detect copies as well as renames.</label>
+								<div class="form_item"><label for="git_diff_rename_find_copies_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_diff_rename_find_copies_n" name="git_diff_rename_find_copies_n" class="basis-0 grow command_input" value="50%"></div>
+							</div>
+						</div>
+					</legend>
+					<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_find\_copies\_harder~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_find_copies_harder')"><input type="checkbox" id="git_diff_has_find_copies_harder" name="git_diff_has_find_copies_harder"><label for="git_diff_has_find_copies_harder"><span class="command">--find-copies-harder</span> For performance reasons, by default, <span class="command">--find-copies</span> option finds copies only if the original file of the copy was modified in the same changeset. Makes the command inspect unmodified files as candidates for the source of copy.</label></div>
+				</fieldset>
+
+				<div class="form_item">
+					<input type="checkbox" id="git_diff_has_l" name="git_diff_has_l">
+					<div class="subform basis-0 grow">
+						<label for="git_diff_has_l"><span class="command">-l&lt;num&gt;</span> Prevents the exhaustive portion of rename/copy detection from running if the number of source/destination files involved exceeds the specified number. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffrenameLimit"><span class="inline_code">diff.renameLimit</span></a> which defaults to <span class="inline_code">1000</span>.)</label>
+						<div class="form_item"><label for="git_diff_l_num"><span class="command">&lt;num&gt;</span>:</label><input type="text" id="git_diff_l_num" name="git_diff_l_num" class="basis-0 grow command_input" value="1000"></div>
+					</div>
+				</div>
+
+				<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_rename\_empty~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_rename_empty')">
+					<div class="form_item"><input type="radio" id="git_diff_rename_empty_no_option" name="git_diff_rename_empty" value="" checked><label for="git_diff_rename_empty_no_option"></label></div>
+					<div class="form_item"><input type="radio" id="git_diff_rename_empty_has_rename_empty" name="git_diff_rename_empty" value="true"><label for="git_diff_rename_empty_has_rename_empty"><span class="command">--rename-empty</span> Use empty blobs as rename source.</label></div>
+					<div class="form_item"><input type="radio" id="git_diff_rename_empty_has_no_rename_empty" name="git_diff_rename_empty" value="false"><label for="git_diff_rename_empty_has_no_rename_empty"><span class="command">--no-rename-empty</span> Do not use empty blobs as rename source.</label></div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend><p>diffcore-merge-broken: for putting complete rewrites back together</p></legend>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_break\_rewrites~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_break_rewrites')">
+					<input type="checkbox" id="git_diff_has_break_rewrite_merge_broken" name="git_diff_has_break_rewrite_merge_broken">
+					<div class="subform basis-0 grow">
+						<label for="git_diff_has_break_rewrite_merge_broken"><span class="command">--break-rewrites<input type="checkbox" id="git_diff_break_rewrite_merge_broken_has_argument" name="git_diff_break_rewrite_merge_broken_has_argument"><label for="git_diff_break_rewrite_merge_broken_has_argument">[=/&lt;m&gt;]</label></span> Break complete rewrite changes into pairs of delete and create. Affects the way a change that amounts to a total rewrite of a file not as a series of deletion and insertion mixed together with a very few lines that happen to match textually as the context, but as a single deletion of everything old followed by a single insertion of everything new. At least <span class="command">&lt;m&gt;</span> of the original should be deleted for Git to consider it a total rewrite (i.e. otherwise the resulting patch will be a series of deletion and insertion mixed together with context lines).</label>
+						<div class="form_item"><label for="git_diff_break_rewrite_merge_broken_m"><span class="command">&lt;m&gt;</span>:</label><input type="text" id="git_diff_break_rewrite_merge_broken_m" name="git_diff_break_rewrite_merge_broken_m" class="basis-0 grow command_input" value="60%"></div>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend><p>diffcore-pickaxe: for detecting addition/deletion of specified string</p></legend>
+				<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_S\_and\_G~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_S_and_G')">
+					<fieldset>
+						<legend><p><span class="command">-S&lt;string&gt;</span> Look for differences that change the number of occurrences of the specified <span class="command">&lt;string&gt;</span> (i.e. addition/deletion) in a file.</p></legend>
+						<input id="git_diff_S_list_add" type="button" value="Add">
+						<div id="git_diff_S_list" class="subform"></div>
+						<script>
+							document.getElementById("git_diff_S_list_add").addEventListener("click",function(e){
+								document.getElementById("git_diff_S_list").append((function(){
+									let div = document.createElement("div"); div.className = "form_item";
+									let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+									let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_diff_refresh);
+									checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_diff_refresh(); });
+									div.append(checkbox, textarea);
+									return div;
+								})());
+								git_diff_refresh();
+							})
+						</script>
+					</fieldset>
+					<p>when <span class="command">-S&lt;string&gt;</span>:</p>
+					<div class="form_item"><input type="checkbox" id="git_diff_has_pickaxe_regex" name="git_diff_has_pickaxe_regex"><label for="git_diff_has_pickaxe_regex"><span class="command">--pickaxe-regex</span> Treat the <span class="command">&lt;string&gt;</span> given to <span class="command">-S</span> as an extended POSIX regular expression to match.</label></div>
+					<fieldset>
+						<legend><p><span class="command">-G&lt;regex&gt;</span> Look for differences whose patch text contains added/removed lines that match <span class="command">&lt;regex&gt;</span>. Unless <span class="command">--text</span> is supplied patches of binary files without a textconv filter will be ignored.</p></legend>
+						<input id="git_diff_G_list_add" type="button" value="Add">
+						<div id="git_diff_G_list" class="subform"></div>
+						<script>
+							document.getElementById("git_diff_G_list_add").addEventListener("click",function(e){
+								document.getElementById("git_diff_G_list").append((function(){
+									let div = document.createElement("div"); div.className = "form_item";
+									let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+									let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_diff_refresh);
+									checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_diff_refresh(); });
+									div.append(checkbox, textarea);
+									return div;
+								})());
+								git_diff_refresh();
+							})
+						</script>
+					</fieldset>
+				</div>
+				<fieldset>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_find\_object~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_find_object')"><p><span class="command">--find-object=&lt;object-id&gt;</span> Look for differences that change the number of occurrences of the specified object.</p></legend>
+					<input id="git_diff_find_object_list_add" type="button" value="Add">
+					<div id="git_diff_find_object_list" class="subform"></div>
+					<script>
+						document.getElementById("git_diff_find_object_list_add").addEventListener("click",function(e){
+							document.getElementById("git_diff_find_object_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_diff_refresh);
+								checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_diff_refresh(); });
+								div.append(checkbox, textarea);
+								return div;
+							})());
+							git_diff_refresh();
+						})
+					</script>
+				</fieldset>
+			</fieldset>
+			<fieldset>
+				<legend><p>diffcore-order: for sorting the output based on filenames</p></legend>
+				<div class="form_item">
+					<input type="checkbox" id="git_diff_has_O" name="git_diff_has_O">
+					<div class="subform basis-0 grow">
+						<label for="git_diff_has_O"><span class="command">-O&lt;orderfile&gt;</span> Control the order in which files appear in the output. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-difforderFile"><span class="inline_code">diff.orderFile</span></a> which defaults to <span class="inline_code">/dev/null</span>.)</label>
+						<div class="form_item"><label for="git_diff_O_orderfile"><span class="command">&lt;orderfile&gt;</span>:</label><textarea wrap="off" id="git_diff_O_orderfile" name="git_diff_O_orderfile" class="basis-0 grow command_input"></textarea></div>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend><p>diffcore-rotate: for changing at which path output starts</p></legend>
+				<div class="form_item">
+					<input type="checkbox" id="git_diff_has_skip_to" name="git_diff_has_skip_to">
+					<div class="subform basis-0 grow">
+						<label for="git_diff_has_skip_to"><span class="command">--skip-to=&lt;file&gt;</span> Discard the files before the named <span class="command">&lt;file&gt;</span> from the output.</label>
+						<div class="form_item"><label for="git_diff_skip_to_file"><span class="command">&lt;file&gt;</span>:</label><textarea wrap="off" id="git_diff_skip_to_file" name="git_diff_skip_to_file" class="basis-0 grow command_input"></textarea></div>
+					</div>
+				</div>
+				<div class="form_item">
+					<input type="checkbox" id="git_diff_has_rotate_to" name="git_diff_has_rotate_to">
+					<div class="subform basis-0 grow">
+						<label for="git_diff_has_rotate_to"><span class="command">--rotate-to=&lt;file&gt;</span> Move the files before the named <span class="command">&lt;file&gt;</span> to the end of the output.</label>
+						<div class="form_item"><label for="git_diff_rotate_to_file"><span class="command">&lt;file&gt;</span>:</label><textarea wrap="off" id="git_diff_rotate_to_file" name="git_diff_rotate_to_file" class="basis-0 grow command_input"></textarea></div>
+					</div>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>whitespace errors:</p></legend>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_ws\_error\_highlight~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_ws_error_highlight')">
+					<input type="checkbox" id="git_diff_has_ws_error_highlight" name="git_diff_has_ws_error_highlight">
+					<div class="subform basis-0 grow">
+						<label for="git_diff_has_ws_error_highlight"><span class="command">--ws-error-highlight=&lt;kind&gt;</span> Highlight whitespace errors in the <span class="command">context</span>, <span class="command">old</span> or <span class="command">new</span> lines of the diff. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffwsErrorHighlight"><span class="inline_code">diff.wsErrorHighlight</span></a> which defaults to <span class="inline_code">new</span>.)</label>
+						<div class="form_item"><label for="git_diff_ws_error_highlight_kind"><span class="command">&lt;kind&gt;</span>:</label><input type="text" id="git_diff_ws_error_highlight_kind" name="git_diff_ws_error_highlight_kind" class="basis-0 grow command_input" value="new"></div>
+					</div>
+				</div>
+			</fieldset>
+			<div class="form_item"><input type="checkbox" id="git_diff_has_ignore_cr_at_eol" name="git_diff_has_ignore_cr_at_eol"><label for="git_diff_has_ignore_cr_at_eol"><span class="command">--ignore-cr-at-eol</span> Ignore carriage-return at the end of line when doing a comparison.</label></div>
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_ignore\_space~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_ignore_space')">
+				<div class="form_item"><input type="checkbox" id="git_diff_has_ignore_space_at_eol" name="git_diff_has_ignore_space_at_eol"><label for="git_diff_has_ignore_space_at_eol"><span class="command">--ignore-space-at-eol</span> Ignore changes in whitespace at EOL.</label></div>
+				<div class="form_item"><input type="checkbox" id="git_diff_has_ignore_space_change" name="git_diff_has_ignore_space_change"><label for="git_diff_has_ignore_space_change"><span class="command">--ignore-space-change</span> Ignore changes in amount of whitespace. Ignores whitespace at line end, and considers all other sequences of one or more whitespace characters to be equivalent.</label></div>
+				<div class="form_item"><input type="checkbox" id="git_diff_has_ignore_all_space" name="git_diff_has_ignore_all_space"><label for="git_diff_has_ignore_all_space"><span class="command">--ignore-all-space</span> Ignore whitespace when comparing lines.</label></div>
+			</div>
+			<div class="form_item"><input type="checkbox" id="git_diff_has_ignore_blank_lines" name="git_diff_has_ignore_blank_lines"><label for="git_diff_has_ignore_blank_lines"><span class="command">--ignore-blank-lines</span> Ignore changes whose lines are all blank.</label></div>
+			<fieldset>
+				<legend><p><span class="command">--ignore-matching-lines=&lt;regex&gt;</span> Ignore changes whose all lines match <span class="command">&lt;regex&gt;</span>.</p></legend>
+				<input id="git_diff_ignore_matching_lines_list_add" type="button" value="Add">
+				<div id="git_diff_ignore_matching_lines_list" class="subform"></div>
+				<script>
+					document.getElementById("git_diff_ignore_matching_lines_list_add").addEventListener("click",function(e){
+						document.getElementById("git_diff_ignore_matching_lines_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_diff_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_diff_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_diff_refresh();
+					})
+				</script>
+			</fieldset>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>output:</p></legend>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_R~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_R')"><input type="checkbox" id="git_diff_has_R" name="git_diff_has_R"><label for="git_diff_has_R"><span class="command">-R</span> Swap two inputs; that is, show differences from index or on-disk file to tree contents.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<p>when <span class="command">-S&lt;string&gt;</span>/<span class="command">-G&lt;regex&gt;</span>:</p>
+			<div class="form_item"><input type="checkbox" id="git_diff_has_pickaxe_all" name="git_diff_has_pickaxe_all"><label for="git_diff_has_pickaxe_all"><span class="command">--pickaxe-all</span> When <span class="command">-S</span> or <span class="command">-G</span> finds a change, show all the changes in that changeset, not just the files that contain the change in <span class="command">&lt;string&gt;</span>.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<fieldset>
+				<legend><p>deleted files:</p></legend>
+				<div class="form_item"><input type="checkbox" id="git_diff_has_irreversible_delete" name="git_diff_has_irreversible_delete"><label for="git_diff_has_irreversible_delete"><span class="command">--irreversible-delete</span> Omit the preimage for deletes, i.e. print only the header but not the diff between the preimage and <span class="inline_code">/dev/null</span>. When used together with <span class="command">--break-rewrites</span>, omit also the preimage in the deletion part of a delete/create pair.</label></div>
+			</fieldset>
+
+			<fieldset>
+				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_format~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_format')"><p>formatting:</p></legend>
+				<div class="form_item"><input type="checkbox" id="git_diff_has_no_patch" name="git_diff_has_no_patch"><label for="git_diff_has_no_patch"><span class="command">--no-patch</span> Suppress all output from the diff machinery.</label></div>
+				<fieldset>
+					<legend>
+						<div class="form_item"><input type="radio" id="git_diff_format_no_option" name="git_diff_format" value="no_option" checked><label for="git_diff_format_no_option"></label></div>
+					</legend>
+					<p>(Defaults to <span class="command">--patch</span>.)</p>
+					<fieldset>
+						<legend>
+							<div class="form_item"><input type="checkbox" id="git_diff_has_patch" name="git_diff_has_patch"><label for="git_diff_has_patch"><span class="command">--patch</span> Generate patch.</label></div>
+						</legend>
+						<fieldset>
+							<legend><p>object names:</p></legend>
+							<div class="form_item"><input type="radio" id="git_diff_patch_abbrev_no_option" name="git_diff_patch_abbrev" value="no_option" checked><label for="git_diff_patch_abbrev_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreabbrev"><span class="inline_code">core.abbrev</span></a> which defaults to a value computed based on the approximate number of packed objects in your repository.)</label></div>
+							<div class="form_item"><input type="radio" id="git_diff_patch_abbrev_full_index" name="git_diff_patch_abbrev" value="full_index"><label for="git_diff_patch_abbrev_full_index"><span class="command">--full-index</span> Instead of the first handful of characters, show the full pre- and post-image blob object names on the "index" line when generating patch format output. Takes higher precedence than <span class="command">--abbrev</span>.</label></div>
+							<div class="form_item">
+								<input type="radio" id="git_diff_patch_abbrev_abbrev" name="git_diff_patch_abbrev" value="abbrev">
+								<div class="subform basis-0 grow">
+									<label for="git_diff_patch_abbrev_abbrev"><span class="command">--abbrev<input type="checkbox" id="git_diff_patch_abbrev_abbrev_has_argument" name="git_diff_patch_abbrev_abbrev_has_argument"><label for="git_diff_patch_abbrev_abbrev_has_argument">[=&lt;n&gt;]</label></span> Instead of showing the full 40-byte hexadecimal object name in diff-raw format output and diff-tree header lines, show the shortest prefix that is at least <span class="command">&lt;n&gt;</span> hexdigits long that uniquely refers the object.</label>
+									<div class="form_item"><label for="git_diff_patch_abbrev_abbrev_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_diff_patch_abbrev_abbrev_n" name="git_diff_patch_abbrev_abbrev_n" class="basis-0 grow command_input" value=""></div>
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_binary\_files~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_binary_files')"><p>binary files:</p></legend>
+							<fieldset>
+								<legend>
+									<div class="form_item"><input type="radio" id="git_diff_binary_files_no_option" name="git_diff_binary_files" value="no_option" checked><label for="git_diff_binary_files_no_option"></label></div>
+								</legend>
+								<div class="form_item"><input type="checkbox" id="git_diff_has_binary" name="git_diff_has_binary"><label for="git_diff_has_binary"><span class="command">--binary</span> In addition to <span class="command">--full-index</span>, output a binary diff that can be applied with <span class="command">git-apply</span>.</label></div>
+							</fieldset>
+							<div class="form_item"><input type="radio" id="git_diff_binary_files_text" name="git_diff_binary_files" value="text"><label for="git_diff_binary_files_text"><span class="command">--text</span> Treat all files as text.</label></div>
+
+							<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+							<div class="form_item"><input type="radio" id="git_diff_textconv_no_option" name="git_diff_textconv" value="" checked><label for="git_diff_textconv_no_option"></label></div>
+							<div class="form_item"><input type="radio" id="git_diff_textconv_has_textconv" name="git_diff_textconv" value="true"><label for="git_diff_textconv_has_textconv"><span class="command">--textconv</span> Allow external text conversion filters to be run when comparing binary files.</label></div>
+							<div class="form_item"><input type="radio" id="git_diff_textconv_has_no_textconv" name="git_diff_textconv" value="false"><label for="git_diff_textconv_has_no_textconv"><span class="command">--no-textconv</span> Disallow external text conversion filters to be run when comparing binary files.</label></div>
+						</fieldset>
+						<fieldset>
+							<legend><p>context lines and hunks:</p></legend>
+							<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_unified\_and\_inter\_hunk\_context~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_unified_and_inter_hunk_context')">
+								<div class="form_item">
+									<input type="checkbox" id="git_diff_has_unified" name="git_diff_has_unified">
+									<div class="subform basis-0 grow">
+										<label for="git_diff_has_unified"><span class="command">--unified=&lt;n&gt;</span> Generate diffs with <span class="command">&lt;n&gt;</span> lines of context instead of the usual three. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffcontext"><span class="inline_code">diff.context</span></a> which defaults to <span class="inline_code">3</span>.)</label>
+										<div class="form_item"><label for="git_diff_unified_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_diff_unified_n" name="git_diff_unified_n" class="basis-0 grow command_input" value="3"></div>
+									</div>
+								</div>
+								<div class="form_item">
+									<input type="checkbox" id="git_diff_has_inter_hunk_context" name="git_diff_has_inter_hunk_context">
+									<div class="subform basis-0 grow">
+										<label for="git_diff_has_inter_hunk_context"><span class="command">--inter-hunk-context=&lt;number&gt;</span> Show the context between diff hunks, up to the specified <span class="command">&lt;number&gt;</span> of lines, thereby fusing hunks that are close to each other. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffinterHunkContext"><span class="inline_code">diff.interHunkContext</span></a> which defaults to <span class="inline_code">0</span>.)</label>
+										<div class="form_item"><label for="git_diff_inter_hunk_context_number"><span class="command">&lt;number&gt;</span>:</label><input type="text" id="git_diff_inter_hunk_context_number" name="git_diff_inter_hunk_context_number" class="basis-0 grow command_input" value="0"></div>
+									</div>
+								</div>
+							</div>
+							<div class="form_item"><input type="checkbox" id="git_diff_has_function_context" name="git_diff_has_function_context"><label for="git_diff_has_function_context"><span class="command">--function-context</span> Show whole function as context lines for each change.</label></div>
+						</fieldset>
+						<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_prefix~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_prefix')">
+							<fieldset>
+								<legend><p>source and destination prefix:</p></legend>
+								<div class="form_item"><input type="radio" id="git_diff_source_and_destination_prefix_no_option" name="git_diff_source_and_destination_prefix" value="no_option" checked><label for="git_diff_source_and_destination_prefix_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffnoPrefix"><span class="inline_code">diff.noPrefix</span></a> which defaults to <span class="inline_code">false</span>, <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffmnemonicPrefix"><span class="inline_code">diff.mnemonicPrefix</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+								<div class="form_item"><input type="radio" id="git_diff_source_and_destination_prefix_no_prefix" name="git_diff_source_and_destination_prefix" value="no_prefix"><label for="git_diff_source_and_destination_prefix_no_prefix"><span class="command">--no-prefix</span> Do not show any source or destination prefix.</label></div>
+								<div class="form_item"><input type="radio" id="git_diff_source_and_destination_prefix_default_prefix" name="git_diff_source_and_destination_prefix" value="default_prefix"><label for="git_diff_source_and_destination_prefix_default_prefix"><span class="command">--default-prefix</span> Use the default source and destination prefixes ("a/" and "b/").</label></div>
+
+								<div class="form_item">
+									<input type="checkbox" id="git_diff_has_src_prefix" name="git_diff_has_src_prefix">
+									<div class="subform basis-0 grow">
+										<label for="git_diff_has_src_prefix"><span class="command">--src-prefix=&lt;prefix&gt;</span> Show the given source <span class="command">&lt;prefix&gt;</span> instead of "a/". (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffsrcPrefix"><span class="inline_code">diff.srcPrefix</span></a> which defaults to <span class="inline_code">a/</span>.)</label>
+										<div class="form_item"><label for="git_diff_src_prefix"><span class="command">&lt;prefix&gt;</span>:</label><textarea wrap="off" id="git_diff_src_prefix" name="git_diff_src_prefix" class="basis-0 grow command_input">a/</textarea></div>
+									</div>
+								</div>
+								<div class="form_item">
+									<input type="checkbox" id="git_diff_has_dst_prefix" name="git_diff_has_dst_prefix">
+									<div class="subform basis-0 grow">
+										<label for="git_diff_has_dst_prefix"><span class="command">--dst-prefix=&lt;prefix&gt;</span> Show the given destination <span class="command">&lt;prefix&gt;</span>	 instead of "b/". (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffdstPrefix"><span class="inline_code">diff.dstPrefix</span></a> which defaults to <span class="inline_code">b/</span>.)</label>
+										<div class="form_item"><label for="git_diff_dst_prefix"><span class="command">&lt;prefix&gt;</span>:</label><textarea wrap="off" id="git_diff_dst_prefix" name="git_diff_dst_prefix" class="basis-0 grow command_input">b/</textarea></div>
+									</div>
+								</div>
+							</fieldset>
+							<fieldset>
+								<legend><p>line prefix:</p></legend>
+								<div class="form_item">
+									<input type="checkbox" id="git_diff_has_line_prefix" name="git_diff_has_line_prefix">
+									<div class="subform basis-0 grow">
+										<label for="git_diff_has_line_prefix"><span class="command">--line-prefix=&lt;prefix&gt;</span> Prepend an additional <span class="command">&lt;prefix&gt;</span> to every line of output.</label>
+										<div class="form_item"><label for="git_diff_line_prefix"><span class="command">&lt;prefix&gt;</span>:</label><textarea wrap="off" id="git_diff_line_prefix" name="git_diff_line_prefix" class="basis-0 grow command_input"></textarea></div>
+									</div>
+								</div>
+								<fieldset>
+									<legend><p>output indicator:</p></legend>
+									<div class="form_item">
+										<input type="checkbox" id="git_diff_has_output_indicator_new" name="git_diff_has_output_indicator_new">
+										<div class="subform basis-0 grow">
+											<label for="git_diff_has_output_indicator_new"><span class="command">--output-indicator-new=&lt;char&gt;</span> Specify the character used to indicate new lines in the generated patch.</label>
+											<div class="form_item"><label for="git_diff_output_indicator_new"><span class="command">&lt;char&gt;</span>:</label><input type="text" id="git_diff_output_indicator_new" name="git_diff_output_indicator_new" class="basis-0 grow command_input" value="+"></div>
+										</div>
+									</div>
+									<div class="form_item">
+										<input type="checkbox" id="git_diff_has_output_indicator_old" name="git_diff_has_output_indicator_old">
+										<div class="subform basis-0 grow">
+											<label for="git_diff_has_output_indicator_old"><span class="command">--output-indicator-old=&lt;char&gt;</span> Specify the character used to indicate old lines in the generated patch.</label>
+											<div class="form_item"><label for="git_diff_output_indicator_old"><span class="command">&lt;char&gt;</span>:</label><input type="text" id="git_diff_output_indicator_old" name="git_diff_output_indicator_old" class="basis-0 grow command_input" value="-"></div>
+										</div>
+									</div>
+									<div class="form_item">
+										<input type="checkbox" id="git_diff_has_output_indicator_context" name="git_diff_has_output_indicator_context">
+										<div class="subform basis-0 grow">
+											<label for="git_diff_has_output_indicator_context"><span class="command">--output-indicator-context=&lt;char&gt;</span> Specify the character used to indicate context lines in the generated patch.</label>
+											<div class="form_item"><label for="git_diff_output_indicator_context"><span class="command">&lt;char&gt;</span>:</label><input type="text" id="git_diff_output_indicator_context" name="git_diff_output_indicator_context" class="basis-0 grow command_input" value=" "></div>
+										</div>
+									</div>
+								</fieldset>
+							</fieldset>
+						</div>
+					</fieldset>
+					<fieldset>
+						<legend>
+							<div class="form_item"><input type="checkbox" id="git_diff_has_raw" name="git_diff_has_raw"><label for="git_diff_has_raw"><span class="command">--raw</span> Generate the diff in raw format.</label></div>
+						</legend>
+						<fieldset>
+							<legend><p>object names:</p></legend>
+							<div class="form_item"><input type="radio" id="git_diff_raw_abbrev_no_option" name="git_diff_raw_abbrev" value="no_option" checked><label for="git_diff_raw_abbrev_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreabbrev"><span class="inline_code">core.abbrev</span></a> which defaults to a value computed based on the approximate number of packed objects in your repository.)</label></div>
+							<div class="form_item"><input type="radio" id="git_diff_raw_abbrev_no_abbrev" name="git_diff_raw_abbrev" value="no_abbrev"><label for="git_diff_raw_abbrev_no_abbrev"><span class="command">--no-abbrev</span></label></div>
+							<div class="form_item">
+								<input type="radio" id="git_diff_raw_abbrev_abbrev" name="git_diff_raw_abbrev" value="abbrev">
+								<div class="subform basis-0 grow">
+									<label for="git_diff_raw_abbrev_abbrev"><span class="command">--abbrev<input type="checkbox" id="git_diff_raw_abbrev_abbrev_has_argument" name="git_diff_raw_abbrev_abbrev_has_argument"><label for="git_diff_raw_abbrev_abbrev_has_argument">[=&lt;n&gt;]</label></span> Instead of showing the full 40-byte hexadecimal object name in diff-raw format output and diff-tree header lines, show the shortest prefix that is at least <span class="command">&lt;n&gt;</span> hexdigits long that uniquely refers the object.</label>
+									<div class="form_item"><label for="git_diff_raw_abbrev_abbrev_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_diff_raw_abbrev_abbrev_n" name="git_diff_raw_abbrev_abbrev_n" class="basis-0 grow command_input" value=""></div>
+								</div>
+							</div>
+						</fieldset>
+					</fieldset>
+					<fieldset>
+						<legend>
+							<div class="form_item">
+								<input type="checkbox" id="git_diff_has_stat_width" name="git_diff_has_stat_width">
+								<div class="subform basis-0 grow">
+									<label for="git_diff_has_stat_width"><span class="command">--stat-width=&lt;width&gt;</span> Generate a diffstat. Maximum width defaults to terminal width, or 80 columns if not connected to a terminal.</label>
+									<div class="form_item"><label for="git_diff_stat_width"><span class="command">&lt;width&gt;</span>:</label><input type="text" id="git_diff_stat_width" name="git_diff_stat_width" class="basis-0 grow command_input" value=""></div>
+								</div>
+							</div>
+							<div class="form_item">
+								<input type="checkbox" id="git_diff_has_stat_name_width" name="git_diff_has_stat_name_width">
+								<div class="subform basis-0 grow">
+									<label for="git_diff_has_stat_name_width"><span class="command">--stat-name-width=&lt;name-width&gt;</span> Generate a diffstat. The width of the filename part defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffstatNameWidth"><span class="inline_code">diff.statNameWidth</span></a>.</label>
+									<div class="form_item"><label for="git_diff_stat_name_width"><span class="command">&lt;name-width&gt;</span>:</label><input type="text" id="git_diff_stat_name_width" name="git_diff_stat_name_width" class="basis-0 grow command_input" value=""></div>
+								</div>
+							</div>
+							<div class="form_item">
+								<input type="checkbox" id="git_diff_has_stat_graph_width" name="git_diff_has_stat_graph_width">
+								<div class="subform basis-0 grow">
+									<label for="git_diff_has_stat_graph_width"><span class="command">--stat-graph-width=&lt;graph-width&gt;</span> Generate a diffstat. The width of the graph part defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffstatGraphWidth"><span class="inline_code">diff.statGraphWidth</span></a>.</label>
+									<div class="form_item"><label for="git_diff_stat_graph_width"><span class="command">&lt;graph-width&gt;</span>:</label><input type="text" id="git_diff_stat_graph_width" name="git_diff_stat_graph_width" class="basis-0 grow command_input" value=""></div>
+								</div>
+							</div>
+							<div class="form_item">
+								<input type="checkbox" id="git_diff_has_stat_count" name="git_diff_has_stat_count">
+								<div class="subform basis-0 grow">
+									<label for="git_diff_has_stat_count"><span class="command">--stat-count=&lt;count&gt;</span> Generate a diffstat. Limit the output to the first <span class="command">&lt;count&gt;</span> lines, followed by <span class="inline_code">...</span> if there are more.</label>
+									<div class="form_item"><label for="git_diff_stat_count"><span class="command">&lt;count&gt;</span>:</label><input type="text" id="git_diff_stat_count" name="git_diff_stat_count" class="basis-0 grow command_input" value=""></div>
+								</div>
+							</div>
+						</legend>
+						<div class="form_item"><input type="checkbox" id="git_diff_has_compact_summary" name="git_diff_has_compact_summary"><label for="git_diff_has_compact_summary"><span class="command">--compact-summary</span> Output a condensed summary of extended header information such as file creations or deletions ("new" or "gone", optionally <span class="inline_code">+l</span> if it’s a symlink) and mode changes (<span class="inline_code">+x</span> or <span class="inline_code">-x</span> for adding or removing executable bit respectively) in diffstat.</label></div>
+					</fieldset>
+					<div class="form_item"><input type="checkbox" id="git_diff_has_shortstat" name="git_diff_has_shortstat"><label for="git_diff_has_shortstat"><span class="command">--shortstat</span> Output only the last line of the <span class="command">--stat</span> format containing total number of modified files, as well as number of added and deleted lines.</label></div>
+					<div class="form_item"><input type="checkbox" id="git_diff_has_summary" name="git_diff_has_summary"><label for="git_diff_has_summary"><span class="command">--summary</span> Output a condensed summary of extended header information such as creations, renames and mode changes.</label></div>
+					<div class="form_item"><input type="checkbox" id="git_diff_has_numstat" name="git_diff_has_numstat"><label for="git_diff_has_numstat"><span class="command">--numstat</span> Similar to <span class="command">--stat</span>, but shows number of added and deleted lines in decimal notation and pathname without abbreviation, to make it more machine friendly.</label></div>
+					<div class="form_item">
+						<input type="checkbox" id="git_diff_has_dirstat" name="git_diff_has_dirstat">
+						<div class="subform basis-0 grow">
+							<label for="git_diff_has_dirstat"><span class="command">--dirstat<input type="checkbox" id="git_diff_dirstat_has_argument" name="git_diff_dirstat_has_argument"><label for="git_diff_dirstat_has_argument">[=&lt;param&gt;,...]</label></span> Output the distribution of relative amount of changes for each sub-directory. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffdirstat"><span class="inline_code">diff.dirstat</span></a> which defaults to <span class="inline_code">changes,noncumulative,3</span>.)<br>
+								<div class="ml-[1em]">
+									<span class="command">changes</span> Compute the dirstat numbers by counting the lines that have been removed from the source, or added to the destination. Ignores the amount of pure code movements within a file.<br>
+									<span class="command">lines</span> Compute the dirstat numbers by doing the regular line-based diff analysis, and summing the removed/added line counts. Count rearranged lines within a file as much as other changes.<br>
+									<span class="command">files</span> Compute the dirstat numbers by counting the number of files changed.<br>
+									<span class="command">noncumulative</span> Specify non-cumulative behavior.<br>
+									<span class="command">cumulative</span> Count changes in a child directory for the parent directory as well.<br>
+									<span class="command">&lt;limit&gt;</span> An integer parameter specifies a cut-off percent (3% by default). Directories contributing less than this percentage of the changes are not shown in the output.<br>
+								</div></label>
+							<div class="form_item"><label for="git_diff_dirstat_params"><span class="command">&lt;param&gt;,...</span>:</label><input type="text" id="git_diff_dirstat_params" name="git_diff_dirstat_params" class="basis-0 grow command_input" value="changes,noncumulative,3"></div>
+						</div>
+					</div>
+				</fieldset>
+				<div class="form_item"><input type="radio" id="git_diff_format_name_only" name="git_diff_format" value="name_only"><label for="git_diff_format_name_only"><span class="command">--name-only</span> Show only the name of each changed file in the post-image tree.</label></div>
+				<div class="form_item"><input type="radio" id="git_diff_format_name_status" name="git_diff_format" value="name_status"><label for="git_diff_format_name_status"><span class="command">--name-status</span> Show only the name(s) and status of each changed file.</label></div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div class="form_item"><input type="checkbox" id="git_diff_has_submodule" name="git_diff_has_submodule"><label for="git_diff_has_submodule"><span class="command">--submodule<input type="checkbox" id="git_diff_submodule_has_argument" name="git_diff_submodule_has_argument"><label for="git_diff_submodule_has_argument">[=(<input type="radio" id="git_diff_submodule_format_short" name="git_diff_submodule_format" value="short"><label for="git_diff_submodule_format_short">short</label>|<input type="radio" id="git_diff_submodule_format_log" name="git_diff_submodule_format" value="log" checked><label for="git_diff_submodule_format_log">log</label>|<input type="radio" id="git_diff_submodule_format_diff" name="git_diff_submodule_format" value="diff"><label for="git_diff_submodule_format_diff">diff</label>)]</label></span> Specify how differences in submodules are shown. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffsubmodule"><span class="inline_code">diff.submodule</span></a> which defaults to <span class="inline_code">short</span>.)<br>
+					<div class="ml-[1em]">
+						<span class="command">short</span> Shows the names of the commits at the beginning and end of the range.<br>
+						<span class="command">log</span> Lists the commits in the range like <span class="command">git-submodule</span> <span class="command">summary</span> does.<br>
+						<span class="command">diff</span> Shows an inline diff of the changes in the submodule contents between the commit range.<br>
+					</div></label></div>
+
+				<div class="form_item"><input type="radio" id="git_diff_color_no_option" name="git_diff_color" value="no_option" checked><label for="git_diff_color_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-colordiff"><span class="inline_code">color.diff</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-colorui"><span class="inline_code">color.ui</span></a> which defaults to <span class="inline_code">auto</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_diff_color_no_color" name="git_diff_color" value="no_color"><label for="git_diff_color_no_color"><span class="command">--no-color</span> Turn off colored diff. Is the same as <span class="command">--color=never</span>.</label></div>
+				<div class="form_item"><input type="radio" id="git_diff_color_color" name="git_diff_color" value="color"><label for="git_diff_color_color"><span class="command">--color<input type="checkbox" id="git_diff_color_color_has_argument" name="git_diff_color_color_has_argument"><label for="git_diff_color_color_has_argument">[=<input type="radio" id="git_diff_color_color_when_always" name="git_diff_color_color_when" value="always" checked><label for="git_diff_color_color_when_always">always</label>|<input type="radio" id="git_diff_color_color_when_never" name="git_diff_color_color_when" value="never"><label for="git_diff_color_color_when_never">never</label>|<input type="radio" id="git_diff_color_color_when_auto" name="git_diff_color_color_when" value="auto"><label for="git_diff_color_color_when_auto">auto</label>]</label></span> Show colored diff.</label></div>
+
+				<p>when <span class="command">--raw</span>/<span class="command">--numstat</span>/<span class="command">--name-only</span>/<span class="command">--name-status</span>:</p>
+				<div class="form_item"><input type="checkbox" id="git_diff_has_z" name="git_diff_has_z"><label for="git_diff_has_z"><span class="command">-z</span> Do not munge pathnames and use NULs as output field terminators.</label></div>
+			</fieldset>
+
+			<fieldset>
+				<legend>location:</legend>
+				<div class="form_item"><input type="radio" id="git_diff_output_location_no_option" name="git_diff_output_location" value="no_option" checked><label for="git_diff_output_location_no_option">Output to stdout.</label></div>
+				<div class="form_item">
+					<input type="radio" id="git_diff_output_location_output" name="git_diff_output_location" value="output">
+					<div class="subform basis-0 grow">
+						<label for="git_diff_output_location_output"><span class="command">--output=&lt;file&gt;</span> Output to a specific file.</label>
+						<div class="form_item"><label for="git_diff_output_location_output_file"><span class="command">&lt;file&gt;</span>:</label><textarea wrap="off" id="git_diff_output_location_output_file" name="git_diff_output_location_output_file" class="basis-0 grow command_input"></textarea></div>
+					</div>
+				</div>
+			</fieldset>
+		</fieldset>
+	</form>
+	<textarea readonly wrap="off" id="git_diff_command" name="git_diff_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_diff_refresh(){
+			document.getElementById("git_diff_action_exit_code").closest("fieldset").disabled = !document.getElementById("git_diff_action_exit_code").checked;
+			document.getElementById("git_diff_what_working_tree_vs_index").closest("fieldset").disabled = !document.getElementById("git_diff_what_working_tree_vs_index").checked;
+			document.getElementById("git_diff_what_index_vs_commit").closest("fieldset").disabled = !document.getElementById("git_diff_what_index_vs_commit").checked;
+			document.getElementById("git_diff_what_working_tree_vs_commit").closest("fieldset").disabled = !document.getElementById("git_diff_what_working_tree_vs_commit").checked;
+			document.getElementById("git_diff_what_commit_vs_commit1").closest("fieldset").disabled = !document.getElementById("git_diff_what_commit_vs_commit1").checked;
+			document.getElementById("git_diff_commit__").classList.toggle("hidden", !(document.getElementById("git_diff_what_index_vs_commit").checked || document.getElementById("git_diff_what_working_tree_vs_commit").checked));
+			document.getElementById("git_diff_has_commit").classList.toggle("hidden", !document.getElementById("git_diff_what_index_vs_commit").checked);
+			document.getElementById("git_diff_has_commit_").classList.toggle("hidden", !document.getElementById("git_diff_what_index_vs_commit").checked);
+			document.getElementById("git_diff_commit_").classList.toggle("hidden", !document.getElementById("git_diff_what_working_tree_vs_commit").checked);
+			document.getElementById("git_diff_commit1__").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit1").checked || document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
+			document.getElementById("git_diff_has_commit1").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
+			document.getElementById("git_diff_has_commit1_").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
+			document.getElementById("git_diff_commit2__").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit1").checked || document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
+			document.getElementById("git_diff_has_commit2").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
+			document.getElementById("git_diff_has_commit2_").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
+			document.getElementById("git_diff_commit1_").classList.toggle("hidden", !document.getElementById("git_diff_what_commit_vs_commit1").checked);
+			document.getElementById("git_diff_commit2_").classList.toggle("hidden", !document.getElementById("git_diff_what_commit_vs_commit1").checked);
+			document.getElementById("git_diff_commit_merge_").classList.toggle("hidden", !document.getElementById("git_diff_what_combined_diff").checked);
+			document.getElementById("git_diff_commit_parent").classList.toggle("hidden", !document.getElementById("git_diff_what_combined_diff").checked);
+			document.getElementById("git_diff_blob1_").classList.toggle("hidden", !document.getElementById("git_diff_what_blob_vs_blob").checked);
+			document.getElementById("git_diff_blob2_").classList.toggle("hidden", !document.getElementById("git_diff_what_blob_vs_blob").checked);
+			document.getElementById("git_diff_path1_").classList.toggle("hidden", !document.getElementById("git_diff_what_path_vs_path").checked);
+			document.getElementById("git_diff_path2_").classList.toggle("hidden", !document.getElementById("git_diff_what_path_vs_path").checked);
+			document.getElementById("git_diff_path").classList.toggle("hidden", !(document.getElementById("git_diff_what_working_tree_vs_index").checked || document.getElementById("git_diff_what_index_vs_commit").checked || document.getElementById("git_diff_what_working_tree_vs_commit").checked || document.getElementById("git_diff_what_commit_vs_commit1").checked || document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked || document.getElementById("git_diff_what_combined_diff").checked));
+			document.getElementById("git_diff_pathspec").classList.toggle("hidden", !document.getElementById("git_diff_what_path_vs_path").checked);
+
+			document.getElementById("git_diff_relative_relative_has_argument").disabled = !document.getElementById("git_diff_relative_relative").checked;
+			document.getElementById("git_diff_relative_relative_path").disabled = !(document.getElementById("git_diff_relative_relative").checked && document.getElementById("git_diff_relative_relative_has_argument").checked);
+			document.getElementById("git_diff_ignore_submodules_has_argument").disabled = !document.getElementById("git_diff_has_ignore_submodules").checked;
+			document.getElementById("git_diff_ignore_submodules_when_none").disabled = !(document.getElementById("git_diff_has_ignore_submodules").checked && document.getElementById("git_diff_ignore_submodules_has_argument").checked);
+			document.getElementById("git_diff_ignore_submodules_when_untracked").disabled = !(document.getElementById("git_diff_has_ignore_submodules").checked && document.getElementById("git_diff_ignore_submodules_has_argument").checked);
+			document.getElementById("git_diff_ignore_submodules_when_dirty").disabled = !(document.getElementById("git_diff_has_ignore_submodules").checked && document.getElementById("git_diff_ignore_submodules_has_argument").checked);
+			document.getElementById("git_diff_ignore_submodules_when_all").disabled = !(document.getElementById("git_diff_has_ignore_submodules").checked && document.getElementById("git_diff_ignore_submodules_has_argument").checked);
+			document.getElementById("git_diff_diff_filter_criteria").disabled = !document.getElementById("git_diff_has_diff_filter").checked;
+
+			document.getElementById("git_diff_diff_algorithm_diff_algorithm_default").disabled = !document.getElementById("git_diff_diff_algorithm_diff_algorithm").checked;
+			document.getElementById("git_diff_diff_algorithm_diff_algorithm_myers").disabled = !document.getElementById("git_diff_diff_algorithm_diff_algorithm").checked;
+			document.getElementById("git_diff_diff_algorithm_diff_algorithm_minimal").disabled = !document.getElementById("git_diff_diff_algorithm_diff_algorithm").checked;
+			document.getElementById("git_diff_diff_algorithm_diff_algorithm_patience").disabled = !document.getElementById("git_diff_diff_algorithm_diff_algorithm").checked;
+			document.getElementById("git_diff_diff_algorithm_diff_algorithm_histogram").disabled = !document.getElementById("git_diff_diff_algorithm_diff_algorithm").checked;
+			document.getElementById("git_diff_diff_algorithm_anchored").closest("fieldset").disabled = !document.getElementById("git_diff_diff_algorithm_anchored").checked;
+			document.getElementById("git_diff_color_moved_color_moved_has_argument").disabled = !document.getElementById("git_diff_color_moved_color_moved").checked;
+			document.getElementById("git_diff_color_moved_mode_no").disabled = !(document.getElementById("git_diff_color_moved_color_moved").checked && document.getElementById("git_diff_color_moved_color_moved_has_argument").checked);
+			document.getElementById("git_diff_color_moved_mode_default").disabled = !(document.getElementById("git_diff_color_moved_color_moved").checked && document.getElementById("git_diff_color_moved_color_moved_has_argument").checked);
+			document.getElementById("git_diff_color_moved_mode_plain").disabled = !(document.getElementById("git_diff_color_moved_color_moved").checked && document.getElementById("git_diff_color_moved_color_moved_has_argument").checked);
+			document.getElementById("git_diff_color_moved_mode_blocks").disabled = !(document.getElementById("git_diff_color_moved_color_moved").checked && document.getElementById("git_diff_color_moved_color_moved_has_argument").checked);
+			document.getElementById("git_diff_color_moved_mode_zebra").disabled = !(document.getElementById("git_diff_color_moved_color_moved").checked && document.getElementById("git_diff_color_moved_color_moved_has_argument").checked);
+			document.getElementById("git_diff_color_moved_mode_dimmed_zebra").disabled = !(document.getElementById("git_diff_color_moved_color_moved").checked && document.getElementById("git_diff_color_moved_color_moved_has_argument").checked);
+			document.getElementById("git_diff_color_moved_ws_color_moved_ws_has_argument").disabled = !document.getElementById("git_diff_color_moved_ws_color_moved_ws").checked;
+			document.getElementById("git_diff_color_moved_ws_color_moved_ws_modes").disabled = !(document.getElementById("git_diff_color_moved_ws_color_moved_ws").checked && document.getElementById("git_diff_color_moved_ws_color_moved_ws_has_argument").checked);
+			document.getElementById("git_diff_word_diff_has_argument").disabled = !document.getElementById("git_diff_has_word_diff").checked;
+			document.getElementById("git_diff_word_diff_mode_color").disabled = !(document.getElementById("git_diff_has_word_diff").checked && document.getElementById("git_diff_word_diff_has_argument").checked);
+			document.getElementById("git_diff_word_diff_mode_plain").disabled = !(document.getElementById("git_diff_has_word_diff").checked && document.getElementById("git_diff_word_diff_has_argument").checked);
+			document.getElementById("git_diff_word_diff_mode_porcelain").disabled = !(document.getElementById("git_diff_has_word_diff").checked && document.getElementById("git_diff_word_diff_has_argument").checked);
+			document.getElementById("git_diff_word_diff_mode_none").disabled = !(document.getElementById("git_diff_has_word_diff").checked && document.getElementById("git_diff_word_diff_has_argument").checked);
+			document.getElementById("git_diff_word_diff_regex_regex").disabled = !document.getElementById("git_diff_has_word_diff_regex").checked;
+			document.getElementById("git_diff_break_rewrite_break_has_argument").disabled = !document.getElementById("git_diff_has_break_rewrite_break").checked;
+			document.getElementById("git_diff_break_rewrite_break_n").disabled = !(document.getElementById("git_diff_has_break_rewrite_break").checked && document.getElementById("git_diff_break_rewrite_break_has_argument").checked);
+			document.getElementById("git_diff_rename_find_renames_has_argument").disabled = !document.getElementById("git_diff_rename_find_renames").checked;
+			document.getElementById("git_diff_rename_find_renames_n").disabled = !(document.getElementById("git_diff_rename_find_renames").checked && document.getElementById("git_diff_rename_find_renames_has_argument").checked);
+			document.getElementById("git_diff_rename_find_copies_has_argument").disabled = !document.getElementById("git_diff_rename_find_copies").checked;
+			document.getElementById("git_diff_rename_find_copies_n").disabled = !(document.getElementById("git_diff_rename_find_copies").checked && document.getElementById("git_diff_rename_find_copies_has_argument").checked);
+			document.getElementById("git_diff_rename_find_copies").closest("fieldset").disabled = !document.getElementById("git_diff_rename_find_copies").checked;
+			document.getElementById("git_diff_l_num").disabled = !document.getElementById("git_diff_has_l").checked;
+			document.getElementById("git_diff_break_rewrite_merge_broken_has_argument").disabled = !document.getElementById("git_diff_has_break_rewrite_merge_broken").checked;
+			document.getElementById("git_diff_break_rewrite_merge_broken_m").disabled = !(document.getElementById("git_diff_has_break_rewrite_merge_broken").checked && document.getElementById("git_diff_break_rewrite_merge_broken_has_argument").checked);
+			document.getElementById("git_diff_has_pickaxe_regex").disabled = !(Array.from(document.getElementById("git_diff_S_list").querySelectorAll("textarea:enabled")).length != 0);
+			document.getElementById("git_diff_O_orderfile").disabled = !document.getElementById("git_diff_has_O").checked;
+			document.getElementById("git_diff_skip_to_file").disabled = !document.getElementById("git_diff_has_skip_to").checked;
+			document.getElementById("git_diff_rotate_to_file").disabled = !document.getElementById("git_diff_has_rotate_to").checked;
+			document.getElementById("git_diff_ws_error_highlight_kind").disabled = !document.getElementById("git_diff_has_ws_error_highlight").checked;
+
+			document.getElementById("git_diff_has_pickaxe_all").disabled = !(Array.from(document.getElementById("git_diff_S_list").querySelectorAll("textarea:enabled")).length != 0 || Array.from(document.getElementById("git_diff_G_list").querySelectorAll("textarea:enabled")).length != 0);
+			document.getElementById("git_diff_format_no_option").closest("fieldset").disabled = !document.getElementById("git_diff_format_no_option").checked;
+			document.getElementById("git_diff_has_patch").closest("fieldset").disabled = !document.getElementById("git_diff_has_patch").checked;
+			document.getElementById("git_diff_patch_abbrev_abbrev_has_argument").disabled = !document.getElementById("git_diff_patch_abbrev_abbrev").checked;
+			document.getElementById("git_diff_patch_abbrev_abbrev_n").disabled = !(document.getElementById("git_diff_patch_abbrev_abbrev").checked && document.getElementById("git_diff_patch_abbrev_abbrev_has_argument").checked);
+			document.getElementById("git_diff_binary_files_no_option").closest("fieldset").disabled = !document.getElementById("git_diff_binary_files_no_option").checked;
+			document.getElementById("git_diff_unified_n").disabled = !document.getElementById("git_diff_has_unified").checked;
+			document.getElementById("git_diff_inter_hunk_context_number").disabled = !document.getElementById("git_diff_has_inter_hunk_context").checked;
+			document.getElementById("git_diff_src_prefix").disabled = !document.getElementById("git_diff_has_src_prefix").checked;
+			document.getElementById("git_diff_dst_prefix").disabled = !document.getElementById("git_diff_has_dst_prefix").checked;
+			document.getElementById("git_diff_line_prefix").disabled = !document.getElementById("git_diff_has_line_prefix").checked;
+			document.getElementById("git_diff_output_indicator_new").disabled = !document.getElementById("git_diff_has_output_indicator_new").checked;
+			document.getElementById("git_diff_output_indicator_old").disabled = !document.getElementById("git_diff_has_output_indicator_old").checked;
+			document.getElementById("git_diff_output_indicator_context").disabled = !document.getElementById("git_diff_has_output_indicator_context").checked;
+			document.getElementById("git_diff_has_raw").closest("fieldset").disabled = !document.getElementById("git_diff_has_raw").checked;
+			document.getElementById("git_diff_raw_abbrev_abbrev_has_argument").disabled = !document.getElementById("git_diff_raw_abbrev_abbrev").checked;
+			document.getElementById("git_diff_raw_abbrev_abbrev_n").disabled = !(document.getElementById("git_diff_raw_abbrev_abbrev").checked && document.getElementById("git_diff_raw_abbrev_abbrev_has_argument").checked);
+			document.getElementById("git_diff_has_stat_width").closest("fieldset").disabled = !(document.getElementById("git_diff_has_stat_width").checked || document.getElementById("git_diff_has_stat_name_width").checked || document.getElementById("git_diff_has_stat_graph_width").checked || document.getElementById("git_diff_has_stat_count").checked);
+			document.getElementById("git_diff_stat_width").disabled = !document.getElementById("git_diff_has_stat_width").checked;
+			document.getElementById("git_diff_stat_name_width").disabled = !document.getElementById("git_diff_has_stat_name_width").checked;
+			document.getElementById("git_diff_stat_graph_width").disabled = !document.getElementById("git_diff_has_stat_graph_width").checked;
+			document.getElementById("git_diff_stat_count").disabled = !document.getElementById("git_diff_has_stat_count").checked;
+			document.getElementById("git_diff_dirstat_has_argument").disabled = !document.getElementById("git_diff_has_dirstat").checked;
+			document.getElementById("git_diff_dirstat_params").disabled = !(document.getElementById("git_diff_has_dirstat").checked && document.getElementById("git_diff_dirstat_has_argument").checked);
+			document.getElementById("git_diff_submodule_has_argument").disabled = !document.getElementById("git_diff_has_submodule").checked;
+			document.getElementById("git_diff_submodule_format_short").disabled = !(document.getElementById("git_diff_has_submodule").checked && document.getElementById("git_diff_submodule_has_argument").checked);
+			document.getElementById("git_diff_submodule_format_log").disabled = !(document.getElementById("git_diff_has_submodule").checked && document.getElementById("git_diff_submodule_has_argument").checked);
+			document.getElementById("git_diff_submodule_format_diff").disabled = !(document.getElementById("git_diff_has_submodule").checked && document.getElementById("git_diff_submodule_has_argument").checked);
+			document.getElementById("git_diff_color_color_has_argument").disabled = !document.getElementById("git_diff_color_color").checked;
+			document.getElementById("git_diff_color_color_when_always").disabled = !(document.getElementById("git_diff_color_color").checked && document.getElementById("git_diff_color_color_has_argument").checked);
+			document.getElementById("git_diff_color_color_when_never").disabled = !(document.getElementById("git_diff_color_color").checked && document.getElementById("git_diff_color_color_has_argument").checked);
+			document.getElementById("git_diff_color_color_when_auto").disabled = !(document.getElementById("git_diff_color_color").checked && document.getElementById("git_diff_color_color_has_argument").checked);
+			document.getElementById("git_diff_has_z").disabled = !((document.getElementById("git_diff_format_no_option").checked && (document.getElementById("git_diff_has_raw").checked || document.getElementById("git_diff_has_numstat").checked)) || document.getElementById("git_diff_format_name_only").checked || document.getElementById("git_diff_format_name_status").checked);
+			document.getElementById("git_diff_output_location_output_file").disabled = !document.getElementById("git_diff_output_location_output").checked;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("diff");
+
+			let form_data = new FormData(document.getElementById("git_diff_form"));
+
+			switch(form_data.get("git_diff_what")){
+				case "working_tree_vs_index":
+					switch(form_data.get("git_diff_working_tree_vs_index_unmerged_entries")){
+						case "0":
+							command_components.push("-0");
+							break;
+						case "base":
+							command_components.push("--base");
+							break;
+						case "ours":
+							command_components.push("--ours");
+							break;
+						case "theirs":
+							command_components.push("--theirs");
+							break;
+					}
+					break;
+			}
+			switch(form_data.get("git_diff_action")){
+				case "check":
+					command_components.push("--check");
+					break;
+				case "exit_code":
+					command_components.push("--exit-code");
+					if(form_data.get("git_diff_has_quiet"))
+						command_components.push("--quiet");
+					break;
+			}
+			switch(form_data.get("git_diff_relative")){
+				case "no_relative":
+					command_components.push("--no-relative");
+					break;
+				case "relative":
+					if(form_data.get("git_diff_relative_relative_has_argument")){
+						let element_value = form_data.get("git_diff_relative_relative_path"), element_has_error = element_value.length == 0;
+						command_components.push("--relative=" + shell_quote(element_value));
+						document.getElementById("git_diff_relative_relative_path").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					else{
+						command_components.push("--relative");
+					}
+					break;
+			}
+			if(form_data.get("git_diff_has_ignore_submodules")){
+				if(form_data.get("git_diff_ignore_submodules_has_argument")){
+					switch(form_data.get("git_diff_ignore_submodules_when")){
+						case "none":
+							command_components.push("--ignore-submodules=none");
+							break;
+						case "untracked":
+							command_components.push("--ignore-submodules=untracked");
+							break;
+						case "dirty":
+							command_components.push("--ignore-submodules=dirty");
+							break;
+						case "all":
+							command_components.push("--ignore-submodules=all");
+							break;
+					}
+				}
+				else{
+					command_components.push("--ignore-submodules");
+				}
+			}
+			if(form_data.get("git_diff_has_diff_filter")){
+				let element_value = form_data.get("git_diff_diff_filter_criteria"), element_has_error = element_value.length == 0;
+				command_components.push("--diff-filter=" + shell_quote(element_value));
+				document.getElementById("git_diff_diff_filter_criteria").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			switch(form_data.get("git_diff_ext_diff")){
+				case "false":
+					command_components.push("--no-ext-diff");
+					break;
+				case "true":
+					command_components.push("--ext-diff");
+					break;
+			}
+			switch(form_data.get("git_diff_diff_algorithm")){
+				case "diff_algorithm":
+					switch(form_data.get("git_diff_diff_algorithm_diff_algorithm")){
+						case "default":
+							command_components.push("--diff-algorithm=default");
+							break;
+						case "myers":
+							command_components.push("--diff-algorithm=myers");
+							break;
+						case "minimal":
+							command_components.push("--diff-algorithm=minimal");
+							break;
+						case "patience":
+							command_components.push("--diff-algorithm=patience");
+							break;
+						case "histogram":
+							command_components.push("--diff-algorithm=histogram");
+							break;
+					}
+					break;
+				case "anchored":
+					Array.from(document.getElementById("git_diff_anchored_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+						let element_value = input.value, element_has_error = element_value.length == 0;
+						command_components.push("--anchored=" + shell_quote(element_value));
+						input.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+			}
+			switch(form_data.get("git_diff_indent_heuristic")){
+				case "false":
+					command_components.push("--no-indent-heuristic");
+					break;
+				case "true":
+					command_components.push("--indent-heuristic");
+					break;
+			}
+			switch(form_data.get("git_diff_color_moved")){
+				case "no_color_moved":
+					command_components.push("--no-color-moved");
+					break;
+				case "color_moved":
+					if(form_data.get("git_diff_color_moved_color_moved_has_argument")){
+						switch(form_data.get("git_diff_color_moved_mode")){
+							case "no":
+								command_components.push("--color-moved=no");
+								break;
+							case "default":
+								command_components.push("--color-moved=default");
+								break;
+							case "plain":
+								command_components.push("--color-moved=plain");
+								break;
+							case "blocks":
+								command_components.push("--color-moved=blocks");
+								break;
+							case "zebra":
+								command_components.push("--color-moved=zebra");
+								break;
+							case "dimmed_zebra":
+								command_components.push("--color-moved=dimmed-zebra");
+								break;
+						}
+					}
+					else{
+						command_components.push("--color-moved");
+					}
+					break;
+			}
+			switch(form_data.get("git_diff_color_moved_ws")){
+				case "no_color_moved_ws":
+					command_components.push("--no-color-moved-ws");
+					break;
+				case "color_moved_ws":
+					if(form_data.get("git_diff_color_moved_ws_color_moved_ws_has_argument")){
+						let element_value = form_data.get("git_diff_color_moved_ws_color_moved_ws_modes"), element_has_error = element_value.length == 0;
+						command_components.push("--color-moved-ws=" + shell_quote(element_value));
+						document.getElementById("git_diff_color_moved_ws_color_moved_ws_modes").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					else{
+						command_components.push("--color-moved-ws");
+					}
+					break;
+			}
+			if(form_data.get("git_diff_has_word_diff")){
+				if(form_data.get("git_diff_word_diff_has_argument")){
+					switch(form_data.get("git_diff_word_diff_mode")){
+						case "color":
+							command_components.push("--word-diff=color");
+							break;
+						case "plain":
+							command_components.push("--word-diff=plain");
+							break;
+						case "porcelain":
+							command_components.push("--word-diff=porcelain");
+							break;
+						case "none":
+							command_components.push("--word-diff=none");
+							break;
+					}
+				}
+				else{
+					command_components.push("--word-diff");
+				}
+			}
+			if(form_data.get("git_diff_has_word_diff_regex")){
+				let element_value = form_data.get("git_diff_word_diff_regex_regex"), element_has_error = element_value.length == 0;
+				command_components.push("--word-diff-regex=" + shell_quote(element_value));
+				document.getElementById("git_diff_word_diff_regex_regex").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(form_data.get("git_diff_has_break_rewrite_break") || form_data.get("git_diff_has_break_rewrite_merge_broken")){
+				if(form_data.get("git_diff_break_rewrite_break_has_argument") || form_data.get("git_diff_break_rewrite_merge_broken_has_argument")){
+					let git_diff_break_rewrite_break_n_and_merge_broken_m = "";
+					if(form_data.get("git_diff_break_rewrite_break_has_argument")){
+						let element_value = form_data.get("git_diff_break_rewrite_break_n"), element_has_error = element_value.length == 0;
+						git_diff_break_rewrite_break_n_and_merge_broken_m += shell_quote(element_value);
+						document.getElementById("git_diff_break_rewrite_break_n").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_diff_break_rewrite_merge_broken_has_argument")){
+						let element_value = form_data.get("git_diff_break_rewrite_merge_broken_m"), element_has_error = element_value.length == 0;
+						git_diff_break_rewrite_break_n_and_merge_broken_m += "/" + shell_quote(element_value);
+						document.getElementById("git_diff_break_rewrite_merge_broken_m").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					command_components.push("--break-rewrites=" + git_diff_break_rewrite_break_n_and_merge_broken_m);
+				}
+				else{
+					command_components.push("--break-rewrites");
+				}
+			}
+			switch(form_data.get("git_diff_rename")){
+				case "no_renames":
+					command_components.push("--no-renames");
+					break;
+				case "find_renames":
+					if(form_data.get("git_diff_rename_find_renames_has_argument")){
+						let element_value = form_data.get("git_diff_rename_find_renames_n"), element_has_error = element_value.length == 0;
+						command_components.push("--find-renames=" + shell_quote(element_value));
+						document.getElementById("git_diff_rename_find_renames_n").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					else{
+						command_components.push("--find-renames");
+					}
+					break;
+				case "find_copies":
+					if(form_data.get("git_diff_rename_find_copies_has_argument")){
+						let element_value = form_data.get("git_diff_rename_find_copies_n"), element_has_error = element_value.length == 0;
+						command_components.push("--find-copies=" + shell_quote(element_value));
+						document.getElementById("git_diff_rename_find_copies_n").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					else{
+						command_components.push("--find-copies");
+					}
+					if(form_data.get("git_diff_has_find_copies_harder"))
+						command_components.push("--find-copies-harder");
+					break;
+			}
+			if(form_data.get("git_diff_has_l")){
+				let element_value = form_data.get("git_diff_l_num"), element_has_error = element_value.length == 0;
+				command_components.push("-l" + shell_quote(element_value));
+				document.getElementById("git_diff_l_num").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			switch(form_data.get("git_diff_rename_empty")){
+				case "false":
+					command_components.push("--no-rename-empty");
+					break;
+				case "true":
+					command_components.push("--rename-empty");
+					break;
+			}
+			Array.from(document.getElementById("git_diff_S_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				let element_value = textarea.value, element_has_error = element_value.length == 0;
+				command_components.push("-S" + shell_quote(element_value));
+				textarea.classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			});
+			if(Array.from(document.getElementById("git_diff_S_list").querySelectorAll("textarea:enabled")).length != 0){
+				if(form_data.get("git_diff_has_pickaxe_regex"))
+					command_components.push("--pickaxe-regex");
+			}
+			Array.from(document.getElementById("git_diff_G_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				let element_value = textarea.value, element_has_error = element_value.length == 0;
+				command_components.push("-G" + shell_quote(element_value));
+				textarea.classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			});
+			Array.from(document.getElementById("git_diff_find_object_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				let element_value = textarea.value, element_has_error = element_value.length == 0;
+				command_components.push("--find-object=" + shell_quote(element_value));
+				textarea.classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			});
+			if(form_data.get("git_diff_has_O")){
+				let element_value = form_data.get("git_diff_O_orderfile"), element_has_error = element_value.length == 0;
+				command_components.push("-O" + shell_quote(element_value));
+				document.getElementById("git_diff_O_orderfile").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(form_data.get("git_diff_has_skip_to")){
+				let element_value = form_data.get("git_diff_skip_to_file"), element_has_error = element_value.length == 0;
+				command_components.push("--skip-to=" + shell_quote(element_value));
+				document.getElementById("git_diff_skip_to_file").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(form_data.get("git_diff_has_rotate_to")){
+				let element_value = form_data.get("git_diff_rotate_to_file"), element_has_error = element_value.length == 0;
+				command_components.push("--rotate-to=" + shell_quote(element_value));
+				document.getElementById("git_diff_rotate_to_file").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(form_data.get("git_diff_has_ws_error_highlight")){
+				let element_value = form_data.get("git_diff_ws_error_highlight_kind"), element_has_error = element_value.length == 0;
+				command_components.push("--ws-error-highlight=" + shell_quote(element_value));
+				document.getElementById("git_diff_ws_error_highlight_kind").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(form_data.get("git_diff_has_ignore_cr_at_eol"))
+				command_components.push("--ignore-cr-at-eol");
+			if(form_data.get("git_diff_has_ignore_space_at_eol"))
+				command_components.push("--ignore-space-at-eol");
+			if(form_data.get("git_diff_has_ignore_space_change"))
+				command_components.push("--ignore-space-change");
+			if(form_data.get("git_diff_has_ignore_all_space"))
+				command_components.push("--ignore-all-space");
+			if(form_data.get("git_diff_has_ignore_blank_lines"))
+				command_components.push("--ignore-blank-lines");
+			Array.from(document.getElementById("git_diff_ignore_matching_lines_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				let element_value = textarea.value, element_has_error = element_value.length == 0;
+				command_components.push("--ignore-matching-lines=" + shell_quote(element_value));
+				textarea.classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			});
+			if(form_data.get("git_diff_has_R"))
+				command_components.push("-R");
+			if(Array.from(document.getElementById("git_diff_S_list").querySelectorAll("textarea:enabled")).length != 0 || Array.from(document.getElementById("git_diff_G_list").querySelectorAll("textarea:enabled")).length != 0){
+				if(form_data.get("git_diff_has_pickaxe_all"))
+					command_components.push("--pickaxe-all");
+			}
+			if(form_data.get("git_diff_has_irreversible_delete"))
+				command_components.push("--irreversible-delete");
+			if(form_data.get("git_diff_has_no_patch"))
+				command_components.push("--no-patch");
+			switch(form_data.get("git_diff_format")){
+				case "no_option":
+					if(form_data.get("git_diff_has_patch")){
+						command_components.push("--patch");
+						switch(form_data.get("git_diff_patch_abbrev")){
+							case "full_index":
+								command_components.push("--full-index");
+								break;
+							case "abbrev":
+								if(form_data.get("git_diff_patch_abbrev_abbrev_has_argument")){
+									let element_value = form_data.get("git_diff_patch_abbrev_abbrev_n"), element_has_error = element_value.length == 0;
+									command_components.push("--abbrev=" + shell_quote(element_value));
+									document.getElementById("git_diff_patch_abbrev_abbrev_n").classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+								else{
+									command_components.push("--abbrev");
+								}
+								break;
+						}
+						switch(form_data.get("git_diff_binary_files")){
+							case "no_option":
+								if(form_data.get("git_diff_has_binary"))
+									command_components.push("--binary");
+								break;
+							case "text":
+								command_components.push("--text");
+								break;
+						}
+						switch(form_data.get("git_diff_textconv")){
+							case "false":
+								command_components.push("--no-textconv");
+								break;
+							case "true":
+								command_components.push("--textconv");
+								break;
+						}
+						if(form_data.get("git_diff_has_unified")){
+							let element_value = form_data.get("git_diff_unified_n"), element_has_error = element_value.length == 0;
+							command_components.push("--unified=" + shell_quote(element_value));
+							document.getElementById("git_diff_unified_n").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						if(form_data.get("git_diff_has_inter_hunk_context")){
+							let element_value = form_data.get("git_diff_inter_hunk_context_number"), element_has_error = element_value.length == 0;
+							command_components.push("--inter-hunk-context=" + shell_quote(element_value));
+							document.getElementById("git_diff_inter_hunk_context_number").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						if(form_data.get("git_diff_has_function_context"))
+							command_components.push("--function-context");
+						switch(form_data.get("git_diff_source_and_destination_prefix")){
+							case "no_prefix":
+								command_components.push("--no-prefix");
+								break;
+							case "default_prefix":
+								command_components.push("--default-prefix");
+								break;
+						}
+						if(form_data.get("git_diff_has_src_prefix")){
+							let element_value = form_data.get("git_diff_src_prefix"), element_has_error = element_value.length == 0;
+							command_components.push("--src-prefix=" + shell_quote(element_value));
+							document.getElementById("git_diff_src_prefix").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						if(form_data.get("git_diff_has_dst_prefix")){
+							let element_value = form_data.get("git_diff_dst_prefix"), element_has_error = element_value.length == 0;
+							command_components.push("--dst-prefix=" + shell_quote(element_value));
+							document.getElementById("git_diff_dst_prefix").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						if(form_data.get("git_diff_has_line_prefix")){
+							let element_value = form_data.get("git_diff_line_prefix"), element_has_error = element_value.length == 0;
+							command_components.push("--line-prefix=" + shell_quote(element_value));
+							document.getElementById("git_diff_line_prefix").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						if(form_data.get("git_diff_has_output_indicator_new")){
+							let element_value = form_data.get("git_diff_output_indicator_new"), element_has_error = element_value.length == 0;
+							command_components.push("--output-indicator-new=" + shell_quote(element_value));
+							document.getElementById("git_diff_output_indicator_new").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						if(form_data.get("git_diff_has_output_indicator_old")){
+							let element_value = form_data.get("git_diff_output_indicator_old"), element_has_error = element_value.length == 0;
+							command_components.push("--output-indicator-old=" + shell_quote(element_value));
+							document.getElementById("git_diff_output_indicator_old").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						if(form_data.get("git_diff_has_output_indicator_context")){
+							let element_value = form_data.get("git_diff_output_indicator_context"), element_has_error = element_value.length == 0;
+							command_components.push("--output-indicator-context=" + shell_quote(element_value));
+							document.getElementById("git_diff_output_indicator_context").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+					}
+					if(form_data.get("git_diff_has_raw")){
+						command_components.push("--raw");
+						switch(form_data.get("git_diff_raw_abbrev")){
+							case "no_abbrev":
+								command_components.push("--no-abbrev");
+								break;
+							case "abbrev":
+								if(form_data.get("git_diff_raw_abbrev_abbrev_has_argument")){
+									let element_value = form_data.get("git_diff_raw_abbrev_abbrev_n"), element_has_error = element_value.length == 0;
+									command_components.push("--abbrev=" + shell_quote(element_value));
+									document.getElementById("git_diff_raw_abbrev_abbrev_n").classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+								else{
+									command_components.push("--abbrev");
+								}
+								break;
+						}
+					}
+					if(form_data.get("git_diff_has_stat_width")){
+						let element_value = form_data.get("git_diff_stat_width"), element_has_error = element_value.length == 0;
+						command_components.push("--stat-width=" + shell_quote(element_value));
+						document.getElementById("git_diff_stat_width").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_diff_has_stat_name_width")){
+						let element_value = form_data.get("git_diff_stat_name_width"), element_has_error = element_value.length == 0;
+						command_components.push("--stat-name-width=" + shell_quote(element_value));
+						document.getElementById("git_diff_stat_name_width").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_diff_has_stat_graph_width")){
+						let element_value = form_data.get("git_diff_stat_graph_width"), element_has_error = element_value.length == 0;
+						command_components.push("--stat-graph-width=" + shell_quote(element_value));
+						document.getElementById("git_diff_stat_graph_width").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_diff_has_stat_count")){
+						let element_value = form_data.get("git_diff_stat_count"), element_has_error = element_value.length == 0;
+						command_components.push("--stat-count=" + shell_quote(element_value));
+						document.getElementById("git_diff_stat_count").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_diff_has_stat_width") || form_data.get("git_diff_has_stat_name_width") || form_data.get("git_diff_has_stat_graph_width") || form_data.get("git_diff_has_stat_count")){
+						if(form_data.get("git_diff_has_compact_summary"))
+							command_components.push("--compact-summary");
+					}
+					if(form_data.get("git_diff_has_shortstat"))
+						command_components.push("--shortstat");
+					if(form_data.get("git_diff_has_summary"))
+						command_components.push("--summary");
+					if(form_data.get("git_diff_has_numstat"))
+						command_components.push("--numstat");
+					if(form_data.get("git_diff_has_dirstat")){
+						if(form_data.get("git_diff_dirstat_has_argument")){
+							let element_value = form_data.get("git_diff_dirstat_params"), element_has_error = element_value.length == 0;
+							command_components.push("--dirstat=" + shell_quote(element_value));
+							document.getElementById("git_diff_dirstat_params").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						else{
+							command_components.push("--dirstat");
+						}
+					}
+					break;
+				case "name_only":
+					command_components.push("--name-only");
+					break;
+				case "name_status":
+					command_components.push("--name-status");
+					break;
+			}
+			if(form_data.get("git_diff_has_submodule")){
+				if(form_data.get("git_diff_submodule_has_argument")){
+					switch(form_data.get("git_diff_submodule_format")){
+						case "short":
+							command_components.push("--submodule=short");
+							break;
+						case "log":
+							command_components.push("--submodule=log");
+							break;
+						case "diff":
+							command_components.push("--submodule=diff");
+							break;
+					}
+				}
+				else{
+					command_components.push("--submodule");
+				}
+			}
+			switch(form_data.get("git_diff_color")){
+				case "no_color":
+					command_components.push("--no-color");
+					break;
+				case "color":
+					if(form_data.get("git_diff_color_color_has_argument")){
+						switch(form_data.get("git_diff_color_color_when")){
+							case "always":
+								command_components.push("--color=always");
+								break;
+							case "never":
+								command_components.push("--color=never");
+								break;
+							case "auto":
+								command_components.push("--color=auto");
+								break;
+						}
+					}
+					else{
+						command_components.push("--color");
+					}
+					break;
+			}
+			if((form_data.get("git_diff_format") == "no_option" && (form_data.get("git_diff_has_raw") || form_data.get("git_diff_has_numstat"))) || form_data.get("git_diff_format") == "name_only" || form_data.get("git_diff_format") == "name_status"){
+				if(form_data.get("git_diff_has_z"))
+					command_components.push("-z");
+			}
+			switch(form_data.get("git_diff_output_location")){
+				case "output":
+					let element_value = form_data.get("git_diff_output_location_output_file"), element_has_error = element_value.length == 0;
+					command_components.push("--output=" + shell_quote(element_value));
+					document.getElementById("git_diff_output_location_output_file").classList.toggle("error_input", element_has_error);
+					has_error ||= element_has_error;
+					break;
+			}
+
+			switch(form_data.get("git_diff_what")){
+				case "working_tree_vs_index":
+					if(Array.from(document.getElementById("git_diff_path_list").querySelectorAll("textarea:enabled")).length != 0)
+						command_components.push("--");
+					Array.from(document.getElementById("git_diff_path_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "index_vs_commit":
+					command_components.push("--cached");
+					if(form_data.get("git_diff_what_index_vs_commit_has_merge_base"))
+						command_components.push("--merge-base");
+					if(form_data.get("git_diff_has_commit")){
+						command_components.push("--end-of-options");
+						let element_value = form_data.get("git_diff_commit"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_diff_commit").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+
+					if(form_data.get("git_diff_has_commit") || Array.from(document.getElementById("git_diff_path_list").querySelectorAll("textarea:enabled")).length != 0)
+						command_components.push("--");
+					Array.from(document.getElementById("git_diff_path_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "working_tree_vs_commit":
+					if(form_data.get("git_diff_what_working_tree_vs_commit_has_merge_base"))
+						command_components.push("--merge-base");
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_diff_commit"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_diff_commit").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+
+					command_components.push("--");
+					Array.from(document.getElementById("git_diff_path_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "commit_vs_commit1":
+					if(form_data.get("git_diff_what_commit_vs_commit1_has_merge_base"))
+						command_components.push("--merge-base");
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_diff_commit1"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_diff_commit1").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					{
+						let element_value = form_data.get("git_diff_commit2"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_diff_commit2").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+
+					command_components.push("--");
+					Array.from(document.getElementById("git_diff_path_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "commit_vs_commit2":
+					command_components.push("--end-of-options");
+					{
+						let commit1_and_commit2 = "";
+						if(form_data.get("git_diff_has_commit1")){
+							let element_value = form_data.get("git_diff_commit1"), element_has_error = element_value.length == 0;
+							commit1_and_commit2 += shell_quote(element_value);
+							document.getElementById("git_diff_commit1").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						commit1_and_commit2 += "..";
+						if(form_data.get("git_diff_has_commit2")){
+							let element_value = form_data.get("git_diff_commit2"), element_has_error = element_value.length == 0;
+							commit1_and_commit2 += shell_quote(element_value);
+							document.getElementById("git_diff_commit2").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						command_components.push(commit1_and_commit2);
+					}
+
+					command_components.push("--");
+					Array.from(document.getElementById("git_diff_path_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "commit_vs_commit3":
+					command_components.push("--end-of-options");
+					{
+						let commit1_and_commit2 = "";
+						if(form_data.get("git_diff_has_commit1")){
+							let element_value = form_data.get("git_diff_commit1"), element_has_error = element_value.length == 0;
+							commit1_and_commit2 += shell_quote(element_value);
+							document.getElementById("git_diff_commit1").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						commit1_and_commit2 += "...";
+						if(form_data.get("git_diff_has_commit2")){
+							let element_value = form_data.get("git_diff_commit2"), element_has_error = element_value.length == 0;
+							commit1_and_commit2 += shell_quote(element_value);
+							document.getElementById("git_diff_commit2").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						command_components.push(commit1_and_commit2);
+					}
+
+					command_components.push("--");
+					Array.from(document.getElementById("git_diff_path_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "combined_diff":
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_diff_commit_merge"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_diff_commit_merge").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					Array.from(document.getElementById("git_diff_commit_parent_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+
+					command_components.push("--");
+					Array.from(document.getElementById("git_diff_path_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "blob_vs_blob":
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_diff_blob1"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_diff_blob1").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					{
+						let element_value = form_data.get("git_diff_blob2"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_diff_blob2").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					command_components.push("--");
+					break;
+				case "path_vs_path":
+					command_components.push("--no-index");
+					command_components.push("--");
+					{
+						let element_value = form_data.get("git_diff_path1"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_diff_path1").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					{
+						let element_value = form_data.get("git_diff_path2"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_diff_path2").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					Array.from(document.getElementById("git_diff_pathspec_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+			}
+
+			let git_diff_command = document.getElementById("git_diff_command");
+			git_diff_command.classList.toggle("error_output", has_error);
+			git_diff_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_diff_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_diff_refresh);
+		});
+		Array.from(document.getElementById("git_diff_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_diff_refresh);
+		});
+	</script>
+</div>

@@ -1,0 +1,2098 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_from\_index~*_&]:block">
+	<h2 class="heading2"><span class="command">git checkout</span> (without <span class="command">&lt;tree-ish&gt;</span>) (with <span class="command">&lt;pathspec&gt;…</span>) Check out paths from the index. (Overwrite working tree with the contents in the index.)</h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3">not <span class="command">--force</span>/<span class="command">--ours</span>/<span class="command">--theirs</span>/<span class="command">--merge</span>/<span class="command">--conflict</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
+					git -C './repo' reset --hard  HEAD~1
+					echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
+					git -C './repo' checkout branch1; git -C './repo' merge branch2
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout '.'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--force</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
+					git -C './repo' reset --hard  HEAD~1
+					echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
+					git -C './repo' checkout branch1; git -C './repo' merge branch2
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --force '.'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div class="[grid-column:span_2]">
+			<h3 class="heading3"><span class="command">--ours</span>/<span class="command">--theirs</span>/<span class="command">--merge</span>/<span class="command">--conflict</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+					echo 'a' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='a'; git -C './repo' branch branch1
+					echo 'b1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='b1'
+					git -C './repo' checkout branch1; echo 'b2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='b2'
+					git -C './repo' checkout "$branch_default_name"; git -C './repo' merge :/'b2'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --ours '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --theirs '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --merge '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --conflict=merge '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --conflict=diff3 '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+					echo 'a' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='a'; git -C './repo' branch branch1
+					echo 'b1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='b1'
+					git -C './repo' checkout branch1; echo 'b2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='b2'
+					git -C './repo' checkout "$branch_default_name"; git -C './repo' merge :/'b2'; echo 'c1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='c1'
+					git -C './repo' checkout branch1; git -C './repo' merge :/'b1'; echo 'c2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='c2'
+					git -C './repo' checkout "$branch_default_name"; git -C './repo' merge :/'c2'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --ours '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --theirs '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --merge '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --conflict=merge '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --conflict=diff3 '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+					echo 'a' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='a'; git -C './repo' branch branch1; git -C './repo' branch branch2
+					echo 'b1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='b1'
+					git -C './repo' checkout branch1; echo 'b2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='b2'
+					git -C './repo' checkout branch2; echo 'b3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='b3'
+					git -C './repo' checkout "$branch_default_name"; git -C './repo' merge :/'b2'; echo 'c1_' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='c1_'
+					git -C './repo' checkout branch1; git -C './repo' merge :/'b1'; echo 'c2_' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='c2_'
+					git -C './repo' checkout "$branch_default_name"; git -C './repo' merge :/'b3'; echo 'c1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='c1'
+					git -C './repo' checkout branch1; git -C './repo' merge :/'b3'; echo 'c2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='c2'
+					git -C './repo' checkout "$branch_default_name"; git -C './repo' merge :/'c2'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --ours '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --theirs '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --merge '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --conflict=merge '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --conflict=diff3 '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+					echo 'a' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='a'; git -C './repo' branch branch1; git -C './repo' branch branch2; git -C './repo' branch branch3
+					echo 'b1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='b1'
+					git -C './repo' checkout branch1; echo 'b2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='b2'
+					git -C './repo' checkout branch2; echo 'b3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='b3'
+					git -C './repo' checkout branch3; echo 'b4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='b4'
+					git -C './repo' checkout "$branch_default_name"; git -C './repo' merge :/'b2'; echo 'c1_1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='c1_1'
+					git -C './repo' checkout branch1; git -C './repo' merge :/'b1'; echo 'c2_1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='c2_1'
+					git -C './repo' checkout branch2; git -C './repo' merge :/'b4'; echo 'c1_2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='c1_2'
+					git -C './repo' checkout branch3; git -C './repo' merge :/'b3'; echo 'c2_2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='c2_2'
+					git -C './repo' checkout "$branch_default_name"; git -C './repo' merge :/'c1_2'; echo 'c1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='c1'
+					git -C './repo' checkout branch1; git -C './repo' merge :/'c2_2'; echo 'c2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='c2'
+					git -C './repo' checkout "$branch_default_name"; git -C './repo' merge :/'c2'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --ours '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --theirs '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --merge '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --conflict=merge '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+					git -C './repo' checkout --conflict=diff3 '.'
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_from\_treeish~*_&]:block">
+	<h2 class="heading2"><span class="command">git checkout</span> (with <span class="command">&lt;tree-ish&gt;</span>) (with <span class="command">&lt;pathspec&gt;…</span>) Check out paths from a tree-ish. (Overwrite both the index and the working tree with the contents at the <span class="command">&lt;tree-ish&gt;</span>.)<br><span class="command">git checkout --overlay/--no-overlay</span></h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3"><span class="command">--overlay</span> has no effect on untracked files</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					touch -- './repo/file_extra'
+					git -C './repo' checkout HEAD -- '.'
+					git -C './repo' status --verbose --verbose
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--overlay</span> tracked files not appearing in <span class="command">&lt;tree-ish&gt;</span> aren't removed from index and working tree</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '1' >'./repo/file_extra'; git -C './repo' add './file_extra'
+					echo '2' >'./repo/file_extra'
+					git -C './repo' checkout HEAD -- '.'
+					git -C './repo' status --verbose --verbose
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--no-overlay</span> has no effect on untracked files</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					touch -- './repo/file_extra'
+					git -C './repo' checkout --no-overlay HEAD -- '.'
+					git -C './repo' status --verbose --verbose
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--no-overlay</span> tracked files appearing in <span class="command">&lt;tree-ish&gt;</span> are removed from index and working tree</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '1' >'./repo/file_extra'; git -C './repo' add './file_extra'
+					echo '2' >'./repo/file_extra'
+					git -C './repo' checkout --no-overlay HEAD -- '.'
+					git -C './repo' status --verbose --verbose
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches~*_&]:block">
+	<h2 class="heading2"><span class="command">git checkout</span> (with optional <span class="command">&lt;commit-ish&gt;</span>) (without <span class="command">&lt;pathspec&gt;…</span>) check out paths from <span class="command">&lt;commit-ish&gt;</span> and switch branches<br>(not <span class="command">--force</span>/<span class="command">--merge</span>/<span class="command">--conflict</span>)</h2>
+	<p class="paragraph">if index has unmerged entries, error: you need to resolve your current index first [ file: needs merge, ... ]</p>
+	<p class="paragraph">if index doesn't have unmerged entries,</p>
+	<div class="ml-[2em]">
+		<p class="paragraph"><span class="inline_code indent-0">HEAD</span>: switch to <span class="command">&lt;commit-ish&gt;</span></p>
+		<p class="paragraph">index: (see below)</p>
+		<p class="paragraph">working tree: (see below)</p>
+		<p class="paragraph">if a file is different between <span class="command">&lt;commit-ish&gt;</span> and <span class="inline_code indent-0">HEAD</span>,</p>
+		<div class="ml-[2em]">
+			<p class="paragraph">if <span class="command">&lt;commit-ish&gt;</span> != index &amp;&amp; <span class="inline_code indent-0">HEAD</span> != index, then resetting index to <span class="command">&lt;commit-ish&gt;</span> would lose entries in index, so checkout is aborted</p>
+			<div class="ml-[2em]">
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">3</div><div class="[grid-area:3/4]">1</div>
+					</div>
+					(index entry (pointing to "3") would get lost) error: Your local changes to the following files would be overwritten by checkout: [ file, ... ]. Please commit your changes or stash them before you switch branches. Aborting
+				</p>
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">3</div><div class="[grid-area:3/4]">2</div>
+					</div>
+					(index entry (pointing to "3") would get lost) error: Your local changes to the following files would be overwritten by checkout: [ file, ... ]. Please commit your changes or stash them before you switch branches. Aborting
+				</p>
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">3</div><div class="[grid-area:3/4]">3</div>
+					</div>
+					(index entry (pointing to "3") would get lost) error: Your local changes to the following files would be overwritten by checkout: [ file, ... ]. Please commit your changes or stash them before you switch branches. Aborting
+				</p>
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">3</div><div class="[grid-area:3/4]">4</div>
+					</div>
+					(index entry (pointing to "3") would get lost) error: Your local changes to the following files would be overwritten by checkout: [ file, ... ]. Please commit your changes or stash them before you switch branches. Aborting
+				</p>
+			</div>
+			<p class="paragraph">if <span class="inline_code indent-0">HEAD</span> == index, then resets index to <span class="command">&lt;commit-ish&gt;</span> and applies "index -> working tree" onto <span class="command">&lt;commit-ish&gt;</span> to yield working tree</p>
+			<div class="ml-[2em]">
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">1</div>
+					</div>
+					(1 + "2 -> 1" => error) error: Your local changes to the following files would be overwritten by checkout: [ file, ... ]. Please commit your changes or stash them before you switch branches. Aborting
+				</p>
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">2</div>
+					</div>
+					->
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">1</div>
+					</div>
+					(1 + "(no changes)" = 1)
+				</p>
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">3</div>
+					</div>
+					(1 + "2 -> 3" => error) error: Your local changes to the following files would be overwritten by checkout: [ file, ... ]. Please commit your changes or stash them before you switch branches. Aborting
+				</p>
+			</div>
+			<p class="paragraph">if <span class="command">&lt;commit-ish&gt;</span> == index, then resets index to <span class="command">&lt;commit-ish&gt;</span> and applies "index -> working tree" onto <span class="command">&lt;commit-ish&gt;</span> to yield working tree</p>
+			<div class="ml-[2em]">
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">1</div>
+					</div>
+					->
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">1</div>
+					</div>
+					(1 + "(no changes)" = 1)
+				</p>
+				<p class="paragraph">
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">2</div>
+					</div>
+					->
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">2</div>
+					</div>
+					(1 + "1 -> 2" = 2)
+				</p>
+				<p class="paragraph">
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">3</div>
+					</div>
+					->
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">3</div>
+					</div>
+					(1 + "1 -> 3" = 3)
+				</p>
+			</div>
+		</div>
+		<p class="paragraph">if a file is same between <span class="command">&lt;commit-ish&gt;</span> and <span class="inline_code indent-0">HEAD</span>, then doesn't look at or touch index or working tree</p>
+		<div class="ml-[2em]">
+			<p class="paragraph">
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">1</div>
+				</div>
+				->
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">1</div>
+				</div>
+			</p>
+			<p class="paragraph">
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">2</div>
+				</div>
+				->
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">2</div>
+				</div>
+			</p>
+			<p class="paragraph">
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">1</div>
+				</div>
+				->
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">1</div>
+				</div>
+			</p>
+			<p class="paragraph">
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">2</div>
+				</div>
+				->
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">2</div>
+				</div>
+			</p>
+			<p class="paragraph">
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">3</div>
+				</div>
+				->
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">3</div>
+				</div>
+			</p>
+		</div>
+	</div>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3">staged changes in index preventing checkout<br>e.g. 1 2 3 3 => error</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '3' >'./repo/file'; git -C './repo' add './file'
+					echo '3' >'./repo/file'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+					git -C './repo' checkout HEAD~1
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">edited files in working tree preventing checkout<br>e.g. 1 2 2 1 => error</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'
+					echo '1' >'./repo/file'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+					git -C './repo' checkout HEAD~1
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">unedited files in working tree reset with <span class="inline_code">HEAD</span> and index<br>e.g. 1 2 2 2 -> 1 1 1 1 (1 + "(no changes)" = 1)</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'
+					echo '2' >'./repo/file'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+					git -C './repo' checkout HEAD~1
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">unrelated files (same between <span class="command">&lt;commit-ish&gt;</span> and <span class="inline_code">HEAD</span>): index and working tree untouched<br>e.g. 1 1 2 3 -> 1 1 2 3</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))" --allow-empty
+					echo '2' >'./repo/file'; git -C './repo' add './file'
+					echo '3' >'./repo/file'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+					git -C './repo' checkout HEAD~1
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches\_merge\_conflict~*_&]:block">
+	<h2 class="heading2"><span class="command">git checkout</span> (with optional <span class="command">&lt;commit-ish&gt;</span>) (without <span class="command">&lt;pathspec&gt;…</span>) check out paths from <span class="command">&lt;commit-ish&gt;</span> and switch branches<br><span class="command">--merge</span>/<span class="command">--conflict</span></h2>
+	<p class="paragraph">if index has unmerged entries, error: you need to resolve your current index first [ file: needs merge, ... ]</p>
+	<p class="paragraph">if index doesn't have unmerged entries,</p>
+	<div class="ml-[2em]">
+		<p class="paragraph"><span class="inline_code indent-0">HEAD</span>: switch to <span class="command">&lt;commit-ish&gt;</span></p>
+		<p class="paragraph">index: (see below)</p>
+		<p class="paragraph">working tree: (see below)</p>
+		<p class="paragraph">if a file is different between <span class="command">&lt;commit-ish&gt;</span> and <span class="inline_code indent-0">HEAD</span>,</p>
+		<div class="ml-[2em]">
+			<p class="paragraph">if <span class="command">&lt;commit-ish&gt;</span> != index &amp;&amp; <span class="inline_code indent-0">HEAD</span> != index, then resetting index to <span class="command">&lt;commit-ish&gt;</span> would lose entries in index, so checkout is aborted</p>
+			<div class="ml-[2em]">
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">3</div><div class="[grid-area:3/4]">1</div>
+					</div>
+					(index entry (pointing to "3") would get lost) fatal: cannot continue with staged changes in the following files: [ file, ... ]
+				</p>
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">3</div><div class="[grid-area:3/4]">2</div>
+					</div>
+					(index entry (pointing to "3") would get lost) fatal: cannot continue with staged changes in the following files: [ file, ... ]
+				</p>
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">3</div><div class="[grid-area:3/4]">3</div>
+					</div>
+					(index entry (pointing to "3") would get lost) fatal: cannot continue with staged changes in the following files: [ file, ... ]
+				</p>
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">3</div><div class="[grid-area:3/4]">4</div>
+					</div>
+					(index entry (pointing to "3") would get lost) fatal: cannot continue with staged changes in the following files: [ file, ... ]
+				</p>
+			</div>
+			<p class="paragraph">if <span class="inline_code indent-0">HEAD</span> == index, then applies "index -> <span class="command">&lt;commit-ish&gt;</span>" and "index -> working tree" onto index to yield index and working tree</p>
+			<div class="ml-[2em]">
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">1</div>
+					</div>
+					->
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">1</div>
+					</div>
+					(2 + "2 -> 1" + "2 -> 1" = 1)
+				</p>
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">2</div>
+					</div>
+					->
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">1</div>
+					</div>
+					(2 + "2 -> 1" + "(no changes)" = 1)
+				</p>
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">3</div>
+					</div>
+					->
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓↓↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">2->1/3</div><div class="[grid-area:3/4]">2->1/3</div>
+					</div>
+					(2 + "2 -> 1" + "2 -> 3" = "2 -> 1/3")
+				</p>
+			</div>
+			<p class="paragraph">if <span class="command">&lt;commit-ish&gt;</span> == index, then applies "index -> <span class="command">&lt;commit-ish&gt;</span>" and "index -> working tree" onto index to yield index and working tree</p>
+			<div class="ml-[2em]">
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">1</div>
+					</div>
+					->
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">1</div>
+					</div>
+					(1 + "(no changes)" + "(no changes)" = 1)
+				</p>
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">2</div>
+					</div>
+					->
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">2</div>
+					</div>
+					(1 + "(no changes)" + "1 -> 2" = 2)
+				</p>
+				<p class="paragraph">
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">3</div>
+					</div>
+					->
+					<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+						<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+						<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+							<div class="self-center">┌<br>└</div>
+							<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+							<div class="self-center">┐<br>┘</div>
+						</div>
+						<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+						<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+						<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">2</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">3</div>
+					</div>
+					(1 + "(no changes)" + "1 -> 3" = 3)
+				</p>
+			</div>
+		</div>
+		<p class="paragraph">if a file is same between <span class="command">&lt;commit-ish&gt;</span> and <span class="inline_code indent-0">HEAD</span>, then doesn't look at or touch index or working tree</p>
+		<div class="ml-[2em]">
+			<p class="paragraph">
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">1</div>
+				</div>
+				->
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">1</div>
+				</div>
+			</p>
+			<p class="paragraph">
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">2</div>
+				</div>
+				->
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">1</div><div class="[grid-area:3/4]">2</div>
+				</div>
+			</p>
+			<p class="paragraph">
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">1</div>
+				</div>
+				->
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">1</div>
+				</div>
+			</p>
+			<p class="paragraph">
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">2</div>
+				</div>
+				->
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">2</div>
+				</div>
+			</p>
+			<p class="paragraph">
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/2]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">3</div>
+				</div>
+				->
+				<div class="inline-grid grid-cols-[auto_auto_auto] gap-y-[0px] gap-x-[0.5em] text-center align-middle border-solid border-[1px] border-[#C0C0C0] p-[0.25em]">
+					<div class="[grid-area:1/1]"><span class="inline_code indent-0">HEAD</span><br>↓</div>
+					<div class="[grid-area:2/1] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head2&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:2/2] grid grid-cols-[auto_auto_auto] gap-x-[0.5em]">
+						<div class="self-center">┌<br>└</div>
+						<div><span class="inline_code indent-0">refs/heads/<span class="command">&lt;head1&gt;</span></span><br>↓</div>
+						<div class="self-center">┐<br>┘</div>
+					</div>
+					<div class="[grid-area:1/3/span_2] self-end">index<br>↓</div>
+					<div class="[grid-area:1/4/span_2] self-center">working<br>tree</div>
+					<div class="[grid-area:3/1]">1</div><div class="[grid-area:3/2]">1</div><div class="[grid-area:3/3]">2</div><div class="[grid-area:3/4]">3</div>
+				</div>
+			</p>
+		</div>
+	</div>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3">staged changes in index preventing checkout<br>e.g. 1 2 3 3 => error</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '3' >'./repo/file'; git -C './repo' add './file'
+					echo '3' >'./repo/file'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+					git -C './repo' checkout --merge HEAD~1
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">edited files in working tree have modifications preserved by a three-way merge between <span class="inline_code">HEAD</span>/index, working tree contents, and <span class="command">&lt;commit-ish&gt;</span><br>e.g. 1 2 2 3 -> 1 1 "2->1/3" "2->1/3" (2 + "2 -> 1" + "2 -> 3" = "2 -> 1/3")</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'
+					echo '3' >'./repo/file'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+					git -C './repo' checkout --merge HEAD~1
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+					git -C './repo' diff
+					git -C './repo' diff --base
+					git -C './repo' diff --ours
+					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">unedited files in working tree reset with <span class="inline_code">HEAD</span> and index<br>e.g. 1 2 2 2 -> 1 1 1 1 (2 + "2 -> 1" + "(no changes)" = 1)</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'
+					echo '2' >'./repo/file'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+					git -C './repo' checkout --merge HEAD~1
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">unrelated files (same between <span class="command">&lt;commit-ish&gt;</span> and <span class="inline_code">HEAD</span>): index and working tree untouched<br>e.g. 1 1 2 3 -> 1 1 2 3</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				git config set --system --all 'color.advice' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))" --allow-empty
+					echo '2' >'./repo/file'; git -C './repo' add './file'
+					echo '3' >'./repo/file'
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+					git -C './repo' checkout --merge HEAD~1
+					git -C './repo' ls-files --stage --others
+					git -C './repo' status --verbose --verbose
+					git -C './repo' lg --all --patch
+				EOF0
+				git config unset --system --all 'color.advice';
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches~*_&]:block">
+	<h2 class="heading2"><span class="command">git checkout</span> (with optional <span class="command">&lt;commit-ish&gt;</span>) (without <span class="command">&lt;pathspec&gt;…</span>) check out paths from <span class="command">&lt;commit-ish&gt;</span> and switch branches<br><span class="command">&lt;commit-ish&gt;</span> is given</h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div class="[grid-column:span_2]">
+			<h3 class="heading3">not <span class="command">--detach</span>/<span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--orphan</span></h3>
+			<p class="paragraph">(see below)</p>
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--detach</span></h3>
+			<p class="paragraph"><span class="inline_code">HEAD</span> is detached</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' branch branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' checkout --detach branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">-b</span></h3>
+			<p class="paragraph">create new branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' branch branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' checkout -b branch2 branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">-B</span></h3>
+			<p class="paragraph">create new branch or reset existent local branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' branch branch1
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' branch branch2
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' checkout -B branch1 branch2
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--orphan</span></h3>
+			<p class="paragraph">create unborn branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' branch branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' checkout --orphan branch2 branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' symbolic-ref HEAD
+					git -C './repo' branch --show-current
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches~*_&]:block">
+	<h2 class="heading2"><span class="command">git checkout</span> (with optional <span class="command">&lt;commit-ish&gt;</span>) (without <span class="command">&lt;pathspec&gt;…</span>) check out paths from <span class="command">&lt;commit-ish&gt;</span> and switch branches<br>omitted <span class="command">&lt;commit-ish&gt;</span> defaults to <span class="inline_code">HEAD</span> and <span class="inline_code">HEAD</span> isn't unborn branch</h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div class="[grid-column:span_2]">
+			<h3 class="heading3">not <span class="command">--detach</span>/<span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--orphan</span></h3>
+			<p class="paragraph">(see below)</p>
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--detach</span></h3>
+			<p class="paragraph"><span class="inline_code">HEAD</span> is detached</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' checkout --detach
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">-b</span></h3>
+			<p class="paragraph">create new branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' checkout -b branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">-B</span></h3>
+			<p class="paragraph">create new branch or reset existent local branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' branch branch1
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' checkout -B branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--orphan</span></h3>
+			<p class="paragraph">create unborn branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' checkout --orphan branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' symbolic-ref HEAD
+					git -C './repo' branch --show-current
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches~*_&]:block">
+	<h2 class="heading2"><span class="command">git checkout</span> (with optional <span class="command">&lt;commit-ish&gt;</span>) (without <span class="command">&lt;pathspec&gt;…</span>) check out paths from <span class="command">&lt;commit-ish&gt;</span> and switch branches<br>omitted <span class="command">&lt;commit-ish&gt;</span> defaults to <span class="inline_code">HEAD</span> and <span class="inline_code">HEAD</span> is unborn branch</h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div class="[grid-column:span_2]">
+			<h3 class="heading3">not <span class="command">--detach</span>/<span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--orphan</span></h3>
+			<p class="paragraph">(see below)</p>
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--detach</span></h3>
+			<p class="paragraph">fatal: You are on a branch yet to be born</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' symbolic-ref HEAD
+					git -C './repo' branch --show-current
+					git -C './repo' checkout --detach
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">-b</span></h3>
+			<p class="paragraph">create unborn branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' symbolic-ref HEAD
+					git -C './repo' branch --show-current
+					git -C './repo' checkout -b branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' symbolic-ref HEAD
+					git -C './repo' branch --show-current
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">-B</span></h3>
+			<p class="paragraph">if the branch doesn't exist, create unborn branch</p>
+			<p class="paragraph">if the branch exists, switch to it (doesn't make it unborn)</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' symbolic-ref HEAD
+					git -C './repo' branch --show-current
+					git -C './repo' checkout -B branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' symbolic-ref HEAD
+					git -C './repo' branch --show-current
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					HEAD_old="$(git -C './repo' symbolic-ref HEAD)"; echo "$HEAD_old"
+					git -C './repo' checkout -b branch1
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' symbolic-ref HEAD "$HEAD_old"
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' symbolic-ref HEAD
+					git -C './repo' branch --show-current
+					git -C './repo' checkout -B branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' symbolic-ref HEAD
+					git -C './repo' branch --show-current
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--orphan</span></h3>
+			<p class="paragraph">create unborn branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' symbolic-ref HEAD
+					git -C './repo' branch --show-current
+					git -C './repo' checkout --orphan branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' symbolic-ref HEAD
+					git -C './repo' branch --show-current
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches~*_&]:block">
+	<h2 class="heading2"><span class="command">git checkout</span> (with optional <span class="command">&lt;commit-ish&gt;</span>) (without <span class="command">&lt;pathspec&gt;…</span>) check out paths from <span class="command">&lt;commit-ish&gt;</span> and switch branches<br>(not <span class="command">--detach</span>/<span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--orphan</span>)</h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3">if <span class="command">&lt;commit-ish&gt;</span> is existent local branch name</h3>
+			<p class="paragraph">checkout the existent local branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' branch branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' checkout branch1
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">if <span class="command">&lt;commit-ish&gt;</span> isn't existent local branch name</h3>
+			<p class="paragraph">when (<span class="command">--no-guess</span> is specified or) 0 or more than 1 remotes have tracking branch with matching name</p>
+			<div class="ml-[2em]">
+				<p class="paragraph">error out</p>
+			</div>
+			<p class="paragraph">when more than 1 remotes have tracking branch with matching name but one of the remote is <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-checkoutdefaultRemote"><span class="inline_code">checkout.defaultRemote</span></a>, or 1 remote has tracking branch with matching name</p>
+			<div class="ml-[2em]">
+				<p class="paragraph">equivalent to <span class="command">git checkout -b &lt;branch&gt; --track &lt;remote-tracking branch&gt;</span></p>
+			</div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server1' './server2' './client/repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server1' init --bare './repo.git'
+					git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server1/repo.git' branch branch2
+					git -C './server1/repo.git' branch branch3
+
+					git -C './server2' init --bare './repo.git'
+					git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server2/repo.git' branch branch2
+
+					git -C './client/repo' init
+					git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+					git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' fetch --all
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' lg --all
+
+					git -C './client/repo' checkout branch1
+					git -C './client/repo' checkout branch2
+					git -C './client/repo' -c checkout.defaultRemote='server1' checkout --no-guess branch2
+					git -C './client/repo' -c checkout.defaultRemote='server1' checkout branch2
+					git -C './client/repo' checkout --no-guess branch3
+					git -C './client/repo' checkout branch3
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">omitted <span class="command">&lt;commit-ish&gt;</span> defaults to <span class="inline_code">HEAD</span> and <span class="inline_code">HEAD</span> isn't unborn branch</h3>
+			<p class="paragraph">glorified no-op with rather expensive side-effects to show only the tracking information, if it exists, for the current branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' checkout
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">omitted <span class="command">&lt;commit-ish&gt;</span> defaults to <span class="inline_code">HEAD</span> and <span class="inline_code">HEAD</span> is unborn branch: </h3>
+			<p class="paragraph">fatal: You are on a branch yet to be born</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					git -C './repo' branch --list --all --verbose --verbose
+					git -C './repo' lg --all
+					git -C './repo' checkout
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches\_ignore\_other\_worktrees~*_&]:block">
+	<h2 class="heading2"><span class="command">git checkout</span> (with optional <span class="command">&lt;commit-ish&gt;</span>) (without <span class="command">&lt;pathspec&gt;…</span>) check out paths from <span class="command">&lt;commit-ish&gt;</span> and switch branches<br>(when switching to existent local branch (not <span class="command">--detach</span>/<span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--orphan</span>))<br><span class="command">git checkout --ignore-other-worktrees</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' branch branch1
+			git -C './repo' worktree add '../worktree1' branch1
+			git -C './repo' branch --list --all --verbose --verbose
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' branch --list --all --verbose --verbose
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+			git -C './repo' checkout branch1
+			git -C './repo' checkout --ignore-other-worktrees branch1
+			git -C './repo' branch --list --all --verbose --verbose
+			git -C './repo' worktree list --verbose
+			git -C './repo' lg --all
+			git -C './worktree1' branch --list --all --verbose --verbose
+			git -C './worktree1' worktree list --verbose
+			git -C './worktree1' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches\_track~*_&]:block">
+	<h2 class="heading2"><span class="command">git checkout</span> (with optional <span class="command">&lt;commit-ish&gt;</span>) (without <span class="command">&lt;pathspec&gt;…</span>) check out paths from <span class="command">&lt;commit-ish&gt;</span> and switch branches<br>(when creating new branch that has commit (/<span class="command">-b</span>/<span class="command">-B</span>))<br><span class="command">git checkout --track/--no-track</span></h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3"><span class="command">-b</span></h3>
+			<p class="paragraph">create new branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client/repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server/repo.git' branch branch1
+
+					git -C './client/repo' init
+					git -C './client/repo' commit --message="$((++number))" --allow-empty
+					git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' fetch --all
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' lg --all
+
+					git -C './client/repo' checkout -b branch11 remotes/server/branch1
+					git -C './client/repo' checkout -b branch12 --no-track remotes/server/branch1
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">-B</span></h3>
+			<p class="paragraph">create new branch or reset existent local branch</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client/repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server/repo.git' branch branch1
+
+					git -C './client/repo' init
+					git -C './client/repo' commit --message="$((++number))" --allow-empty
+					git -C './client/repo' branch branch11
+					git -C './client/repo' branch branch12
+					git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' fetch --all
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' lg --all
+
+					git -C './client/repo' checkout -B branch11 remotes/server/branch1
+					git -C './client/repo' checkout -B branch12 --no-track remotes/server/branch1
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">(not <span class="command">--detach</span>/<span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--orphan</span>)</h3>
+			<p class="paragraph"><span class="command">--no-track</span> doesn't reverse <span class="command">--track</span> in <span class="command">git checkout -b &lt;branch&gt; --track &lt;remote-tracking branch&gt;</span> but causes error</p>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server1' './server2' './client/repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server1' init --bare './repo.git'
+					git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server1/repo.git' branch branch2
+					git -C './server1/repo.git' branch branch3
+
+					git -C './server2' init --bare './repo.git'
+					git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server2/repo.git' branch branch2
+
+					git -C './client/repo' init
+					git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+					git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' fetch --all
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' lg --all
+
+					git -C './client/repo' checkout branch1
+					git -C './client/repo' checkout branch2
+					git -C './client/repo' -c checkout.defaultRemote='server1' checkout --no-track branch2
+					git -C './client/repo' -c checkout.defaultRemote='server1' checkout branch2
+					git -C './client/repo' checkout --no-track branch3
+					git -C './client/repo' checkout branch3
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches\_overwrite\_ignore~*_&]:block">
+	<h2 class="heading2"><span class="command">git checkout</span> (with optional <span class="command">&lt;commit-ish&gt;</span>) (without <span class="command">&lt;pathspec&gt;…</span>) check out paths from <span class="command">&lt;commit-ish&gt;</span> and switch branches<br><span class="command">git checkout --overwrite-ignore/--no-overwrite-ignore</span></h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout --orphan branch1
+					echo '2' >'./repo/file'
+					git -C './repo' status --verbose --verbose
+					git -C './repo' rm --cached --force -r '.'
+					git -C './repo' status --verbose --verbose
+					echo '/file' >'./repo/.gitignore'
+					git -C './repo' status --verbose --verbose
+					treex './repo/file'
+					git -C './repo' checkout "$branch_default_name"
+					git -C './repo' status --verbose --verbose
+					treex './repo/file'
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					git -C './repo' checkout --orphan branch1
+					echo '2' >'./repo/file'
+					git -C './repo' status --verbose --verbose
+					git -C './repo' rm --cached --force -r '.'
+					git -C './repo' status --verbose --verbose
+					echo '/file' >'./repo/.gitignore'
+					git -C './repo' status --verbose --verbose
+					treex './repo/file'
+					git -C './repo' checkout --no-overwrite-ignore "$branch_default_name"
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

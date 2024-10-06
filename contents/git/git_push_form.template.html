@@ -1,0 +1,413 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_push~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_push~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_push')">git push [&lt;repository&gt;]</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-push">https://git-scm.com/docs/git-push</a></p>
+	<p class="paragraph">Update remote refs along with associated objects.</p>
+	<form id="git_push_form">
+		<div class="form_item">
+			<input type="checkbox" id="git_push_has_repository" name="git_push_has_repository">
+			<div class="subform basis-0 grow">
+				<label for="git_push_has_repository"><span class="command">&lt;repository&gt;</span> The "remote" repository that is the destination of a push operation.</label>
+				<div class="form_item"><label for="git_push_repository" class="hidden"><span class="command">&lt;repository&gt;</span>:</label><textarea wrap="off" id="git_push_repository" name="git_push_repository" class="basis-0 grow command_input"></textarea></div>
+			</div>
+		</div>
+
+		<p>Choose an action to perform:</p>
+		<div class="form_item"><input type="radio" id="git_push_action_no_option" name="git_push_action" value="no_option" checked><label for="git_push_action_no_option"></label></div>
+		<div class="form_item"><input type="radio" id="git_push_action_dry_run" name="git_push_action" value="dry_run"><label for="git_push_action_dry_run"><span class="command">--dry-run</span> Do everything except actually send the updates.</label></div>
+
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_push\_what~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_push_what')"><p>what to push:</p></legend>
+			<div class="form_item"><input type="radio" id="git_push_what_no_option" name="git_push_what" value="no_option" checked><label for="git_push_what_no_option">(Defaults to <span class="command">--mirror</span> if the configuration option <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamemirror"><span class="inline_code">remote.<span class="command">&lt;remote&gt;</span>.mirror</span></a> is set.)</label></div>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_push_what_refspecs" name="git_push_what" value="refspecs"><label for="git_push_what_refspecs"><span class="command">&lt;refspec&gt;…</span> (when <span class="command">&lt;repository&gt;</span>:) Specify what destination ref to update with what source object.</label></div>
+				</legend>
+				<input id="git_push_refspec_list_add" type="button" value="Add">
+				<div id="git_push_refspec_list" class="subform"></div>
+				<script>
+					document.getElementById("git_push_refspec_list_add").addEventListener("click",function(e){
+						document.getElementById("git_push_refspec_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_push_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_push_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_push_refresh();
+					})
+				</script>
+			</fieldset>
+			<div class="form_item"><input type="radio" id="git_push_what_branches" name="git_push_what" value="branches"><label for="git_push_what_branches"><span class="command">--branches</span> Push all branches (i.e. refs under <span class="inline_code">refs/heads/</span>).</label></div>
+			<div class="form_item"><input type="radio" id="git_push_what_mirror" name="git_push_what" value="mirror"><label for="git_push_what_mirror"><span class="command">--mirror</span> Instead of naming each ref to push, specifies that all refs under <span class="inline_code">refs/</span> (which includes but is not limited to <span class="inline_code">refs/heads/</span>, <span class="inline_code">refs/remotes/</span>, and <span class="inline_code">refs/tags/</span>) be mirrored to the remote repository.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>modifying <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamepushurl"><span class="inline_code">remote.<span class="command">&lt;remote&gt;</span>.pushurl</span></a> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameurl"><span class="inline_code">remote.<span class="command">&lt;remote&gt;</span>.url</span></a>:</p></legend>
+			<div class="form_item"><input type="radio" id="git_push_modifying_url_no_option" name="git_push_modifying_url" value="no_option" checked><label for="git_push_modifying_url_no_option"></label></div>
+			<div class="form_item"><input type="radio" id="git_push_modifying_url_ipv4" name="git_push_modifying_url" value="ipv4"><label for="git_push_modifying_url_ipv4"><span class="command">--ipv4</span> Use IPv4 addresses only, ignoring IPv6 addresses.</label></div>
+			<div class="form_item"><input type="radio" id="git_push_modifying_url_ipv6" name="git_push_modifying_url" value="ipv6"><label for="git_push_modifying_url_ipv6"><span class="command">--ipv6</span> Use IPv6 addresses only, ignoring IPv4 addresses.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>modifying refspecs:</p></legend>
+			<div class="form_item"><input type="checkbox" id="git_push_has_force" name="git_push_has_force"><label for="git_push_has_force"><span class="command">--force</span> Usually, the command refuses to update a remote ref that is not an ancestor of the local ref used to overwrite it. Also, when <span class="command">--force-with-lease</span> option is used, the command refuses to update a remote ref whose current value does not match what is expected. Disables these checks, and can cause the remote repository to lose commits.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_push\_tags~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_push_tags')"><input type="checkbox" id="git_push_has_tags" name="git_push_has_tags"><label for="git_push_has_tags"><span class="command">--tags</span> (when not <span class="command">--branches</span>/<span class="command">--mirror</span>:) All refs under <span class="inline_code">refs/tags</span> are pushed, in addition to refspecs explicitly listed on the command line.</label></div>
+			<div class="form_item"><input type="checkbox" id="git_push_has_delete" name="git_push_has_delete"><label for="git_push_has_delete"><span class="command">--delete</span> (when <span class="command">&lt;refspec&gt;…</span>:) All listed refs are deleted from the remote repository. (Is the same as prefixing all refs with a colon.)</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>progress reporting:</p></legend>
+			<div class="form_item"><input type="radio" id="git_push_progress_reporting_quiet" name="git_push_progress_reporting" value="quiet"><label for="git_push_progress_reporting_quiet"><span class="command">--quiet</span> Suppress all output, including the listing of updated refs, unless an error occurs. Progress is not reported to the standard error stream.</label></div>
+			<div class="form_item"><input type="radio" id="git_push_progress_reporting_no_option" name="git_push_progress_reporting" value="no_option" checked><label for="git_push_progress_reporting_no_option">Progress status is reported on the standard error stream when it is attached to a terminal.</label></div>
+			<div class="form_item"><input type="radio" id="git_push_progress_reporting_progress" name="git_push_progress_reporting" value="progress"><label for="git_push_progress_reporting_progress"><span class="command">--progress</span> Forces progress status even if the standard error stream is not directed to a terminal.</label></div>
+			<div class="form_item"><input type="checkbox" id="git_push_has_verbose" name="git_push_has_verbose"><label for="git_push_has_verbose"><span class="command">--verbose</span> Run verbosely.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>progress control:</p></legend>
+			<div class="form_item"><input type="radio" id="git_push_atomic_no_option" name="git_push_atomic" value="no_option" checked><label for="git_push_atomic_no_option"></label></div>
+			<div class="form_item"><input type="radio" id="git_push_atomic_has_no_atomic" name="git_push_atomic" value="false"><label for="git_push_atomic_has_no_atomic"><span class="command">--no-atomic</span></label></div>
+			<div class="form_item"><input type="radio" id="git_push_atomic_has_atomic" name="git_push_atomic" value="true"><label for="git_push_atomic_has_atomic"><span class="command">--atomic</span> Use an atomic transaction on the remote side if available.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_push_recurse_submodules_no_option" name="git_push_recurse_submodules" value="no_option" checked><label for="git_push_recurse_submodules_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushrecurseSubmodules"><span class="inline_code">push.recurseSubmodules</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulerecurse"><span class="inline_code">submodule.recurse</span></a> (<span class="inline_code">submodule.recurse=true</span> means <span class="inline_code">push.recurseSubmodules=on-demand</span>)) / <span class="inline_code">no</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_push_recurse_submodules_recurse_submodules" name="git_push_recurse_submodules" value="recurse_submodules"><label for="git_push_recurse_submodules_recurse_submodules"><span class="command">--recurse-submodules=(<input type="radio" id="git_push_recurse_submodules_mode_check" name="git_push_recurse_submodules_mode" value="check"><label for="git_push_recurse_submodules_mode_check">check</label>|<input type="radio" id="git_push_recurse_submodules_mode_on_demand" name="git_push_recurse_submodules_mode" value="on_demand" checked><label for="git_push_recurse_submodules_mode_on_demand">on-demand</label>|<input type="radio" id="git_push_recurse_submodules_mode_only" name="git_push_recurse_submodules_mode" value="only"><label for="git_push_recurse_submodules_mode_only">only</label>|<input type="radio" id="git_push_recurse_submodules_mode_no" name="git_push_recurse_submodules_mode" value="no"><label for="git_push_recurse_submodules_mode_no">no</label>)</span> May be used to make sure all submodule commits used by the revisions to be pushed are available on a remote-tracking branch.<br>
+				<div class="ml-[1em]">
+					<span class="command">check</span> Git will verify that all submodule commits that changed in the revisions to be pushed are available on at least one remote of the submodule.<br>
+					<span class="command">on-demand</span> All submodules that changed in the revisions to be pushed will be pushed.<br>
+					<span class="command">only</span> All submodules will be pushed while the superproject is left unpushed.<br>
+					<span class="command">no</span> Override the <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushrecurseSubmodules"><span class="inline_code">push.recurseSubmodules</span></a> configuration variable when no submodule recursion is required.<br>
+				</div></label></div>
+			<div class="form_item"><input type="radio" id="git_push_recurse_submodules_no_recurse_submodules" name="git_push_recurse_submodules" value="no_recurse_submodules"><label for="git_push_recurse_submodules_no_recurse_submodules"><span class="command">--no-recurse-submodules</span> Override the <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushrecurseSubmodules"><span class="inline_code">push.recurseSubmodules</span></a> configuration variable when no submodule recursion is required.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>preconditions:</p></legend>
+			<div class="form_item"><input type="radio" id="git_push_force_with_lease_no_option" name="git_push_force_with_lease" value="no_option" checked><label for="git_push_force_with_lease_no_option"></label></div>
+			<div class="form_item"><input type="radio" id="git_push_force_with_lease_no_force_with_lease" name="git_push_force_with_lease" value="no_force_with_lease"><label for="git_push_force_with_lease_no_force_with_lease"><span class="command">--no-force-with-lease</span> Cancel all the previous <span class="command">--force-with-lease</span> on the command line.</label></div>
+			<fieldset>
+				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_push\_force\_with\_lease~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_push_force_with_lease')">
+					<div class="form_item"><input type="radio" id="git_push_force_with_lease_force_with_lease" name="git_push_force_with_lease" value="force_with_lease"><label for="git_push_force_with_lease_force_with_lease"><span class="command">--force-with-lease[=&lt;refname&gt;[:&lt;expect&gt;]]</span> Usually, <span class="command">git push</span> refuses to update a remote ref that is not an ancestor of the local ref used to overwrite it. Overrides this restriction if the current value of the remote ref is the expected value. <span class="command">git push</span> fails otherwise. Analogous examples: <a href="https://en.wikipedia.org/wiki/Compare-and-swap">Compare-and-swap - Wikipedia</a>, <a href="https://en.wikipedia.org/wiki/Write%E2%80%93write_conflict">Write–write conflict - Wikipedia</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match">If-None-Match - HTTP | MDN</a>, <a href="https://www.w3.org/1999/04/Editing/">Editing the Web - Detecting the Lost Update Problem Using Unreserved Checkout</a>.</label></div>
+				</legend>
+				<input id="git_push_force_with_lease_list_add" type="button" value="Add">
+				<div id="git_push_force_with_lease_list" class="subform"></div>
+				<script>
+					document.getElementById("git_push_force_with_lease_list_add").addEventListener("click",function(e){
+						let checkbox, checkbox2, textarea;
+						document.getElementById("git_push_force_with_lease_list").append(create_element("div", { className: "form_item", }, {}, [
+							checkbox = create_element("input", { type: "checkbox", checked: true, }),
+							create_element("div", { className: "subform basis-0 grow", }, {}, [
+								create_element("div", { className: "form_item", }, {}, [
+									checkbox2 = create_element("input", { type: "checkbox", checked: false, id: "git_push_force_with_lease_list_item" + document.getElementById("git_push_force_with_lease_list").childElementCount + "_has_refname", }),
+									create_element("label", { innerHTML: "<span class=\"command\">=&lt;refname&gt;[:&lt;expect&gt;]</span>", htmlFor: checkbox2.id, }),
+								]),
+								textarea = create_element("textarea", { wrap: "off", className: "command_input", disabled: true, }),
+							]),
+						]));
+						textarea.addEventListener("input", git_push_refresh);
+						checkbox2.addEventListener("input", function(e){ textarea.disabled = !(checkbox.checked && checkbox2.checked); git_push_refresh(); });
+						checkbox.addEventListener("input", function(e){ checkbox2.disabled = !checkbox.checked; textarea.disabled = !(checkbox.checked && checkbox2.checked); git_push_refresh(); });
+						git_push_refresh();
+					})
+				</script>
+			</fieldset>
+
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_push\_force\_if\_includes~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_push_force_if_includes')">
+				<div class="form_item"><input type="radio" id="git_push_force_if_includes_no_option" name="git_push_force_if_includes" value="no_option" checked><label for="git_push_force_if_includes_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushuseForceIfIncludes"><span class="inline_code">push.useForceIfIncludes</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_push_force_if_includes_has_no_force_if_includes" name="git_push_force_if_includes" value="false"><label for="git_push_force_if_includes_has_no_force_if_includes"><span class="command">--no-force-if-includes</span></label></div>
+				<div class="form_item"><input type="radio" id="git_push_force_if_includes_has_force_if_includes" name="git_push_force_if_includes" value="true"><label for="git_push_force_if_includes_has_force_if_includes"><span class="command">--force-if-includes</span> Force an update only if the tip of the remote-tracking ref has been integrated locally.</label></div>
+			</div>
+		</fieldset>
+
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_push\_prune~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_push_prune')"><input type="checkbox" id="git_push_has_prune" name="git_push_has_prune"><label for="git_push_has_prune"><span class="command">--prune</span> Remove remote branches that don’t have a local counterpart.</label></div>
+
+		<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_push\_follow\_tags~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_push_follow_tags')">
+			<div class="form_item"><input type="radio" id="git_push_follow_tags_no_option" name="git_push_follow_tags" value="no_option" checked><label for="git_push_follow_tags_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushfollowTags"><span class="inline_code">push.followTags</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_push_follow_tags_has_no_follow_tags" name="git_push_follow_tags" value="false"><label for="git_push_follow_tags_has_no_follow_tags"><span class="command">--no-follow-tags</span></label></div>
+			<div class="form_item"><input type="radio" id="git_push_follow_tags_has_follow_tags" name="git_push_follow_tags" value="true"><label for="git_push_follow_tags_has_follow_tags"><span class="command">--follow-tags</span> Push all the refs that would be pushed without this option, and also push annotated tags in <span class="inline_code">refs/tags</span> that are missing from the remote but are pointing at commit-ish that are reachable from the refs being pushed.</label></div>
+		</div>
+
+		<fieldset>
+			<legend><p>client options:</p></legend>
+			<div class="form_item"><input type="radio" id="git_push_thin_no_option" name="git_push_thin" value="no_option" checked><label for="git_push_thin_no_option">(Defaults to <span class="command">--thin</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_push_thin_has_no_thin" name="git_push_thin" value="false"><label for="git_push_thin_has_no_thin"><span class="command">--no-thin</span> Passed to <span class="command">git-send-pack</span>.</label></div>
+			<div class="form_item"><input type="radio" id="git_push_thin_has_thin" name="git_push_thin" value="true"><label for="git_push_thin_has_thin"><span class="command">--thin</span> Passed to <span class="command">git-send-pack</span>.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>server options:</p></legend>
+			<div class="form_item">
+				<input type="checkbox" id="git_push_has_receive_pack" name="git_push_has_receive_pack">
+				<div class="subform basis-0 grow">
+					<label for="git_push_has_receive_pack"><span class="command">--receive-pack=&lt;receive-pack&gt;</span> Path to the <span class="command">git-receive-pack</span> program on the remote end. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamereceivepack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.receivepack</span></a>.)</label>
+					<div class="form_item"><label for="git_push_receive_pack"><span class="command">&lt;receive-pack&gt;</span>:</label><textarea wrap="off" id="git_push_receive_pack" name="git_push_receive_pack" class="basis-0 grow command_input"></textarea></div>
+				</div>
+			</div>
+
+			<fieldset>
+				<legend><p><span class="command">--push-option=&lt;option&gt;</span> Transmit the given string to the server, which passes them to the pre-receive as well as the post-receive hook. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushpushOption"><span class="inline_code">push.pushOption</span></a>.)</p></legend>
+				<input id="git_push_push_option_list_add" type="button" value="Add">
+				<div id="git_push_push_option_list" class="subform"></div>
+				<script>
+					document.getElementById("git_push_push_option_list_add").addEventListener("click",function(e){
+						document.getElementById("git_push_push_option_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_push_refresh);
+							checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_push_refresh(); });
+							div.append(checkbox, input);
+							return div;
+						})());
+						git_push_refresh();
+					})
+				</script>
+			</fieldset>
+
+			<div class="form_item"><input type="radio" id="git_push_signed_no_option" name="git_push_signed" value="no_option" checked><label for="git_push_signed_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushgpgSign"><span class="inline_code">push.gpgSign</span></a>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_push_signed_signed" name="git_push_signed" value="signed"><label for="git_push_signed_signed"><span class="command">--signed<input type="checkbox" id="git_push_signed_signed_has_argument" name="git_push_signed_signed_has_argument"><label for="git_push_signed_signed_has_argument">[=(<input type="radio" id="git_push_signed_mode_true" name="git_push_signed_mode" value="true" checked><label for="git_push_signed_mode_true">true</label>|<input type="radio" id="git_push_signed_mode_false" name="git_push_signed_mode" value="false"><label for="git_push_signed_mode_false">false</label>|<input type="radio" id="git_push_signed_mode_if_asked" name="git_push_signed_mode" value="if_asked"><label for="git_push_signed_mode_if_asked">if-asked</label>)]</label></span> GPG-sign the push request to update refs on the receiving side, to allow it to be checked by the hooks and/or be logged.<br>
+				<div class="ml-[1em]">
+					<span class="command">false</span> No signing will be attempted.<br>
+					<span class="command">true</span> The push will fail if the server does not support signed pushes.<br>
+					<span class="command">if-asked</span> Sign if and only if the server supports signed pushes.<br>
+				</div></label></div>
+			<div class="form_item"><input type="radio" id="git_push_signed_no_signed" name="git_push_signed" value="no_signed"><label for="git_push_signed_no_signed"><span class="command">--no-signed</span> No signing will be attempted.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>after pushing:</p></legend>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_push\_set\_upstream~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_push_set_upstream')"><input type="checkbox" id="git_push_has_set_upstream" name="git_push_has_set_upstream"><label for="git_push_has_set_upstream"><span class="command">--set-upstream</span> For every branch that is up to date or successfully pushed, add upstream (tracking) reference, used by argument-less <span class="command">git-pull</span> and other commands. (When no upstream tracking exists for the current branch and <span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault">push.default</a>=simple/upstream/current</span>, defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushautoSetupRemote"><span class="inline_code">push.autoSetupRemote</span></a>.)</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>output:</p></legend>
+			<div class="form_item"><input type="radio" id="git_push_output_no_option" name="git_push_output" value="no_option" checked><label for="git_push_output_no_option"></label></div>
+			<div class="form_item"><input type="radio" id="git_push_output_porcelain" name="git_push_output" value="porcelain"><label for="git_push_output_porcelain"><span class="command">--porcelain</span> Produce machine-readable output.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>hooks:</p></legend>
+			<div class="form_item"><input type="radio" id="git_push_verify_no_option" name="git_push_verify" value="no_option" checked><label for="git_push_verify_no_option"></label></div>
+			<div class="form_item"><input type="radio" id="git_push_verify_has_no_verify" name="git_push_verify" value="false"><label for="git_push_verify_has_no_verify"><span class="command">--no-verify</span> The pre-push hook is bypassed completely.</label></div>
+			<div class="form_item"><input type="radio" id="git_push_verify_has_verify" name="git_push_verify" value="true"><label for="git_push_verify_has_verify"><span class="command">--verify</span> Give the pre-push hook a chance to prevent the push.</label></div>
+		</fieldset>
+	</form>
+	<textarea readonly wrap="off" id="git_push_command" name="git_push_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_push_refresh(){
+			document.getElementById("git_push_repository").disabled = !document.getElementById("git_push_has_repository").checked;
+			document.getElementById("git_push_what_refspecs").disabled = !document.getElementById("git_push_has_repository").checked;
+			document.getElementById("git_push_what_refspecs").closest("fieldset").disabled = !(document.getElementById("git_push_has_repository").checked && document.getElementById("git_push_what_refspecs").checked);
+
+			document.getElementById("git_push_has_tags").disabled = !(!document.getElementById("git_push_what_branches").checked && !document.getElementById("git_push_what_mirror").checked);
+			document.getElementById("git_push_has_delete").disabled = !(document.getElementById("git_push_has_repository").checked && document.getElementById("git_push_what_refspecs").checked && Array.from(document.getElementById("git_push_refspec_list").querySelectorAll("textarea:enabled")).length != 0);
+
+			document.getElementById("git_push_recurse_submodules_mode_check").disabled = !document.getElementById("git_push_recurse_submodules_recurse_submodules").checked;
+			document.getElementById("git_push_recurse_submodules_mode_on_demand").disabled = !document.getElementById("git_push_recurse_submodules_recurse_submodules").checked;
+			document.getElementById("git_push_recurse_submodules_mode_only").disabled = !document.getElementById("git_push_recurse_submodules_recurse_submodules").checked;
+			document.getElementById("git_push_recurse_submodules_mode_no").disabled = !document.getElementById("git_push_recurse_submodules_recurse_submodules").checked;
+
+			document.getElementById("git_push_force_with_lease_force_with_lease").closest("fieldset").disabled = !document.getElementById("git_push_force_with_lease_force_with_lease").checked;
+
+			document.getElementById("git_push_receive_pack").disabled = !document.getElementById("git_push_has_receive_pack").checked;
+			document.getElementById("git_push_signed_signed_has_argument").disabled = !document.getElementById("git_push_signed_signed").checked;
+			document.getElementById("git_push_signed_mode_true").disabled = !(document.getElementById("git_push_signed_signed").checked && document.getElementById("git_push_signed_signed_has_argument").checked);
+			document.getElementById("git_push_signed_mode_false").disabled = !(document.getElementById("git_push_signed_signed").checked && document.getElementById("git_push_signed_signed_has_argument").checked);
+			document.getElementById("git_push_signed_mode_if_asked").disabled = !(document.getElementById("git_push_signed_signed").checked && document.getElementById("git_push_signed_signed_has_argument").checked);
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("push");
+
+			let form_data = new FormData(document.getElementById("git_push_form"));
+			switch(form_data.get("git_push_action")){
+				case "dry_run":
+					command_components.push("--dry-run");
+					break;
+			}
+			switch(form_data.get("git_push_what")){
+				case "branches":
+					command_components.push("--branches");
+					break;
+				case "mirror":
+					command_components.push("--mirror");
+					break;
+			}
+			switch(form_data.get("git_push_modifying_url")){
+				case "ipv4":
+					command_components.push("--ipv4");
+					break;
+				case "ipv6":
+					command_components.push("--ipv6");
+					break;
+			}
+			if(form_data.get("git_push_has_force"))
+				command_components.push("--force");
+			if(form_data.get("git_push_what") != "branches" && form_data.get("git_push_what") != "mirror"){
+				if(form_data.get("git_push_has_tags"))
+					command_components.push("--tags");
+			}
+			if(form_data.get("git_push_has_repository") && form_data.get("git_push_what") == "refspecs" && Array.from(document.getElementById("git_push_refspec_list").querySelectorAll("textarea:enabled")).length != 0){
+				if(form_data.get("git_push_has_delete"))
+					command_components.push("--delete");
+			}
+			switch(form_data.get("git_push_progress_reporting")){
+				case "quiet":
+					command_components.push("--quiet");
+					break;
+				case "progress":
+					command_components.push("--progress");
+					break;
+			}
+			if(form_data.get("git_push_has_verbose"))
+				command_components.push("--verbose");
+			switch(form_data.get("git_push_atomic")){
+				case "false":
+					command_components.push("--no-atomic");
+					break;
+				case "true":
+					command_components.push("--atomic");
+					break;
+			}
+			switch(form_data.get("git_push_recurse_submodules")){
+				case "recurse_submodules":
+					switch(form_data.get("git_push_recurse_submodules_mode")){
+						case "check":
+							command_components.push("--recurse-submodules=check");
+							break;
+						case "on_demand":
+							command_components.push("--recurse-submodules=on-demand");
+							break;
+						case "only":
+							command_components.push("--recurse-submodules=only");
+							break;
+						case "no":
+							command_components.push("--recurse-submodules=no");
+							break;
+					}
+					break;
+				case "no_recurse_submodules":
+					command_components.push("--no-recurse-submodules");
+					break;
+			}
+			switch(form_data.get("git_push_force_with_lease")){
+				case "no_force_with_lease":
+					command_components.push("--no-force-with-lease");
+					break;
+				case "force_with_lease":
+					Array.from(document.getElementById("git_push_force_with_lease_list").querySelectorAll(":scope>div:has(>input:checked)")).forEach(function(div){
+						if(!div.querySelector(":scope>div input").checked){
+							command_components.push("--force-with-lease");
+						}
+						else{
+							let textarea = div.querySelector(":scope>div textarea"), element_value = textarea.value, element_has_error = element_value.length == 0;
+							command_components.push("--force-with-lease=" + shell_quote(element_value));
+							textarea.classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+					});
+					break;
+			}
+			switch(form_data.get("git_push_force_if_includes")){
+				case "false":
+					command_components.push("--no-force-if-includes");
+					break;
+				case "true":
+					command_components.push("--force-if-includes");
+					break;
+			}
+			if(form_data.get("git_push_has_prune"))
+				command_components.push("--prune");
+			switch(form_data.get("git_push_follow_tags")){
+				case "false":
+					command_components.push("--no-follow-tags");
+					break;
+				case "true":
+					command_components.push("--follow-tags");
+					break;
+			}
+			switch(form_data.get("git_push_thin")){
+				case "false":
+					command_components.push("--no-thin");
+					break;
+				case "true":
+					command_components.push("--thin");
+					break;
+			}
+			if(form_data.get("git_push_has_receive_pack")){
+				let element_value = form_data.get("git_push_receive_pack"), element_has_error = element_value.length == 0;
+				command_components.push("--receive-pack=" + shell_quote(element_value));
+				document.getElementById("git_push_receive_pack").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			Array.from(document.getElementById("git_push_push_option_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+				command_components.push("--push-option=" + shell_quote(input.value));
+			});
+			switch(form_data.get("git_push_signed")){
+				case "signed":
+					if(form_data.get("git_push_signed_signed_has_argument")){
+						switch(form_data.get("git_push_signed_mode")){
+							case "true":
+								command_components.push("--signed=true");
+								break;
+							case "false":
+								command_components.push("--signed=false");
+								break;
+							case "if_asked":
+								command_components.push("--signed=if-asked");
+								break;
+						}
+					}
+					else{
+						command_components.push("--signed");
+					}
+					break;
+				case "no_signed":
+					command_components.push("--no-signed");
+					break;
+			}
+			if(form_data.get("git_push_has_set_upstream"))
+				command_components.push("--set-upstream");
+			switch(form_data.get("git_push_output")){
+				case "porcelain":
+					command_components.push("--porcelain");
+					break;
+			}
+			switch(form_data.get("git_push_verify")){
+				case "false":
+					command_components.push("--no-verify");
+					break;
+				case "true":
+					command_components.push("--verify");
+					break;
+			}
+
+			if(form_data.get("git_push_has_repository")){
+				command_components.push("--end-of-options");
+				let element_value = form_data.get("git_push_repository"), element_has_error = element_value.length == 0;
+				command_components.push(shell_quote(element_value));
+				document.getElementById("git_push_repository").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+				switch(form_data.get("git_push_what")){
+					case "refspecs":
+						Array.from(document.getElementById("git_push_refspec_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+							let element_value = textarea.value, element_has_error = element_value.length == 0;
+							command_components.push(shell_quote(element_value));
+							textarea.classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						});
+						break;
+				}
+			}
+
+			let git_push_command = document.getElementById("git_push_command");
+			git_push_command.classList.toggle("error_output", has_error);
+			git_push_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_push_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_push_refresh);
+		});
+		Array.from(document.getElementById("git_push_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_push_refresh);
+		});
+	</script>
+</div>

@@ -1,0 +1,570 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_add~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_remove~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote add</span><br><span class="command">git remote remove</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './client' init './repo'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote add server1 '../server1/repo.git'
+			git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote remove server1
+			git -C './client/repo' remote remove server2
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote add -m &lt;master&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server1' init --bare './repo.git'
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server2' init --bare './repo.git'
+			branch_default_name="$(git -C './server2/repo.git' branch --show-current)"; echo "$branch_default_name"
+			git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+			git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' remote add -m "$branch_default_name" server2 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+			git -C './client/repo' fetch --all
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote add -t &lt;branch&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './client' init './repo'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' remote add -t branch1 -t branch2 server2 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote add --tags/--no-tags</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './server3' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './client' init './repo'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' remote add --tags server2 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' remote add --no-tags server3 'file://'"$(realpath './server3/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_add~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote add --mirror=fetch</span><br><span class="command">git remote add --mirror=push</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './server3' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './client' init './repo'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' remote add --mirror=fetch server2 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' remote add --mirror=push server3 'file://'"$(realpath './server3/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_rename~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote rename &lt;old&gt; &lt;new&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './server3' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server1' init --bare './repo.git'
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server2' init --bare './repo.git'
+			branch_default_name="$(git -C './server2/repo.git' branch --show-current)"; echo "$branch_default_name"
+			git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server3' init --bare './repo.git'
+			git --git-dir='./server3/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server3/repo.git' branch branch1
+			git -C './server3/repo.git' branch branch2
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+			git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' remote add -m "$branch_default_name" server2 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' remote add -t branch1 -t branch2 server3 'file://'"$(realpath './server3/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+			git -C './client/repo' fetch --all
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+			git -C './client/repo' checkout -b "$branch_default_name"1 server1/"$branch_default_name"
+			git -C './client/repo' checkout -b "$branch_default_name"2 server2/"$branch_default_name"
+			git -C './client/repo' checkout branch1
+			git -C './client/repo' checkout branch2
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+			git -C './client/repo' remote rename server1 server4
+			git -C './client/repo' remote rename server2 server5
+			git -C './client/repo' remote rename server3 server6
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_set\_head~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote set-head --auto</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './client' init './repo'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+
+			git -C './client/repo' remote set-head server --auto
+			git -C './server' init --bare './repo.git'
+			git -C './client/repo' remote set-head server --auto
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' remote set-head server --auto
+
+			git -C './client/repo' fetch --all
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+			git -C './client/repo' remote set-head server --auto
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_set\_head~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote set-head --delete</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './client' init './repo'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+			git -C './client/repo' remote add -m master server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+
+			git -C './client/repo' remote set-head server --delete
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_set\_head~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote set-head &lt;branch&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			branch_default_name="$(git -C './server/repo.git' branch --show-current)"; echo "$branch_default_name"
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+			git -C './client/repo' remote set-head server "$branch_default_name"
+
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' fetch --all
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+
+			git -C './client/repo' remote set-head server "$branch_default_name"
+			git -C './client/repo' branch --list --all --verbose --verbose
+			treex './client/repo/.git/refs'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_set\_branches~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote set-branches &lt;name&gt; &lt;branch&gt;…</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './client' init './repo'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote set-branches server branch1 branch2
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote set-branches --add server branch3 branch4
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote set-branches --add server branch3 branch4
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote set-branches server
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote set-branches server branch1 branch2
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote set-branches --add server branch3 branch4
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote set-branches --add server branch3 branch4
+			git -C './client/repo' config list --local --show-scope --show-origin
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_get\_url~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote get-url &lt;name&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './server3' './server4' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './client' init './repo'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote add server 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote get-url server
+			git -C './client/repo' remote get-url --all server
+			git -C './client/repo' remote get-url --push server
+			git -C './client/repo' remote get-url --push --all server
+			git -C './client/repo' config set --local --append 'remote.server.url' 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' config set --local --append 'remote.server.pushurl' 'file://'"$(realpath './server3/repo.git')"
+			git -C './client/repo' config set --local --append 'remote.server.pushurl' 'file://'"$(realpath './server4/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote get-url server
+			git -C './client/repo' remote get-url --all server
+			git -C './client/repo' remote get-url --push server
+			git -C './client/repo' remote get-url --push --all server
+
+			git -C './client/repo' config set --local --append 'url.scheme1://authority1/path1/.insteadOf' 'file://'"$(realpath '.')"'/'
+			git -C './client/repo' config set --local --append 'url.scheme2://authority2/path2/.pushInsteadOf' 'file://'"$(realpath '.')"'/'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote get-url server
+			git -C './client/repo' remote get-url --all server
+			git -C './client/repo' remote get-url --push server
+			git -C './client/repo' remote get-url --push --all server
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_set\_url~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote set-url [--push] &lt;name&gt; &lt;newurl&gt; [&lt;oldurl&gt;]</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './server3' './server4' './server5' './server6' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './client' init './repo'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote add server 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' config set --local --append 'remote.server.url' 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' config set --local --append 'remote.server.pushurl' 'file://'"$(realpath './server3/repo.git')"
+			git -C './client/repo' config set --local --append 'remote.server.pushurl' 'file://'"$(realpath './server4/repo.git')"
+			git -C './client/repo' config set --local --append 'url.scheme1://authority1/path1/.insteadOf' 'file://'"$(realpath '.')"'/'
+			git -C './client/repo' config set --local --append 'url.scheme2://authority2/path2/.pushInsteadOf' 'file://'"$(realpath '.')"'/'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote get-url server
+			git -C './client/repo' remote get-url --all server
+			git -C './client/repo' remote get-url --push server
+			git -C './client/repo' remote get-url --push --all server
+
+			git -C './client/repo' remote set-url server 'file://'"$(realpath './server5/repo.git')"
+			git -C './client/repo' remote set-url server 'file://'"$(realpath './server5/repo.git')" 'server'
+			git -C './client/repo' remote set-url server 'file://'"$(realpath './server5/repo.git')" 'server2'
+			git -C './client/repo' remote set-url server --push 'file://'"$(realpath './server6/repo.git')"
+			git -C './client/repo' remote set-url server --push 'file://'"$(realpath './server6/repo.git')" 'server'
+			git -C './client/repo' remote set-url server --push 'file://'"$(realpath './server6/repo.git')" 'server4'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote get-url server
+			git -C './client/repo' remote get-url --all server
+			git -C './client/repo' remote get-url --push server
+			git -C './client/repo' remote get-url --push --all server
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_set\_url~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote set-url --add [--push] &lt;name&gt; &lt;newurl&gt;</span><br><span class="command">git remote set-url --delete [--push] &lt;name&gt; &lt;URL&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './server3' './server4' './server5' './server6' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './client' init './repo'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote add server 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' config set --local --append 'remote.server.url' 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' config set --local --append 'remote.server.pushurl' 'file://'"$(realpath './server3/repo.git')"
+			git -C './client/repo' config set --local --append 'remote.server.pushurl' 'file://'"$(realpath './server4/repo.git')"
+			git -C './client/repo' config set --local --append 'url.scheme1://authority1/path1/.insteadOf' 'file://'"$(realpath '.')"'/'
+			git -C './client/repo' config set --local --append 'url.scheme2://authority2/path2/.pushInsteadOf' 'file://'"$(realpath '.')"'/'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote get-url server
+			git -C './client/repo' remote get-url --all server
+			git -C './client/repo' remote get-url --push server
+			git -C './client/repo' remote get-url --push --all server
+
+			git -C './client/repo' remote set-url --add server 'file://'"$(realpath './server5/repo.git')"
+			git -C './client/repo' remote set-url --add --push server 'file://'"$(realpath './server6/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote get-url server
+			git -C './client/repo' remote get-url --all server
+			git -C './client/repo' remote get-url --push server
+			git -C './client/repo' remote get-url --push --all server
+
+			git -C './client/repo' remote set-url --delete server 'server1'
+			git -C './client/repo' remote set-url --delete --push server 'server3'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote get-url server
+			git -C './client/repo' remote get-url --all server
+			git -C './client/repo' remote get-url --push server
+			git -C './client/repo' remote get-url --push --all server
+
+			git -C './client/repo' remote set-url --delete server 'server'
+			git -C './client/repo' remote set-url --delete --push server 'server'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote get-url server
+			git -C './client/repo' remote get-url --all server
+			git -C './client/repo' remote get-url --push server
+			git -C './client/repo' remote get-url --push --all server
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_show~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote show &lt;name&gt;…</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './server3' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './client' init './repo'
+			branch_default_name="$(git -C './client/repo' branch --show-current)"; echo "$branch_default_name"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+
+			git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' remote add -m "$branch_default_name" server2 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' remote add -t branch1 -t branch2 server3 'file://'"$(realpath './server3/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' remote --verbose show server1 server2 server3
+			git -C './client/repo' remote --verbose show -n server1 server2 server3
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+
+			git -C './server1' init --bare './repo.git'
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server2' init --bare './repo.git'
+			git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server3' init --bare './repo.git'
+			git --git-dir='./server3/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server3/repo.git' branch branch1
+			git -C './server3/repo.git' branch branch2
+			git -C './client/repo' remote --verbose show server1 server2 server3
+
+			git -C './client/repo' fetch --all
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' remote --verbose show server1 server2 server3
+
+			git -C './client/repo' checkout -b "$branch_default_name"1 server1/"$branch_default_name"
+			git -C './client/repo' checkout -b "$branch_default_name"21 server2/"$branch_default_name"
+			git -C './client/repo' checkout -b "$branch_default_name"22 server2/"$branch_default_name"
+			git -C './client/repo' checkout branch1
+			git -C './client/repo' checkout branch2
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+
+			git -C './client/repo' checkout "$branch_default_name"1; git -C './client/repo' push
+			git -C './client/repo' checkout "$branch_default_name"21; git -C './client/repo' push
+			git -C './client/repo' checkout "$branch_default_name"22; git -C './client/repo' push
+			git -C './client/repo' checkout branch1; git -C './client/repo' push
+			git -C './client/repo' checkout branch2; git -C './client/repo' push
+			git -C './client/repo' remote --verbose show server1 server2 server3
+
+			git -C './client/repo' config set --local 'push.default' 'upstream'
+			git -C './client/repo' checkout "$branch_default_name"1; git -C './client/repo' push
+			git -C './client/repo' checkout "$branch_default_name"21; git -C './client/repo' push
+			git -C './client/repo' checkout "$branch_default_name"22; git -C './client/repo' push
+			git -C './client/repo' checkout branch1; git -C './client/repo' push
+			git -C './client/repo' checkout branch2; git -C './client/repo' push
+			git -C './client/repo' remote --verbose show server1 server2 server3
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_prune~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote prune &lt;name&gt;…</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch1; git -C './server/repo.git' branch branch2; git -C './server/repo.git' tag tag1; git -C './server/repo.git' tag tag2
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+
+			git -C './client/repo' fetch --all
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+
+			git -C './server/repo.git' branch --delete branch1; git -C './server/repo.git' branch branch3; git -C './server/repo.git' tag --delete tag1; git -C './server/repo.git' tag tag3
+			git -C './client/repo' remote prune --dry-run server
+			git -C './client/repo' fetch --prune --dry-run server
+			git -C './client/repo' config set --local 'fetch.pruneTags' 'true'
+			git -C './client/repo' remote prune --dry-run server
+			git -C './client/repo' fetch --prune --dry-run server
+			git -C './client/repo' config unset --local 'fetch.pruneTags'
+			git -C './client/repo' config set --local --append 'remote.server.fetch' '+refs/tags/*:refs/tags/*'
+			git -C './client/repo' remote prune --dry-run server
+			git -C './client/repo' fetch --prune --dry-run server
+
+			git -C './client/repo' remote prune server
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:block [#reference\_desk\_dispatcher\_example.git\_remote\_update~*_&]:block">
+	<h2 class="heading2"><span class="command">git remote update [(&lt;group&gt; | &lt;remote&gt;)…]</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch1; git -C './server/repo.git' branch branch2; git -C './server/repo.git' tag tag1; git -C './server/repo.git' tag tag2
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+
+			git -C './client/repo' remote --verbose update
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+
+			git -C './server/repo.git' branch --delete branch1; git -C './server/repo.git' branch branch3; git -C './server/repo.git' tag --delete tag1; git -C './server/repo.git' tag tag3
+			git -C './client/repo' remote --verbose update
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+
+			git -C './client/repo' remote --verbose update --prune
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+			git -C './client/repo' config set --local 'fetch.pruneTags' 'true'
+			git -C './client/repo' remote --verbose update --prune
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

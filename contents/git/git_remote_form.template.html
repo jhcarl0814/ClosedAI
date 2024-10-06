@@ -1,0 +1,561 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_remote~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_remote~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_remote')">git remote</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-remote">https://git-scm.com/docs/git-remote</a></p>
+	<p class="paragraph">Manage set of tracked repositories.</p>
+	<form id="git_remote_form">
+		<p>Choose an action to perform:</p>
+		<fieldset>
+			<legend>
+				<div class="form_item"><input type="radio" id="git_remote_action_no_option" name="git_remote_action" value="no_option" checked><label for="git_remote_action_no_option">Shows a list of existing remotes.</label></div>
+			</legend>
+			<div class="form_item"><input type="checkbox" id="git_remote_action_no_option_has_verbose" name="git_remote_action_no_option_has_verbose" checked><label for="git_remote_action_no_option_has_verbose"><span class="command">--verbose</span> Be a little more verbose and show remote url after name.</label></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_remote\_add~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_remote_add')">
+				<div class="form_item"><input type="radio" id="git_remote_action_add" name="git_remote_action" value="add"><label for="git_remote_action_add"><span class="command">add &lt;name&gt; &lt;URL&gt;</span> Add a remote named <span class="command">&lt;name&gt;</span> for the repository at <span class="command">&lt;URL&gt;</span>.</label></div>
+			</legend>
+			<div class="form_item"><label for="git_remote_action_add_name"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_remote_action_add_name" name="git_remote_action_add_name" class="basis-0 grow command_input" value="origin"></div>
+			<div class="form_item"><label for="git_remote_action_add_url"><span class="command">&lt;URL&gt;</span>:</label><textarea wrap="off" id="git_remote_action_add_url" name="git_remote_action_add_url" class="basis-0 grow command_input" placeholder="scheme://authority/path/repo.git"></textarea></div>
+			<fieldset>
+				<legend><p>resulting type:</p></legend>
+				<fieldset>
+					<legend>
+						<div class="form_item"><input type="radio" id="git_remote_action_add_resulting_type_no_option" name="git_remote_action_add_resulting_type" value="no_option" checked><label for="git_remote_action_add_resulting_type_no_option"></label></div>
+					</legend>
+					<div class="form_item">
+						<input type="checkbox" id="git_remote_action_add_has_m" name="git_remote_action_add_has_m">
+						<div class="subform basis-0 grow">
+							<label for="git_remote_action_add_has_m"><span class="command">-m &lt;master&gt;</span> A symbolic-ref <span class="inline_code">refs/remotes/<span class="command">&lt;name&gt;</span>/HEAD</span> is set up to point at remote’s <span class="command">&lt;master&gt;</span> branch.</label>
+							<div class="form_item"><label for="git_remote_action_add_m_master"><span class="command">&lt;master&gt;</span>:</label><input type="text" id="git_remote_action_add_m_master" name="git_remote_action_add_m_master" class="basis-0 grow command_input" value="master"></div>
+						</div>
+					</div>
+				</fieldset>
+				<div class="form_item"><input type="radio" id="git_remote_action_add_resulting_type_mirror_fetch" name="git_remote_action_add_resulting_type" value="mirror_fetch"><label for="git_remote_action_add_resulting_type_mirror_fetch"><span class="command">--mirror=fetch</span> The refs will not be stored in the <span class="inline_code">refs/remotes/</span> namespace, but rather everything in <span class="inline_code">refs/</span> on the remote will be directly mirrored into <span class="inline_code">refs/</span> in the local repository.</label></div>
+				<div class="form_item"><input type="radio" id="git_remote_action_add_resulting_type_mirror_push" name="git_remote_action_add_resulting_type" value="mirror_push"><label for="git_remote_action_add_resulting_type_mirror_push"><span class="command">--mirror=push</span> <span class="command">git push</span> will always behave as if <span class="command">--mirror</span> was passed.</label></div>
+			</fieldset>
+			<fieldset>
+				<legend><p>tracked refs:</p></legend>
+				<p>(when not <span class="command">--mirror=push</span>:)</p>
+				<div class="form_item"><input type="radio" id="git_remote_action_add_tracked_refs_no_option" name="git_remote_action_add_tracked_refs" value="no_option" checked><label for="git_remote_action_add_tracked_refs_no_option">The default glob refspec for the remote to track all branches under the <span class="inline_code">refs/remotes/<span class="command">&lt;name&gt;</span>/</span> or <span class="inline_code">refs/</span> namespace is created.</label></div>
+				<fieldset>
+					<legend>
+						<div class="form_item"><input type="radio" id="git_remote_action_add_tracked_refs_t" name="git_remote_action_add_tracked_refs" value="t"><label for="git_remote_action_add_tracked_refs_t"><span class="command">-t &lt;branch&gt;</span> A refspec to track only <span class="command">&lt;branch&gt;</span> is created.</label></div>
+					</legend>
+					<input id="git_remote_action_add_tracked_refs_t_branch_list_add" type="button" value="Add">
+					<div id="git_remote_action_add_tracked_refs_t_branch_list" class="subform"></div>
+					<script>
+						document.getElementById("git_remote_action_add_tracked_refs_t_branch_list_add").addEventListener("click",function(e){
+							document.getElementById("git_remote_action_add_tracked_refs_t_branch_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_remote_refresh);
+								checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_remote_refresh(); });
+								div.append(checkbox, input);
+								return div;
+							})());
+							git_remote_refresh();
+						})
+					</script>
+				</fieldset>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div class="form_item"><input type="radio" id="git_remote_action_add_tags_no_option" name="git_remote_action_add_tags" value="no_option" checked><label for="git_remote_action_add_tags_no_option"> Only imports tags on fetched branches.</label></div>
+				<div class="form_item"><input type="radio" id="git_remote_action_add_tags_has_no_tags" name="git_remote_action_add_tags" value="false"><label for="git_remote_action_add_tags_has_no_tags"><span class="command">--no-tags</span> Does not import tags from the remote repository.</label></div>
+				<div class="form_item"><input type="radio" id="git_remote_action_add_tags_has_tags" name="git_remote_action_add_tags" value="true"><label for="git_remote_action_add_tags_has_tags"><span class="command">--tags</span> Imports every tag from the remote repository.</label></div>
+			</fieldset>
+			<div class="form_item"><input type="checkbox" id="git_remote_action_add_has_f" name="git_remote_action_add_has_f"><label for="git_remote_action_add_has_f"><span class="command">-f</span> <span class="command">git fetch &lt;name&gt;</span> is run immediately after the remote information is set up.</label></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_remote\_rename~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_remote_rename')">
+				<div class="form_item"><input type="radio" id="git_remote_action_rename" name="git_remote_action" value="rename"><label for="git_remote_action_rename"><span class="command">rename &lt;old&gt; &lt;new&gt;</span> Rename the remote named <span class="command">&lt;old&gt;</span> to <span class="command">&lt;new&gt;</span>.</label></div>
+			</legend>
+			<div class="form_item"><label for="git_remote_action_rename_old"><span class="command">&lt;old&gt;</span>:</label><input type="text" id="git_remote_action_rename_old" name="git_remote_action_rename_old" class="basis-0 grow command_input" value="origin"></div>
+			<div class="form_item"><label for="git_remote_action_rename_new"><span class="command">&lt;new&gt;</span>:</label><input type="text" id="git_remote_action_rename_new" name="git_remote_action_rename_new" class="basis-0 grow command_input" value="origin"></div>
+			<div class="form_item"><input type="radio" id="git_remote_action_rename_progress_no_option" name="git_remote_action_rename_progress" value="no_option" checked><label for="git_remote_action_rename_progress_no_option"></label></div>
+			<div class="form_item"><input type="radio" id="git_remote_action_rename_progress_has_no_progress" name="git_remote_action_rename_progress" value="false"><label for="git_remote_action_rename_progress_has_no_progress"><span class="command">--no-progress</span></label></div>
+			<div class="form_item"><input type="radio" id="git_remote_action_rename_progress_has_progress" name="git_remote_action_rename_progress" value="true"><label for="git_remote_action_rename_progress_has_progress"><span class="command">--progress</span></label></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_remote\_remove~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_remote_remove')">
+				<div class="form_item"><input type="radio" id="git_remote_action_remove" name="git_remote_action" value="remove"><label for="git_remote_action_remove"><span class="command">remove &lt;name&gt;</span> Remove the remote named <span class="command">&lt;name&gt;</span>.</label></div>
+			</legend>
+			<div class="form_item"><label for="git_remote_action_remove_name"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_remote_action_remove_name" name="git_remote_action_remove_name" class="basis-0 grow command_input" value="origin"></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_remote\_set\_head~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_remote_set_head')">
+				<div class="form_item"><input type="radio" id="git_remote_action_set_head" name="git_remote_action" value="set_head"><label for="git_remote_action_set_head"><span class="command">set-head &lt;name&gt;</span> Sets or deletes the default branch (i.e. the target of the symbolic-ref <span class="inline_code">refs/remotes/<span class="command">&lt;name&gt;</span>/HEAD</span>) for the named remote.</label></div>
+			</legend>
+			<div class="form_item"><label for="git_remote_action_set_head_name"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_remote_action_set_head_name" name="git_remote_action_set_head_name" class="basis-0 grow command_input" value="origin"></div>
+			<p>Choose an action to perform:</p>
+			<div class="form_item"><input type="radio" id="git_remote_action_set_head_action_auto" name="git_remote_action_set_head_action" value="auto" checked><label for="git_remote_action_set_head_action_auto"><span class="command">--auto</span> The remote is queried to determine its <span class="inline_code">HEAD</span>, then the symbolic-ref <span class="inline_code">refs/remotes/<span class="command">&lt;name&gt;</span>/HEAD</span> is set to the same branch. Will only work if <span class="inline_code">refs/remotes/<span class="command">&lt;remote&gt;</span>/<span class="command">&lt;branch&gt;</span></span> already exists; if not it must be fetched first.</label></div>
+			<div class="form_item"><input type="radio" id="git_remote_action_set_head_action_delete" name="git_remote_action_set_head_action" value="delete"><label for="git_remote_action_set_head_action_delete"><span class="command">--delete</span> The symbolic ref <span class="inline_code">refs/remotes/<span class="command">&lt;name&gt;</span>/HEAD</span> is deleted. Will only work if <span class="inline_code">refs/remotes/<span class="command">&lt;remote&gt;</span>/<span class="command">&lt;branch&gt;</span></span> already exists; if not it must be fetched first.</label></div>
+			<div class="form_item">
+				<input type="radio" id="git_remote_action_set_head_action_branch" name="git_remote_action_set_head_action" value="branch">
+				<div class="subform basis-0 grow">
+					<label for="git_remote_action_set_head_action_branch"><span class="command">&lt;branch&gt;</span> Set the symbolic-ref <span class="inline_code">refs/remotes/<span class="command">&lt;name&gt;</span>/HEAD</span> explicitly.</label>
+					<div class="form_item"><label for="git_remote_action_set_head_action_branch_branch"><span class="command">&lt;branch&gt;</span>:</label><input type="text" id="git_remote_action_set_head_action_branch_branch" name="git_remote_action_set_head_action_branch_branch" class="basis-0 grow command_input" value=""></div>
+				</div>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_remote\_set\_branches~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_remote_set_branches')">
+				<div class="form_item"><input type="radio" id="git_remote_action_set_branches" name="git_remote_action" value="set_branches"><label for="git_remote_action_set_branches"><span class="command">set-branches &lt;name&gt; &lt;branch&gt;…</span> Changes the list of branches tracked by the named remote.</label></div>
+			</legend>
+			<div class="form_item"><label for="git_remote_action_set_branches_name"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_remote_action_set_branches_name" name="git_remote_action_set_branches_name" class="basis-0 grow command_input" value="origin"></div>
+			<fieldset>
+				<legend><p><span class="command">&lt;branch&gt;…</span></p></legend>
+				<input id="git_remote_action_set_branches_branch_list_add" type="button" value="Add">
+				<div id="git_remote_action_set_branches_branch_list" class="subform"></div>
+				<script>
+					document.getElementById("git_remote_action_set_branches_branch_list_add").addEventListener("click",function(e){
+						document.getElementById("git_remote_action_set_branches_branch_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_remote_refresh);
+							checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_remote_refresh(); });
+							div.append(checkbox, input);
+							return div;
+						})());
+						git_remote_refresh();
+					})
+				</script>
+			</fieldset>
+			<p>Choose an action to perform:</p>
+			<div class="form_item"><input type="radio" id="git_remote_action_set_branches_action_no_option" name="git_remote_action_set_branches_action" value="no_option" checked><label for="git_remote_action_set_branches_action_no_option">Replaces the list of currently tracked branches.</label></div>
+			<div class="form_item"><input type="radio" id="git_remote_action_set_branches_action_add" name="git_remote_action_set_branches_action" value="add"><label for="git_remote_action_set_branches_action_add"><span class="command">--add</span> Adds to the list of currently tracked branches.</label></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_remote\_get\_url~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_remote_get_url')">
+				<div class="form_item"><input type="radio" id="git_remote_action_get_url" name="git_remote_action" value="get_url"><label for="git_remote_action_get_url"><span class="command">get-url &lt;name&gt;</span> Retrieves the URLs for a remote.</label></div>
+			</legend>
+			<div class="form_item"><label for="git_remote_action_get_url_name"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_remote_action_get_url_name" name="git_remote_action_get_url_name" class="basis-0 grow command_input" value="origin"></div>
+			<div class="form_item"><input type="radio" id="git_remote_action_get_url_direction_no_option" name="git_remote_action_get_url_direction" value="no_option" checked><label for="git_remote_action_get_url_direction_no_option">Fetch URLs are queried.</label></div>
+			<div class="form_item"><input type="radio" id="git_remote_action_get_url_direction_push" name="git_remote_action_get_url_direction" value="push"><label for="git_remote_action_get_url_direction_push"><span class="command">--push</span> Push URLs are queried.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_remote_action_get_url_range_no_option" name="git_remote_action_get_url_range" value="no_option"><label for="git_remote_action_get_url_range_no_option">Only the first URL is listed.</label></div>
+			<div class="form_item"><input type="radio" id="git_remote_action_get_url_range_all" name="git_remote_action_get_url_range" value="all" checked><label for="git_remote_action_get_url_range_all"><span class="command">--all</span> All URLs for the remote will be listed.</label></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_remote\_set\_url~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_remote_set_url')">
+				<div class="form_item"><input type="radio" id="git_remote_action_set_url" name="git_remote_action" value="set_url"><label for="git_remote_action_set_url"><span class="command">set-url &lt;name&gt;</span> Changes URLs for the remote.</label></div>
+			</legend>
+			<div class="form_item"><label for="git_remote_action_set_url_name"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_remote_action_set_url_name" name="git_remote_action_set_url_name" class="basis-0 grow command_input" value="origin"></div>
+			<div class="form_item"><input type="radio" id="git_remote_action_set_url_direction_no_option" name="git_remote_action_set_url_direction" value="no_option" checked><label for="git_remote_action_set_url_direction_no_option">Fetch URLs are manipulated.</label></div>
+			<div class="form_item"><input type="radio" id="git_remote_action_set_url_direction_push" name="git_remote_action_set_url_direction" value="push"><label for="git_remote_action_set_url_direction_push"><span class="command">--push</span> Push URLs are manipulated.</label></div>
+
+			<p>Choose an action to perform:</p>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_remote_action_set_url_action_no_option" name="git_remote_action_set_url_action" value="no_option" checked><label for="git_remote_action_set_url_action_no_option"><span class="command">&lt;newurl&gt; [&lt;oldurl&gt;]</span> Sets first URL for remote <span class="command">&lt;name&gt;</span> that matches regex <span class="command">&lt;oldurl&gt;</span> (first URL if no <span class="command">&lt;oldurl&gt;</span> is given) to <span class="command">&lt;newurl&gt;</span>.</label></div>
+				</legend>
+				<div class="form_item"><label for="git_remote_action_set_url_action_no_option_newurl"><span class="command">&lt;newurl&gt;</span>:</label><textarea wrap="off" id="git_remote_action_set_url_action_no_option_newurl" name="git_remote_action_set_url_action_no_option_newurl" class="basis-0 grow command_input" placeholder="scheme://authority/path/repo.git"></textarea></div>
+				<div class="form_item"><input type="checkbox" id="git_remote_action_set_url_action_no_option_has_oldurl" name="git_remote_action_set_url_action_no_option_has_oldurl"><label for="git_remote_action_set_url_action_no_option_has_oldurl"><span class="command">&lt;oldurl&gt;</span></label><label for="git_remote_action_set_url_action_no_option_oldurl" class="hidden"><span class="command">&lt;oldurl&gt;</span>:</label><textarea wrap="off" id="git_remote_action_set_url_action_no_option_oldurl" name="git_remote_action_set_url_action_no_option_oldurl" class="basis-0 grow command_input" placeholder="scheme://authority/path/repo.git"></textarea></div>
+			</fieldset>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_remote_action_set_url_action_add" name="git_remote_action_set_url_action" value="add"><label for="git_remote_action_set_url_action_add"><span class="command">--add &lt;newurl&gt;</span> New URL is added.</label></div>
+				</legend>
+				<div class="form_item"><label for="git_remote_action_set_url_action_add_newurl"><span class="command">&lt;newurl&gt;</span>:</label><textarea wrap="off" id="git_remote_action_set_url_action_add_newurl" name="git_remote_action_set_url_action_add_newurl" class="basis-0 grow command_input" placeholder="scheme://authority/path/repo.git"></textarea></div>
+			</fieldset>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_remote_action_set_url_action_delete" name="git_remote_action_set_url_action" value="delete"><label for="git_remote_action_set_url_action_delete"><span class="command">--delete &lt;URL&gt;</span> All URLs matching regex <span class="command">&lt;URL&gt;</span> are deleted for remote <span class="command">&lt;name&gt;</span>.</label></div>
+				</legend>
+				<div class="form_item"><label for="git_remote_action_set_url_action_delete_url"><span class="command">&lt;URL&gt;</span>:</label><textarea wrap="off" id="git_remote_action_set_url_action_delete_url" name="git_remote_action_set_url_action_delete_url" class="basis-0 grow command_input"></textarea></div>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_remote\_show~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_remote_show')">
+				<div class="form_item"><input type="radio" id="git_remote_action_show" name="git_remote_action" value="show"><label for="git_remote_action_show"><span class="command">show &lt;name&gt;…</span> Gives some information about the remote <span class="command">&lt;name&gt;</span>.</label></div>
+			</legend>
+			<fieldset>
+				<legend><p><span class="command">&lt;name&gt;…</span></p></legend>
+				<input id="git_remote_action_show_name_list_add" type="button" value="Add">
+				<div id="git_remote_action_show_name_list" class="subform"></div>
+				<script>
+					document.getElementById("git_remote_action_show_name_list_add").addEventListener("click",function(e){
+						document.getElementById("git_remote_action_show_name_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_remote_refresh);
+							checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_remote_refresh(); });
+							div.append(checkbox, input);
+							return div;
+						})());
+						git_remote_refresh();
+					})
+				</script>
+			</fieldset>
+			<div class="form_item"><input type="checkbox" id="git_remote_action_show_has_verbose" name="git_remote_action_show_has_verbose" checked><label for="git_remote_action_show_has_verbose"><span class="command">--verbose</span> Be a little more verbose and show remote url after name.</label></div>
+			<div class="form_item"><input type="checkbox" id="git_remote_action_show_has_n" name="git_remote_action_show_has_n"><label for="git_remote_action_show_has_n"><span class="command">-n</span> The remote heads are not queried first with <span class="inline_code">git ls-remote <span class="command">&lt;name&gt;</span></span>; cached information is used instead.</label></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_remote\_prune~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_remote_prune')">
+				<div class="form_item"><input type="radio" id="git_remote_action_prune" name="git_remote_action" value="prune"><label for="git_remote_action_prune"><span class="command">prune &lt;name&gt;…</span> Deletes stale references associated with <span class="command">&lt;name&gt;</span>.</label></div>
+			</legend>
+			<fieldset>
+				<legend><p><span class="command">&lt;name&gt;…</span></p></legend>
+				<input id="git_remote_action_prune_name_list_add" type="button" value="Add">
+				<div id="git_remote_action_prune_name_list" class="subform"></div>
+				<script>
+					document.getElementById("git_remote_action_prune_name_list_add").addEventListener("click",function(e){
+						document.getElementById("git_remote_action_prune_name_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_remote_refresh);
+							checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_remote_refresh(); });
+							div.append(checkbox, input);
+							return div;
+						})());
+						git_remote_refresh();
+					})
+				</script>
+			</fieldset>
+			<p>Choose an action to perform:</p>
+			<div class="form_item"><input type="radio" id="git_remote_action_prune_action_no_option" name="git_remote_action_prune_action" value="no_option" checked><label for="git_remote_action_prune_action_no_option">Stale remote-tracking branches under <span class="command">&lt;name&gt;</span> are deleted. Equivalent to <span class="inline_code">git fetch --prune <span class="command">&lt;name&gt;</span></span>, except that no new references will be fetched.</label></div>
+			<div class="form_item"><input type="radio" id="git_remote_action_prune_action_dry_run" name="git_remote_action_prune_action" value="dry_run"><label for="git_remote_action_prune_action_dry_run"><span class="command">--dry-run</span> Report what branches would be pruned, but do not actually prune them.</label></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_remote\_update~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_remote_update')">
+				<div class="form_item"><input type="radio" id="git_remote_action_update" name="git_remote_action" value="update"><label for="git_remote_action_update"><span class="command">update [(&lt;group&gt; | &lt;remote&gt;)…]</span> Fetch updates for remotes or remote groups in the repository as defined by <span class="inline_code">remotes.<span class="command">&lt;group&gt;</span></span>. (Defaults to <span class="inline_code">remotes.default</span> / all remotes which do not have the configuration parameter <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameskipFetchAll"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.skipFetchAll</span></a> set to <span class="inline_code">true</span>.)</label></div>
+			</legend>
+			<fieldset>
+				<legend><p><span class="command">(&lt;group&gt; | &lt;remote&gt;)…</span></p></legend>
+				<input id="git_remote_action_update_remote_list_add" type="button" value="Add">
+				<div id="git_remote_action_update_remote_list" class="subform"></div>
+				<script>
+					document.getElementById("git_remote_action_update_remote_list_add").addEventListener("click",function(e){
+						document.getElementById("git_remote_action_update_remote_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_remote_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_remote_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_remote_refresh();
+					})
+				</script>
+			</fieldset>
+			<div class="form_item"><input type="checkbox" id="git_remote_action_update_has_verbose" name="git_remote_action_update_has_verbose" checked><label for="git_remote_action_update_has_verbose"><span class="command">--verbose</span> Be a little more verbose and show remote url after name.</label></div>
+			<div class="form_item"><input type="checkbox" id="git_remote_action_update_has_prune" name="git_remote_action_update_has_prune"><label for="git_remote_action_update_has_prune"><span class="command">--prune</span> Run pruning against all the remotes that are updated.</label></div>
+		</fieldset>
+	</form>
+	<textarea readonly wrap="off" id="git_remote_command" name="git_remote_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_remote_refresh(){
+			document.getElementById("git_remote_action_no_option").closest("fieldset").disabled = !document.getElementById("git_remote_action_no_option").checked;
+			document.getElementById("git_remote_action_add_resulting_type_no_option").closest("fieldset").disabled = !document.getElementById("git_remote_action_add_resulting_type_no_option").checked;
+			document.getElementById("git_remote_action_add_m_master").disabled = !document.getElementById("git_remote_action_add_has_m").checked;
+			document.getElementById("git_remote_action_add_tracked_refs_no_option").disabled = document.getElementById("git_remote_action_add_resulting_type_mirror_push").checked;
+			document.getElementById("git_remote_action_add_tracked_refs_t").disabled = document.getElementById("git_remote_action_add_resulting_type_mirror_push").checked;
+			document.getElementById("git_remote_action_add_tracked_refs_t").closest("fieldset").disabled = !(!document.getElementById("git_remote_action_add_resulting_type_mirror_push").checked && document.getElementById("git_remote_action_add_tracked_refs_t").checked);
+
+			document.getElementById("git_remote_action_add").closest("fieldset").disabled = !document.getElementById("git_remote_action_add").checked;
+
+			document.getElementById("git_remote_action_rename").closest("fieldset").disabled = !document.getElementById("git_remote_action_rename").checked;
+
+			document.getElementById("git_remote_action_remove").closest("fieldset").disabled = !document.getElementById("git_remote_action_remove").checked;
+
+			document.getElementById("git_remote_action_set_head").closest("fieldset").disabled = !document.getElementById("git_remote_action_set_head").checked;
+			document.getElementById("git_remote_action_set_head_action_branch_branch").disabled = !document.getElementById("git_remote_action_set_head_action_branch").checked;
+
+			document.getElementById("git_remote_action_set_branches").closest("fieldset").disabled = !document.getElementById("git_remote_action_set_branches").checked;
+			document.getElementById("git_remote_action_set_url_action_no_option").closest("fieldset").disabled = !document.getElementById("git_remote_action_set_url_action_no_option").checked;
+			document.getElementById("git_remote_action_set_url_action_no_option_oldurl").disabled = !document.getElementById("git_remote_action_set_url_action_no_option_has_oldurl").checked;
+			document.getElementById("git_remote_action_set_url_action_add").closest("fieldset").disabled = !document.getElementById("git_remote_action_set_url_action_add").checked;
+			document.getElementById("git_remote_action_set_url_action_delete").closest("fieldset").disabled = !document.getElementById("git_remote_action_set_url_action_delete").checked;
+
+			document.getElementById("git_remote_action_get_url").closest("fieldset").disabled = !document.getElementById("git_remote_action_get_url").checked;
+			document.getElementById("git_remote_action_set_url").closest("fieldset").disabled = !document.getElementById("git_remote_action_set_url").checked;
+			document.getElementById("git_remote_action_show").closest("fieldset").disabled = !document.getElementById("git_remote_action_show").checked;
+			document.getElementById("git_remote_action_prune").closest("fieldset").disabled = !document.getElementById("git_remote_action_prune").checked;
+			document.getElementById("git_remote_action_update").closest("fieldset").disabled = !document.getElementById("git_remote_action_update").checked;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("remote");
+
+			let form_data = new FormData(document.getElementById("git_remote_form"));
+			switch(form_data.get("git_remote_action")){
+				case "no_option":
+					if(form_data.get("git_remote_action_no_option_has_verbose"))
+						command_components.push("--verbose");
+					break;
+				case "add":
+					command_components.push("add");
+					switch(form_data.get("git_remote_action_add_resulting_type")){
+						case "no_option":
+							if(form_data.get("git_remote_action_add_has_m")){
+								let element_value = form_data.get("git_remote_action_add_m_master"), element_has_error = element_value.length == 0;
+								command_components.push("-m", shell_quote(element_value));
+								document.getElementById("git_remote_action_add_m_master").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							break;
+						case "mirror_fetch":
+							command_components.push("--mirror=fetch");
+							break;
+						case "mirror_push":
+							command_components.push("--mirror=push");
+							break;
+					}
+					if(form_data.get("git_remote_action_add_resulting_type") != "mirror_push"){
+						switch(form_data.get("git_remote_action_add_tracked_refs")){
+							case "t":
+								Array.from(document.getElementById("git_remote_action_add_tracked_refs_t_branch_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+									let element_value = input.value, element_has_error = element_value.length == 0;
+									command_components.push("-t", shell_quote(element_value));
+									input.classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								});
+								break;
+						}
+					}
+					switch(form_data.get("git_remote_action_add_tags")){
+						case "false":
+							command_components.push("--no-tags");
+							break;
+						case "true":
+							command_components.push("--tags");
+							break;
+					}
+					if(form_data.get("git_remote_action_add_has_f"))
+						command_components.push("-f");
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_remote_action_add_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_remote_action_add_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					{
+						let element_value = form_data.get("git_remote_action_add_url"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_remote_action_add_url").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "rename":
+					command_components.push("rename");
+					switch(form_data.get("git_remote_action_rename_progress")){
+						case "false":
+							command_components.push("--no-progress");
+							break;
+						case "true":
+							command_components.push("--progress");
+							break;
+					}
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_remote_action_rename_old"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_remote_action_rename_old").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					{
+						let element_value = form_data.get("git_remote_action_rename_new"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_remote_action_rename_new").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "remove":
+					command_components.push("remove");
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_remote_action_remove_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_remote_action_remove_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "set_head":
+					command_components.push("set-head");
+					switch(form_data.get("git_remote_action_set_head_action")){
+						case "auto":
+							command_components.push("--auto");
+							break;
+						case "delete":
+							command_components.push("--delete");
+							break;
+					}
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_remote_action_set_head_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_remote_action_set_head_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					switch(form_data.get("git_remote_action_set_head_action")){
+						case "branch":
+							let element_value = form_data.get("git_remote_action_set_head_action_branch_branch"), element_has_error = element_value.length == 0;
+							command_components.push(shell_quote(element_value));
+							document.getElementById("git_remote_action_set_head_action_branch_branch").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+							break;
+					}
+					break;
+				case "set_branches":
+					command_components.push("set-branches");
+					switch(form_data.get("git_remote_action_set_branches_action")){
+						case "add":
+							command_components.push("--add");
+							break;
+					}
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_remote_action_set_branches_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_remote_action_set_branches_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					Array.from(document.getElementById("git_remote_action_set_branches_branch_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+						let element_value = input.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						input.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "get_url":
+					command_components.push("get-url");
+					switch(form_data.get("git_remote_action_get_url_direction")){
+						case "push":
+							command_components.push("--push");
+							break;
+					}
+					switch(form_data.get("git_remote_action_get_url_range")){
+						case "all":
+							command_components.push("--all");
+							break;
+					}
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_remote_action_get_url_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_remote_action_get_url_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "set_url":
+					command_components.push("set-url");
+					switch(form_data.get("git_remote_action_set_url_direction")){
+						case "push":
+							command_components.push("--push");
+							break;
+					}
+					switch(form_data.get("git_remote_action_set_url_action")){
+						case "add":
+							command_components.push("--add");
+							break;
+						case "delete":
+							command_components.push("--delete");
+							break;
+					}
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_remote_action_set_url_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_remote_action_set_url_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					switch(form_data.get("git_remote_action_set_url_action")){
+						case "no_option":
+							{
+								let element_value = form_data.get("git_remote_action_set_url_action_no_option_newurl"), element_has_error = element_value.length == 0;
+								command_components.push(shell_quote(element_value));
+								document.getElementById("git_remote_action_set_url_action_no_option_newurl").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							if(form_data.get("git_remote_action_set_url_action_no_option_has_oldurl")){
+								let element_value = form_data.get("git_remote_action_set_url_action_no_option_oldurl"), element_has_error = element_value.length == 0;
+								command_components.push(shell_quote(element_value));
+								document.getElementById("git_remote_action_set_url_action_no_option_oldurl").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							break;
+						case "add":
+							{
+								let element_value = form_data.get("git_remote_action_set_url_action_add_newurl"), element_has_error = element_value.length == 0;
+								command_components.push(shell_quote(element_value));
+								document.getElementById("git_remote_action_set_url_action_add_newurl").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							break;
+						case "delete":
+							{
+								let element_value = form_data.get("git_remote_action_set_url_action_delete_url"), element_has_error = element_value.length == 0;
+								command_components.push(shell_quote(element_value));
+								document.getElementById("git_remote_action_set_url_action_delete_url").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							break;
+					}
+					break;
+				case "show":
+					if(form_data.get("git_remote_action_show_has_verbose"))
+						command_components.push("--verbose");
+					command_components.push("show");
+					if(form_data.get("git_remote_action_show_has_n"))
+						command_components.push("-n");
+
+					command_components.push("--end-of-options");
+					Array.from(document.getElementById("git_remote_action_show_name_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+						let element_value = input.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						input.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "prune":
+					command_components.push("prune");
+					switch(form_data.get("git_remote_action_prune_action")){
+						case "dry_run":
+							command_components.push("--dry-run");
+							break;
+					}
+
+					command_components.push("--end-of-options");
+					Array.from(document.getElementById("git_remote_action_prune_name_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+						let element_value = input.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						input.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "update":
+					if(form_data.get("git_remote_action_update_has_verbose"))
+						command_components.push("--verbose");
+					command_components.push("update");
+					if(form_data.get("git_remote_action_update_has_prune"))
+						command_components.push("--prune");
+
+					command_components.push("--end-of-options");
+					Array.from(document.getElementById("git_remote_action_update_remote_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+			}
+
+			let git_remote_command = document.getElementById("git_remote_command");
+			git_remote_command.classList.toggle("error_output", has_error);
+			git_remote_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_remote_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_remote_refresh);
+		});
+		Array.from(document.getElementById("git_remote_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_remote_refresh);
+		});
+	</script>
+</div>

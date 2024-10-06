@@ -1,0 +1,571 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_diff\_algorithm~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --diff-algorithm=myers/minimal/patience/histogram</span><br><span class="command">git diff --anchored=&lt;text&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -e 'a\na\n1\na\na\na\na\na\na\n2\na\na' >'./repo/file'; git -C './repo' add './file'
+			echo -e 'a\na\n2\na\na\na\na\na\na\n3\na\na' >'./repo/file'
+			git -C './repo' diff --diff-algorithm=myers
+			git -C './repo' diff --diff-algorithm=minimal
+			git -C './repo' diff --diff-algorithm=patience
+			git -C './repo' diff --diff-algorithm=histogram
+			git -C './repo' diff --anchored='2'
+
+			echo -e 'a{\na\n}\n\nb{\nb\n}' >'./repo/file'; git -C './repo' add './file'
+			echo -e 'a{\na\n}\n\nc{\nc\n}\n\nb{\nb\n}' >'./repo/file'
+			git -C './repo' diff --diff-algorithm=myers
+			git -C './repo' diff --diff-algorithm=minimal
+			git -C './repo' diff --diff-algorithm=patience
+			git -C './repo' diff --diff-algorithm=histogram
+
+			echo -e 'a{\na\n}\n\nb{\nb\n}' >'./repo/file'; git -C './repo' add './file'
+			echo -e 'a{\nb\n}\n\nc{\nc\n}\n\nb{\na\n}' >'./repo/file'
+			git -C './repo' diff --diff-algorithm=myers
+			git -C './repo' diff --diff-algorithm=minimal
+			git -C './repo' diff --diff-algorithm=patience
+			git -C './repo' diff --diff-algorithm=histogram
+
+			echo -e 'a{\na\na\n}\n\nb{\nb\nb\n}' >'./repo/file'; git -C './repo' add './file'
+			echo -e 'a{\nb\na\n}\n\nc{\nc\n}\n\nb{\na\nb\n}' >'./repo/file'
+			git -C './repo' diff --diff-algorithm=myers
+			git -C './repo' diff --diff-algorithm=minimal
+			git -C './repo' diff --diff-algorithm=patience
+			git -C './repo' diff --diff-algorithm=histogram
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_color\_moved~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --color-moved=&lt;mode&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -e 'a{\na\nd\n}\n\nb{\nb\ne\n}\n\nc{\nc\nf\n}' >'./repo/file'; git -C './repo' add './file'
+			echo -e 'a{\nb\nf\n}\n\nb{\nc\nd\n}\n\nc{\na\ne\n}' >'./repo/file'
+			git -C './repo' diff --color-moved=plain
+			git -C './repo' diff --color-moved=blocks
+			git -C './repo' diff --color-moved=zebra
+
+			echo -e 'a{\naaaaaaaaaaaaaaaaaaaa\ndddddddddddddddddddd\n}\n\nb{\nbbbbbbbbbbbbbbbbbbbb\neeeeeeeeeeeeeeeeeeee\n}\n\nc{\ncccccccccccccccccccc\nffffffffffffffffffff\n}' >'./repo/file'; git -C './repo' add './file'
+			echo -e 'a{\nbbbbbbbbbbbbbbbbbbbb\nffffffffffffffffffff\n}\n\nb{\ncccccccccccccccccccc\ndddddddddddddddddddd\n}\n\nc{\naaaaaaaaaaaaaaaaaaaa\neeeeeeeeeeeeeeeeeeee\n}' >'./repo/file'
+			git -C './repo' diff --color-moved=plain
+			git -C './repo' diff --color-moved=blocks
+			git -C './repo' diff --color-moved=zebra
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_word\_diff\_and\_word\_diff\_regex~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --word-diff=&lt;mode&gt;</span><br><span class="command">git diff --word-diff=&lt;mode&gt; --word-diff-regex=&lt;regex&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -e 'a b d\ne g h' >'./repo/file'; git -C './repo' add './file'
+			echo -e 'a c d\nf g i' >'./repo/file'
+			git -C './repo' diff --word-diff=color
+			git -C './repo' diff --word-diff=plain
+			git -C './repo' diff --word-diff=porcelain
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo 'a<b' >'./repo/file'; git -C './repo' add './file'
+			echo 'a++<=b' >'./repo/file'
+			git -C './repo' diff --word-diff=plain
+			git -C './repo' diff --word-diff=plain --word-diff-regex='[A-Za-z0-9_]+|[^[:space:]]'
+			git -C './repo' diff --word-diff=plain --word-diff-regex='[A-Za-z0-9_]+|\+\+|--|<|<=|>|>=|==|!='
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_no\_renames~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_rename\_empty~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --no-renames</span><br><span class="command">git diff --find-renames --no-rename-empty/--rename-empty</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			touch './repo/file1'; git -C './repo' add './file1'
+			mv './repo/file1' './repo/file2'
+			git -C './repo' diff
+			git -C './repo' diff --rename-empty
+			git -C './repo' add --intent-to-add './file2'
+			git -C './repo' diff
+			git -C './repo' diff --no-rename-empty
+			git -C './repo' diff --no-renames
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_no\_renames~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_break\_rewrites~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --no-renames</span><br><span class="command">git diff --find-renames</span><br><span class="command">git diff --find-renames --break-rewrites</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -e '0\n1\n2\n3\n4\n5\n6\n7\n8\n9' >'./repo/file1'; git -C './repo' add './file1'; rm './repo/file1'
+			seq --format='%40g' 0 9 >'./repo/file2'; git -C './repo' add './file2'; echo -e '0\n1\n2\n3\n4\n5\n6\n7\n8\n9' >'./repo/file2'
+			seq --format='%40g' 0 9 >'./repo/file3'; git -C './repo' add --intent-to-add './file3'
+			git -C './repo' diff --no-renames
+			git -C './repo' diff --break-rewrites --no-renames
+			git -C './repo' diff
+			git -C './repo' diff --break-rewrites
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_break\_rewrites~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --break-rewrites=[&lt;n&gt;][/&lt;m&gt;]</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			seq --format='%80g' 0 19 >'./repo/file1'; git -C './repo' add './file1'
+			cat <(yes 'a' | head --lines=5) <(seq --format='%80g' 0 4) >'./repo/file1'
+			git -C './repo' diff
+			git -C './repo' diff --break-rewrites='75%/75%'
+			git -C './repo' diff --break-rewrites='76%/75%'
+			git -C './repo' diff --break-rewrites='75%/76%'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			seq --format='%80g' 0 9 >'./repo/file1'; git -C './repo' add './file1'
+			cat <(seq --format='%80g' 0 4) <(yes 'a' | head --lines=15) >'./repo/file1'
+			git -C './repo' diff
+			git -C './repo' diff --break-rewrites='53%/50%'
+			git -C './repo' diff --break-rewrites='54%/50%'
+			git -C './repo' diff --break-rewrites='53%/51%'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_break\_rewrites~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_find\_renames~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --find-renames=&lt;n&gt; --break-rewrites=[&lt;n&gt;][/&lt;m&gt;]</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			cat <(yes 'b' | head --lines=5) <(seq --format='%80g' 0 4) >'./repo/file1'; git -C './repo' add './file1'
+			seq --format='%80g' 0 19 >'./repo/file2'; git -C './repo' add './file2'
+			rm './repo/file1'
+			cat <(yes 'a' | head --lines=5) <(seq --format='%80g' 0 4) >'./repo/file2'
+			git -C './repo' diff
+			git -C './repo' diff --break-rewrites='75%/75%' --find-renames='97%'
+			git -C './repo' diff --break-rewrites='76%/75%' --find-renames='97%'
+			git -C './repo' diff --break-rewrites='75%/76%' --find-renames='97%'
+			git -C './repo' diff --break-rewrites='75%/75%' --find-renames='98%'
+			git -C './repo' diff --break-rewrites='76%/75%' --find-renames='98%'
+			git -C './repo' diff --break-rewrites='75%/76%' --find-renames='98%'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			cat <(seq --format='%80g' 0 4) <(yes 'b' | head --lines=5) >'./repo/file1'; git -C './repo' add './file1'
+			seq --format='%80g' 0 9 >'./repo/file2'; git -C './repo' add './file2'
+			rm './repo/file1'
+			cat <(seq --format='%80g' 0 4) <(yes 'a' | head --lines=15) >'./repo/file2'
+			git -C './repo' diff
+			git -C './repo' diff --break-rewrites='53%/50%' --find-renames='93%'
+			git -C './repo' diff --break-rewrites='54%/50%' --find-renames='93%'
+			git -C './repo' diff --break-rewrites='53%/51%' --find-renames='93%'
+			git -C './repo' diff --break-rewrites='53%/50%' --find-renames='94%'
+			git -C './repo' diff --break-rewrites='54%/50%' --find-renames='94%'
+			git -C './repo' diff --break-rewrites='53%/51%' --find-renames='94%'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_break\_rewrites~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_find\_copies~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --find-copies=&lt;n&gt; --break-rewrites=[&lt;n&gt;][/&lt;m&gt;]</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			seq --format='%80g' 0 19 >'./repo/file1'; git -C './repo' add './file1'
+			cat <(yes 'a' | head --lines=5) <(seq --format='%80g' 0 4) >'./repo/file1'
+			cat <(yes 'b' | head --lines=5) <(seq --format='%80g' 0 4) >'./repo/file2'
+			git -C './repo' diff
+			git -C './repo' add --intent-to-add './file2'
+			git -C './repo' diff
+			git -C './repo' diff --break-rewrites='75%/75%' --find-copies='25%'
+			git -C './repo' diff --break-rewrites='76%/75%' --find-copies='25%'
+			git -C './repo' diff --break-rewrites='75%/76%' --find-copies='25%'
+			git -C './repo' diff --break-rewrites='75%/75%' --find-copies='26%'
+			git -C './repo' diff --break-rewrites='76%/75%' --find-copies='26%'
+			git -C './repo' diff --break-rewrites='75%/76%' --find-copies='26%'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			seq --format='%80g' 0 9 >'./repo/file1'; git -C './repo' add './file1'
+			cat <(seq --format='%80g' 0 4) <(yes 'a' | head --lines=15) >'./repo/file1'
+			cat <(seq --format='%80g' 0 4) <(yes 'b' | head --lines=15) >'./repo/file2'
+			git -C './repo' diff
+			git -C './repo' add --intent-to-add './file2'
+			git -C './repo' diff
+			git -C './repo' diff --break-rewrites='53%/50%' --find-copies='50%'
+			git -C './repo' diff --break-rewrites='54%/50%' --find-copies='50%'
+			git -C './repo' diff --break-rewrites='53%/51%' --find-copies='50%'
+			git -C './repo' diff --break-rewrites='53%/50%' --find-copies='51%'
+			git -C './repo' diff --break-rewrites='54%/50%' --find-copies='51%'
+			git -C './repo' diff --break-rewrites='53%/51%' --find-copies='51%'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_find\_renames~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --find-renames=&lt;n&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -e '0\n1\n2\n3\n4\n5\n6\n7\n8\n9' >'./repo/file1'; git -C './repo' add './file1'
+			rm './repo/file1'; echo -e '0\na\n2\na\n4\na\n6\na\n8\na' >'./repo/file2'
+			git -C './repo' diff
+			git -C './repo' add --intent-to-add './file2'
+			git -C './repo' diff
+			git -C './repo' diff --find-renames='50%'
+			git -C './repo' diff --find-renames='51%'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_find\_copies~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_find\_copies\_harder~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --find-copies=&lt;n&gt;</span><br><span class="command">git diff --find-copies=&lt;n&gt; --find-copies-harder</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -e '0\n1\n2\n3\n4\n5\n6\n7\n8\n9' >'./repo/file1'; git -C './repo' add './file1'
+			echo -e '0\na\n2\na\n4\na\n6\na\n8\na' >'./repo/file2'
+			git -C './repo' diff
+			git -C './repo' add --intent-to-add './file2'
+			git -C './repo' diff
+			git -C './repo' diff --find-copies='50%'
+			git -C './repo' diff --find-copies='51%'
+			git -C './repo' diff --find-copies-harder
+			git -C './repo' diff --find-copies='50%' --find-copies-harder
+			git -C './repo' diff --find-copies='51%' --find-copies-harder
+			echo -e '0\n1\n2\n3\n4\n5\n6\n7\n8\nb' >'./repo/file1'
+			git -C './repo' diff
+			git -C './repo' diff --find-copies='50%'
+			git -C './repo' diff --find-copies='51%'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_S\_and\_G~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff -S&lt;string&gt;</span><br><span class="command">git diff -S&lt;string&gt; --pickaxe-regex</span><br><span class="command">git diff -G&lt;regex&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -e '1\na' >'./repo/file'; git -C './repo' add './file'
+			echo -e 'b\n1' >'./repo/file'
+			git -C './repo' diff -S'1'
+			git -C './repo' diff -S'a'
+			git -C './repo' diff -S'[ab]' --pickaxe-regex
+			git -C './repo' diff -G'[ab]'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_find\_object~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --find-object=&lt;object-id&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo '1' >'./repo/file1'; git -C './repo' add './file1'; blob1="$(git -C './repo' ls-files --format='%(objectname)' './file1')"; echo "$blob1"
+			echo '1' >'./repo/file1'
+			echo '2' >'./repo/file2'; git -C './repo' add './file2'; blob2="$(git -C './repo' ls-files --format='%(objectname)' './file2')"; echo "$blob2"
+			rm './repo/file2'
+			echo '3' >'./repo/file3'; git -C './repo' add './file3'; blob3="$(git -C './repo' ls-files --format='%(objectname)' './file3')"; echo "$blob3"
+			mv './repo/file3' './repo/file32'
+			echo '4' >'./repo/file4'; git -C './repo' add './file4'; blob4="$(git -C './repo' ls-files --format='%(objectname)' './file4')"; echo "$blob4"
+			echo '4' >'./repo/file42'
+			git -C './repo' ls-files --stage
+			git -C './repo' diff --find-object="$blob1"
+			git -C './repo' diff --find-object="$blob2"
+			git -C './repo' diff --find-object="$blob3"
+			git -C './repo' add --intent-to-add './file32'
+			git -C './repo' diff --find-object="$blob3"
+			git -C './repo' diff --find-object="$blob4"
+			git -C './repo' add --intent-to-add './file42'
+			git -C './repo' diff --find-object="$blob4"
+			git -C './repo' diff --find-object="$blob2" --find-object="$blob3" --find-object="$blob4"
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_check~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_ws\_error\_highlight~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_ignore\_space~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --check</span><br><span class="command">git diff --ws-error-highlight=&lt;kind&gt;</span><br><span class="command">git diff --ignore-space-at-eol</span><br><span class="command">git diff --ignore-space-change</span><br><span class="command">git diff --ignore-all-space</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -e ' \t \n \ta \n \t \n \tb \n  \t  \n  \tc  \nd\n e' >'./repo/file'; git -C './repo' add './file'
+			echo -e ' \t \n \ta \n  \t  \n  \tb  \n \t \n \tc \n d\ne' >'./repo/file'
+			git -C './repo' diff --check
+			git -C './repo' diff
+			git -C './repo' diff --ws-error-highlight=old
+			git -C './repo' diff --ws-error-highlight=new
+			git -C './repo' diff --ws-error-highlight=old,context
+			git -C './repo' diff --ignore-space-at-eol
+			git -C './repo' diff --ignore-space-change
+			git -C './repo' diff --ignore-all-space
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_R~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff -R</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo '1' >'./repo/file'; git -C './repo' add './file'
+			echo '2' >'./repo/file'
+			git -C './repo' diff
+			git -C './repo' diff -R
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_format~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --patch</span><br><span class="command">git diff --raw</span><br><span class="command">git diff --stat</span><br><span class="command">git diff --stat --compact-summary</span><br><span class="command">git diff --shortstat</span><br><span class="command">git diff --summary</span><br><span class="command">git diff --numstat</span><br><span class="command">git diff --dirstat[=&lt;param1,param2,…&gt;]</span><br><span class="command">git diff --name-only</span><br><span class="command">git diff --name-status</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			mkdir --parents './repo/dir/dir1' './repo/dir/dir2' './repo/dir/dir3' './repo/dir/dir4';
+			echo -e '1' >'./repo/file_add'
+			echo -e '2' >'./repo/file_add_intent'; git -C './repo' add --intent-to-add './file_add_intent'
+			echo -e '3' >'./repo/file_modify'; git -C './repo' add './file_modify'; echo -e '4' >'./repo/file_modify'
+			echo -e '5' >'./repo/file_remove'; git -C './repo' add './file_remove'; rm './repo/file_remove'
+			echo -e '1' >'./repo/dir/dir1/file_add'
+			echo -e '2' >'./repo/dir/dir2/file_add_intent'; git -C './repo' add --intent-to-add './dir/dir2/file_add_intent'
+			echo -e '3' >'./repo/dir/dir3/file_modify'; git -C './repo' add './dir/dir3/file_modify'; echo -e '4' >'./repo/dir/dir3/file_modify'
+			echo -e '5' >'./repo/dir/dir4/file_remove'; git -C './repo' add './dir/dir4/file_remove'; rm './repo/dir/dir4/file_remove'
+
+			git -C './repo' diff --patch
+			git -C './repo' diff --patch --full-index
+			git -C './repo' diff --patch --abbrev=10
+			git -C './repo' diff --raw
+			git -C './repo' diff --raw --no-abbrev
+			git -C './repo' diff --raw --abbrev=10
+			git -C './repo' diff --stat
+			git -C './repo' diff --stat --compact-summary
+			git -C './repo' diff --shortstat
+			git -C './repo' diff --summary
+			git -C './repo' diff --numstat
+			git -C './repo' diff --dirstat=files
+			git -C './repo' diff --dirstat=lines
+			git -C './repo' diff --dirstat=changes
+			git -C './repo' diff --dirstat=files,cumulative
+			git -C './repo' diff --dirstat=lines,cumulative
+			git -C './repo' diff --dirstat=changes,cumulative
+			git -C './repo' diff --name-only
+			git -C './repo' diff --name-status
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_binary\_files~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --text</span><br><span class="command">git diff --binary</span><br><span class="command">git diff --textconv/--no-textconv</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -n -e '\x01' >'./repo/file'; git -C './repo' add './file'
+			echo -n -e '\x02' >'./repo/file'
+
+			git -C './repo' diff
+			git -C './repo' diff --binary
+			git -C './repo' diff --text
+
+			echo 'file -diff' >'./repo/.gitattributes'
+			git -C './repo' diff
+			git -C './repo' diff --binary
+			git -C './repo' diff --text
+
+			git -C './repo' config set --local 'diff.special_character_to_escape_sequence_preserve_line_ending.binary' 'true'
+			echo 'file diff=special_character_to_escape_sequence_preserve_line_ending' >'./repo/.gitattributes'
+			git -C './repo' diff
+			git -C './repo' diff --binary
+			git -C './repo' diff --text
+
+			git -C './repo' config set --local 'diff.special_character_to_escape_sequence_preserve_line_ending.textconv' 'function special_character_to_escape_sequence_preserve_line_ending1 () { special_character_to_escape_sequence_preserve_line_ending <"$1"; };special_character_to_escape_sequence_preserve_line_ending1'
+			git -C './repo' diff
+			git -C './repo' diff --binary
+			git -C './repo' diff --text
+			git -C './repo' diff --no-textconv
+			git -C './repo' diff --binary --no-textconv
+			git -C './repo' diff --text --no-textconv
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -n -e '\x00' >'./repo/file'; git -C './repo' add './file'
+			echo -n -e '\x01' >'./repo/file'
+
+			git -C './repo' diff
+			git -C './repo' diff --binary
+			git -C './repo' diff --text
+
+			echo 'file -diff' >'./repo/.gitattributes'
+			git -C './repo' diff
+			git -C './repo' diff --binary
+			git -C './repo' diff --text
+
+			git -C './repo' config set --local 'diff.special_character_to_escape_sequence_preserve_line_ending.binary' 'true'
+			echo 'file diff=special_character_to_escape_sequence_preserve_line_ending' >'./repo/.gitattributes'
+			git -C './repo' diff
+			git -C './repo' diff --binary
+			git -C './repo' diff --text
+
+			git -C './repo' config set --local 'diff.special_character_to_escape_sequence_preserve_line_ending.textconv' 'function special_character_to_escape_sequence_preserve_line_ending1 () { special_character_to_escape_sequence_preserve_line_ending <"$1"; };special_character_to_escape_sequence_preserve_line_ending1'
+			git -C './repo' diff
+			git -C './repo' diff --binary
+			git -C './repo' diff --text
+			git -C './repo' diff --no-textconv
+			git -C './repo' diff --binary --no-textconv
+			git -C './repo' diff --text --no-textconv
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_unified\_and\_inter\_hunk\_context~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --unified=&lt;n&gt;</span><br><span class="command">git diff --inter-hunk-context=&lt;lines&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -e '1\na\na\na\na\na\na\n1' >'./repo/file'; git -C './repo' add './file'
+			echo -e '2\na\na\na\na\na\na\n2' >'./repo/file'
+			git -C './repo' diff
+			git -C './repo' diff --inter-hunk-context=0
+			git -C './repo' diff --inter-hunk-context=0 --unified=2
+			git -C './repo' diff --inter-hunk-context=1 --unified=2
+			git -C './repo' diff --inter-hunk-context=2 --unified=2
+			echo -e '1\na\na\na\na\na\na\na\n1' >'./repo/file'; git -C './repo' add './file'
+			echo -e '2\na\na\na\na\na\na\na\n2' >'./repo/file'
+			git -C './repo' diff
+			git -C './repo' diff --inter-hunk-context=0
+			git -C './repo' diff --inter-hunk-context=1
+			git -C './repo' diff --inter-hunk-context=1 --unified=2
+			git -C './repo' diff --inter-hunk-context=2 --unified=2
+			git -C './repo' diff --inter-hunk-context=3 --unified=2
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_prefix~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --no-prefix</span><br><span class="command">git diff --default-prefix</span><br><span class="command">git diff --src-prefix=&lt;prefix&gt;</span><br><span class="command">git diff --dst-prefix=&lt;prefix&gt;</span><br><span class="command">git diff --output-indicator-new=&lt;char&gt;</span><br><span class="command">git diff --output-indicator-old=&lt;char&gt;</span><br><span class="command">git diff --output-indicator-context=&lt;char&gt;</span><br><span class="command">git diff --line-prefix=&lt;prefix&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			echo -e '1\na' >'./repo/file'; git -C './repo' add './file'
+			echo -e '2\na' >'./repo/file'
+			git -C './repo' diff
+			git -C './repo' diff --no-prefix
+			git -C './repo' diff --default-prefix
+			git -C './repo' diff --src-prefix='i/' --dst-prefix='w/'
+			git -C './repo' diff --src-prefix='i/' --no-prefix --dst-prefix='w/'
+			git -C './repo' diff --src-prefix='i/' --no-prefix --dst-prefix='w/'  --src-prefix='i/'
+			git -C './repo' diff --src-prefix='i/' --default-prefix --dst-prefix='w/'
+			git -C './repo' diff --src-prefix='i/' --default-prefix --dst-prefix='w/'  --src-prefix='i/'
+			git -C './repo' diff --output-indicator-new='n' --output-indicator-old='o' --output-indicator-context='c'
+			git -C './repo' diff --line-prefix='pr'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

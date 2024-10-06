@@ -1,0 +1,385 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_status~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_long~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_short~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_porcelain\_v1~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_porcelain\_v2~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_branch~*_&]:block">
+	<h2 class="heading2"><span class="command">git status --long</span><br><span class="command">git status --short</span><br><span class="command">git status --short --branch</span><br><span class="command">git status --porcelain=v1</span><br><span class="command">git status --porcelain=v1 --branch</span><br><span class="command">git status --porcelain=v2</span><br><span class="command">git status --porcelain=v2 --branch</span><br></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			git -C './repo' status
+			git -C './repo' status --long
+			git -C './repo' status --short
+			git -C './repo' status --short --branch
+			git -C './repo' status --porcelain
+			git -C './repo' status --porcelain --branch
+			git -C './repo' status --porcelain=v1
+			git -C './repo' status --porcelain=v1 --branch
+			git -C './repo' status --porcelain=v2
+			git -C './repo' status --porcelain=v2 --branch
+
+			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir'; touch -- './repo/untracked' './repo/untracked_dir/untracked'
+			touch -- './repo/unstaged_deletion'; git -C './repo' add './unstaged_deletion'; rm -- './repo/unstaged_deletion'
+			echo '1' >'./repo/unstaged_modification'; git -C './repo' add './unstaged_modification'; echo '2' >'./repo/unstaged_modification'
+
+			mkdir --parents -- './repo/dir_to_file'; touch -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file/.gitkeep'; git -C './repo' add './file_to_dir' './file_to_dir_empty' './dir_to_file'; rm --recursive -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file'; mkdir --parents -- './repo/file_to_dir' './repo/file_to_dir_empty'; touch -- './repo/dir_to_file' './repo/file_to_dir/.gitkeep'
+
+			git -C './repo' status
+			git -C './repo' status --long
+			git -C './repo' status --short
+			git -C './repo' status --short --branch
+			git -C './repo' status --porcelain
+			git -C './repo' status --porcelain --branch
+			git -C './repo' status --porcelain=v1
+			git -C './repo' status --porcelain=v1 --branch
+			git -C './repo' status --porcelain=v2
+			git -C './repo' status --porcelain=v2 --branch
+
+			git -C './repo' commit --message="$((++number))"
+
+			git -C './repo' status --long
+			git -C './repo' status --short
+			git -C './repo' status --short --branch
+			git -C './repo' status --porcelain=v1
+			git -C './repo' status --porcelain=v1 --branch
+			git -C './repo' status --porcelain=v2
+			git -C './repo' status --porcelain=v2 --branch
+
+			git -C './repo' add '*'
+
+			git -C './repo' status --long
+			git -C './repo' status --short
+			git -C './repo' status --short --branch
+			git -C './repo' status --porcelain=v1
+			git -C './repo' status --porcelain=v1 --branch
+			git -C './repo' status --porcelain=v2
+			git -C './repo' status --porcelain=v2 --branch
+
+			git -C './repo' checkout --detach
+
+			git -C './repo' status --long
+			git -C './repo' status --short
+			git -C './repo' status --short --branch
+			git -C './repo' status --porcelain=v1
+			git -C './repo' status --porcelain=v1 --branch
+			git -C './repo' status --porcelain=v2
+			git -C './repo' status --porcelain=v2 --branch
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_status~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_z~*_&]:block">
+	<h2 class="heading2"><span class="command">git status -z</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+
+			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir'; touch -- './repo/untracked' './repo/untracked_dir/untracked'
+			touch -- './repo/unstaged_deletion'; git -C './repo' add './unstaged_deletion'; rm -- './repo/unstaged_deletion'
+			echo '1' >'./repo/unstaged_modification'; git -C './repo' add './unstaged_modification'; echo '2' >'./repo/unstaged_modification'
+
+			mkdir --parents -- './repo/dir_to_file'; touch -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file/.gitkeep'; git -C './repo' add './file_to_dir' './file_to_dir_empty' './dir_to_file'; rm --recursive -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file'; mkdir --parents -- './repo/file_to_dir' './repo/file_to_dir_empty'; touch -- './repo/dir_to_file' './repo/file_to_dir/.gitkeep'
+
+			git -C './repo' status | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --long | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --long -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --short | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --short -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --short --branch | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --short --branch -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --porcelain=v1 | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --porcelain=v1 -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --porcelain=v1 --branch | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --porcelain=v1 --branch -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --porcelain=v2 | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --porcelain=v2 -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --porcelain=v2 --branch | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git -C './repo' status --porcelain=v2 --branch -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_status~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_ahead\_behind~*_&]:block">
+	<h2 class="heading2"><span class="command">git status --ahead-behind</span><br><span class="command">git status --no-ahead-behind</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' lg
+
+			git -C './client' clone '../server/repo.git' './repo'
+			git -C './client/repo' reset --hard HEAD~1
+			git -C './client/repo' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' lg --all
+			git -C './client/repo' status --long
+			git -C './client/repo' status --long --no-ahead-behind
+			git -C './client/repo' status --short
+			git -C './client/repo' status --short --ahead-behind
+			git -C './client/repo' status --short --branch
+			git -C './client/repo' status --short --branch --no-ahead-behind
+			git -C './client/repo' status --porcelain=v1
+			git -C './client/repo' status --porcelain=v1 --ahead-behind
+			git -C './client/repo' status --porcelain=v1 --branch
+			git -C './client/repo' status --porcelain=v1 --branch --no-ahead-behind
+			git -C './client/repo' status --porcelain=v2
+			git -C './client/repo' status --porcelain=v2 --ahead-behind
+			git -C './client/repo' status --porcelain=v2 --branch
+			git -C './client/repo' status --porcelain=v2 --branch --no-ahead-behind
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_status~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_untracked\_files~*_&]:block">
+	<h2 class="heading2"><span class="command">git status --untracked-files=&lt;mode&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+
+			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir'; touch -- './repo/untracked' './repo/untracked_dir/untracked'
+			touch -- './repo/unstaged_deletion'; git -C './repo' add './unstaged_deletion'; rm -- './repo/unstaged_deletion'
+			echo '1' >'./repo/unstaged_modification'; git -C './repo' add './unstaged_modification'; echo '2' >'./repo/unstaged_modification'
+
+			mkdir --parents -- './repo/dir_to_file'; touch -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file/.gitkeep'; git -C './repo' add './file_to_dir' './file_to_dir_empty' './dir_to_file'; rm --recursive -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file'; mkdir --parents -- './repo/file_to_dir' './repo/file_to_dir_empty'; touch -- './repo/dir_to_file' './repo/file_to_dir/.gitkeep'
+
+			git -C './repo' status --long --untracked-files=all
+			git -C './repo' status --long --untracked-files=normal
+			git -C './repo' status --long --untracked-files=no
+			git -C './repo' status --short --untracked-files=all
+			git -C './repo' status --short --untracked-files=normal
+			git -C './repo' status --short --untracked-files=no
+			git -C './repo' status --porcelain=v1 --untracked-files=all
+			git -C './repo' status --porcelain=v1 --untracked-files=normal
+			git -C './repo' status --porcelain=v1 --untracked-files=no
+			git -C './repo' status --porcelain=v2 --untracked-files=all
+			git -C './repo' status --porcelain=v2 --untracked-files=normal
+			git -C './repo' status --porcelain=v2 --untracked-files=no
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_status~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_ignored~*_&]:block">
+	<h2 class="heading2"><span class="command">git status --ignored=&lt;mode&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+
+			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir_empty_excluded' './repo/untracked_dir' './repo/untracked_dir_excluded'; touch -- './repo/untracked' './repo/untracked_excluded' './repo/untracked_dir/untracked' './repo/untracked_dir/untracked_excluded' './repo/untracked_dir_excluded/untracked' './repo/untracked_dir_excluded/untracked_excluded'
+			touch -- './repo/unstaged_deletion' './repo/unstaged_deletion_excluded'; git -C './repo' add './unstaged_deletion' './unstaged_deletion_excluded'; rm -- './repo/unstaged_deletion' './repo/unstaged_deletion_excluded'
+			echo '1' >'./repo/unstaged_modification'; echo '1' >'./repo/unstaged_modification_excluded'; git -C './repo' add './unstaged_modification' './unstaged_modification_excluded'; echo '2' >'./repo/unstaged_modification'; echo '2' >'./repo/unstaged_modification_excluded'
+
+			mkdir --parents -- './repo/dir_to_file' './repo/dir_to_file_excluded'; touch -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded' './repo/dir_to_file/.gitkeep' './repo/dir_to_file_excluded/.gitkeep'; git -C './repo' add './file_to_dir' './file_to_dir_excluded' './file_to_dir_empty' './file_to_dir_empty_excluded' './dir_to_file' './dir_to_file_excluded'; rm --recursive -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded' './repo/dir_to_file' './repo/dir_to_file_excluded'; mkdir --parents -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded'; touch -- './repo/dir_to_file' './repo/dir_to_file_excluded' './repo/file_to_dir/.gitkeep' './repo/file_to_dir_excluded/.gitkeep'
+
+			echo '*_excluded' >'./repo/.gitignore'
+			git -C './repo' status --long --ignored=no
+			git -C './repo' status --long --ignored=matching
+			git -C './repo' status --long --ignored=traditional
+			git -C './repo' status --short --ignored=no
+			git -C './repo' status --short --ignored=matching
+			git -C './repo' status --short --ignored=traditional
+			git -C './repo' status --porcelain=v1 --ignored=no
+			git -C './repo' status --porcelain=v1 --ignored=matching
+			git -C './repo' status --porcelain=v1 --ignored=traditional
+			git -C './repo' status --porcelain=v2 --ignored=no
+			git -C './repo' status --porcelain=v2 --ignored=matching
+			git -C './repo' status --porcelain=v2 --ignored=traditional
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_status~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_untracked\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_ignored~*_&]:block">
+	<h2 class="heading2"><span class="command">git status --untracked-files=&lt;mode&gt;</span><br><span class="command">git status --ignored=&lt;mode&gt;</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+
+			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir_empty_excluded' './repo/untracked_dir' './repo/untracked_dir_excluded'; touch -- './repo/untracked' './repo/untracked_excluded' './repo/untracked_dir/untracked' './repo/untracked_dir/untracked_excluded' './repo/untracked_dir_excluded/untracked' './repo/untracked_dir_excluded/untracked_excluded'
+			touch -- './repo/unstaged_deletion' './repo/unstaged_deletion_excluded'; git -C './repo' add './unstaged_deletion' './unstaged_deletion_excluded'; rm -- './repo/unstaged_deletion' './repo/unstaged_deletion_excluded'
+			echo '1' >'./repo/unstaged_modification'; echo '1' >'./repo/unstaged_modification_excluded'; git -C './repo' add './unstaged_modification' './unstaged_modification_excluded'; echo '2' >'./repo/unstaged_modification'; echo '2' >'./repo/unstaged_modification_excluded'
+
+			mkdir --parents -- './repo/dir_to_file' './repo/dir_to_file_excluded'; touch -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded' './repo/dir_to_file/.gitkeep' './repo/dir_to_file_excluded/.gitkeep'; git -C './repo' add './file_to_dir' './file_to_dir_excluded' './file_to_dir_empty' './file_to_dir_empty_excluded' './dir_to_file' './dir_to_file_excluded'; rm --recursive -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded' './repo/dir_to_file' './repo/dir_to_file_excluded'; mkdir --parents -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded'; touch -- './repo/dir_to_file' './repo/dir_to_file_excluded' './repo/file_to_dir/.gitkeep' './repo/file_to_dir_excluded/.gitkeep'
+
+			echo '*_excluded' >'./repo/.gitignore'
+			treex '.' -not -regex './repo/.git/hooks/.*' -regextype 'posix-extended'
+		EOF0
+	}}
+	<div><input type="radio" id="git_status_example_untracked_files_ignored_untracked_files" name="git_status_example_untracked_files_ignored" value="untracked_files" checked><label for="git_status_example_untracked_files_ignored_untracked_files"><span class="command">--untracked-files=&lt;mode&gt;</span></label></div>
+	<div><input type="radio" id="git_status_example_untracked_files_ignored_ignored" name="git_status_example_untracked_files_ignored" value="ignored"><label for="git_status_example_untracked_files_ignored_ignored"><span class="command">--ignored=&lt;mode&gt;</span></label></div>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div class="[div:has(>#git\_status\_example\_untracked\_files\_ignored\_untracked\_files:checked)~*_&]:order-[1] [div:has(>#git\_status\_example\_untracked\_files\_ignored\_ignored:checked)~*_&]:order-[1]">
+			<h3 class="heading3"><span class="command">--untracked-files=no</span><br><span class="command">--ignored=no</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd "./test_git";
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' status --short --untracked-files=no --ignored=no
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div class="[div:has(>#git\_status\_example\_untracked\_files\_ignored\_untracked\_files:checked)~*_&]:order-[2] [div:has(>#git\_status\_example\_untracked\_files\_ignored\_ignored:checked)~*_&]:order-[4]">
+			<h3 class="heading3"><span class="command">--untracked-files=no</span><br><span class="command">--ignored=matching</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd "./test_git";
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' status --short --untracked-files=no --ignored=matching
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div class="[div:has(>#git\_status\_example\_untracked\_files\_ignored\_untracked\_files:checked)~*_&]:order-[3] [div:has(>#git\_status\_example\_untracked\_files\_ignored\_ignored:checked)~*_&]:order-[7]">
+			<h3 class="heading3"><span class="command">--untracked-files=no</span><br><span class="command">--ignored=traditional</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd "./test_git";
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' status --short --untracked-files=no --ignored=traditional
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div class="[div:has(>#git\_status\_example\_untracked\_files\_ignored\_untracked\_files:checked)~*_&]:order-[4] [div:has(>#git\_status\_example\_untracked\_files\_ignored\_ignored:checked)~*_&]:order-[2]">
+			<h3 class="heading3"><span class="command">--untracked-files=normal</span><br><span class="command">--ignored=no</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd "./test_git";
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' status --short --untracked-files=normal --ignored=no
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div class="[div:has(>#git\_status\_example\_untracked\_files\_ignored\_untracked\_files:checked)~*_&]:order-[5] [div:has(>#git\_status\_example\_untracked\_files\_ignored\_ignored:checked)~*_&]:order-[5]">
+			<h3 class="heading3"><span class="command">--untracked-files=normal</span><br><span class="command">--ignored=matching</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd "./test_git";
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' status --short --untracked-files=normal --ignored=matching
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div class="[div:has(>#git\_status\_example\_untracked\_files\_ignored\_untracked\_files:checked)~*_&]:order-[6] [div:has(>#git\_status\_example\_untracked\_files\_ignored\_ignored:checked)~*_&]:order-[8]">
+			<h3 class="heading3"><span class="command">--untracked-files=normal</span><br><span class="command">--ignored=traditional</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd "./test_git";
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' status --short --untracked-files=normal --ignored=traditional
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div class="[div:has(>#git\_status\_example\_untracked\_files\_ignored\_untracked\_files:checked)~*_&]:order-[7] [div:has(>#git\_status\_example\_untracked\_files\_ignored\_ignored:checked)~*_&]:order-[3]">
+			<h3 class="heading3"><span class="command">--untracked-files=all</span><br><span class="command">--ignored=no</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd "./test_git";
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' status --short --untracked-files=all --ignored=no
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div class="[div:has(>#git\_status\_example\_untracked\_files\_ignored\_untracked\_files:checked)~*_&]:order-[8] [div:has(>#git\_status\_example\_untracked\_files\_ignored\_ignored:checked)~*_&]:order-[6]">
+			<h3 class="heading3"><span class="command">--untracked-files=all</span><br><span class="command">--ignored=matching</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd "./test_git";
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' status --short --untracked-files=all --ignored=matching
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div class="[div:has(>#git\_status\_example\_untracked\_files\_ignored\_untracked\_files:checked)~*_&]:order-[9] [div:has(>#git\_status\_example\_untracked\_files\_ignored\_ignored:checked)~*_&]:order-[9]">
+			<h3 class="heading3"><span class="command">--untracked-files=all</span><br><span class="command">--ignored=traditional</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd "./test_git";
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './repo' status --short --untracked-files=all --ignored=traditional
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_status~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_long~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_porcelain\_v2~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_show\_stash~*_&]:block">
+	<h2 class="heading2"><span class="command">git status --long --show-stash</span><br><span class="command">git status --porcelain=v2 --show-stash</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+			echo -e '1\n2\n5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+			echo -e '1\n3\n5' >'./repo/file'; git -C './repo' add './file'
+			echo -e '1\n4\n5' >'./repo/file'
+
+			git -C './repo' status --long --show-stash
+			git -C './repo' status --short --show-stash
+			git -C './repo' status --porcelain=v1 --show-stash
+			git -C './repo' status --porcelain=v2 --show-stash
+
+			git -C './repo' stash
+
+			git -C './repo' status --long --show-stash
+			git -C './repo' status --short --show-stash
+			git -C './repo' status --porcelain=v1 --show-stash
+			git -C './repo' status --porcelain=v2 --show-stash
+
+			git -C './repo' stash pop
+
+			git -C './repo' status --long --show-stash
+			git -C './repo' status --short --show-stash
+			git -C './repo' status --porcelain=v1 --show-stash
+			git -C './repo' status --porcelain=v2 --show-stash
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_status~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_long~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_verbose~*_&]:block">
+	<h2 class="heading2"><span class="command">git status --long --verbose</span><br><span class="command">git status --long --verbose --verbose</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './repo' init
+
+			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir'; touch -- './repo/untracked' './repo/untracked_dir/untracked'
+			touch -- './repo/unstaged_deletion'; git -C './repo' add './unstaged_deletion'; rm -- './repo/unstaged_deletion'
+			echo '1' >'./repo/unstaged_modification'; git -C './repo' add './unstaged_modification'; echo '2' >'./repo/unstaged_modification'
+
+			mkdir --parents -- './repo/dir_to_file'; touch -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file/.gitkeep'; git -C './repo' add './file_to_dir' './file_to_dir_empty' './dir_to_file'; rm --recursive -- './repo/file_to_dir' './repo/file_to_dir_empty' './repo/dir_to_file'; mkdir --parents -- './repo/file_to_dir' './repo/file_to_dir_empty'; touch -- './repo/dir_to_file' './repo/file_to_dir/.gitkeep'
+
+			git -C './repo' status --long
+			git -C './repo' status --long --verbose
+			git -C './repo' status --long --verbose --verbose
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

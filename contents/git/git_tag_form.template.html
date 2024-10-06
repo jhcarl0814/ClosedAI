@@ -1,0 +1,677 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_tag~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_tag~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_tag')">git tag</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-tag">https://git-scm.com/docs/git-tag</a></p>
+	<p class="paragraph">Create, list, delete or verify a tag object signed with GPG.</p>
+	<form id="git_tag_form">
+		<p>Choose an action to perform:</p>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_tag\_action\_list~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_tag_action_list')">
+				<div class="form_item"><input type="radio" id="git_tag_action_list" name="git_tag_action" value="list" checked><label for="git_tag_action_list"><span class="command">--list [&lt;pattern&gt;…]</span> List tags.</label></div>
+			</legend>
+			<fieldset>
+				<legend><p>filtering:</p></legend>
+				<fieldset>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_tag\_action\_list\_filter\_by\_reachability~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_tag_action_list_filter_by_reachability')"><p>by reachability:</p></legend>
+					<div class="form_item"><input type="radio" id="git_tag_action_list_filter_by_reachability_no_option" name="git_tag_action_list_filter_by_reachability" value="no_option" checked><label for="git_tag_action_list_filter_by_reachability_no_option"></label></div>
+					<div class="form_item">
+						<input type="radio" id="git_tag_action_list_filter_by_reachability_points_at" name="git_tag_action_list_filter_by_reachability" value="points_at">
+						<div class="subform basis-0 grow">
+							<label for="git_tag_action_list_filter_by_reachability_points_at"><span class="command">--points-at<input type="checkbox" id="git_tag_action_list_filter_by_reachability_points_at_has_argument" name="git_tag_action_list_filter_by_reachability_points_at_has_argument"><label for="git_tag_action_list_filter_by_reachability_points_at_has_argument">[=&lt;object&gt;]</label></span> Only list tags of the given object.</label>
+							<div class="form_item"><label for="git_tag_action_list_filter_by_reachability_points_at_object"><span class="command">&lt;object&gt;</span>:</label><textarea wrap="off" id="git_tag_action_list_filter_by_reachability_points_at_object" name="git_tag_action_list_filter_by_reachability_points_at_object" class="basis-0 grow command_input">HEAD</textarea></div>
+						</div>
+					</div>
+					<fieldset>
+						<legend>
+							<div class="form_item"><input type="radio" id="git_tag_action_list_filter_by_reachability_contains_and_merged" name="git_tag_action_list_filter_by_reachability" value="contains_and_merged"><label for="git_tag_action_list_filter_by_reachability_contains_and_merged">When combining multiple <span class="command">--contains</span> and <span class="command">--no-contains</span> filters, only references that contain at least one of the <span class="command">--contains</span> commits and contain none of the <span class="command">--no-contains</span> commits are shown.<br>When combining multiple <span class="command">--merged</span> and <span class="command">--no-merged</span> filters, only references that are reachable from at least one of the <span class="command">--merged</span> commits and from none of the <span class="command">--no-merged</span> commits are shown.</label></div>
+						</legend>
+
+						<fieldset>
+							<legend><p><span class="command">--contains[=&lt;commit&gt;]</span> Only list tags which contain the specified commit (<span class="inline_code">HEAD</span> if not specified).</p></legend>
+							<input id="git_tag_action_list_filter_by_reachability_contains_list_add" type="button" value="Add">
+							<div id="git_tag_action_list_filter_by_reachability_contains_list" class="subform"></div>
+							<script>
+								document.getElementById("git_tag_action_list_filter_by_reachability_contains_list_add").addEventListener("click",function(e){
+									let checkbox, checkbox2, textarea;
+									document.getElementById("git_tag_action_list_filter_by_reachability_contains_list").append(create_element("div", { className: "form_item", }, {}, [
+										checkbox = create_element("input", { type: "checkbox", checked: true, }),
+										create_element("div", { className: "subform basis-0 grow", }, {}, [
+											create_element("div", { className: "form_item", }, {}, [
+												checkbox2 = create_element("input", { type: "checkbox", checked: false, id: "git_tag_action_list_filter_by_reachability_contains_list_item" + document.getElementById("git_tag_action_list_filter_by_reachability_contains_list").childElementCount + "_has_commit", }),
+												create_element("label", { innerHTML: "<span class=\"command\">=&lt;commit&gt;</span>", htmlFor: checkbox2.id, }),
+											]),
+											textarea = create_element("textarea", { wrap: "off", className: "command_input", disabled: true, }),
+										]),
+									]));
+									textarea.addEventListener("input", git_tag_refresh);
+									checkbox2.addEventListener("input", function(e){ textarea.disabled = !(checkbox.checked && checkbox2.checked); git_tag_refresh(); });
+									checkbox.addEventListener("input", function(e){ checkbox2.disabled = !checkbox.checked; textarea.disabled = !(checkbox.checked && checkbox2.checked); git_tag_refresh(); });
+									git_tag_refresh();
+								})
+							</script>
+						</fieldset>
+
+						<fieldset>
+							<legend><p><span class="command">--merged[=&lt;commit&gt;]</span> Only list tags whose commits are reachable from the specified commit (<span class="inline_code">HEAD</span> if not specified).</p></legend>
+							<input id="git_tag_action_list_filter_by_reachability_merged_list_add" type="button" value="Add">
+							<div id="git_tag_action_list_filter_by_reachability_merged_list" class="subform"></div>
+							<script>
+								document.getElementById("git_tag_action_list_filter_by_reachability_merged_list_add").addEventListener("click",function(e){
+									let checkbox, checkbox2, textarea;
+									document.getElementById("git_tag_action_list_filter_by_reachability_merged_list").append(create_element("div", { className: "form_item", }, {}, [
+										checkbox = create_element("input", { type: "checkbox", checked: true, }),
+										create_element("div", { className: "subform basis-0 grow", }, {}, [
+											create_element("div", { className: "form_item", }, {}, [
+												checkbox2 = create_element("input", { type: "checkbox", checked: false, id: "git_tag_action_list_filter_by_reachability_merged_list_item" + document.getElementById("git_tag_action_list_filter_by_reachability_merged_list").childElementCount + "_has_commit", }),
+												create_element("label", { innerHTML: "<span class=\"command\">=&lt;commit&gt;</span>", htmlFor: checkbox2.id, }),
+											]),
+											textarea = create_element("textarea", { wrap: "off", className: "command_input", disabled: true, }),
+										]),
+									]));
+									textarea.addEventListener("input", git_tag_refresh);
+									checkbox2.addEventListener("input", function(e){ textarea.disabled = !(checkbox.checked && checkbox2.checked); git_tag_refresh(); });
+									checkbox.addEventListener("input", function(e){ checkbox2.disabled = !checkbox.checked; textarea.disabled = !(checkbox.checked && checkbox2.checked); git_tag_refresh(); });
+									git_tag_refresh();
+								})
+							</script>
+						</fieldset>
+
+						<fieldset>
+							<legend><p><span class="command">--no-contains[=&lt;commit&gt;]</span> Only list tags which don’t contain the specified commit (<span class="inline_code">HEAD</span> if not specified).</p></legend>
+							<input id="git_tag_action_list_filter_by_reachability_no_contains_list_add" type="button" value="Add">
+							<div id="git_tag_action_list_filter_by_reachability_no_contains_list" class="subform"></div>
+							<script>
+								document.getElementById("git_tag_action_list_filter_by_reachability_no_contains_list_add").addEventListener("click",function(e){
+									let checkbox, checkbox2, textarea;
+									document.getElementById("git_tag_action_list_filter_by_reachability_no_contains_list").append(create_element("div", { className: "form_item", }, {}, [
+										checkbox = create_element("input", { type: "checkbox", checked: true, }),
+										create_element("div", { className: "subform basis-0 grow", }, {}, [
+											create_element("div", { className: "form_item", }, {}, [
+												checkbox2 = create_element("input", { type: "checkbox", checked: false, id: "git_tag_action_list_filter_by_reachability_no_contains_list_item" + document.getElementById("git_tag_action_list_filter_by_reachability_no_contains_list").childElementCount + "_has_commit", }),
+												create_element("label", { innerHTML: "<span class=\"command\">=&lt;commit&gt;</span>", htmlFor: checkbox2.id, }),
+											]),
+											textarea = create_element("textarea", { wrap: "off", className: "command_input", disabled: true, }),
+										]),
+									]));
+									textarea.addEventListener("input", git_tag_refresh);
+									checkbox2.addEventListener("input", function(e){ textarea.disabled = !(checkbox.checked && checkbox2.checked); git_tag_refresh(); });
+									checkbox.addEventListener("input", function(e){ checkbox2.disabled = !checkbox.checked; textarea.disabled = !(checkbox.checked && checkbox2.checked); git_tag_refresh(); });
+									git_tag_refresh();
+								})
+							</script>
+						</fieldset>
+
+						<fieldset>
+							<legend><p><span class="command">--no-merged[=&lt;commit&gt;]</span> Only list tags whose commits are not reachable from the specified commit (<span class="inline_code">HEAD</span> if not specified).</p></legend>
+							<input id="git_tag_action_list_filter_by_reachability_no_merged_list_add" type="button" value="Add">
+							<div id="git_tag_action_list_filter_by_reachability_no_merged_list" class="subform"></div>
+							<script>
+								document.getElementById("git_tag_action_list_filter_by_reachability_no_merged_list_add").addEventListener("click",function(e){
+									let checkbox, checkbox2, textarea;
+									document.getElementById("git_tag_action_list_filter_by_reachability_no_merged_list").append(create_element("div", { className: "form_item", }, {}, [
+										checkbox = create_element("input", { type: "checkbox", checked: true, }),
+										create_element("div", { className: "subform basis-0 grow", }, {}, [
+											create_element("div", { className: "form_item", }, {}, [
+												checkbox2 = create_element("input", { type: "checkbox", checked: false, id: "git_tag_action_list_filter_by_reachability_no_merged_list_item" + document.getElementById("git_tag_action_list_filter_by_reachability_no_merged_list").childElementCount + "_has_commit", }),
+												create_element("label", { innerHTML: "<span class=\"command\">=&lt;commit&gt;</span>", htmlFor: checkbox2.id, }),
+											]),
+											textarea = create_element("textarea", { wrap: "off", className: "command_input", disabled: true, }),
+										]),
+									]));
+									textarea.addEventListener("input", git_tag_refresh);
+									checkbox2.addEventListener("input", function(e){ textarea.disabled = !(checkbox.checked && checkbox2.checked); git_tag_refresh(); });
+									checkbox.addEventListener("input", function(e){ checkbox2.disabled = !checkbox.checked; textarea.disabled = !(checkbox.checked && checkbox2.checked); git_tag_refresh(); });
+									git_tag_refresh();
+								})
+							</script>
+						</fieldset>
+					</fieldset>
+				</fieldset>
+				<fieldset>
+					<legend><p>by namespace<sup>-1</sup>refname:</p></legend>
+					<fieldset>
+						<legend><p><span class="command">&lt;pattern&gt;…</span> Shell wildcards (i.e., matched using fnmatch(3)). Multiple patterns may be given; if any of them matches, the tag is shown.</p></legend>
+						<input id="git_tag_action_list_filter_by_refname_pattern_list_add" type="button" value="Add">
+						<div id="git_tag_action_list_filter_by_refname_pattern_list" class="subform"></div>
+						<script>
+							document.getElementById("git_tag_action_list_filter_by_refname_pattern_list_add").addEventListener("click",function(e){
+								document.getElementById("git_tag_action_list_filter_by_refname_pattern_list").append((function(){
+									let div = document.createElement("div"); div.className = "form_item";
+									let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+									let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_tag_refresh);
+									checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_tag_refresh(); });
+									div.append(checkbox, input);
+									return div;
+								})());
+								git_tag_refresh();
+							})
+						</script>
+					</fieldset>
+				</fieldset>
+			</fieldset>
+			<fieldset>
+				<legend><p>sorting:</p></legend>
+				<fieldset>
+					<legend><p><span class="command">--sort=&lt;key&gt;</span> Sort based on the key given. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-tagsort"><span class="inline_code">tag.sort</span></a>.)</p></legend>
+					<input id="git_tag_action_list_sort_key_list_add" type="button" value="Add">
+					<div id="git_tag_action_list_sort_key_list" class="subform"></div>
+					<script>
+						document.getElementById("git_tag_action_list_sort_key_list_add").addEventListener("click",function(e){
+							document.getElementById("git_tag_action_list_sort_key_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_tag_refresh);
+								checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_tag_refresh(); });
+								div.append(checkbox, input);
+								return div;
+							})());
+							git_tag_refresh();
+						})
+					</script>
+				</fieldset>
+			</fieldset>
+			<div class="form_item"><input type="checkbox" id="git_tag_action_list_has_ignore_case" name="git_tag_action_list_has_ignore_case"><label for="git_tag_action_list_has_ignore_case"><span class="command">--ignore-case</span> Sorting and filtering tags are case insensitive.</label></div>
+			<fieldset>
+				<legend><p>formatting:</p></legend>
+				<fieldset>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_tag\_action\_list\_format\_no\_option~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_tag_action_list_format_no_option')">
+						<div class="form_item"><input type="radio" id="git_tag_action_list_format_no_option" name="git_tag_action_list_format" value="no_option" checked><label for="git_tag_action_list_format_no_option"></label></div>
+					</legend>
+					<div class="form_item">
+						<input type="checkbox" id="git_tag_action_list_has_n" name="git_tag_action_list_has_n">
+						<div class="subform basis-0 grow">
+							<label for="git_tag_action_list_has_n"><span class="command">-n<input type="checkbox" id="git_tag_action_list_n_has_argument" name="git_tag_action_list_n_has_argument"><label for="git_tag_action_list_n_has_argument">[&lt;num&gt;]</label></span> Specifies how many lines from the annotation, if any, are printed. Without <span class="command">-n</span>, not to print any annotation lines.</label>
+							<div class="form_item"><label for="git_tag_action_list_n_num"><span class="command">&lt;num&gt;</span>:</label><input type="text" id="git_tag_action_list_n_num" name="git_tag_action_list_n_num" class="basis-0 grow command_input" value="1"></div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_tag\_action\_list\_format\_format~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_tag_action_list_format_format')">
+						<div class="form_item">
+							<input type="radio" id="git_tag_action_list_format_format" name="git_tag_action_list_format" value="format">
+							<div class="subform basis-0 grow">
+								<label for="git_tag_action_list_format_format"><span class="command">--format=&lt;format&gt;</span> A string that interpolates <span class="command">%(fieldname)</span> from a tag ref being shown and the object it points at. When unspecified, defaults to <span class="command">%(refname:strip=2)</span>.</label>
+								<div class="form_item"><label for="git_tag_action_list_format_format_format"><span class="command">&lt;format&gt;</span>:</label><textarea wrap="off" id="git_tag_action_list_format_format_format" name="git_tag_action_list_format_format_format" class="basis-0 grow command_input">%(HEAD) %(refname) %(objectname) %(objecttype)%(if:equals=commit)%(objecttype)%(then) author="%(authorname) %(authoremail) %(authordate:iso8601-strict)" committer="%(committername) %(committeremail) %(committerdate:iso8601-strict)"%(else) tagger="%(taggername) %(taggeremail) %(taggerdate:iso8601-strict)" *author="%(*authorname) %(*authoremail) %(*authordate:iso8601-strict)" *committer="%(*committername) %(*committeremail) %(*committerdate:iso8601-strict)"%(end)</textarea></div>
+							</div>
+						</div>
+					</legend>
+					<div class="form_item"><input type="radio" id="git_tag_action_list_color_no_option" name="git_tag_action_list_color" value="no_option" checked><label for="git_tag_action_list_color_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-colorui"><span class="inline_code">color.ui</span></a> which defaults to <span class="inline_code">auto</span>.)</label></div>
+					<div class="form_item"><input type="radio" id="git_tag_action_list_color_no_color" name="git_tag_action_list_color" value="no_color"><label for="git_tag_action_list_color_no_color"><span class="command">--no-color</span></label></div>
+					<div class="form_item"><input type="radio" id="git_tag_action_list_color_color" name="git_tag_action_list_color" value="color"><label for="git_tag_action_list_color_color"><span class="command">--color<input type="checkbox" id="git_tag_action_list_color_color_has_argument" name="git_tag_action_list_color_color_has_argument"><label for="git_tag_action_list_color_color_has_argument">[=<input type="radio" id="git_tag_action_list_color_color_when_always" name="git_tag_action_list_color_color_when" value="always" checked><label for="git_tag_action_list_color_color_when_always">always</label>|<input type="radio" id="git_tag_action_list_color_color_when_never" name="git_tag_action_list_color_color_when" value="never"><label for="git_tag_action_list_color_color_when_never">never</label>|<input type="radio" id="git_tag_action_list_color_color_when_auto" name="git_tag_action_list_color_color_when" value="auto"><label for="git_tag_action_list_color_color_when_auto">auto</label>]</label></span> Respect any colors specified in the <span class="command">--format</span> option.</label></div>
+
+					<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+					<div class="form_item"><input type="checkbox" id="git_tag_action_list_has_omit_empty" name="git_tag_action_list_has_omit_empty"><label for="git_tag_action_list_has_omit_empty"><span class="command">--omit-empty</span> Do not print a newline after formatted refs where the format expands to the empty string.</label></div>
+				</fieldset>
+
+				<p>when listing tags without annotation lines:</p>
+				<div class="form_item"><input type="radio" id="git_tag_action_list_column_no_option" name="git_tag_action_list_column" value="no_option" checked><label for="git_tag_action_list_column_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-columntag"><span class="inline_code">column.tag</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-columnui"><span class="inline_code">column.ui</span></a> which defaults to <span class="inline_code">never,column,nodense</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_tag_action_list_column_no_column" name="git_tag_action_list_column" value="no_column"><label for="git_tag_action_list_column_no_column"><span class="command">--no-column</span> Equivalent to <span class="command">--column=never</span>.</label></div>
+				<div class="form_item">
+					<input type="radio" id="git_tag_action_list_column_column" name="git_tag_action_list_column" value="column">
+					<div class="subform basis-0 grow">
+						<label for="git_tag_action_list_column_column"><span class="command">--column<input type="checkbox" id="git_tag_action_list_column_column_has_argument" name="git_tag_action_list_column_column_has_argument"><label for="git_tag_action_list_column_column_has_argument">[=&lt;options&gt;]</label></span> Display branch listing in columns.</label>
+						<div class="form_item"><label for="git_tag_action_list_column_column_options"><span class="command">&lt;options&gt;</span>:</label><input type="text" id="git_tag_action_list_column_column_options" name="git_tag_action_list_column_column_options" class="basis-0 grow command_input" value="always"></div>
+					</div>
+				</div>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_tag\_action\_create~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_tag_action_create')">
+				<div class="form_item"><input type="radio" id="git_tag_action_create" name="git_tag_action" value="create"><label for="git_tag_action_create"><span class="command">&lt;tagname&gt; [&lt;object&gt;]</span> Add a tag reference in <span class="inline_code">refs/tags/</span>.</label></div>
+			</legend>
+			<p><span class="command">&lt;tagname&gt;</span> The name of the tag to create.</p>
+			<div class="form_item"><label for="git_tag_action_create_tagname" class="hidden"><span class="command">&lt;tagname&gt;</span>:</label><input type="text" id="git_tag_action_create_tagname" name="git_tag_action_create_tagname" class="basis-0 grow command_input" placeholder="tag"></div>
+			<div class="form_item">
+				<input type="checkbox" id="git_tag_action_create_has_object" name="git_tag_action_create_has_object">
+				<div class="subform basis-0 grow">
+					<label for="git_tag_action_create_has_object"><span class="command">&lt;object&gt;</span> The object that the new tag will refer to, usually a commit.</label>
+					<div class="form_item"><label for="git_tag_action_create_object" class="hidden"><span class="command">&lt;object&gt;</span>:</label><textarea wrap="off" id="git_tag_action_create_object" name="git_tag_action_create_object" class="basis-0 grow command_input">HEAD</textarea></div>
+				</div>
+			</div>
+
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_tag\_action\_create\_type~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_tag_action_create_type')">
+				<fieldset>
+					<legend>
+						<div class="form_item"><input type="radio" id="git_tag_action_create_type_no_option" name="git_tag_action_create_type" value="no_option" checked><label for="git_tag_action_create_type_no_option">A tag reference that points directly at the given object (i.e., a lightweight tag) is created. (Create lightweight tag if <span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-taggpgSign">tag.gpgSign</a>=false</span> || <span class="command">--no-sign</span>, create signed annotated tag if <span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-taggpgSign">tag.gpgSign</a>=true</span> &amp;&amp; !<span class="command">--no-sign</span>.)</label></div>
+					</legend>
+					<div class="form_item"><input type="checkbox" id="git_tag_action_create_type_no_option_has_no_sign" name="git_tag_action_create_type_no_option_has_no_sign"><label for="git_tag_action_create_type_no_option_has_no_sign"><span class="command">--no-sign</span> Override <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-taggpgSign"><span class="inline_code">tag.gpgSign</span></a> configuration variable that is set to force each and every tag to be signed.</label></div>
+				</fieldset>
+				<fieldset>
+					<legend>
+						<div class="form_item"><input type="radio" id="git_tag_action_create_type_annotate" name="git_tag_action_create_type" value="annotate"><label for="git_tag_action_create_type_annotate"><span class="command">--annotate</span> Make an unsigned, annotated tag object. (Create unsigned annotated tag if <span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-taggpgSign">tag.gpgSign</a>=false</span> || <span class="command">--no-sign</span>, create signed annotated tag if <span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-taggpgSign">tag.gpgSign</a>=true</span> &amp;&amp; !<span class="command">--no-sign</span>.) (Opens editor by default when not <span class="command">--message</span>/<span class="command">--file</span>.)</label></div>
+					</legend>
+					<div class="form_item"><input type="checkbox" id="git_tag_action_create_type_annotate_has_no_sign" name="git_tag_action_create_type_annotate_has_no_sign"><label for="git_tag_action_create_type_annotate_has_no_sign"><span class="command">--no-sign</span> Override <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-taggpgSign"><span class="inline_code">tag.gpgSign</span></a> configuration variable that is set to force each and every tag to be signed.</label></div>
+				</fieldset>
+				<div class="form_item"><input type="radio" id="git_tag_action_create_type_sign" name="git_tag_action_create_type" value="sign"><label for="git_tag_action_create_type_sign"><span class="command">--sign</span> Make a GPG-signed tag, using the default e-mail address’s key. (Opens editor by default when not <span class="command">--message</span>/<span class="command">--file</span>.) (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"><span class="inline_code">user.signingKey</span></a> / "the committer identity for the current user is used to find the GnuPG key for signing".)</label></div>
+				<div class="form_item">
+					<input type="radio" id="git_tag_action_create_type_local_user" name="git_tag_action_create_type" value="local_user">
+					<div class="subform basis-0 grow">
+						<label for="git_tag_action_create_type_local_user"><span class="command">--local-user=&lt;key-id&gt;</span> Make a GPG-signed tag, using the given key. (Opens editor by default when not <span class="command">--message</span>/<span class="command">--file</span>.)</label>
+						<div class="form_item"><label for="git_tag_action_create_type_local_user_key_id"><span class="command">&lt;key-id&gt;</span>:</label><textarea wrap="off" id="git_tag_action_create_type_local_user_key_id" name="git_tag_action_create_type_local_user_key_id" class="basis-0 grow command_input"></textarea></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form_item"><input type="checkbox" id="git_tag_action_create_has_force" name="git_tag_action_create_has_force"><label for="git_tag_action_create_has_force"><span class="command">--force</span> Replace an existing tag with the given name (instead of failing).</label></div>
+
+			<fieldset>
+				<legend><p>message:</p></legend>
+				<div class="form_item"><input type="radio" id="git_tag_action_create_message_source_no_option" name="git_tag_action_create_message_source" value="no_option" checked><label for="git_tag_action_create_message_source_no_option"></label></div>
+				<fieldset>
+					<legend>
+						<div class="form_item"><input type="radio" id="git_tag_action_create_message_source_message" name="git_tag_action_create_message_source" value="message"><label for="git_tag_action_create_message_source_message"><span class="command">--message=&lt;msg&gt;</span> Use the given tag message (instead of prompting). If multiple <span class="command">--message</span> options are given, their values are concatenated as separate paragraphs. Implies <span class="command">--annotate</span> if none of <span class="command">--annotate</span>, <span class="command">--sign</span>, or <span class="command">--local-user=&lt;key-id&gt;</span> is given.</label></div>
+					</legend>
+					<input id="git_tag_action_create_message_source_message_msg_list_add" type="button" value="Add">
+					<div id="git_tag_action_create_message_source_message_msg_list" class="subform"></div>
+					<script>
+						document.getElementById("git_tag_action_create_message_source_message_msg_list_add").addEventListener("click",function(e){
+							document.getElementById("git_tag_action_create_message_source_message_msg_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_tag_refresh);
+								checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_tag_refresh(); });
+								div.append(checkbox, textarea);
+								return div;
+							})());
+							git_tag_refresh();
+						})
+					</script>
+				</fieldset>
+				<div class="form_item">
+					<input type="radio" id="git_tag_action_create_message_source_file" name="git_tag_action_create_message_source" value="file">
+					<div class="subform basis-0 grow">
+						<label for="git_tag_action_create_message_source_file"><span class="command">--file=&lt;file&gt;</span> Take the tag message from the given file. Implies <span class="command">--annotate</span> if none of <span class="command">--annotate</span>, <span class="command">--sign</span>, or <span class="command">--local-user=&lt;key-id&gt;</span> is given.</label>
+						<div class="form_item"><label for="git_tag_action_create_message_source_file_file"><span class="command">&lt;file&gt;</span>:</label><textarea wrap="off" id="git_tag_action_create_message_source_file_file" name="git_tag_action_create_message_source_file_file" class="basis-0 grow command_input"></textarea></div>
+					</div>
+				</div>
+
+				<fieldset>
+					<legend><p><span class="command">--trailer=&lt;token&gt;[(=|:)&lt;value&gt;]</span> Specify a (<span class="command">&lt;token&gt;</span>, <span class="command">&lt;value&gt;</span>) pair that should be applied as a trailer.</p></legend>
+					<input id="git_tag_action_create_trailer_list_add" type="button" value="Add">
+					<div id="git_tag_action_create_trailer_list" class="subform"></div>
+					<script>
+						document.getElementById("git_tag_action_create_trailer_list_add").addEventListener("click",function(e){
+							document.getElementById("git_tag_action_create_trailer_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_tag_refresh);
+								checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_tag_refresh(); });
+								div.append(checkbox, textarea);
+								return div;
+							})());
+							git_tag_refresh();
+						})
+					</script>
+				</fieldset>
+
+				<div class="form_item"><input type="checkbox" id="git_tag_action_create_has_edit" name="git_tag_action_create_has_edit"><label for="git_tag_action_create_has_edit"><span class="command">--edit</span> The message taken from file with <span class="command">--file</span> and command line with <span class="command">--message</span> are usually used as the tag message unmodified. Lets you further edit the message taken from these sources.</label></div>
+
+				<div class="form_item">
+					<input type="checkbox" id="git_tag_action_create_has_cleanup" name="git_tag_action_create_has_cleanup">
+					<div class="subform basis-0 grow">
+						<label for="git_tag_action_create_has_cleanup"><span class="command">--cleanup=(<input type="radio" id="git_tag_action_create_cleanup_mode_verbatim" name="git_tag_action_create_cleanup_mode" value="verbatim"><label for="git_tag_action_create_cleanup_mode_verbatim">verbatim</label>|<input type="radio" id="git_tag_action_create_cleanup_mode_whitespace" name="git_tag_action_create_cleanup_mode" value="whitespace"><label for="git_tag_action_create_cleanup_mode_whitespace">whitespace</label>|<input type="radio" id="git_tag_action_create_cleanup_mode_strip" name="git_tag_action_create_cleanup_mode" value="strip" checked><label for="git_tag_action_create_cleanup_mode_strip">strip</label>)</span> Sets how the tag message is cleaned up.<br>
+							<div class="ml-[1em]">
+								<span class="command">verbatim</span> does not change message at all;<br>
+								<span class="command">whitespace</span> removes just leading/trailing whitespace lines;<br>
+								<span class="command">strip</span> removes both whitespace and commentary;<br>
+							</div></label>
+					</div>
+				</div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_tag\_action\_create\_create\_reflog~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_tag_action_create_create_reflog')">
+					<div class="form_item"><input type="radio" id="git_tag_action_create_create_reflog_no_option" name="git_tag_action_create_create_reflog" value="" checked><label for="git_tag_action_create_create_reflog_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-corelogAllRefUpdates"><span class="inline_code">core.logAllRefUpdates</span></a> which defaults to <span class="inline_code">true</span> in a repository that has a working directory associated with it and <span class="inline_code">false</span> in a bare repository.)</label></div>
+					<div class="form_item"><input type="radio" id="git_tag_action_create_create_reflog_has_create_reflog" name="git_tag_action_create_create_reflog" value="true"><label for="git_tag_action_create_create_reflog_has_create_reflog"><span class="command">--create-reflog</span> Create a reflog for the tag.</label></div>
+					<div class="form_item"><input type="radio" id="git_tag_action_create_create_reflog_has_no_create_reflog" name="git_tag_action_create_create_reflog" value="false"><label for="git_tag_action_create_create_reflog_has_no_create_reflog"><span class="command">--no-create-reflog</span> Only overrides an earlier <span class="command">--create-reflog</span>, but currently does not negate the setting of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-corelogAllRefUpdates"><span class="inline_code">core.logAllRefUpdates</span></a>.</label></div>
+				</div>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_tag\_action\_delete~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_tag_action_delete')">
+				<div class="form_item"><input type="radio" id="git_tag_action_delete" name="git_tag_action" value="delete"><label for="git_tag_action_delete"><span class="command">--delete &lt;tagname&gt;…</span> Delete existing tags with the given names.</label></div>
+			</legend>
+			<fieldset>
+				<legend><p><span class="command">&lt;tagname&gt;…</span> The name of the tag to delete.</p></legend>
+				<input id="git_tag_action_delete_tagname_list_add" type="button" value="Add">
+				<div id="git_tag_action_delete_tagname_list" class="subform"></div>
+				<script>
+					document.getElementById("git_tag_action_delete_tagname_list_add").addEventListener("click",function(e){
+						document.getElementById("git_tag_action_delete_tagname_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_tag_refresh);
+							checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_tag_refresh(); });
+							div.append(checkbox, input);
+							return div;
+						})());
+						git_tag_refresh();
+					})
+				</script>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_tag\_action\_verify~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_tag_action_verify')">
+				<div class="form_item"><input type="radio" id="git_tag_action_verify" name="git_tag_action" value="verify"><label for="git_tag_action_verify"><span class="command">--verify &lt;tagname&gt;…</span> Verify the GPG signature of the given tag names.</label></div>
+			</legend>
+			<fieldset>
+				<legend><p><span class="command">&lt;tagname&gt;…</span> The name of the tag to describe.</p></legend>
+				<input id="git_tag_action_verify_tagname_list_add" type="button" value="Add">
+				<div id="git_tag_action_verify_tagname_list" class="subform"></div>
+				<script>
+					document.getElementById("git_tag_action_verify_tagname_list_add").addEventListener("click",function(e){
+						document.getElementById("git_tag_action_verify_tagname_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_tag_refresh);
+							checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_tag_refresh(); });
+							div.append(checkbox, input);
+							return div;
+						})());
+						git_tag_refresh();
+					})
+				</script>
+			</fieldset>
+		</fieldset>
+	</form>
+	<textarea readonly wrap="off" id="git_tag_command" name="git_tag_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_tag_refresh(){
+			document.getElementById("git_tag_action_list").closest("fieldset").disabled = !document.getElementById("git_tag_action_list").checked;
+			document.getElementById("git_tag_action_list_filter_by_reachability_points_at_has_argument").disabled = !document.getElementById("git_tag_action_list_filter_by_reachability_points_at").checked;
+			document.getElementById("git_tag_action_list_filter_by_reachability_points_at_object").disabled = !(document.getElementById("git_tag_action_list_filter_by_reachability_points_at").checked && document.getElementById("git_tag_action_list_filter_by_reachability_points_at_has_argument").checked);
+			document.getElementById("git_tag_action_list_filter_by_reachability_contains_and_merged").closest("fieldset").disabled = !document.getElementById("git_tag_action_list_filter_by_reachability_contains_and_merged").checked;
+			document.getElementById("git_tag_action_list_format_no_option").closest("fieldset").disabled = !document.getElementById("git_tag_action_list_format_no_option").checked;
+			document.getElementById("git_tag_action_list_n_has_argument").disabled = !document.getElementById("git_tag_action_list_has_n").checked;
+			document.getElementById("git_tag_action_list_n_num").disabled = !(document.getElementById("git_tag_action_list_has_n").checked && document.getElementById("git_tag_action_list_n_has_argument").checked);
+			document.getElementById("git_tag_action_list_format_format").closest("fieldset").disabled = !document.getElementById("git_tag_action_list_format_format").checked;
+			document.getElementById("git_tag_action_list_format_format_format").disabled = !document.getElementById("git_tag_action_list_format_format").checked;
+			document.getElementById("git_tag_action_list_color_color_has_argument").disabled = !document.getElementById("git_tag_action_list_color_color").checked;
+			document.getElementById("git_tag_action_list_color_color_when_always").disabled = !(document.getElementById("git_tag_action_list_color_color").checked && document.getElementById("git_tag_action_list_color_color_has_argument").checked);
+			document.getElementById("git_tag_action_list_color_color_when_never").disabled = !(document.getElementById("git_tag_action_list_color_color").checked && document.getElementById("git_tag_action_list_color_color_has_argument").checked);
+			document.getElementById("git_tag_action_list_color_color_when_auto").disabled = !(document.getElementById("git_tag_action_list_color_color").checked && document.getElementById("git_tag_action_list_color_color_has_argument").checked);
+			document.getElementById("git_tag_action_list_column_column_has_argument").disabled = !document.getElementById("git_tag_action_list_column_column").checked;
+			document.getElementById("git_tag_action_list_column_column_options").disabled = !(document.getElementById("git_tag_action_list_column_column").checked && document.getElementById("git_tag_action_list_column_column_has_argument").checked);
+
+			document.getElementById("git_tag_action_create").closest("fieldset").disabled = !document.getElementById("git_tag_action_create").checked;
+			document.getElementById("git_tag_action_create_object").disabled = !document.getElementById("git_tag_action_create_has_object").checked;
+			document.getElementById("git_tag_action_create_type_no_option").closest("fieldset").disabled = !document.getElementById("git_tag_action_create_type_no_option").checked;
+			document.getElementById("git_tag_action_create_type_annotate").closest("fieldset").disabled = !document.getElementById("git_tag_action_create_type_annotate").checked;
+			document.getElementById("git_tag_action_create_type_local_user_key_id").disabled = !document.getElementById("git_tag_action_create_type_local_user").checked;
+			document.getElementById("git_tag_action_create_message_source_message").closest("fieldset").disabled = !document.getElementById("git_tag_action_create_message_source_message").checked;
+			document.getElementById("git_tag_action_create_message_source_file_file").disabled = !document.getElementById("git_tag_action_create_message_source_file").checked;
+			document.getElementById("git_tag_action_create_cleanup_mode_verbatim").disabled = !document.getElementById("git_tag_action_create_has_cleanup").checked;
+			document.getElementById("git_tag_action_create_cleanup_mode_whitespace").disabled = !document.getElementById("git_tag_action_create_has_cleanup").checked;
+			document.getElementById("git_tag_action_create_cleanup_mode_strip").disabled = !document.getElementById("git_tag_action_create_has_cleanup").checked;
+
+			document.getElementById("git_tag_action_delete").closest("fieldset").disabled = !document.getElementById("git_tag_action_delete").checked;
+
+			document.getElementById("git_tag_action_verify").closest("fieldset").disabled = !document.getElementById("git_tag_action_verify").checked;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("tag");
+
+			let form_data = new FormData(document.getElementById("git_tag_form"));
+			switch(form_data.get("git_tag_action")){
+				case "list":
+					command_components.push("--list");
+					switch(form_data.get("git_tag_action_list_filter_by_reachability")){
+						case "points_at":
+							if(form_data.get("git_tag_action_list_filter_by_reachability_points_at_has_argument")){
+								let element_value = form_data.get("git_tag_action_list_filter_by_reachability_points_at_object"), element_has_error = element_value.length == 0;
+								command_components.push("--points-at=" + shell_quote(element_value));
+								document.getElementById("git_tag_action_list_filter_by_reachability_points_at_object").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							else{
+								command_components.push("--points-at");
+							}
+							break;
+						case "contains_and_merged":
+							Array.from(document.getElementById("git_tag_action_list_filter_by_reachability_contains_list").querySelectorAll(":scope>div:has(>input:checked)")).forEach(function(div){
+								if(!div.querySelector(":scope>div input").checked){
+									command_components.push("--contains");
+								}
+								else{
+									let textarea = div.querySelector(":scope>div textarea"), element_value = textarea.value, element_has_error = element_value.length == 0;
+									command_components.push("--contains=" + shell_quote(element_value));
+									textarea.classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+							});
+							Array.from(document.getElementById("git_tag_action_list_filter_by_reachability_merged_list").querySelectorAll(":scope>div:has(>input:checked)")).forEach(function(div){
+								if(!div.querySelector(":scope>div input").checked){
+									command_components.push("--merged");
+								}
+								else{
+									let textarea = div.querySelector(":scope>div textarea"), element_value = textarea.value, element_has_error = element_value.length == 0;
+									command_components.push("--merged=" + shell_quote(element_value));
+									textarea.classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+							});
+							Array.from(document.getElementById("git_tag_action_list_filter_by_reachability_no_contains_list").querySelectorAll(":scope>div:has(>input:checked)")).forEach(function(div){
+								if(!div.querySelector(":scope>div input").checked){
+									command_components.push("--no-contains");
+								}
+								else{
+									let textarea = div.querySelector(":scope>div textarea"), element_value = textarea.value, element_has_error = element_value.length == 0;
+									command_components.push("--no-contains=" + shell_quote(element_value));
+									textarea.classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+							});
+							Array.from(document.getElementById("git_tag_action_list_filter_by_reachability_no_merged_list").querySelectorAll(":scope>div:has(>input:checked)")).forEach(function(div){
+								if(!div.querySelector(":scope>div input").checked){
+									command_components.push("--no-merged");
+								}
+								else{
+									let textarea = div.querySelector(":scope>div textarea"), element_value = textarea.value, element_has_error = element_value.length == 0;
+									command_components.push("--no-merged=" + shell_quote(element_value));
+									textarea.classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+							});
+							break;
+					}
+					Array.from(document.getElementById("git_tag_action_list_sort_key_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+						let element_value = input.value, element_has_error = element_value.length == 0;
+						command_components.push("--sort=" + shell_quote(element_value));
+						input.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					if(form_data.get("git_tag_action_list_has_ignore_case"))
+						command_components.push("--ignore-case");
+					switch(form_data.get("git_tag_action_list_format")){
+						case "no_option":
+							if(form_data.get("git_tag_action_list_has_n")){
+								if(form_data.get("git_tag_action_list_n_has_argument")){
+									let element_value = form_data.get("git_tag_action_list_n_num"), element_has_error = element_value.length == 0;
+									command_components.push("-n" + shell_quote(element_value));
+									document.getElementById("git_tag_action_list_n_num").classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+								else{
+									command_components.push("-n");
+								}
+							}
+							break;
+						case "format":
+							command_components.push("--format=" + shell_quote(form_data.get("git_tag_action_list_format_format_format")));
+							switch(form_data.get("git_tag_action_list_color")){
+								case "no_color":
+									command_components.push("--no-color");
+									break;
+								case "color":
+									if(form_data.get("git_tag_action_list_color_color_has_argument")){
+										switch(form_data.get("git_tag_action_list_color_color_when")){
+											case "always":
+												command_components.push("--color=always");
+												break;
+											case "never":
+												command_components.push("--color=never");
+												break;
+											case "auto":
+												command_components.push("--color=auto");
+												break;
+										}
+									}
+									else{
+										command_components.push("--color");
+									}
+									break;
+							}
+							if(form_data.get("git_tag_action_list_has_omit_empty"))
+								command_components.push("--omit-empty");
+							break;
+					}
+					switch(form_data.get("git_tag_action_list_column")){
+						case "no_column":
+							command_components.push("--no-column");
+							break;
+						case "column":
+							if(form_data.get("git_tag_action_list_column_column_has_argument")){
+								let element_value = form_data.get("git_tag_action_list_column_column_options"), element_has_error = element_value.length == 0;
+								command_components.push("--column=" + shell_quote(element_value));
+								document.getElementById("git_tag_action_list_column_column_options").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							else{
+								command_components.push("--column");
+							}
+							break;
+					}
+					break;
+				case "create":
+					switch(form_data.get("git_tag_action_create_type")){
+						case "no_option":
+							if(form_data.get("git_tag_action_create_type_no_option_has_no_sign"))
+								command_components.push("--no-sign");
+							break;
+						case "annotate":
+							command_components.push("--annotate");
+							if(form_data.get("git_tag_action_create_type_annotate_has_no_sign"))
+								command_components.push("--no-sign");
+							break;
+						case "sign":
+							command_components.push("--sign");
+							break;
+						case "local_user":
+							{
+								let element_value = form_data.get("git_tag_action_create_type_local_user_key_id"), element_has_error = element_value.length == 0;
+								command_components.push("--local-user=" + shell_quote(element_value));
+								document.getElementById("git_tag_action_create_type_local_user_key_id").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							break;
+					}
+					if(form_data.get("git_tag_action_create_has_force"))
+						command_components.push("--force");
+					switch(form_data.get("git_tag_action_create_message_source")){
+						case "message":
+							Array.from(document.getElementById("git_tag_action_create_message_source_message_msg_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+								command_components.push("--message=" + shell_quote(textarea.value));
+							});
+							break;
+						case "file":
+							{
+								let element_value = form_data.get("git_tag_action_create_message_source_file_file"), element_has_error = element_value.length == 0;
+								command_components.push("--file=" + shell_quote(element_value));
+								document.getElementById("git_tag_action_create_message_source_file_file").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							break;
+					}
+					Array.from(document.getElementById("git_tag_action_create_trailer_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push("--trailer=" + shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					if(form_data.get("git_tag_action_create_has_edit"))
+						command_components.push("--edit");
+					if(form_data.get("git_tag_action_create_has_cleanup")){
+						switch(form_data.get("git_tag_action_create_cleanup_mode")){
+							case "verbatim":
+								command_components.push("--cleanup=verbatim");
+								break;
+							case "whitespace":
+								command_components.push("--cleanup=whitespace");
+								break;
+							case "strip":
+								command_components.push("--cleanup=strip");
+								break;
+						}
+					}
+					switch(form_data.get("git_tag_action_create_create_reflog")){
+						case "false":
+							command_components.push("--no-create-reflog");
+							break;
+						case "true":
+							command_components.push("--create-reflog");
+							break;
+					}
+					break;
+				case "delete":
+					command_components.push("--delete");
+					break;
+				case "verify":
+					command_components.push("--verify");
+					break;
+			}
+			switch(form_data.get("git_tag_action")){
+				case "list":
+					if(Array.from(document.getElementById("git_tag_action_list_filter_by_refname_pattern_list").querySelectorAll("input[type=\"text\"]:enabled")).length != 0)
+						command_components.push("--end-of-options");
+					Array.from(document.getElementById("git_tag_action_list_filter_by_refname_pattern_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+						let element_value = input.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						input.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "create":
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_tag_action_create_tagname"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_tag_action_create_tagname").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_tag_action_create_has_object")){
+						let element_value = form_data.get("git_tag_action_create_object"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_tag_action_create_object").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "delete":
+					command_components.push("--end-of-options");
+					Array.from(document.getElementById("git_tag_action_delete_tagname_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+						let element_value = input.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						input.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "verify":
+					command_components.push("--end-of-options");
+					Array.from(document.getElementById("git_tag_action_verify_tagname_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+						let element_value = input.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						input.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+			}
+
+			let git_tag_command = document.getElementById("git_tag_command");
+			git_tag_command.classList.toggle("error_output", has_error);
+			git_tag_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_tag_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_tag_refresh);
+		});
+		Array.from(document.getElementById("git_tag_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_tag_refresh);
+		});
+	</script>
+</div>
