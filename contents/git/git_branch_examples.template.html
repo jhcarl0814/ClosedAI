@@ -1,0 +1,457 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_show\_current~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --show-current</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' branch --show-current
+			git -C './repo' branch --list --all
+			git -C './repo' branch --list --all --verbose
+			git -C './repo' branch --list --all --verbose --verbose
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch --show-current
+			git -C './repo' branch --list --all
+			git -C './repo' branch --list --all --verbose
+			git -C './repo' branch --list --all --verbose --verbose
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list\_filter\_by\_namespace~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --list</span><br><span class="command">git branch --list --remotes</span><br><span class="command">git branch --list --all</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client/repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch1
+
+			git -C './client/repo' init
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' branch --list --verbose --verbose
+			git -C './client/repo' branch --list --remotes --verbose --verbose
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' fetch --all
+			git -C './client/repo' branch --list --verbose --verbose
+			git -C './client/repo' branch --list --remotes --verbose --verbose
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' checkout branch1
+			git -C './client/repo' branch --list --verbose --verbose
+			git -C './client/repo' branch --list --remotes --verbose --verbose
+			git -C './client/repo' branch --list --all --verbose --verbose
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list\_filter\_by\_reachability~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --list --contains</span><br><span class="command">git branch --list --no-contains</span><br><span class="command">git branch --list --merged</span><br><span class="command">git branch --list --no-merged</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' checkout -b branch1
+			git -C './repo' checkout -b branch2; git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' checkout -b branch3 branch1; git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' checkout -b branch4 branch2; git -C './repo' merge --message="$((++number))" branch3
+			git -C './repo' lg --all
+			git -C './repo' branch --list --all --verbose --verbose --contains=branch2
+			git -C './repo' branch --list --all --verbose --verbose --contains=branch3
+			git -C './repo' branch --list --all --verbose --verbose --contains=branch2 --contains=branch3
+			git -C './repo' branch --list --all --verbose --verbose --no-contains=branch2
+			git -C './repo' branch --list --all --verbose --verbose --no-contains=branch3
+			git -C './repo' branch --list --all --verbose --verbose --no-contains=branch2 --no-contains=branch3
+			git -C './repo' branch --list --all --verbose --verbose --merged=branch2
+			git -C './repo' branch --list --all --verbose --verbose --merged=branch3
+			git -C './repo' branch --list --all --verbose --verbose --merged=branch2 --merged=branch3
+			git -C './repo' branch --list --all --verbose --verbose --no-merged=branch2
+			git -C './repo' branch --list --all --verbose --verbose --no-merged=branch3
+			git -C './repo' branch --list --all --verbose --verbose --no-merged=branch2 --no-merged=branch3
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list\_filter\_by\_refname~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --list &lt;pattern&gt;...</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client/repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch1
+
+			git -C './client/repo' init
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' fetch --all
+			git -C './client/repo' checkout branch1
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' branch --list --all --verbose --verbose 'refs/heads/branch1'
+			git -C './client/repo' branch --list --all --verbose --verbose 'heads/branch1'
+			git -C './client/repo' branch --list --all --verbose --verbose 'refs/remotes/server/branch1'
+			git -C './client/repo' branch --list --all --verbose --verbose 'remotes/server/branch1'
+			git -C './client/repo' branch --list --all --verbose --verbose 'server/branch1'
+			git -C './client/repo' branch --list --all --verbose --verbose branch1
+			git -C './client/repo' branch --list --all --verbose --verbose '*branch1'
+			git -C './client/repo' branch --list --all --verbose --verbose '*r*n*'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list\_format\_verbose~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --list</span><br><span class="command">git branch --list --verbose</span><br><span class="command">git branch --list --verbose --verbose</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client/repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch1
+
+			git -C './client/repo' init
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' branch --list --all
+			git -C './client/repo' branch --list --all --verbose
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' fetch --all
+			git -C './client/repo' branch --list --all
+			git -C './client/repo' branch --list --all --verbose
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' checkout branch1
+			git -C './client/repo' branch --list --all
+			git -C './client/repo' branch --list --all --verbose
+			git -C './client/repo' branch --list --all --verbose --verbose
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list\_format\_verbose~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list\_abbrev~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --list --verbose --abbrev/--no-abbrev</span><br><span class="command">git branch --list --verbose --verbose --abbrev/--no-abbrev</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch --list --all --verbose
+			git -C './repo' branch --list --all --verbose --abbrev
+			git -C './repo' branch --list --all --verbose --no-abbrev
+			git -C './repo' branch --list --all --verbose --verbose
+			git -C './repo' branch --list --all --verbose --verbose --abbrev
+			git -C './repo' branch --list --all --verbose --verbose --no-abbrev
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list\_format\_format~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --list --format=&lt;format&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client/repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch1
+
+			git -C './client/repo' init
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' fetch --all
+			git -C './client/repo' checkout branch1
+			git -C './client/repo' branch branch2
+			git -C './client/repo' reset HEAD~1
+			git -C './client/repo' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' lg --all
+			git -C './client/repo' branch --list --all --format='%(HEAD) %(refname) %(objectname)%(if)%(upstream)%(then) (fetch from %(upstream:remotename) with %(upstream:remoteref):%(upstream) %(upstream:track))%(end)%(if)%(push)%(then) (push to %(if)%(push:remotename)%(then)%(push:remotename)%(else)%(upstream:remotename)%(end) with %(if)%(push:remoteref)%(then)%(push:remoteref):%(refname)%(else)push.default%(end) %(push:track))%(end)%(if)%(worktreepath)%(then) worktreepath="%(worktreepath)"%(end)'
+			git -C './client/repo' config list --local --show-origin --show-scope
+			git -C './client/repo' config set --local 'remote.server.push' 'refs/heads/branch1:refs/heads/branch1'
+			git -C './client/repo' config list --local --show-origin --show-scope
+			git -C './client/repo' branch --list --all --format='%(HEAD) %(refname) %(objectname)%(if)%(upstream)%(then) (fetch from %(upstream:remotename) with %(upstream:remoteref):%(upstream) %(upstream:track))%(end)%(if)%(push)%(then) (push to %(if)%(push:remotename)%(then)%(push:remotename)%(else)%(upstream:remotename)%(end) with %(if)%(push:remoteref)%(then)%(push:remoteref):%(refname)%(else)push.default%(end) %(push:track))%(end)%(if)%(worktreepath)%(then) worktreepath="%(worktreepath)"%(end)'
+			git -C './client/repo' worktree add '../worktree1' branch1
+			git -C './client/repo' worktree add --force '../worktree1' branch1
+			git -C './client/repo' worktree list
+			git -C './client/repo' branch --list --all --format='%(HEAD) %(refname) %(objectname)%(if)%(upstream)%(then) (fetch from %(upstream:remotename) with %(upstream:remoteref):%(upstream) %(upstream:track))%(end)%(if)%(push)%(then) (push to %(if)%(push:remotename)%(then)%(push:remotename)%(else)%(upstream:remotename)%(end) with %(if)%(push:remoteref)%(then)%(push:remoteref):%(refname)%(else)push.default%(end) %(push:track))%(end)%(if)%(worktreepath)%(then) worktreepath="%(worktreepath)"%(end)'
+			git -C './client/repo' worktree add --force '../worktree2' branch1
+			git -C './client/repo' worktree list
+			git -C './client/repo' branch --list --all --format='%(HEAD) %(refname) %(objectname)%(if)%(upstream)%(then) (fetch from %(upstream:remotename) with %(upstream:remoteref):%(upstream) %(upstream:track))%(end)%(if)%(push)%(then) (push to %(if)%(push:remotename)%(then)%(push:remotename)%(else)%(upstream:remotename)%(end) with %(if)%(push:remoteref)%(then)%(push:remoteref):%(refname)%(else)push.default%(end) %(push:track))%(end)%(if)%(worktreepath)%(then) worktreepath="%(worktreepath)"%(end)'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_create~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_create\_track~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --track/--no-track</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client/repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch1
+
+			git -C './client/repo' init
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' fetch --all
+			git -C './client/repo' checkout branch1
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' branch branch21 branch1
+			git -C './client/repo' branch --no-track branch22 branch1
+			git -C './client/repo' branch --track=direct branch23 branch1
+			git -C './client/repo' branch --track=inherit branch24 branch1
+			git -C './client/repo' -c 'branch.autoSetupMerge=false' branch branch31 branch1
+			git -C './client/repo' -c 'branch.autoSetupMerge=false' branch --track=direct branch311 branch1
+			git -C './client/repo' -c 'branch.autoSetupMerge=false' branch --track=inherit branch312 branch1
+			git -C './client/repo' -c 'branch.autoSetupMerge=always' branch branch32 branch1
+			git -C './client/repo' -c 'branch.autoSetupMerge=always' branch --no-track branch321 branch1
+			git -C './client/repo' -c 'branch.autoSetupMerge=inherit' branch branch33 branch1
+			git -C './client/repo' -c 'branch.autoSetupMerge=inherit' branch --no-track branch331 branch1
+			git -C './client/repo' branch --list --all --verbose --verbose
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_create~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_create\_create\_reflog~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --create-reflog/--no-create-reflog</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' config list --local --show-origin --show-scope
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' branch --no-create-reflog branch11
+			git -C './repo' branch --create-reflog branch12
+			git -C './repo' -c 'core.logAllRefUpdates=false' branch branch2
+			git -C './repo' -c 'core.logAllRefUpdates=false' branch --create-reflog branch21
+			git -C './repo' -c 'core.logAllRefUpdates=true' branch branch3
+			git -C './repo' -c 'core.logAllRefUpdates=true' branch --no-create-reflog branch31
+			git -C './repo' branch --list --all --verbose --verbose
+			git -C './repo' reflog list
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_move~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --move --force</span> (even with <span class="command">--force</span>, refuses to change an existing branch that is checked out in a worktree linked to the repository)</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch2
+			git -C './repo' lg --all
+			git -C './repo' branch --move branch2 branch1
+			git -C './repo' branch --move --force branch2 branch1
+			git -C './repo' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch2
+			git -C './repo' checkout branch1
+			git -C './repo' lg --all
+			git -C './repo' branch --move branch2 branch1
+			git -C './repo' branch --move --force branch2 branch1
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_copy~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --copy --force</span> (even with <span class="command">--force</span>, refuses to change an existing branch that is checked out in a worktree linked to the repository)</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch2
+			git -C './repo' lg --all
+			git -C './repo' branch --copy branch2 branch1
+			git -C './repo' branch --copy --force branch2 branch1
+			git -C './repo' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch2
+			git -C './repo' checkout branch1
+			git -C './repo' lg --all
+			git -C './repo' branch --copy branch2 branch1
+			git -C './repo' branch --copy --force branch2 branch1
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_delete~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --delete --force</span> (even with <span class="command">--force</span>, refuses to delete an existing branch that is checked out in a worktree linked to the repository)</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' branch branch1
+			git -C './repo' reset --hard HEAD~1
+			git -C './repo' branch --list --all --verbose --verbose
+			git -C './repo' lg --all
+			git -C './repo' branch --delete branch1
+			git -C './repo' branch --delete --force branch1
+			git -C './repo' branch --list --all --verbose --verbose
+			git -C './repo' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' checkout -b branch1
+			git -C './repo' branch --list --all --verbose --verbose
+			git -C './repo' lg --all
+			git -C './repo' branch --delete branch1
+			git -C './repo' branch --delete --force branch1
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_delete~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --delete</span><br><span class="command">git branch --delete --remotes</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client/repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch1
+
+			git -C './client/repo' init
+			branch_default_path="$(git -C './client/repo' symbolic-ref HEAD)"; echo "$branch_default_path"
+			git -C './client/repo' branch --show-current
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' fetch --all
+			git -C './client/repo' checkout branch1
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' branch --delete branch1
+			git -C './client/repo' symbolic-ref HEAD "$branch_default_path"
+			git -C './client/repo' symbolic-ref HEAD
+			git -C './client/repo' branch --show-current
+			git -C './client/repo' branch --delete branch1
+			git -C './client/repo' branch --list --all --verbose --verbose
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client/repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch1
+
+			git -C './client/repo' init
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' fetch --all
+			git -C './client/repo' checkout branch1
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' branch --delete server/branch1
+			git -C './client/repo' branch --delete --remotes branch1
+			git -C './client/repo' branch --delete --remotes server/branch1
+			git -C './client/repo' branch --list --all --verbose --verbose
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_set\_upstream\_to~*_&]:block [#reference\_desk\_dispatcher\_example.git\_branch\_action\_unset\_upstream~*_&]:block">
+	<h2 class="heading2"><span class="command">git branch --set-upstream-to=&lt;upstream&gt;</span><br><span class="command">git branch --unset-upstream</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client/repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch1
+
+			git -C './client/repo' init
+			git -C './client/repo' config list --local --show-origin --show-scope
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' config list --local --show-origin --show-scope
+			git -C './client/repo' fetch --all
+			git -C './client/repo' config list --local --show-origin --show-scope
+			git -C './client/repo' checkout branch1
+			git -C './client/repo' config list --local --show-origin --show-scope
+			git -C './client/repo' branch --unset-upstream branch1
+			git -C './client/repo' config list --local --show-origin --show-scope
+			git -C './client/repo' branch --set-upstream-to='refs/heads/branch1' branch1
+			git -C './client/repo' branch --set-upstream-to='heads/branch1' branch1
+			git -C './client/repo' branch --set-upstream-to='branch1' branch1
+			git -C './client/repo' config list --local --show-origin --show-scope
+			git -C './client/repo' branch --set-upstream-to='refs/remotes/server/branch1' branch1
+			git -C './client/repo' config list --local --show-origin --show-scope
+			git -C './client/repo' branch --set-upstream-to='remotes/server/branch1' branch1
+			git -C './client/repo' config list --local --show-origin --show-scope
+			git -C './client/repo' branch --set-upstream-to='server/branch1' branch1
+			git -C './client/repo' config list --local --show-origin --show-scope
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
