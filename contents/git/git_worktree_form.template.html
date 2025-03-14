@@ -36,6 +36,11 @@
 				<div class="form_item"><input type="radio" id="git_worktree_action_add" name="git_worktree_action" value="add"><label for="git_worktree_action_add"><span class="command">add &lt;path&gt; [&lt;commit-ish&gt;]</span> Create a worktree at <span class="command">&lt;path&gt;</span> and checkout <span class="command">&lt;commit-ish&gt;</span> into it.</label></div>
 			</legend>
 			<div class="form_item"><label for="git_worktree_action_add_path"><span class="command">&lt;path&gt;</span>:</label><input type="text" id="git_worktree_action_add_path" name="git_worktree_action_add_path" class="basis-0 grow command_input" placeholder="../worktree"></div>
+
+			<div class="form_item"><input type="radio" id="git_worktree_action_add_relative_paths_no_option" name="git_worktree_action_add_relative_paths" value="" checked><label for="git_worktree_action_add_relative_paths_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-worktreeuseRelativePaths"><span class="inline_code">worktree.useRelativePaths</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_worktree_action_add_relative_paths_has_relative_paths" name="git_worktree_action_add_relative_paths" value="true"><label for="git_worktree_action_add_relative_paths_has_relative_paths"><span class="command">--relative-paths</span> Link worktrees using relative paths.</label></div>
+			<div class="form_item"><input type="radio" id="git_worktree_action_add_relative_paths_has_no_relative_paths" name="git_worktree_action_add_relative_paths" value="false"><label for="git_worktree_action_add_relative_paths_has_no_relative_paths"><span class="command">--no-relative-paths</span> Link worktrees using absolute paths.</label></div>
+
 			<fieldset>
 				<legend><p>what to checkout:</p></legend>
 				<div class="form_item"><input type="radio" id="git_worktree_action_add_commitish_orphan" name="git_worktree_action_add_commitish" value="orphan"><label for="git_worktree_action_add_commitish_orphan"><span class="command">--orphan</span> Make the new worktree and index empty, associating the worktree with a new unborn branch</label></div>
@@ -120,6 +125,11 @@
 			</legend>
 			<div class="form_item"><label for="git_worktree_action_move_worktree"><span class="command">&lt;worktree&gt;</span>:</label><textarea wrap="off" id="git_worktree_action_move_worktree" name="git_worktree_action_move_worktree" class="basis-0 grow command_input" placeholder="../worktree"></textarea></div>
 			<div class="form_item"><label for="git_worktree_action_move_new_path"><span class="command">&lt;new-path&gt;</span>:</label><textarea wrap="off" id="git_worktree_action_move_new_path" name="git_worktree_action_move_new_path" class="basis-0 grow command_input" placeholder="../new_path"></textarea></div>
+
+			<div class="form_item"><input type="radio" id="git_worktree_action_move_relative_paths_no_option" name="git_worktree_action_move_relative_paths" value="" checked><label for="git_worktree_action_move_relative_paths_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-worktreeuseRelativePaths"><span class="inline_code">worktree.useRelativePaths</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_worktree_action_move_relative_paths_has_relative_paths" name="git_worktree_action_move_relative_paths" value="true"><label for="git_worktree_action_move_relative_paths_has_relative_paths"><span class="command">--relative-paths</span> Link worktrees using relative paths.</label></div>
+			<div class="form_item"><input type="radio" id="git_worktree_action_move_relative_paths_has_no_relative_paths" name="git_worktree_action_move_relative_paths" value="false"><label for="git_worktree_action_move_relative_paths_has_no_relative_paths"><span class="command">--no-relative-paths</span> Link worktrees using absolute paths.</label></div>
+
 			<fieldset>
 				<legend><p>whether <span class="command">&lt;worktree&gt;</span> is locked:</p></legend>
 				<div class="form_item"><input type="radio" id="git_worktree_action_move_worktree_locked_false" name="git_worktree_action_move_worktree_locked" value="false" checked><label for="git_worktree_action_move_worktree_locked_false"></label></div>
@@ -211,6 +221,10 @@
 					})
 				</script>
 			</fieldset>
+
+			<div class="form_item"><input type="radio" id="git_worktree_action_repair_relative_paths_no_option" name="git_worktree_action_repair_relative_paths" value="" checked><label for="git_worktree_action_repair_relative_paths_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-worktreeuseRelativePaths"><span class="inline_code">worktree.useRelativePaths</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_worktree_action_repair_relative_paths_has_relative_paths" name="git_worktree_action_repair_relative_paths" value="true"><label for="git_worktree_action_repair_relative_paths_has_relative_paths"><span class="command">--relative-paths</span> Link worktrees using relative paths.</label></div>
+			<div class="form_item"><input type="radio" id="git_worktree_action_repair_relative_paths_has_no_relative_paths" name="git_worktree_action_repair_relative_paths" value="false"><label for="git_worktree_action_repair_relative_paths_has_no_relative_paths"><span class="command">--no-relative-paths</span> Link worktrees using absolute paths.</label></div>
 		</fieldset>
 	</form>
 	<textarea readonly wrap="off" id="git_worktree_command" name="git_worktree_command" class="command_input mt-[1em]"></textarea>
@@ -269,6 +283,14 @@
 					break;
 				case "add":
 					command_components.push("add");
+					switch(form_data.get("git_worktree_action_add_relative_paths")){
+						case "false":
+							command_components.push("--no-relative-paths");
+							break;
+						case "true":
+							command_components.push("--relative-paths");
+							break;
+					}
 					switch(form_data.get("git_worktree_action_add_checkout")){
 						case "false":
 							command_components.push("--no-checkout");
@@ -377,6 +399,15 @@
 				case "move":
 					command_components.push("move");
 
+					switch(form_data.get("git_worktree_action_move_relative_paths")){
+						case "false":
+							command_components.push("--no-relative-paths");
+							break;
+						case "true":
+							command_components.push("--relative-paths");
+							break;
+					}
+
 					let git_worktree_action_move_number_of_force = 0;
 					switch(form_data.get("git_worktree_action_move_worktree_locked")){
 						case "true":
@@ -479,6 +510,15 @@
 					break;
 				case "repair":
 					command_components.push("repair");
+
+					switch(form_data.get("git_worktree_action_repair_relative_paths")){
+						case "false":
+							command_components.push("--no-relative-paths");
+							break;
+						case "true":
+							command_components.push("--relative-paths");
+							break;
+					}
 
 					if(Array.from(document.getElementById("git_worktree_action_repair_path_list").querySelectorAll("textarea:enabled")).length != 0)
 						command_components.push("--end-of-options");

@@ -203,7 +203,7 @@
 				</div>
 
 				<fieldset>
-					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_shallow\_exclude~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_shallow_exclude')"><p><span class="command">--shallow-exclude=&lt;revision&gt;</span> Create a shallow clone with a history, excluding commits reachable from a specified remote branch or tag.</p></legend>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_shallow\_exclude~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_shallow_exclude')"><p><span class="command">--shallow-exclude=&lt;ref&gt;</span> Create a shallow clone with a history, excluding commits reachable from a specified remote branch or tag.</p></legend>
 					<input id="git_clone_shallow_exclude_list_add" type="button" value="Add">
 					<div id="git_clone_shallow_exclude_list" class="subform"></div>
 					<script>
@@ -259,7 +259,7 @@
 			</div>
 
 			<fieldset>
-				<legend><p><span class="command">--server-option=&lt;option&gt;</span> Transmit the given string to the server when communicating using protocol version 2.</p></legend>
+				<legend><p><span class="command">--server-option=&lt;option&gt;</span> Transmit the given string to the server when communicating using protocol version 2. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtserverOption"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.serverOption</span></a>.)</p></legend>
 				<input id="git_clone_server_option_list_add" type="button" value="Add">
 				<div id="git_clone_server_option_list" class="subform"></div>
 				<script>
