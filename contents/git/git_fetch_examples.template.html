@@ -208,7 +208,7 @@
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_fetch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_fetch\_shallow\_exclude~*_&]:block">
-	<h2 class="heading2">shallow fetch (limit the set of requested commits)<br><span class="command">git fetch --shallow-exclude=&lt;revision&gt;</span></h2>
+	<h2 class="heading2">shallow fetch (limit the set of requested commits)<br><span class="command">git fetch --shallow-exclude=&lt;ref&gt;</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
 		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
@@ -581,7 +581,7 @@
 			git -C './client/repo' lg --all
 
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git -C './server/repo.git' branch --force branch1; git -C './server/repo.git' branch --force branch2
-			git -C './client/repo' fetch server --refmap='+refs/heads/*:refs/remotes/server/*5' --refmap='+refs/heads/*:refs/remotes/server/*6' '+refs/heads/branch*:refs/remotes/server/branch*7' '+refs/heads/branch*:refs/remotes/server/branch*8' branch1
+			git -C './client/repo' fetch server --refmap='+refs/heads/*:refs/remotes/server/*5' --refmap='+refs/heads/*:refs/remotes/server/*6' '+refs/heads/branch1:refs/remotes/server/branch17' branch1
 			treex './client/repo/.git/FETCH_HEAD'
 			git -C './client/repo' lg --all
 		EOF0

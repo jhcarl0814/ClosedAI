@@ -167,11 +167,6 @@ EOF0
 			git ls-remote --symref './client/repo32'
 			git ls-remote --symref './client/repo4'
 
-			git -C './client/repo1' remote set-head origin --auto
-			git -C './client/repo2' remote set-head origin --auto
-			git ls-remote --symref './client/repo1'
-			git ls-remote --symref './client/repo2'
-
 			branch_remote_default_path="$(git -C './client/repo1' symbolic-ref 'refs/remotes/origin/HEAD')"; echo "$branch_remote_default_path"
 			branch_remote_default_name="${branch_remote_default_path#'refs/remotes/origin/'}"; echo "$branch_remote_default_name"
 			git -C './client/repo1' checkout "$branch_remote_default_name"
@@ -200,13 +195,6 @@ EOF0
 			git -C './client/repo32' symbolic-ref HEAD "$branch_default_path"
 			git -C './client/repo32' symbolic-ref HEAD
 			git ls-remote --symref './client/repo32'
-
-			branch_default_output="$(git ls-remote --symref './server/repo.git' | head --lines=1)"; echo "$branch_default_output"
-			branch_default_output="${branch_default_output%$'\t'*}"; echo "$branch_default_output"
-			branch_default_path="${branch_default_output#'ref: '*}"; echo "$branch_default_path"
-			git -C './client/repo4' symbolic-ref HEAD "$branch_default_path"
-			git -C './client/repo4' symbolic-ref HEAD
-			git ls-remote --symref './client/repo4'
 		EOF0
 		git config unset --system --all 'color.push';
 		git config unset --system --all 'color.ui';
@@ -852,7 +840,7 @@ EOF0
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_shallow\_exclude~*_&]:block">
-	<h2 class="heading2">shallow clone (limit the set of requested commits)<br><span class="command">git clone --shallow-exclude=&lt;revision&gt;</span></h2>
+	<h2 class="heading2">shallow clone (limit the set of requested commits)<br><span class="command">git clone --shallow-exclude=&lt;ref&gt;</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
 		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";

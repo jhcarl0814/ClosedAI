@@ -433,6 +433,7 @@
 		mkdir --parents -- './server1' './server2' './server3' './client';
 		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
 			git -C './client' init './repo'
+			branch_default_name="$(git -C './client/repo' branch --show-current)"; echo "$branch_default_name"
 			git -C './client/repo' remote --verbose
 			git -C './client/repo' config list --local --show-scope --show-origin
 			git -C './client/repo' branch --list --all --verbose --verbose
@@ -447,7 +448,6 @@
 			git -C './client/repo' branch --list --all --verbose --verbose
 
 			git -C './server1' init --bare './repo.git'
-			branch_default_name="$(git -C './server1/repo.git' branch --show-current)"; echo "$branch_default_name"
 			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 			git -C './server2' init --bare './repo.git'
 			git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
