@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Git Reference Desk</title>
+	<title>Git Help Desk</title>
 	<link rel="shortcut icon" href="data:image/bmp;base64,{{base64 --wrap=0 <'../favicon.bmp'}}">
 	<link rel="stylesheet" href="data:text/css;base64,{{ '../../tools/tailwindcss/tailwindcss-windows-x64.exe' --config='./git.tailwind.config.js' --input='../ClosedAI.css' --minify 2>/dev/null | base64 --wrap=0 }}">
 	<link rel="stylesheet" href="data:text/css;base64,{{base64 --wrap=0 <<'EOF'
@@ -314,6 +314,12 @@ EOF}}"></script>
 	<div class="relative w-[calc(max(1200px,(100vw_+_max(1200px,82vw))/2))] ml-[calc(max(0px,(100vw_-_max(1200px,82vw))/2))] mr-0 h-[100%] flex">
 		<div id="reference_desk_dispatcher_form" class="git_reference_desk"></div>
 		<script>
+			function reference_desk_link_clicked0(reference_desk_dispatcher_form_class, reference_desk_dispatcher_example_class)
+			{
+				window.event.preventDefault();
+				document.getElementById("reference_desk_dispatcher_form").className = reference_desk_dispatcher_form_class;
+				document.getElementById("reference_desk_dispatcher_example").className = reference_desk_dispatcher_example_class;
+			}
 			function reference_desk_link_clicked(reference_desk_dispatcher_form_class, reference_desk_dispatcher_example_class)
 			{
 				window.event.preventDefault();
@@ -336,10 +342,73 @@ EOF}}"></script>
 
 				<details id="reference_desk_details" class="border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em]" open>
 					<summary class="cursor-pointer marker:text-[180%]">
-						<h1 class="heading1 inline"><a class="[#reference\_desk\_dispatcher\_form.git\_reference\_desk~*_&]:[outline:dashed_2.5px_#0000FF] cursor-text" onmousedown="reference_desk_link_clicked('git_reference_desk','git_reference_desk')" onclick="window.event.preventDefault()">Git Reference Desk</a></h1>
+						<h1 class="heading1 inline"><a class="[#reference\_desk\_dispatcher\_form.git\_reference\_desk~*_&]:[outline:dashed_2.5px_#0000FF] cursor-text" onmousedown="reference_desk_link_clicked0('git_reference_desk','git_reference_desk')" onclick="window.event.preventDefault()">Git Help Desk</a></h1>
 					</summary>
+
+					<div class="hidden [#reference\_desk\_dispatcher\_form.git\_reference\_desk~*_&]:block">
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold">Using this page to learn Git</h2>
+						<p class="paragraph">The page introduces concepts/terminologies in a pedagogically sound order, so if you read through the links to all the concepts in order, the likelihood of needing concepts you have never encountered before is minimized.</p>
+						<p class="paragraph">The page illustrates command options and their combinations/interactions with examples so that you can get a better feel for what each option does.</p>
+						<div class="ml-[1em]">
+							<p class="paragraph">When you click <a class="porcelain_link"><span class="command">a command</span></a>'s link, options appear on the left panel and examples appear on the right panel.</p>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold">Using this page to look up command options</h2>
+						<p class="paragraph">The page groups command options into intuitive categories for easy discovery, rather than arranging everything in a simple list in alphabetical order.</p>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<div class="flex">
+							<div class="basis-0 grow">
+								<p class="paragraph">If the command you want to know is not illustrated here, please refer to the official documentation.</p>
+								<p class="paragraph">Documentation:</p>
+								<div class="ml-[1em]">
+									<p class="paragraph"><a class="" href="https://git-scm.com/doc">https://git-scm.com/doc</a></p>
+								</div>
+								<p class="paragraph">Reference:</p>
+								<div class="ml-[1em]">
+									<p class="paragraph"><a class="" href="https://git-scm.com/docs">https://git-scm.com/docs</a></p>
+									<p class="paragraph"><a class="" href="https://git.github.io/htmldocs/git.html">https://git.github.io/htmldocs/git.html</a></p>
+								</div>
+							</div>
+
+							<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
+							<div class="basis-0 grow">
+								<h2 class="highlight_bold">Legend</h2>
+
+								<p class="paragraph">types of links:</p>
+								<div class="ml-[1em]">
+									<p class="paragraph"><a class="concept_link">concept</a></p>
+									<p class="paragraph"><a class="porcelain_link"><span class="command">high level command</span></a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefporcelainaporcelain">porcelain</a>)</p>
+									<p class="paragraph"><a class="plumbing_link"><span class="command">low level command</span></a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefplumbingaplumbing">plumbing</a>)</p>
+									<p class="paragraph"><a class="git_scm_link">link to https://git-scm.com</a></p>
+									<p class="paragraph"><a class="github_link">link to https://github.com</a></p>
+									<p class="paragraph"><a class="external_link concept_link">external link (other interface)</a></p>
+									<p class="paragraph"><a class="external_link porcelain_link"><span class="command">external link (porcelain)</span></a></p>
+									<p class="paragraph"><a class="external_link plumbing_link"><span class="command">external link (plumbing)</span></a></p>
+								</div>
+
+								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+								<p class="paragraph">progress of features:</p>
+								<div class="ml-[1em]">
+									<p class="paragraph"><a class="">stable</a></p>
+									<p class="paragraph"><a class="">🧪experimental</a></p>
+								</div>
+							</div>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+					</div>
+
 					<div>
-						<h2 class="highlight_bold text-[160%] leading-[1.5em]">Object Database Layer</h2>
+						<h2 class="highlight_bold text-[160%] leading-[1.5em]">Object Database Layer <a class="[#reference\_desk\_dispatcher\_form.git\_reference\_desk\_object\_database\_layer~*_&]:[outline:dashed_2.5px_#0000FF] cursor-text" onmousedown="reference_desk_link_clicked0('git_reference_desk_object_database_layer','git_reference_desk_object_database_layer')" onclick="window.event.preventDefault()">🎯</a></h2>
+						<div class="hidden [#reference\_desk\_dispatcher\_form.git\_reference\_desk\_object\_database\_layer~*_&]:block">
+							<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+							<p class="paragraph">These concepts help you understand Git internals: how to configure Git, Git's object model, how to manage working trees and files within them. These are the basis of the source code management layer. (In theory, you can use those underlying commands to implement a revision control system yourself.)</p>
+							<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						</div>
+
 						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefobjectdatabaseaobjectdatabase">object database, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/objects/</span></a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddeffilesystemafilesystem">file system</a>)<br>
 						<div class="ml-[1em]">
 							<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefalternateobjectdatabaseaalternateobjectdatabase">alternate object database</a><br>
@@ -352,8 +421,8 @@ EOF}}"></script>
 								<h2 class="highlight_bold">Parameters</h2>
 								Configuration<br>
 								<div class="ml-[1em]">
-									<a class="[#reference\_desk\_dispatcher\_form.git\_version~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_version git_with_command','git_version');git_version_refresh();"><span class="command">git version</span></a><br>
-									<a class="[#reference\_desk\_dispatcher\_form.git\_config~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_config git_with_command','git_config');git_config_refresh();"><span class="command">git config</span>, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/config</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/config.worktree</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_version~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_version git_with_command','git_version');git_version_refresh();"><span class="command">git version</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_config~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_config git_with_command','git_config');git_config_refresh();"><span class="command">git config</span>, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/config</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/config.worktree</span></a><br>
 									<div class="ml-[1em]">
 										<a class="concept_link" href="https://git-scm.com/docs/git-config#FILES">configuration files</a><br>
 										<div class="ml-[1em]">
@@ -366,7 +435,7 @@ EOF}}"></script>
 										<a class="concept_link" href="https://git-scm.com/docs/git-config#ENVIRONMENT">overriding values</a><br>
 										<a class="concept_link" href="https://git-scm.com/docs/git-config#_variables">configuration variables</a><br>
 									</div>
-									<a class="[#reference\_desk\_dispatcher\_form.git\_var~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_var git_with_command','git_var');git_var_refresh();"><span class="command">git var</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_var~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_var git_with_command','git_var');git_var_refresh();"><span class="command">git var</span></a><br>
 									<div class="ml-[1em]">
 										<a class="concept_link" href="https://git-scm.com/docs/git-var#_variables">logical variables</a><br>
 									</div>
@@ -374,7 +443,7 @@ EOF}}"></script>
 								CLI<br>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-corequotePath">path syntax in output</a><br>
-									<a class="[#reference\_desk\_dispatcher\_form.git\_standalone~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_standalone git_with_command','git_standalone');git_standalone_refresh();"><span class="command">git</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_standalone~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_standalone git_with_command','git_standalone');git_standalone_refresh();"><span class="command">git</span></a><br>
 									<div class="ml-[1em]">
 										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefplumbingaplumbing">plumbing</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefcoregitacoreGit">core Git</a>)<br>
 										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefporcelainaporcelain">porcelain</a><br>
@@ -398,14 +467,14 @@ EOF}}"></script>
 										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefdanglingobjectadanglingobject">dangling object</a><br>
 									</div>
 									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-cat-file"><span class="command">git cat-file</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-show"><span class="command">git show</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-show"><span class="command">git show</span></a><br>
 									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-hash-object"><span class="command">git hash-object</span></a><br>
 								</div>
 
 								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefblobobjectablobobject">blob object</a><br>
 								<div class="ml-[1em]">
-									<a class="external_link" href="https://git-scm.com/docs/git-grep"><span class="command">git grep</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-grep"><span class="command">git grep</span></a><br>
 									<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/recover-corrupted-blob-object.txt">recover-corrupted-blob-object</a><br>
 									<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/recover-corrupted-object-harder.txt">recover-corrupted-object-harder</a><br>
 								</div>
@@ -452,12 +521,12 @@ EOF}}"></script>
 								<span class="command">$GIT_DIR</span> vs <span class="command">$GIT_COMMON_DIR</span>: <a class="concept_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt---worktree"><span class="command">--work-tree</span> (<span class="command">git config</span>)</a>, <a class="concept_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-extensionsworktreeConfig"><span class="inline_code">extensions.worktreeConfig</span></a>, <a class="concept_link" href="https://git-scm.com/docs/git-worktree#_details"><span class="command">git worktree</span></a><br>
 							</div>
 							<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefworktreeaworktree">worktree</a> = <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefworkingtreeaworkingtree">working tree</a> + per-worktree metadata (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefperworktreerefaper-worktreeref">per-worktree ref</a> + ...)<br>
-							<a class="[#reference\_desk\_dispatcher\_form.git\_worktree~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_worktree git_with_command','git_worktree');git_worktree_refresh();"><span class="command">git worktree</span>, <span class="command">$GIT_DIR</span>:<span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/worktrees/&lt;id&gt;/</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/refs/worktree/</span></a><br>
+							<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_worktree~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_worktree git_with_command','git_worktree');git_worktree_refresh();"><span class="command">git worktree</span>, <span class="command">$GIT_DIR</span>:<span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/worktrees/&lt;id&gt;/</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/refs/worktree/</span></a><br>
 							<div class="ml-[1em]">
 								<a class="concept_link" href="https://git-scm.com/docs/git-worktree#_description">main worktree, linked worktree</a><br>
 							</div>
 							<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefcleanaclean">clean</a> (<a class="concept_link" href="https://git-scm.com/docs/git-read-tree#_two_tree_merge">git read-tree</a>); <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefdirtyadirty">dirty</a>, <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefstashastashentry">stash entry</a><br>
-							<a class="external_link" href="https://git-scm.com/docs/git-stash"><span class="command">git stash</span></a><br>
+							<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-stash"><span class="command">git stash</span></a><br>
 						</div>
 
 						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -500,10 +569,23 @@ EOF}}"></script>
 						<a class="stackoverflow_link" href="https://stackoverflow.com/questions/7229885/what-are-the-differences-between-gitignore-and-gitkeep"><span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/**/.gitkeep</span></a><br>
 
 						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-						<h2 class="highlight_bold text-[160%] leading-[1.5em]">Source Code Management Layer</h2>
+						<h2 class="highlight_bold text-[160%] leading-[1.5em]">Source Code Management Layer <a class="[#reference\_desk\_dispatcher\_form.git\_reference\_desk\_source\_code\_management\_layer~*_&]:[outline:dashed_2.5px_#0000FF] cursor-text" onmousedown="reference_desk_link_clicked0('git_reference_desk_source_code_management_layer','git_reference_desk_source_code_management_layer')" onclick="window.event.preventDefault()">🎯</a></h2>
+						<div class="hidden [#reference\_desk\_dispatcher\_form.git\_reference\_desk\_source\_code\_management\_layer~*_&]:block">
+							<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+							<p class="paragraph">These concepts help you understand Git interface.</p>
+							<div class="ml-[1em]">
+								<p class="paragraph">refs: lightweight named pointers to an object or another ref.</p>
+								<p class="paragraph">Specify objects (especially commits) more easily in the presence of refs.</p>
+								<p class="paragraph">Init and sync repos.</p>
+								<p class="paragraph">Bundle files in the working tree into commits, move refs between commits.</p>
+								<p class="paragraph">View commit history and differences between commits.</p>
+								<p class="paragraph">Merge history and rewrite history.</p>
+							</div>
+							<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						</div>
 
 						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefSCMaSCM">SCM</a><br>
-						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefpseudorefapseudoref">pseudoref</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefspecialrefaspecialref">special ref</a>)<br>
+						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefpseudorefapseudoref">pseudoref</a><br>
 						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefrefaref">ref, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/refs/</span></a>: name pointing to an object name/another ref, has <a class="concept_link" href="https://git-scm.com/docs/git-for-each-ref#Documentation/git-for-each-ref.txt-refname">refname</a> and <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefreflogareflog">reflog</a><br>
 						<div class="ml-[1em]">
 							name pointing to another ref: <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefsymrefasymref">symref (symbolic reference)</a><br>
@@ -557,7 +639,7 @@ EOF}}"></script>
 									</div>
 									<div class="[grid-area:unevaluate\_plumbing] justify-self-center font-restore">
 										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-name-rev"><span class="command">git name-rev</span></a><br>
-										<a class="external_link" href="https://git-scm.com/docs/git-describe"><span class="command">git describe</span></a><br>
+										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-describe"><span class="command">git describe</span></a><br>
 									</div>
 									<div class="self-center [grid-area:label\_expression] font-restore">expression</div>
 									<div class="self-center [grid-area:label\_denotation] font-restore">denotation</div>
@@ -573,15 +655,15 @@ EOF}}"></script>
 									<a class="plumbing_link [#reference\_desk\_dispatcher\_form.git\_show\_ref~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_show_ref git_with_command','git_show_ref');git_show_ref_refresh();"><span class="command">git show-ref</span></a> <a class="concept_link" href="https://git-scm.com/docs/git-show-ref#Documentation/git-show-ref.txt-ltpatterngt82308203">pattern</a><br>
 									<a class="plumbing_link [#reference\_desk\_dispatcher\_form.git\_ls\_remote~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_ls_remote git_with_command','git_ls_remote');git_ls_remote_refresh();"><span class="command">git ls-remote</span></a> <a class="concept_link" href="https://git-scm.com/docs/git-ls-remote#Documentation/git-ls-remote.txt-ltpatternsgt82308203">pattern</a><br>
 									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-for-each-ref"><span class="command">git for-each-ref</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-reflog"><span class="command">git reflog</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-reflog"><span class="command">git reflog</span></a><br>
 									<a class="external_link" href="https://git-scm.com/docs/gitnamespaces"><span class="command">Namespaces</span></a><br>
 
 									<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-symbolic-ref"><span class="command">git symbolic-ref</span></a><br>
 
 									<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-									<a class="[#reference\_desk\_dispatcher\_form.git\_branch~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_branch git_with_command','git_branch');git_branch_refresh();"><span class="command">git branch</span></a><br>
-									<a class="[#reference\_desk\_dispatcher\_form.git\_tag~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_tag git_with_command','git_tag');git_tag_refresh();"><span class="command">git tag</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_branch~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_branch git_with_command','git_branch');git_branch_refresh();"><span class="command">git branch</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_tag~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_tag git_with_command','git_tag');git_tag_refresh();"><span class="command">git tag</span></a><br>
 									<div class="ml-[1em]">
 										<a class="concept_link" href="https://git-scm.com/docs/git-tag#_description">annotated tag, lightweight tag</a><br>
 									</div>
@@ -593,7 +675,7 @@ EOF}}"></script>
 						<h2 class="highlight_bold">Repository Creation and Synchronization</h2>
 						<div class="flex">
 							<div class="basis-auto grow">
-								<a class="[#reference\_desk\_dispatcher\_form.git\_init~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_init git_with_command','git_init');git_init_refresh();"><span class="command">git init</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_init~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_init git_with_command','git_init');git_init_refresh();"><span class="command">git init</span></a><br>
 
 								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 								<a class="external_link github_link" href="https://github.com/git/git/blob/master/contrib/subtree/git-subtree.txt"><span class="command">git subtree</span></a><br>
@@ -602,7 +684,7 @@ EOF}}"></script>
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefsubmoduleasubmodule">submodule</a>, <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefsuperprojectasuperproject">superproject</a><br>
 									<a class="git_scm_link" href="https://git-scm.com/docs/gitsubmodules#_forms">how to completely remove a submodule</a><br>
 									<a class="external_link" href="https://git-scm.com/docs/gitmodules"><span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/.gitmodules</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-submodule"><span class="command">git submodule</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-submodule"><span class="command">git submodule</span></a><br>
 								</div>
 								<a class="external_link github_link" href="https://github.com/ingydotnet/git-subrepo"><span class="command">git subrepo</span></a><br>
 							</div>
@@ -611,22 +693,22 @@ EOF}}"></script>
 							<div class="basis-auto grow">
 								<h2 class="highlight_bold">Tracked Repositories</h2>
 								<div class="ml-[1em]">
-									<a class="[#reference\_desk\_dispatcher\_form.git\_remote~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_remote git_with_command','git_remote');git_remote_refresh();"><span class="command">git remote</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_remote~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_remote git_with_command','git_remote');git_remote_refresh();"><span class="command">git remote</span></a><br>
 									<a class="external_link plumbing_link" href="https://git-scm.com/docs/gitremote-helpers"><span class="command">Remote Helpers</span></a><br>
 									<div class="ml-[1em]">
 										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-remote-ext"><span class="command">git remote-ext</span></a><br>
 										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-remote-fd"><span class="command">git remote-fd</span></a><br>
-										<span class="plumbing_link">...</span><br>
+										...<br>
 									</div>
 								</div>
 								<h2 class="highlight_bold"><a class="external_link" href="https://git-scm.com/docs/gitcredentials">Credentials</a></h2>
 								<div class="ml-[1em]">
-									<a class="external_link" href="https://git-scm.com/docs/git-credential"><span class="command">git credential</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-credential"><span class="command">git credential</span></a><br>
 									<a class="external_link plumbing_link" href="https://git-scm.com/doc/credential-helpers">Credential Helpers</a><br>
 									<div class="ml-[1em]">
 										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-credential-cache"><span class="command">git credential-cache</span></a><br>
 										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-credential-store"><span class="command">git credential-store</span></a><br>
-										<span class="plumbing_link">...</span><br>
+										...<br>
 									</div>
 								</div>
 							</div>
@@ -650,9 +732,9 @@ EOF}}"></script>
 							&quot;label_local push_plumbing_local push_arrow push_plumbing_remote label_remote&quot;
 							&quot;. push_porcelain push_porcelain push_porcelain .&quot;;">
 							<div class="[grid-area:fetch\_porcelain] justify-self-center font-restore">
-								<a class="[#reference\_desk\_dispatcher\_form.git\_clone~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_clone git_with_command','git_clone');git_clone_refresh();"><span class="command">git clone</span></a><br>
-								<a class="[#reference\_desk\_dispatcher\_form.git\_fetch~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_fetch git_with_command','git_fetch');git_fetch_refresh();"><span class="command">git fetch</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/FETCH_HEAD</span></a><br>
-								<a class="[#reference\_desk\_dispatcher\_form.git\_pull~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_pull git_with_command','git_pull');git_pull_refresh();"><span class="command">git pull</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_clone~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_clone git_with_command','git_clone');git_clone_refresh();"><span class="command">git clone</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_fetch~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_fetch git_with_command','git_fetch');git_fetch_refresh();"><span class="command">git fetch</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/FETCH_HEAD</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_pull~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_pull git_with_command','git_pull');git_pull_refresh();"><span class="command">git pull</span></a><br>
 							</div>
 							<div class="[grid-area:fetch\_plumbing\_local] font-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-fetch-pack">
 								<span class="command">git fetch-pack</span></a><br>
@@ -680,10 +762,10 @@ EOF}}"></script>
 								</div>
 							</div>
 							<div class="self-center [grid-area:label\_local]">🖳</div>
-							<div class="self-center [grid-area:label\_remote] text-center">🖳<br>🖳🖳</div>
+							<div class="self-center [grid-area:label\_remote] text-[2em]">🖧</div>
 							<div class="[grid-area:push\_porcelain] justify-self-center">
-								<a class="[#reference\_desk\_dispatcher\_form.git\_push~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_push git_with_command','git_push');git_push_refresh();"><span class="command">git push</span></a><br>
-								<a class="external_link" href="https://git-scm.com/docs/git-request-pull"><span class="command">git request-pull</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_push~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_push git_with_command','git_push');git_push_refresh();"><span class="command">git push</span></a><br>
+								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-request-pull"><span class="command">git request-pull</span></a><br>
 								<div class="ml-[1em]">
 									<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/using-signed-tag-in-pull-request.txt">using-signed-tag-in-pull-request</a><br>
 								</div>
@@ -750,37 +832,37 @@ EOF}}"></script>
 							</div>
 							<div class="[grid-area:write\_tree\_plumbing] justify-self-center font-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-write-tree"><span class="command">git write-tree</span></a><br></div>
 							<div class="[grid-area:read\_tree\_porcelain] justify-self-center self-end mb-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] font-restore">
-								<a class="[#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_checkout git_with_command','git_checkout');git_checkout_refresh();"><span class="command">git checkout</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_checkout git_with_command','git_checkout');git_checkout_refresh();"><span class="command">git checkout</span></a><br>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefcheckoutacheckout">checkout</a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-switch"><span class="command">🧪git switch</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-restore"><span class="command">🧪git restore</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-switch"><span class="command">🧪git switch</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-restore"><span class="command">🧪git restore</span></a><br>
 								</div>
-								<a class="external_link" href="https://git-scm.com/docs/git-sparse-checkout"><span class="command">git sparse-checkout</span></a><br>
-								<a class="[#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span></a><br>
+								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-sparse-checkout"><span class="command">git sparse-checkout</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span></a><br>
 							</div>
 							<div class="[grid-area:checkout\_index\_porcelain] justify-self-center self-end mb-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] font-restore">
-								<a class="external_link" href="https://git-scm.com/docs/git-clean"><span class="command">git clean</span></a><br>
-								<a class="[#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_checkout git_with_command','git_checkout');git_checkout_refresh();"><span class="command">git checkout</span></a><br>
+								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-clean"><span class="command">git clean</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_checkout git_with_command','git_checkout');git_checkout_refresh();"><span class="command">git checkout</span></a><br>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefcheckoutacheckout">checkout</a><br>
 									<div class="ml-[1em]">
 										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefoverlayaoverlay">overlay/no-overlay</a><br>
 										<a class="git_scm_link" href="https://git-scm.com/docs/parallel-checkout">parallel checkout</a><br>
 									</div>
-									<a class="external_link" href="https://git-scm.com/docs/git-switch"><span class="command">🧪git switch</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-restore"><span class="command">🧪git restore</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-switch"><span class="command">🧪git switch</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-restore"><span class="command">🧪git restore</span></a><br>
 								</div>
-								<a class="external_link" href="https://git-scm.com/docs/git-sparse-checkout"><span class="command">git sparse-checkout</span></a><br>
-								<a class="[#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span></a><br>
+								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-sparse-checkout"><span class="command">git sparse-checkout</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span></a><br>
 							</div>
 							<div class="[grid-area:update\_index\_porcelain] justify-self-center self-start mt-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] font-restore">
-								<a class="[#reference\_desk\_dispatcher\_form.git\_add~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_add git_with_command','git_add');git_add_refresh();"><span class="command">git add</span></a><br>
-								<a class="external_link" href="https://git-scm.com/docs/git-rm"><span class="command">git rm</span></a><br>
-								<a class="external_link" href="https://git-scm.com/docs/git-mv"><span class="command">git mv</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_add~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_add git_with_command','git_add');git_add_refresh();"><span class="command">git add</span></a><br>
+								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-rm"><span class="command">git rm</span></a><br>
+								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-mv"><span class="command">git mv</span></a><br>
 							</div>
 							<div class="[grid-area:write\_tree\_porcelain] justify-self-center self-start mt-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] font-restore">
-								<a class="[#reference\_desk\_dispatcher\_form.git\_commit~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_commit git_with_command','git_commit');git_commit_refresh();"><span class="command">git commit</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_commit~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_commit git_with_command','git_commit');git_commit_refresh();"><span class="command">git commit</span></a><br>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefcommitacommit">commit</a><br>
 									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-stripspace"><span class="command">git stripspace</span></a><br>
@@ -792,12 +874,12 @@ EOF}}"></script>
 									DB<br>
 								</div>
 								<div>
-									<a class="[#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_checkout git_with_command','git_checkout');git_checkout_refresh();"><span class="command">git checkout</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_checkout git_with_command','git_checkout');git_checkout_refresh();"><span class="command">git checkout</span></a><br>
 									<div class="ml-[1em]">
 										<a class="concept_link" href="https://git-scm.com/docs/git-checkout#_detached_head">detached HEAD</a><br>
-										<a class="external_link" href="https://git-scm.com/docs/git-switch"><span class="command">🧪git switch</span></a><br>
+										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-switch"><span class="command">🧪git switch</span></a><br>
 									</div>
-									<a class="[#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/ORIG_HEAD</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/ORIG_HEAD</span></a><br>
 									<div class="ml-[1em]">
 										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefrewindarewind">rewind</a><br>
 									</div>
@@ -830,8 +912,8 @@ EOF}}"></script>
 						</div>
 						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 						<a class="git_scm_link" href="https://git-scm.com/docs/git-checkout#Documentation/git-checkout.txt---orphanltnew-branchgt">how to publish the tree from a commit without exposing its full history, how to start a disconnected history</a><br>
-						<a class="external_link" href="https://git-scm.com/docs/git-notes"><span class="command">git notes</span>, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/refs/notes/</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/NOTES_MERGE_PARTIAL</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/NOTES_MERGE_WORKTREE</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/NOTES_MERGE_REF</span></a><br>
-						<a class="external_link" href="https://git-scm.com/docs/git-replace"><span class="command">git replace</span>, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/refs/replace/</span></a><br>
+						<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-notes"><span class="command">git notes</span>, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/refs/notes/</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/NOTES_MERGE_PARTIAL</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/NOTES_MERGE_WORKTREE</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/NOTES_MERGE_REF</span></a><br>
+						<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-replace"><span class="command">git replace</span>, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/refs/replace/</span></a><br>
 
 						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 						<h2 class="highlight_bold">Checkin/Checkout Filters</h2>
@@ -902,18 +984,18 @@ EOF}}"></script>
 										<a class="concept_link" href="https://git-scm.com/docs/git-ls-files#Documentation/git-ls-files.txt--t">status tag</a><br>
 										<span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/git-ls-files#Documentation/git-ls-files.txt---eol">eolinfo</a>&gt;</span>, <span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/git-ls-files#Documentation/git-ls-files.txt---eol">eolattr</a>&gt;</span><br>
 									</div>
-									<a class="[#reference\_desk\_dispatcher\_form.git\_status~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_status git_with_command','git_status');git_status_refresh();"><span class="command">git status</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_status~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_status git_with_command','git_status');git_status_refresh();"><span class="command">git status</span></a><br>
 									<div class="ml-[1em]">
 										<a class="concept_link" href="https://git-scm.com/docs/git-status#_short_format">path syntax in output (git status)</a><br>
 										<a class="concept_link" href="https://git-scm.com/docs/git-status#_output">status code</a><br>
 									</div>
-									<a class="external_link" href="https://git-scm.com/docs/git-show"><span class="command">git show</span></a><br>
-									<a class="[#reference\_desk\_dispatcher\_form.git\_diff~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_diff git_with_command','git_diff');git_diff_refresh();"><span class="command">git diff</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-show"><span class="command">git show</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_diff~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_diff git_with_command','git_diff');git_diff_refresh();"><span class="command">git diff</span></a><br>
 									<div class="ml-[1em]">
 										<a class="concept_link" href="https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---diff-filterACDMRTUXB82308203">status letter</a><br>
 									</div>
-									<a class="external_link" href="https://git-scm.com/docs/git-difftool"><span class="command">git difftool</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-range-diff"><span class="command">git range-diff</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-difftool"><span class="command">git difftool</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-range-diff"><span class="command">git range-diff</span></a><br>
 								</div>
 							</div>
 
@@ -923,16 +1005,16 @@ EOF}}"></script>
 								<div class="ml-[1em]">
 									<span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt">filter-spec</a>&gt;</span><br>
 									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-rev-list"><span class="command">git rev-list</span></a><br>
-									<a class="[#reference\_desk\_dispatcher\_form.git\_log~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_log git_with_command','git_log');git_log_refresh();"><span class="command">git log</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-shortlog"><span class="command">git shortlog</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-show-branch"><span class="command">git show-branch</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-shortlog"><span class="command">git blame</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_log~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_log git_with_command','git_log');git_log_refresh();"><span class="command">git log</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-shortlog"><span class="command">git shortlog</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-show-branch"><span class="command">git show-branch</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-shortlog"><span class="command">git blame</span></a><br>
 								</div>
 
 								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 								<h2 class="highlight_bold">Debugging History</h2>
 								<div class="ml-[1em]">
-									<a class="external_link" href="https://git-scm.com/docs/git-bisect"><span class="command">git bisect</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/refs/bisect/</span>,<br><span class="inline_code"><span class="command">$GIT_DIR</span>/BISECT_HEAD</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/BISECT_EXPECTED_REV</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-bisect"><span class="command">git bisect</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/refs/bisect/</span>,<br><span class="inline_code"><span class="command">$GIT_DIR</span>/BISECT_HEAD</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/BISECT_EXPECTED_REV</span></a><br>
 								</div>
 							</div>
 						</div>
@@ -980,7 +1062,7 @@ EOF}}"></script>
 
 						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 						<div class="flex">
-							<div class="basis-0 grow-[1.7]">
+							<div class="basis-0 grow-[1.4]">
 								<h2 class="highlight_bold"><a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefmergeamerge">Merging</a></h2> <a class="concept_link" href="https://git-scm.com/docs/git-status#_short_format">(git status)</a> <a class="concept_link" href="https://git-scm.com/docs/git-rebase#_behavioral_differences">(git rebase)</a> <a class="external_link" href="https://git-scm.com/docs/gitattributes#_merge">(<span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/**/.gitattributes</span>)</a><br>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefunmergedindexaunmergedindex">unmerged index</a>, <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefindexentryaindexentry">unmerged index entry</a><br>
@@ -988,7 +1070,7 @@ EOF}}"></script>
 									<div class="ml-[1em]">
 										<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/using-merge-subtree.txt">using-merge-subtree</a><br>
 									</div>
-									<a class="[#reference\_desk\_dispatcher\_form.git\_merge~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_merge git_with_command','git_merge');git_merge_refresh();"><span class="command">git merge</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/ORIG_HEAD</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_HEAD</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_AUTOSTASH</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/AUTO_MERGE</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_merge~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_merge git_with_command','git_merge');git_merge_refresh();"><span class="command">git merge</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/ORIG_HEAD</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_HEAD</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_AUTOSTASH</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/AUTO_MERGE</span></a><br>
 									<div class="ml-[1em]">
 										<a class="concept_link" href="https://git-scm.com/docs/git-merge#_true_merge">stage (git merge)</a><br>
 										<a class="git_scm_link" href="https://git-scm.com/docs/git-merge#_merging_tag">how to merge annotated tag</a><br>
@@ -1002,8 +1084,8 @@ EOF}}"></script>
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefcherry-pickingacherry-picking">Cherry-Picking</a><br>
 									<div class="ml-[1em]">
 										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefchangesetachangeset">changeset</a><br>
-										<a class="external_link" href="https://git-scm.com/docs/git-cherry-pick"><span class="command">git cherry-pick</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/CHERRY_PICK_HEAD</span></a><br>
-										<a class="external_link" href="https://git-scm.com/docs/git-revert"><span class="command">git revert</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/REVERT_HEAD</span></a><br>
+										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-cherry-pick"><span class="command">git cherry-pick</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/CHERRY_PICK_HEAD</span></a><br>
+										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-revert"><span class="command">git revert</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/REVERT_HEAD</span></a><br>
 										<div class="ml-[1em]">
 											<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/revert-a-faulty-merge.txt">revert-a-faulty-merge</a><br>
 										</div>
@@ -1012,7 +1094,7 @@ EOF}}"></script>
 									<div class="ml-[1em]">
 										<a class="git_scm_link" href="https://git-scm.com/docs/git-merge#_how_to_resolve_conflicts">how to resolve conflicts</a><br>
 										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-rerere"><span class="command">git rerere</span></a><br>
-										<a class="external_link" href="https://git-scm.com/docs/git-mergetool"><span class="command">git mergetool</span></a><br>
+										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-mergetool"><span class="command">git mergetool</span></a><br>
 										<div class="ml-[1em]">
 											<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-merge-index"><span class="command">git merge-index</span></a><br>
 											<div class="ml-[1em]">
@@ -1030,14 +1112,14 @@ EOF}}"></script>
 							<div class="basis-0 grow-[1]">
 								<h2 class="highlight_bold">Applying</h2> <a class="concept_link" href="https://git-scm.com/docs/git-rebase#_behavioral_differences">(git rebase)</a><br>
 								<div class="ml-[1em]">
-									<a class="external_link" href="https://git-scm.com/docs/git-format-patch"><span class="command">git format-patch</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-format-patch"><span class="command">git format-patch</span></a><br>
 									<div class="ml-[1em]">
 										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-patch-id"><span class="command">git patch-id</span></a><br>
 									</div>
 									<a class="external_link" href="https://git-scm.com/docs/gitmailmap"><span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/.mailmap</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-imap-send"><span class="command">git imap-send</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-send-email"><span class="command">git send-email</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-am"><span class="command">git am</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/ORIG_HEAD</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-imap-send"><span class="command">git imap-send</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-send-email"><span class="command">git send-email</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-am"><span class="command">git am</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/ORIG_HEAD</span></a><br>
 									<div class="ml-[1em]">
 										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-mailinfo"><span class="command">git mailinfo</span></a><br>
 										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-mailsplit"><span class="command">git mailsplit</span></a><br>
@@ -1061,7 +1143,7 @@ EOF}}"></script>
 								<div class="basis-0 grow-[1.6]">
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefrebasearebase">Rebase</a><br>
 									<div class="ml-[1em]">
-										<a class="[#reference\_desk\_dispatcher\_form.git\_rebase~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_rebase git_with_command','git_rebase');git_rebase_refresh();"><span class="command">git rebase</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/ORIG_HEAD</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/REBASE_HEAD</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/rebase-apply</span></a><br>
+										<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_rebase~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_rebase git_with_command','git_rebase');git_rebase_refresh();"><span class="command">git rebase</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/ORIG_HEAD</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/REBASE_HEAD</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/rebase-apply</span></a><br>
 										<div class="ml-[1em]">
 											<a class="git_scm_link" href="https://git-scm.com/docs/git-rebase#_splitting_commits">how to split commits</a><br>
 											<a class="git_scm_link" href="https://git-scm.com/docs/git-rebase#_recovering_from_upstream_rebase">how to recover from upstream rebase</a><br>
@@ -1075,7 +1157,7 @@ EOF}}"></script>
 
 								<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
 								<div class="basis-0 grow-[1]">
-									<a class="external_link" href="https://git-scm.com/docs/git-filter-branch"><span class="command">git filter-branch</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/refs/original/</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-filter-branch"><span class="command">git filter-branch</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/refs/original/</span></a><br>
 									<a class="external_link github_link" href="https://github.com/newren/git-filter-repo"><span class="command">git filter-repo</span></a><br>
 								</div>
 							</div>
@@ -1106,17 +1188,17 @@ EOF}}"></script>
 							<div class="basis-auto grow">
 								<h2 class="highlight_bold">Support/Feedback</h2>
 								<div class="ml-[1em]">
-									<a class="[#reference\_desk\_dispatcher\_form.git\_help~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_help git_with_command','git_help');git_help_refresh();"><span class="command">git help</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-diagnose"><span class="command">git diagnose</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-bugreport"><span class="command">git bugreport</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_help~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_help git_with_command','git_help');git_help_refresh();"><span class="command">git help</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-diagnose"><span class="command">git diagnose</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-bugreport"><span class="command">git bugreport</span></a><br>
 								</div>
 
 								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 								<h2 class="highlight_bold">Security</h2>
 								<div class="ml-[1em]">
 									<a class="git_scm_link plumbing_link" href="https://git-scm.com/docs/gitformat-signature">cryptographic signature formats,<br>mergetag, multi-line object header</a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-verify-tag"><span class="command">git verify-tag</span></a><br>
-									<a class="external_link" href="https://git-scm.com/docs/git-verify-commit"><span class="command">git verify-commit</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-verify-tag"><span class="command">git verify-tag</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-verify-commit"><span class="command">git verify-commit</span></a><br>
 								</div>
 							</div>
 						</div>
@@ -1134,39 +1216,6 @@ EOF}}"></script>
 						return s;
 					}
 EOF}}"></script>
-
-				<div class="hidden [#reference\_desk\_dispatcher\_form.git\_reference\_desk~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
-					<h1 class="heading1">Git Reference Desk</h1>
-					<p class="paragraph">Documentation:</p>
-					<div class="ml-[1em]">
-						<p class="paragraph"><a class="external_link" href="https://git-scm.com/doc">https://git-scm.com/doc</a></p>
-						<p class="paragraph">Reference:</p>
-						<div class="ml-[1em]">
-							<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs">https://git-scm.com/docs</a></p>
-							<p class="paragraph"><a class="external_link" href="https://git.github.io/htmldocs/git.html">https://git.github.io/htmldocs/git.html</a></p>
-						</div>
-					</div>
-
-					<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-					<p class="paragraph">types of links:</p>
-					<div class="ml-[1em]">
-						<p class="paragraph"><a class="concept_link">concept</a></p>
-						<p class="paragraph"><a class="">high level ("porcelain") command</a></p>
-						<p class="paragraph"><a class="plumbing_link">low level ("plumbing") command</a></p>
-						<p class="paragraph"><a class="git_scm_link">link to https://git-scm.com</a></p>
-						<p class="paragraph"><a class="github_link">link to https://github.com</a></p>
-						<p class="paragraph"><a class="external_link">external link (other interface)</a></p>
-						<p class="paragraph"><a class="external_link">external link (porcelain command)</a></p>
-						<p class="paragraph"><a class="external_link plumbing_link">external link (plumbing command)</a></p>
-					</div>
-
-					<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-					<p class="paragraph">progress of features:</p>
-					<div class="ml-[1em]">
-						<p class="paragraph"><a class="">stable</a></p>
-						<p class="paragraph"><a class="">🧪experimental</a></p>
-					</div>
-				</div>
 
 				{{ awk_expand_commands './git_version_form.template.html' }}
 				{{ awk_expand_commands './git_config_form.template.html' }}
