@@ -124,13 +124,24 @@
 				</div>
 			</div>
 
-			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_branch~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_branch')">
-				<input type="checkbox" id="git_clone_has_branch" name="git_clone_has_branch">
-				<div class="subform basis-0 grow">
-					<label for="git_clone_has_branch"><span class="command">--branch=&lt;name&gt;</span> Instead of pointing the newly created <span class="inline_code">HEAD</span> to the branch pointed to by the cloned repository’s <span class="inline_code">HEAD</span>, point to <span class="command">&lt;name&gt;</span> branch instead.</label>
-					<div class="form_item"><label for="git_clone_branch"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_clone_branch" name="git_clone_branch" class="basis-0 grow command_input" value="master"></div>
+			<fieldset>
+				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_HEAD~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_HEAD')"><p><span class="inline_code">HEAD</span> and branches:</p></legend>
+				<div class="form_item"><input type="radio" id="git_clone_HEAD_no_option" name="git_clone_HEAD" value="no_option" checked><label for="git_clone_HEAD_no_option"></label></div>
+				<div class="form_item">
+					<input type="radio" id="git_clone_HEAD_has_branch" name="git_clone_HEAD" value="has_branch">
+					<div class="subform basis-0 grow">
+						<label for="git_clone_HEAD_has_branch"><span class="command">--branch=&lt;name&gt;</span> Instead of pointing the newly created <span class="inline_code">HEAD</span> to the branch pointed to by the cloned repository’s <span class="inline_code">HEAD</span>, point to <span class="command">&lt;name&gt;</span> branch instead.</label>
+						<div class="form_item"><label for="git_clone_HEAD_branch"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_clone_HEAD_branch" name="git_clone_HEAD_branch" class="basis-0 grow command_input" value="master"></div>
+					</div>
 				</div>
-			</div>
+				<div class="form_item">
+					<input type="radio" id="git_clone_HEAD_has_revision" name="git_clone_HEAD" value="has_revision">
+					<div class="subform basis-0 grow">
+						<label for="git_clone_HEAD_has_revision"><span class="command">--revision=&lt;rev&gt;</span> Create a new repository, and fetch the history leading to the given revision <span class="command">&lt;rev&gt;</span> (and nothing else), without making any remote-tracking branch, and without making any local branch, and detach <span class="inline_code">HEAD</span> to <span class="command">&lt;rev&gt;</span>. <span id="git_clone_mirror_HEAD_has_revision_warning">Incompatible with <span class="command">--mirror</span>.</span></label>
+						<div class="form_item"><label for="git_clone_HEAD_revision"><span class="command">&lt;rev&gt;</span>:</label><textarea wrap="off" id="git_clone_HEAD_revision" name="git_clone_HEAD_revision" class="basis-0 grow command_input">HEAD</textarea></div>
+					</div>
+				</div>
+			</fieldset>
 		</fieldset>
 
 		<fieldset>
@@ -168,7 +179,9 @@
 
 		<fieldset>
 			<legend><p>(limit the set of requested commits:)</p></legend>
-			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_tags~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_tags')"><input type="checkbox" id="git_clone_has_no_tags" name="git_clone_has_no_tags"><label for="git_clone_has_no_tags"><span class="command">--no-tags</span> Don’t clone any tags, and set <span class="inline_code">remote.&lt;remote&gt;.tagOpt=--no-tags</span> in the config, ensuring that future <span class="command">git pull</span> and <span class="command">git fetch</span> operations won’t follow any tags.</label></div>
+			<div class="form_item"><input type="radio" id="git_clone_tags_no_option" name="git_clone_tags" value="" checked><label for="git_clone_tags_no_option">(Defaults to <span class="command">--tags</span>.)</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_tags~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_tags')"><input type="radio" id="git_clone_tags_has_no_tags" name="git_clone_tags" value="false"><label for="git_clone_tags_has_no_tags"><span class="command">--no-tags</span> Tags are not cloned. Ensures that future <span class="command">git pull</span> and <span class="command">git fetch</span> won’t follow any tags by setting the <span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegttagOpt">remote.&lt;remote&gt;.tagOpt</a>=<a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt---no-tags">--no-tags</a></span> configuration.</label></div>
+			<div class="form_item"><input type="radio" id="git_clone_tags_has_tags" name="git_clone_tags" value="true"><label for="git_clone_tags_has_tags"><span class="command">--tags</span> Cancels out a previous <span class="command">--no-tags</span>.</label></div>
 
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 			<div class="form_item"><input type="radio" id="git_clone_single_branch_no_option" name="git_clone_single_branch" value="" checked><label for="git_clone_single_branch_no_option">(Defaults to <span class="command">--no-single-branch</span>.)</label></div>
@@ -297,7 +310,8 @@
 			document.getElementById("git_clone_template").disabled = !document.getElementById("git_clone_has_template").checked;
 			document.getElementById("git_clone_separate_git_dir").disabled = !document.getElementById("git_clone_has_separate_git_dir").checked;
 			document.getElementById("git_clone_origin").disabled = !document.getElementById("git_clone_has_origin").checked;
-			document.getElementById("git_clone_branch").disabled = !document.getElementById("git_clone_has_branch").checked;
+			document.getElementById("git_clone_HEAD_branch").disabled = !document.getElementById("git_clone_HEAD_has_branch").checked;
+			document.getElementById("git_clone_HEAD_revision").disabled = !document.getElementById("git_clone_HEAD_has_revision").checked;
 
 			document.getElementById("git_clone_reference_repository").closest("fieldset").disabled = !(document.getElementById("git_clone_reference_has_reference").checked || document.getElementById("git_clone_reference_has_reference_if_able").checked);
 			document.getElementById("git_clone_bundle_uri").disabled = !document.getElementById("git_clone_has_bundle_uri").checked;
@@ -387,11 +401,28 @@
 				document.getElementById("git_clone_origin").classList.toggle("error_input", element_has_error);
 				has_error ||= element_has_error;
 			}
-			if(form_data.get("git_clone_has_branch")){
-				let element_value = form_data.get("git_clone_branch"), element_has_error = element_value.length == 0;
-				command_components.push("--branch=" + shell_quote(element_value));
-				document.getElementById("git_clone_branch").classList.toggle("error_input", element_has_error);
-				has_error ||= element_has_error;
+			{
+				let elements_has_error = document.getElementById("git_clone_resulting_type_mirror").checked && document.getElementById("git_clone_HEAD_has_revision").checked;
+				document.getElementById("git_clone_mirror_HEAD_has_revision_warning").classList.toggle("bg-[#FF8888]", elements_has_error);
+				has_error ||= elements_has_error;
+			}
+			switch(form_data.get("git_clone_HEAD")){
+				case "has_branch":
+					{
+						let element_value = form_data.get("git_clone_HEAD_branch"), element_has_error = element_value.length == 0;
+						command_components.push("--branch=" + shell_quote(element_value));
+						document.getElementById("git_clone_HEAD_branch").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "has_revision":
+					{
+						let element_value = form_data.get("git_clone_HEAD_revision"), element_has_error = element_value.length == 0;
+						command_components.push("--revision=" + shell_quote(element_value));
+						document.getElementById("git_clone_HEAD_revision").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
 			}
 			switch(form_data.get("git_clone_local")){
 				case "shared":
@@ -430,9 +461,11 @@
 					break;
 			}
 
-			let elements_has_error = document.getElementById("git_clone_has_bundle_uri").checked && (document.getElementById("git_clone_has_depth").checked || document.getElementById("git_clone_has_shallow_since").checked || Array.from(document.getElementById("git_clone_shallow_exclude_list").querySelectorAll("textarea:enabled")).length != 0);
-			document.getElementById("git_clone_has_bundle_uri_shallow_warning").classList.toggle("bg-[#FF8888]", elements_has_error);
-			has_error ||= elements_has_error;
+			{
+				let elements_has_error = document.getElementById("git_clone_has_bundle_uri").checked && (document.getElementById("git_clone_has_depth").checked || document.getElementById("git_clone_has_shallow_since").checked || Array.from(document.getElementById("git_clone_shallow_exclude_list").querySelectorAll("textarea:enabled")).length != 0);
+				document.getElementById("git_clone_has_bundle_uri_shallow_warning").classList.toggle("bg-[#FF8888]", elements_has_error);
+				has_error ||= elements_has_error;
+			}
 			if(form_data.get("git_clone_has_bundle_uri")){
 				let element_value = form_data.get("git_clone_bundle_uri"), element_has_error = element_value.length == 0;
 				command_components.push("--bundle-uri=" + shell_quote(element_value));
@@ -440,8 +473,14 @@
 				has_error ||= element_has_error;
 			}
 
-			if(form_data.get("git_clone_has_no_tags"))
-				command_components.push("--no-tags");
+			switch(form_data.get("git_clone_tags")){
+				case "false":
+					command_components.push("--no-tags");
+					break;
+				case "true":
+					command_components.push("--tags");
+					break;
+			}
 			switch(form_data.get("git_clone_single_branch")){
 				case "false":
 					command_components.push("--no-single-branch");

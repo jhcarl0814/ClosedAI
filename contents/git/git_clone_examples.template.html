@@ -276,8 +276,8 @@ EOF0
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
-<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_branch~*_&]:block">
-	<h2 class="heading2"><span class="command">git clone --branch=&lt;name&gt;</span></h2>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_HEAD~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --branch=&lt;name&gt;</span><br><span class="command">git clone --revision=&lt;rev&gt;</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
 		git config set --system --all 'color.advice' 'always';
@@ -291,12 +291,28 @@ EOF0
 			git -C './client' clone '../server/repo.git' './repo1'
 			git -C './client/repo1' config list --local --show-origin --show-scope
 			git -C './client/repo1' branch --list --all --verbose --verbose
-			git -C './client' clone --branch='branch' '../server/repo.git' './repo2'
-			git -C './client/repo2' config list --local --show-origin --show-scope
-			git -C './client/repo2' branch --list --all --verbose --verbose
-			git -C './client' clone --branch='tag' '../server/repo.git' './repo3'
-			git -C './client/repo3' config list --local --show-origin --show-scope
-			git -C './client/repo3' branch --list --all --verbose --verbose
+			git -C './client/repo1' status --verbose --verbose
+			git -C './client' clone --branch='branch' '../server/repo.git' './repo21'
+			git -C './client/repo21' config list --local --show-origin --show-scope
+			git -C './client/repo21' branch --list --all --verbose --verbose
+			git -C './client/repo21' status --verbose --verbose
+			git -C './client' clone --branch='tag' '../server/repo.git' './repo22'
+			git -C './client/repo22' config list --local --show-origin --show-scope
+			git -C './client/repo22' branch --list --all --verbose --verbose
+			git -C './client/repo22' status --verbose --verbose
+			git -C './client' clone --branch='HEAD' '../server/repo.git' './repo23'
+			git -C './client' clone --revision='branch' '../server/repo.git' './repo31'
+			git -C './client/repo31' config list --local --show-origin --show-scope
+			git -C './client/repo31' branch --list --all --verbose --verbose
+			git -C './client/repo31' status --verbose --verbose
+			git -C './client' clone --revision='tag' '../server/repo.git' './repo32'
+			git -C './client/repo32' config list --local --show-origin --show-scope
+			git -C './client/repo32' branch --list --all --verbose --verbose
+			git -C './client/repo32' status --verbose --verbose
+			git -C './client' clone --revision='HEAD' '../server/repo.git' './repo33'
+			git -C './client/repo33' config list --local --show-origin --show-scope
+			git -C './client/repo33' branch --list --all --verbose --verbose
+			git -C './client/repo33' status --verbose --verbose
 		EOF0
 		git config unset --system --all 'color.advice';
 		git config unset --system --all 'color.ui';
