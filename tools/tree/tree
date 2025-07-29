@@ -15,7 +15,7 @@ for option in "$@"; do
 		options+=("$option");
 	fi
 done
-find "${options[@]}" -printf '%p\0%d\0' -execdir 'stat' '--printf=%A\0%f\0%s\0%F\0\0' '{}' ';' | awk --characters-as-bytes --assign BINMODE='rw' --assign command_regular_file_is_text_file="$regular_file_is_text_file" --assign command_text_file_transformer="$text_file_transformer" --file '/dev/fd/3' 3<<-'EOF'
+find "${options[@]}" -printf '%p\0%d\0' -execdir 'stat' '--printf=%A\0%f\0%s\0%F\0\0' '{}' ';' | awk --assign BINMODE='rw' --assign command_regular_file_is_text_file="$regular_file_is_text_file" --assign command_text_file_transformer="$text_file_transformer" --file '/dev/fd/3' 3<<-'EOF'
 	BEGIN {
 		RS = "\0\0";
 		FS = "\0";
@@ -84,9 +84,9 @@ find "${options[@]}" -printf '%p\0%d\0' -execdir 'stat' '--printf=%A\0%f\0%s\0%F
 			path_lstriped_escaped_pipe = path_lstriped_fg_color path_lstriped_escaped_pipe path_lstriped_fg_reset (is_directory && substr(path_lstriped_escaped_pipe, length(path_lstriped_escaped_pipe), 1) != "/" ? "/" : "");
 		}
 		else {
-			number_of_pipes = gsub(/[^/]*\//, "| ", path_lstriped_escaped_pipe);
+			number_of_pipes = gsub(/[^/]*\//, "│ ", path_lstriped_escaped_pipe);
 			pipe_preceding_content = substr(path_lstriped_escaped_pipe, 1, number_of_pipes * 2);
-			path_lstriped_escaped_pipe = substr(path_lstriped_escaped_pipe, 1, number_of_pipes * 2 - 2) "├-" path_lstriped_fg_color substr(path_lstriped_escaped_pipe, number_of_pipes * 2 + 1) path_lstriped_fg_reset (is_directory && substr(path_lstriped_escaped_pipe, length(path_lstriped_escaped_pipe), 1) != "/" ? "/" : "");
+			path_lstriped_escaped_pipe = substr(path_lstriped_escaped_pipe, 1, number_of_pipes * 2 - 2) "├╴" path_lstriped_fg_color substr(path_lstriped_escaped_pipe, number_of_pipes * 2 + 1) path_lstriped_fg_reset (is_directory && substr(path_lstriped_escaped_pipe, length(path_lstriped_escaped_pipe), 1) != "/" ? "/" : "");
 		}
 		
 		file_type_and_permission_in_octal = sprintf("%06o", strtonum("0x" $4));
