@@ -3,11 +3,12 @@
 	{{
 		git config set --system --all 'color.ui' 'always';
 		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server11' './server12' './server13' './server2' './server3' './client';
+		mkdir --parents -- './server11' './server12' './server13' './server14' './server2' './server3' './client';
 		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
 			git -C './server11' init --bare './repo.git'
 			git -C './server12' init --bare './repo.git'
 			git -C './server13' init --bare './repo.git'
+			git -C './server14' init --bare './repo.git'
 			git -C './server2' init --bare './repo.git'
 			git -C './server3' init --bare './repo.git'
 
@@ -15,6 +16,7 @@
 			git -C './client/repo' remote add server11 'file://'"$(realpath './server11/repo.git')"
 			git -C './client/repo' remote add server12 'file://'"$(realpath './server12/repo.git')"
 			git -C './client/repo' remote add server13 'file://'"$(realpath './server13/repo.git')"
+			git -C './client/repo' remote add server14 'file://'"$(realpath './server14/repo.git')"
 			git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
 			git -C './client/repo' remote add server3 'file://'"$(realpath './server3/repo.git')"
 			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch branch1; git -C './client/repo' tag tag11; git -C './client/repo' tag --annotate --message="$((++number))" tag12
@@ -22,14 +24,17 @@
 			git -C './client/repo' checkout --orphan=branch3; git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch --delete --force branch2
 			git -C './client/repo' lg --all
 
-			git -C './client/repo' push server11 branch1
+			git -C './client/repo' push server11
 			git -C './server11/repo.git' lg --all
 
-			git -C './client/repo' push --tags server12
+			git -C './client/repo' push server12 branch1
 			git -C './server12/repo.git' lg --all
 
-			git -C './client/repo' push --tags server13 branch1
+			git -C './client/repo' push --tags server13
 			git -C './server13/repo.git' lg --all
+
+			git -C './client/repo' push --tags server14 branch1
+			git -C './server14/repo.git' lg --all
 
 			git -C './client/repo' push --branches server2
 			git -C './server2/repo.git' lg --all
@@ -55,19 +60,26 @@
 					git -C './server/repo.git' lg --all
 
 					git -C './client1' clone 'file://'"$(realpath './server/repo.git')" './repo'
+					git -C './client1/repo' lg --all
 					git -C './client1/repo' commit --message="$((++number))" --allow-empty
+					git -C './client1/repo' lg --all
 					git -C './client1/repo' push --force-with-lease
 					git -C './client1/repo' lg --all
 					git -C './server/repo.git' lg --all
 
 					git -C './client2' clone 'file://'"$(realpath './server/repo.git')" './repo'
+					git -C './client2/repo' lg --all
 					git -C './client2/repo' commit --message="$((++number))" --allow-empty
+					git -C './client2/repo' lg --all
 					git -C './client2/repo' push --force-with-lease
 					git -C './client2/repo' lg --all
 					git -C './server/repo.git' lg --all
 
 					git -C './client1/repo' commit --message="$((++number))" --allow-empty --amend
+					git -C './client1/repo' lg --all
+					git -C './client1/repo' push --force-with-lease
 					git -C './client1/repo' fetch
+					git -C './client1/repo' lg --all
 					git -C './client1/repo' push --force-with-lease
 					git -C './client1/repo' lg --all
 					git -C './server/repo.git' lg --all
@@ -87,27 +99,35 @@
 
 					git -C './client1' clone 'file://'"$(realpath './server/repo.git')" './repo'
 					branch_default_name="$(git -C './client1/repo' branch --show-current)"; echo "$branch_default_name"
+					git -C './client1/repo' lg --all
 					git -C './client1/repo' commit --message="$((++number))" --allow-empty
+					git -C './client1/repo' lg --all
 					git -C './client1/repo' push --force-with-lease --force-if-includes
 					git -C './client1/repo' lg --all
 					git -C './server/repo.git' lg --all
 
 					git -C './client2' clone 'file://'"$(realpath './server/repo.git')" './repo'
+					git -C './client2/repo' lg --all
 					git -C './client2/repo' commit --message="$((++number))" --allow-empty
+					git -C './client2/repo' lg --all
 					git -C './client2/repo' push --force-with-lease --force-if-includes
 					git -C './client2/repo' lg --all
 					git -C './server/repo.git' lg --all
 
 					git -C './client1/repo' commit --message="$((++number))" --allow-empty --amend
-					git -C './client1/repo' fetch
-					git -C './client1/repo' push --force-with-lease --force-if-includes
 					git -C './client1/repo' lg --all
+					git -C './client1/repo' fetch
+					git -C './client1/repo' lg --all
+					git -C './client1/repo' push --force-with-lease --force-if-includes
+					git -C './client1/repo' reflog show --format=tformat:'%gD' HEAD
+					git -C './client1/repo' lg --not $(git -C './client1/repo' reflog show --format=tformat:'%gD' HEAD) --not 'HEAD@{upstream}'
 					git -C './server/repo.git' lg --all
 
 					git -C './client1/repo' rebase --onto=HEAD 'HEAD@{upstream}@{1}' 'HEAD@{upstream}'
 					git -C './client1/repo' lg --all
 					git -C './client1/repo' checkout -B "$branch_default_name"
 					git -C './client1/repo' lg --all
+					git -C './client1/repo' push --force-with-lease --force-if-includes
 					git -C './client1/repo' push --force-with-lease
 					git -C './client1/repo' lg --all
 					git -C './server/repo.git' lg --all
@@ -131,18 +151,23 @@
 
 			git -C './client1' clone 'file://'"$(realpath './server/repo.git')" './repo'
 			branch_default_name="$(git -C './client1/repo' branch --show-current)"; echo "$branch_default_name"
+			git -C './client1/repo' lg --all
 			git -C './client1/repo' commit --message="$((++number))" --allow-empty
+			git -C './client1/repo' lg --all
 			git -C './client1/repo' push
 			git -C './client1/repo' lg --all
 			git -C './server/repo.git' lg --all
 
 			git -C './client2' clone 'file://'"$(realpath './server/repo.git')" './repo'
+			git -C './client2/repo' lg --all
 			git -C './client2/repo' commit --message="$((++number))" --allow-empty
+			git -C './client2/repo' lg --all
 			git -C './client2/repo' push
 			git -C './client2/repo' lg --all
 			git -C './server/repo.git' lg --all
 
 			git -C './client1/repo' commit --message="$((++number))" --allow-empty --amend
+			git -C './client1/repo' lg --all
 			git -C './client1/repo' push
 			git -C './client1/repo' fetch
 			git -C './client1/repo' lg --all
@@ -152,7 +177,7 @@
 			git -C './client1/repo' lg --all
 			git -C './client1/repo' checkout -B "$branch_default_name"
 			git -C './client1/repo' lg --all
-			git -C './client1/repo' push --force-with-lease="$branch_default_name"':'"$branch_default_name"'@{upstream}'
+			git -C './client1/repo' push --force-with-lease="$branch_default_name"':HEAD@{upstream}'
 			git -C './client1/repo' lg --all
 			git -C './server/repo.git' lg --all
 		EOF0

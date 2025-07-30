@@ -7,9 +7,9 @@
 		<fieldset>
 			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_from\_index~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_checkout_action_from_index')">
 				<p>Check out paths from the index. (Overwrite working tree with the contents in the index.)</p>
-				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_pathspec_list" name="git_checkout_action" value="from_index_pathspec_list" checked><label for="git_checkout_action_from_index_pathspec_list"><span class="command">git checkout [--] &lt;pathspec&gt;…</span></label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_pathspec_list" name="git_checkout_action" value="from_index_pathspec_list" checked><label for="git_checkout_action_from_index_pathspec_list"><span class="command">git checkout [--] &lt;pathspec&gt;...</span></label></div>
 				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_pathspec_from_file" name="git_checkout_action" value="from_index_pathspec_from_file"><label for="git_checkout_action_from_index_pathspec_from_file"><span class="command">git checkout --pathspec-from-file=&lt;file&gt; [--pathspec-file-nul]</span></label></div>
-				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_patch" name="git_checkout_action" value="from_index_patch"><label for="git_checkout_action_from_index_patch"><span class="command">git checkout --patch [--] [&lt;pathspec&gt;…]</span> Interactively select hunks in the difference between the index and the working tree. The chosen hunks are then applied in reverse to the working tree. (Implies <span class="command">--no-overlay</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_index_patch" name="git_checkout_action" value="from_index_patch"><label for="git_checkout_action_from_index_patch"><span class="command">git checkout --patch [--] [&lt;pathspec&gt;...]</span> Interactively select hunks in the difference between the index and the working tree. The chosen hunks are then applied in reverse to the working tree. (Implies <span class="command">--no-overlay</span>.)</label></div>
 			</legend>
 			<div id="git_checkout_action_from_index_pathspec_from_file_" class="subform">
 				<p><span class="command">--pathspec-from-file=&lt;file&gt;</span> Pathspec is passed in <span class="command">&lt;file&gt;</span> instead of commandline args.</p>
@@ -17,7 +17,7 @@
 				<div class="form_item"><input type="checkbox" id="git_checkout_action_from_index_has_pathspec_file_nul" name="git_checkout_action_from_index_has_pathspec_file_nul"><label for="git_checkout_action_from_index_has_pathspec_file_nul"><span class="command">--pathspec-file-nul</span> Pathspec elements are separated with NUL character and all other characters are taken literally (including newlines and quotes).</label></div>
 			</div>
 			<fieldset id="git_checkout_action_from_index_pathspec_list_">
-				<legend><p><span class="command">&lt;pathspec&gt;…</span> Limits the paths affected by the operation.</p></legend>
+				<legend><p><span class="command">&lt;pathspec&gt;...</span> Limits the paths affected by the operation.</p></legend>
 				<input id="git_checkout_action_from_index_pathspec_list_add" type="button" value="Add">
 				<div id="git_checkout_action_from_index_pathspec_list__"></div>
 				<script>
@@ -51,15 +51,15 @@
 			<div class="form_item"><input type="radio" id="git_checkout_action_from_index_overlay_has_no_overlay" name="git_checkout_action_from_index_overlay" value="false"><label for="git_checkout_action_from_index_overlay_has_no_overlay"><span class="command">--no-overlay</span> Files that appear in the index and working tree, but not in <span class="command">&lt;tree-ish&gt;</span> are removed, to make them match <span class="command">&lt;tree-ish&gt;</span> exactly.</label></div>
 
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-			<div class="form_item"><input type="checkbox" id="git_checkout_has_ignore_skip_worktree_bits" name="git_checkout_has_ignore_skip_worktree_bits"><label for="git_checkout_has_ignore_skip_worktree_bits"><span class="command">--ignore-skip-worktree-bits</span> In sparse checkout mode, <span class="command">git checkout -- &lt;paths&gt;</span> would update only entries matched by <span class="command">&lt;paths&gt;</span> and sparse patterns in <span class="inline_code"><span class="command">$GIT_DIR</span>/info/sparse-checkout</span>. Ignores the sparse patterns and adds back any files in <span class="command">&lt;paths&gt;</span>.</label></div>
+			<div class="form_item"><input type="checkbox" id="git_checkout_has_ignore_skip_worktree_bits" name="git_checkout_has_ignore_skip_worktree_bits"><label for="git_checkout_has_ignore_skip_worktree_bits"><span class="command">--ignore-skip-worktree-bits</span> In sparse checkout mode, <span class="command">git checkout -- &lt;path&gt;...</span> would update only entries matched by <span class="command">&lt;path&gt;...</span> and sparse patterns in <span class="inline_code"><span class="command">$GIT_DIR</span>/info/sparse-checkout</span>. Ignores the sparse patterns and adds back any files in <span class="command">&lt;path&gt;...</span>.</label></div>
 		</fieldset>
 
 		<fieldset>
 			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_from\_treeish~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_checkout_action_from_treeish')">
 				<p>Check out paths from a tree-ish. (Overwrite both the index and the working tree with the contents at the <span class="command">&lt;tree-ish&gt;</span>.)</p>
-				<div class="form_item"><input type="radio" id="git_checkout_action_from_treeish_pathspec_list" name="git_checkout_action" value="from_treeish_pathspec_list"><label for="git_checkout_action_from_treeish_pathspec_list"><span class="command">git checkout &lt;tree-ish&gt; [--] &lt;pathspec&gt;…</span></label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_treeish_pathspec_list" name="git_checkout_action" value="from_treeish_pathspec_list"><label for="git_checkout_action_from_treeish_pathspec_list"><span class="command">git checkout &lt;tree-ish&gt; [--] &lt;pathspec&gt;...</span></label></div>
 				<div class="form_item"><input type="radio" id="git_checkout_action_from_treeish_pathspec_from_file" name="git_checkout_action" value="from_treeish_pathspec_from_file"><label for="git_checkout_action_from_treeish_pathspec_from_file"><span class="command">git checkout --pathspec-from-file=&lt;file&gt; [--pathspec-file-nul] &lt;tree-ish&gt;</span></label></div>
-				<div class="form_item"><input type="radio" id="git_checkout_action_from_treeish_patch" name="git_checkout_action" value="from_treeish_patch"><label for="git_checkout_action_from_treeish_patch"><span class="command">git checkout --patch &lt;tree-ish&gt; [--] [&lt;pathspec&gt;…]</span> Interactively select hunks in the difference between the <span class="command">&lt;tree-ish&gt;</span> and the working tree. The chosen hunks are then applied in reverse to the working tree and the index. (Implies <span class="command">--no-overlay</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_checkout_action_from_treeish_patch" name="git_checkout_action" value="from_treeish_patch"><label for="git_checkout_action_from_treeish_patch"><span class="command">git checkout --patch &lt;tree-ish&gt; [--] [&lt;pathspec&gt;...]</span> Interactively select hunks in the difference between the <span class="command">&lt;tree-ish&gt;</span> and the working tree. The chosen hunks are then applied in reverse to the working tree and the index. (Implies <span class="command">--no-overlay</span>.)</label></div>
 			</legend>
 			<div id="git_checkout_action_from_treeish_pathspec_from_file_" class="subform">
 				<p><span class="command">--pathspec-from-file=&lt;file&gt;</span> Pathspec is passed in <span class="command">&lt;file&gt;</span> instead of commandline args.</p>
@@ -68,7 +68,7 @@
 			</div>
 			<div class="form_item"><label for="git_checkout_action_from_treeish_treeish"><span class="command">&lt;tree-ish&gt;</span>:</label><textarea wrap="off" id="git_checkout_action_from_treeish_treeish" name="git_checkout_action_from_treeish_treeish" class="basis-0 grow command_input">HEAD</textarea></div>
 			<fieldset id="git_checkout_action_from_treeish_pathspec_list_">
-				<legend><p><span class="command">&lt;pathspec&gt;…</span> Limits the paths affected by the operation.</p></legend>
+				<legend><p><span class="command">&lt;pathspec&gt;...</span> Limits the paths affected by the operation.</p></legend>
 				<input id="git_checkout_action_from_treeish_pathspec_list_add" type="button" value="Add">
 				<div id="git_checkout_action_from_treeish_pathspec_list__"></div>
 				<script>

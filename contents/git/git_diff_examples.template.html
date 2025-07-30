@@ -185,10 +185,12 @@
 			rm './repo/file1'
 			cat <(yes 'a' | head --lines=5) <(seq --format='%80g' 0 4) >'./repo/file2'
 			git -C './repo' diff
-			git -C './repo' diff --break-rewrites='75%' --find-renames='97%'
+			git -C './repo' diff --break-rewrites='75%/75%' --find-renames='97%'
+			git -C './repo' diff --break-rewrites='76%/75%' --find-renames='97%'
+			git -C './repo' diff --break-rewrites='75%/76%' --find-renames='97%'
 			git -C './repo' diff --break-rewrites='75%/75%' --find-renames='98%'
+			git -C './repo' diff --break-rewrites='76%/75%' --find-renames='98%'
 			git -C './repo' diff --break-rewrites='75%/76%' --find-renames='98%'
-			git -C './repo' diff --break-rewrites='76%' --find-renames='97%'
 		EOF0
 		git config unset --system --all 'color.ui';
 	}}
@@ -204,10 +206,12 @@
 			rm './repo/file1'
 			cat <(seq --format='%80g' 0 4) <(yes 'a' | head --lines=15) >'./repo/file2'
 			git -C './repo' diff
-			git -C './repo' diff --break-rewrites='53%' --find-renames='93%'
+			git -C './repo' diff --break-rewrites='53%/50%' --find-renames='93%'
+			git -C './repo' diff --break-rewrites='54%/50%' --find-renames='93%'
+			git -C './repo' diff --break-rewrites='53%/51%' --find-renames='93%'
 			git -C './repo' diff --break-rewrites='53%/50%' --find-renames='94%'
+			git -C './repo' diff --break-rewrites='54%/50%' --find-renames='94%'
 			git -C './repo' diff --break-rewrites='53%/51%' --find-renames='94%'
-			git -C './repo' diff --break-rewrites='54%' --find-renames='93%'
 		EOF0
 		git config unset --system --all 'color.ui';
 	}}
@@ -227,10 +231,12 @@
 			git -C './repo' diff
 			git -C './repo' add --intent-to-add './file2'
 			git -C './repo' diff
-			git -C './repo' diff --break-rewrites='75%' --find-copies='25%'
+			git -C './repo' diff --break-rewrites='75%/75%' --find-copies='25%'
+			git -C './repo' diff --break-rewrites='76%/75%' --find-copies='25%'
+			git -C './repo' diff --break-rewrites='75%/76%' --find-copies='25%'
 			git -C './repo' diff --break-rewrites='75%/75%' --find-copies='26%'
+			git -C './repo' diff --break-rewrites='76%/75%' --find-copies='26%'
 			git -C './repo' diff --break-rewrites='75%/76%' --find-copies='26%'
-			git -C './repo' diff --break-rewrites='76%'
 		EOF0
 		git config unset --system --all 'color.ui';
 	}}
@@ -248,10 +254,11 @@
 			git -C './repo' add --intent-to-add './file2'
 			git -C './repo' diff
 			git -C './repo' diff --break-rewrites='53%/50%' --find-copies='50%'
+			git -C './repo' diff --break-rewrites='54%/50%' --find-copies='50%'
 			git -C './repo' diff --break-rewrites='53%/51%' --find-copies='50%'
 			git -C './repo' diff --break-rewrites='53%/50%' --find-copies='51%'
+			git -C './repo' diff --break-rewrites='54%/50%' --find-copies='51%'
 			git -C './repo' diff --break-rewrites='53%/51%' --find-copies='51%'
-			git -C './repo' diff --break-rewrites='54%'
 		EOF0
 		git config unset --system --all 'color.ui';
 	}}
@@ -331,19 +338,15 @@
 		mkdir --parents -- './repo';
 		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
 			git init './repo'
-			echo '1' >'./repo/file1'; git -C './repo' add './file1'; blob1="$(git -C './repo' ls-files --format='%(objectname)' './file1')"
+			echo '1' >'./repo/file1'; git -C './repo' add './file1'; blob1="$(git -C './repo' ls-files --format='%(objectname)' './file1')"; echo "$blob1"
 			echo '1' >'./repo/file1'
-			echo '2' >'./repo/file2'; git -C './repo' add './file2'; blob2="$(git -C './repo' ls-files --format='%(objectname)' './file2')"
+			echo '2' >'./repo/file2'; git -C './repo' add './file2'; blob2="$(git -C './repo' ls-files --format='%(objectname)' './file2')"; echo "$blob2"
 			rm './repo/file2'
-			echo '3' >'./repo/file3'; git -C './repo' add './file3'; blob3="$(git -C './repo' ls-files --format='%(objectname)' './file3')"
+			echo '3' >'./repo/file3'; git -C './repo' add './file3'; blob3="$(git -C './repo' ls-files --format='%(objectname)' './file3')"; echo "$blob3"
 			mv './repo/file3' './repo/file32'
-			echo '4' >'./repo/file4'; git -C './repo' add './file4'; blob4="$(git -C './repo' ls-files --format='%(objectname)' './file4')"
+			echo '4' >'./repo/file4'; git -C './repo' add './file4'; blob4="$(git -C './repo' ls-files --format='%(objectname)' './file4')"; echo "$blob4"
 			echo '4' >'./repo/file42'
 			git -C './repo' ls-files --stage
-			echo "$blob1"
-			echo "$blob2"
-			echo "$blob3"
-			echo "$blob4"
 			git -C './repo' diff --find-object="$blob1"
 			git -C './repo' diff --find-object="$blob2"
 			git -C './repo' diff --find-object="$blob3"
@@ -399,7 +402,7 @@
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_format~*_&]:block">
-	<h2 class="heading2"><span class="command">git diff --patch</span><br><span class="command">git diff --raw</span><br><span class="command">git diff --stat[</span><br><span class="command">git diff --stat --compact-summary</span><br><span class="command">git diff --shortstat</span><br><span class="command">git diff --summary</span><br><span class="command">git diff --numstat</span><br><span class="command">git diff --dirstat[=&lt;param1,param2,…&gt;]</span><br><span class="command">git diff --name-only</span><br><span class="command">git diff --name-status</span></h2>
+	<h2 class="heading2"><span class="command">git diff --patch</span><br><span class="command">git diff --raw</span><br><span class="command">git diff --stat</span><br><span class="command">git diff --stat --compact-summary</span><br><span class="command">git diff --shortstat</span><br><span class="command">git diff --summary</span><br><span class="command">git diff --numstat</span><br><span class="command">git diff --dirstat[=&lt;param1,param2,…&gt;]</span><br><span class="command">git diff --name-only</span><br><span class="command">git diff --name-status</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
 		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";

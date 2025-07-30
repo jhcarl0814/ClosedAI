@@ -17,14 +17,14 @@
 		<div class="form_item">
 			<input type="checkbox" id="git_init_has_object_format" name="git_init_has_object_format">
 			<div class="subform basis-0 grow">
-				<label for="git_init_has_object_format"><span class="command">--object-format=(<input type="radio" id="git_init_object_format_format_sha1" name="git_init_object_format_format" value="sha1" checked><label for="git_init_object_format_format_sha1">sha1</label>|<input type="radio" id="git_init_object_format_format_sha256" name="git_init_object_format_format" value="sha256"><label for="git_init_object_format_format_sha256">sha256</label>)</span> Specify the given object <span class="command">&lt;format&gt;</span> (hash algorithm) for the repository. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-codeinitdefaultObjectFormatcode"><span class="inline_code">init.defaultObjectFormat</span></a> which defaults to <span class="inline_code">sha1</span>.)</label>
+				<label for="git_init_has_object_format"><span class="command">--object-format=(<input type="radio" id="git_init_object_format_format_sha1" name="git_init_object_format_format" value="sha1" checked><label for="git_init_object_format_format_sha1">sha1</label>|<input type="radio" id="git_init_object_format_format_sha256" name="git_init_object_format_format" value="sha256"><label for="git_init_object_format_format_sha256">sha256</label>)</span> Specify the given object <span class="command">&lt;format&gt;</span> (hash algorithm) for the repository. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultObjectFormat"><span class="inline_code">init.defaultObjectFormat</span></a> which defaults to <span class="inline_code">sha1</span>.)</label>
 			</div>
 		</div>
 
 		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_init\_template~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_init_template')">
 			<input type="checkbox" id="git_init_has_template" name="git_init_has_template">
 			<div class="subform basis-0 grow">
-				<label for="git_init_has_template"><span class="command">--template=&lt;template-directory&gt;</span> Specify the directory from which templates will be used. (Defaults to <span class="command">$GIT_TEMPLATE_DIR</span> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-codeinittemplateDircode"><span class="inline_code">init.templateDir</span></a> / <span class="command">/usr/share/git-core/templates</span>.)</label>
+				<label for="git_init_has_template"><span class="command">--template=&lt;template-directory&gt;</span> Specify the directory from which templates will be used. (Defaults to <span class="command">$GIT_TEMPLATE_DIR</span> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-inittemplateDir"><span class="inline_code">init.templateDir</span></a> / <span class="command">/usr/share/git-core/templates</span>.)</label>
 				<div class="form_item"><label for="git_init_template"><span class="command">&lt;template-directory&gt;</span>:</label><textarea wrap="off" id="git_init_template" name="git_init_template" class="basis-0 grow command_input"></textarea></div>
 			</div>
 		</div>
@@ -40,7 +40,7 @@
 		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_init\_initial\_branch~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_init_initial_branch')">
 			<input type="checkbox" id="git_init_has_initial_branch" name="git_init_has_initial_branch">
 			<div class="subform basis-0 grow">
-				<label for="git_init_has_initial_branch"><span class="command">--initial-branch=&lt;branch-name&gt;</span> Use <span class="command">&lt;branch-name&gt;</span> for the initial branch in the newly created repository. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-codeinitdefaultBranchcode"><span class="inline_code">init.defaultBranch</span></a> which defaults to <span class="inline_code">master</span>.)</label>
+				<label for="git_init_has_initial_branch"><span class="command">--initial-branch=&lt;branch-name&gt;</span> Use <span class="command">&lt;branch-name&gt;</span> for the initial branch in the newly created repository. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch"><span class="inline_code">init.defaultBranch</span></a> which defaults to <span class="inline_code">master</span>.)</label>
 				<div class="form_item"><label for="git_init_initial_branch"><span class="command">&lt;branch-name&gt;</span>:</label><input type="text" id="git_init_initial_branch" name="git_init_initial_branch" class="basis-0 grow command_input" value="master"></div>
 			</div>
 		</div>

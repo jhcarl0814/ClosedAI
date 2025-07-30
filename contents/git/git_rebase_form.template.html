@@ -236,8 +236,8 @@
 				<div class="form_item">
 					<input type="radio" id="git_rebase_gpg_sign_gpg_sign" name="git_rebase_gpg_sign" value="gpg_sign">
 					<div class="subform basis-0 grow">
-						<label for="git_rebase_gpg_sign_gpg_sign"><span class="command">--gpg-sign<input type="checkbox" id="git_rebase_gpg_sign_gpg_sign_has_argument" name="git_rebase_gpg_sign_gpg_sign_has_argument"><label for="git_rebase_gpg_sign_gpg_sign_has_argument">[=&lt;keyid&gt;]</label></span> GPG-sign commits. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"><span class="inline_code">user.signingKey</span></a> / the committer identity.)</label>
-						<div class="form_item"><label for="git_rebase_gpg_sign_gpg_sign_keyid"><span class="command">&lt;keyid&gt;</span>:</label><textarea wrap="off" id="git_rebase_gpg_sign_gpg_sign_keyid" name="git_rebase_gpg_sign_gpg_sign_keyid" class="basis-0 grow command_input"></textarea></div>
+						<label for="git_rebase_gpg_sign_gpg_sign"><span class="command">--gpg-sign<input type="checkbox" id="git_rebase_gpg_sign_gpg_sign_has_argument" name="git_rebase_gpg_sign_gpg_sign_has_argument"><label for="git_rebase_gpg_sign_gpg_sign_has_argument">[=&lt;key-id&gt;]</label></span> GPG-sign commits. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"><span class="inline_code">user.signingKey</span></a> / the committer identity.)</label>
+						<div class="form_item"><label for="git_rebase_gpg_sign_gpg_sign_key_id"><span class="command">&lt;key-id&gt;</span>:</label><textarea wrap="off" id="git_rebase_gpg_sign_gpg_sign_key_id" name="git_rebase_gpg_sign_gpg_sign_key_id" class="basis-0 grow command_input"></textarea></div>
 					</div>
 				</div>
 			</fieldset>
@@ -293,7 +293,7 @@
 			document.getElementById("git_rebase_C_n").disabled = !document.getElementById("git_rebase_has_C").checked;
 
 			document.getElementById("git_rebase_gpg_sign_gpg_sign_has_argument").disabled = !document.getElementById("git_rebase_gpg_sign_gpg_sign").checked;
-			document.getElementById("git_rebase_gpg_sign_gpg_sign_keyid").disabled = !(document.getElementById("git_rebase_gpg_sign_gpg_sign").checked && document.getElementById("git_rebase_gpg_sign_gpg_sign_has_argument").checked);
+			document.getElementById("git_rebase_gpg_sign_gpg_sign_key_id").disabled = !(document.getElementById("git_rebase_gpg_sign_gpg_sign").checked && document.getElementById("git_rebase_gpg_sign_gpg_sign_has_argument").checked);
 
 			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
 			command_components.push("rebase");
@@ -517,9 +517,9 @@
 							break;
 						case "gpg_sign":
 							if(form_data.get("git_rebase_gpg_sign_gpg_sign_has_argument")){
-								let element_value = form_data.get("git_rebase_gpg_sign_gpg_sign_keyid"), element_has_error = element_value.length == 0;
+								let element_value = form_data.get("git_rebase_gpg_sign_gpg_sign_key_id"), element_has_error = element_value.length == 0;
 								command_components.push("--gpg-sign=" + shell_quote(element_value));
-								document.getElementById("git_rebase_gpg_sign_gpg_sign_keyid").classList.toggle("error_input", element_has_error);
+								document.getElementById("git_rebase_gpg_sign_gpg_sign_key_id").classList.toggle("error_input", element_has_error);
 								has_error ||= element_has_error;
 							}
 							else{

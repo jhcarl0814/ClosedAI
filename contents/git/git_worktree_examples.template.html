@@ -830,7 +830,7 @@
 		<div>
 			<h3 class="heading3"><span class="command">git worktree add</span> (without <span class="command">--orphan</span>) (<span class="command">&lt;commit-ish&gt;</span> isn't existent local branch name)</h3>
 			<p class="paragraph">(not <span class="command">-b</span>/<span class="command">-B</span>/<span class="command">--detach</span>)</p>
-			<p class="paragraph"><span class="command">--no-track</span> doesn't reverse <span class="command">--track</span> in <span class="command">git worktree add --track -b &lt;branch&gt; &lt;path&gt; &lt;remote-tracking branch&gt;</span> but causes error</p>
+			<p class="paragraph"><span class="command">--no-track</span> reverses <span class="command">--track</span> in <span class="command">git worktree add --track -b &lt;branch&gt; &lt;path&gt; &lt;remote-tracking branch&gt;</span></p>
 			{{
 				git config set --system --all 'color.ui' 'always';
 				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
@@ -854,21 +854,18 @@
 					git -C './client/repo' lg --all
 
 					git -C './client/repo' worktree add '../worktree1' branch1
-					git -C './client/repo' worktree add '../worktree21' branch2
-					git -C './client/repo' -c checkout.defaultRemote='server1' worktree add '../worktree21' branch2
-					git -C './client/repo' worktree add --no-track '../worktree22' branch2
-					git -C './client/repo' -c checkout.defaultRemote='server1' worktree add --no-track '../worktree22' branch2
-					git -C './client/repo' worktree add '../worktree31' branch3
-					git -C './client/repo' worktree add --no-track '../worktree32' branch3
+					git -C './client/repo' worktree add --no-track '../worktree2' branch2
+					git -C './client/repo' -c checkout.defaultRemote='server1' worktree add --no-track '../worktree2' branch2
+					git -C './client/repo' worktree add --no-track '../worktree3' branch3
 					git -C './client/repo' branch --list --all --verbose --verbose
 					git -C './client/repo' worktree list --verbose
 					git -C './client/repo' lg --all
-					git -C './client/worktree21' branch --list --all --verbose --verbose
-					git -C './client/worktree21' worktree list --verbose
-					git -C './client/worktree21' lg --all
-					git -C './client/worktree31' branch --list --all --verbose --verbose
-					git -C './client/worktree31' worktree list --verbose
-					git -C './client/worktree31' lg --all
+					git -C './client/worktree2' branch --list --all --verbose --verbose
+					git -C './client/worktree2' worktree list --verbose
+					git -C './client/worktree2' lg --all
+					git -C './client/worktree3' branch --list --all --verbose --verbose
+					git -C './client/worktree3' worktree list --verbose
+					git -C './client/worktree3' lg --all
 				EOF0
 				git config unset --system --all 'color.ui';
 			}}

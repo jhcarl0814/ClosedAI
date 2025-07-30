@@ -9,11 +9,10 @@
 				mkdir --parents -- './repo';
 				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
 					git init './repo'
-					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
-					git -C './repo' checkout -b branch1; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
-					git -C './repo' checkout "$branch_default_name"
-					git -C './repo' checkout -b branch2; echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
+					git -C './repo' reset --hard  HEAD~1
+					echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
 					git -C './repo' checkout branch1; git -C './repo' merge branch2
 					git -C './repo' ls-files --stage --others
 					git -C './repo' status --verbose --verbose
@@ -22,6 +21,7 @@
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout '.'
 				EOF0
 				git config unset --system --all 'color.ui';
@@ -35,11 +35,10 @@
 				mkdir --parents -- './repo';
 				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
 					git init './repo'
-					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
-					git -C './repo' checkout -b branch1; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
-					git -C './repo' checkout "$branch_default_name"
-					git -C './repo' checkout -b branch2; echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
+					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
+					git -C './repo' reset --hard  HEAD~1
+					echo '3' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
 					git -C './repo' checkout branch1; git -C './repo' merge branch2
 					git -C './repo' ls-files --stage --others
 					git -C './repo' status --verbose --verbose
@@ -48,6 +47,7 @@
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --force '.'
 				EOF0
 				git config unset --system --all 'color.ui';
@@ -73,31 +73,37 @@
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --ours '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --theirs '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --merge '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --conflict=merge '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --conflict=diff3 '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 				EOF0
 				git config unset --system --all 'color.ui';
 			}}
@@ -122,31 +128,37 @@
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --ours '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --theirs '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --merge '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --conflict=merge '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --conflict=diff3 '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 				EOF0
 				git config unset --system --all 'color.ui';
 			}}
@@ -174,31 +186,37 @@
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --ours '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --theirs '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --merge '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --conflict=merge '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --conflict=diff3 '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 				EOF0
 				git config unset --system --all 'color.ui';
 			}}
@@ -229,31 +247,37 @@
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --ours '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --theirs '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --merge '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --conflict=merge '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 					git -C './repo' checkout --conflict=diff3 '.'
 					git -C './repo' diff
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 				EOF0
 				git config unset --system --all 'color.ui';
 			}}
@@ -336,12 +360,12 @@
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches~*_&]:block">
 	<h2 class="heading2"><span class="command">git checkout</span> (with optional <span class="command">&lt;commit-ish&gt;</span>) (without <span class="command">&lt;pathspec&gt;…</span>) check out paths from <span class="command">&lt;commit-ish&gt;</span> and switch branches<br>(not <span class="command">--force</span>/<span class="command">--merge</span>/<span class="command">--conflict</span>)</h2>
-	<p class="paragraph"><span class="inline_code indent-0">HEAD</span>: switch to <span class="command">&lt;commit-ish&gt;</span></p>
-	<p class="paragraph">index: (see below)</p>
-	<p class="paragraph">working tree: (see below)</p>
 	<p class="paragraph">if index has unmerged entries, error: you need to resolve your current index first [ file: needs merge, ... ]</p>
 	<p class="paragraph">if index doesn't have unmerged entries,</p>
 	<div class="ml-[2em]">
+		<p class="paragraph"><span class="inline_code indent-0">HEAD</span>: switch to <span class="command">&lt;commit-ish&gt;</span></p>
+		<p class="paragraph">index: (see below)</p>
+		<p class="paragraph">working tree: (see below)</p>
 		<p class="paragraph">if a file is different between <span class="command">&lt;commit-ish&gt;</span> and <span class="inline_code indent-0">HEAD</span>,</p>
 		<div class="ml-[2em]">
 			<p class="paragraph">if <span class="command">&lt;commit-ish&gt;</span> != index &amp;&amp; <span class="inline_code indent-0">HEAD</span> != index, then resetting index to <span class="command">&lt;commit-ish&gt;</span> would lose entries in index, so checkout is aborted</p>
@@ -889,12 +913,12 @@
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_checkout~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches~*_&]:block [#reference\_desk\_dispatcher\_example.git\_checkout\_action\_switch\_branches\_merge\_conflict~*_&]:block">
 	<h2 class="heading2"><span class="command">git checkout</span> (with optional <span class="command">&lt;commit-ish&gt;</span>) (without <span class="command">&lt;pathspec&gt;…</span>) check out paths from <span class="command">&lt;commit-ish&gt;</span> and switch branches<br><span class="command">--merge</span>/<span class="command">--conflict</span></h2>
-	<p class="paragraph"><span class="inline_code indent-0">HEAD</span>: switch to <span class="command">&lt;commit-ish&gt;</span></p>
-	<p class="paragraph">index: (see below)</p>
-	<p class="paragraph">working tree: (see below)</p>
 	<p class="paragraph">if index has unmerged entries, error: you need to resolve your current index first [ file: needs merge, ... ]</p>
 	<p class="paragraph">if index doesn't have unmerged entries,</p>
 	<div class="ml-[2em]">
+		<p class="paragraph"><span class="inline_code indent-0">HEAD</span>: switch to <span class="command">&lt;commit-ish&gt;</span></p>
+		<p class="paragraph">index: (see below)</p>
+		<p class="paragraph">working tree: (see below)</p>
 		<p class="paragraph">if a file is different between <span class="command">&lt;commit-ish&gt;</span> and <span class="inline_code indent-0">HEAD</span>,</p>
 		<div class="ml-[2em]">
 			<p class="paragraph">if <span class="command">&lt;commit-ish&gt;</span> != index &amp;&amp; <span class="inline_code indent-0">HEAD</span> != index, then resetting index to <span class="command">&lt;commit-ish&gt;</span> would lose entries in index, so checkout is aborted</p>
@@ -1423,6 +1447,7 @@
 					git -C './repo' diff --base
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
+					git -C './repo' diff AUTO_MERGE
 				EOF0
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';

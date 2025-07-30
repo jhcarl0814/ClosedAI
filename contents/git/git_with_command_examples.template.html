@@ -81,20 +81,20 @@
 			touch -- './repo1/file11' './repo1/file12' './repo1/dir/file13' './repo1/dir/file14' './repo2/file21' './repo2/file22' './repo2/dir/file23' './repo2/dir/file24'
 			git -C './repo1' add './file11' './dir/file13'; git -C './repo2' add './file21' './dir/file23';
 			cd './repo1/dir'
-			git rev-parse --absolute-git-dir --show-toplevel
+			git rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 			git status
 			git status '.'
 			cd '../../repo2/dir'
-			git --git-dir '../../repo1/.git' rev-parse --absolute-git-dir --show-toplevel
+			git --git-dir '../../repo1/.git' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 			git --git-dir '../../repo1/.git' status
 			git --git-dir '../../repo1/.git' status '.'
-			git --git-dir '../../repo1/.git' --work-tree '../../repo1' rev-parse --absolute-git-dir --show-toplevel
+			git --git-dir '../../repo1/.git' --work-tree '../../repo1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 			git --git-dir '../../repo1/.git' --work-tree '../../repo1' status
 			git --git-dir '../../repo1/.git' --work-tree '../../repo1' status '.'
-			git -C '..' --git-dir '../repo1/.git' --work-tree '../repo1' rev-parse --absolute-git-dir --show-toplevel
+			git -C '..' --git-dir '../repo1/.git' --work-tree '../repo1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 			git -C '..' --git-dir '../repo1/.git' --work-tree '../repo1' status
 			git -C '..' --git-dir '../repo1/.git' --work-tree '../repo1' status '.'
-			git -C '..' -C '../repo1' -C './dir' --git-dir '../.git' --work-tree '..' rev-parse --absolute-git-dir --show-toplevel
+			git -C '..' -C '../repo1' -C './dir' --git-dir '../.git' --work-tree '..' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 			git -C '..' -C '../repo1' -C './dir' --git-dir '../.git' --work-tree '..' status
 			git -C '..' -C '../repo1' -C './dir' --git-dir '../.git' --work-tree '..' status '.'
 		EOF0
@@ -110,10 +110,11 @@
 		cd './repo1';
 		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
 			git init
-			git rev-parse --absolute-git-dir --show-toplevel
-			git --bare rev-parse --absolute-git-dir --show-toplevel
-			git --bare --git-dir='./.git' rev-parse --absolute-git-dir --show-toplevel
-			git --bare --git-dir='./.git' --work-tree='.' rev-parse --absolute-git-dir --show-toplevel
+			git rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git --bare rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git --bare --git-dir='./.git' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir
+			git --bare --git-dir='./.git' rev-parse --path-format=absolute --show-toplevel
+			git --bare --git-dir='./.git' --work-tree='.' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 		EOF0
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -132,10 +133,8 @@ git -C './client1/repo' branch --list --all --verbose --verbose
 git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 git -C './client1/repo' fetch origin
 git -C './client1/repo' branch --list --all --verbose --verbose
-git -C './client1/repo' remote set-head origin --auto
-git -C './client1/repo' branch --list --all --verbose --verbose
-branch_remote_default_path="$(git -C './client1/repo' symbolic-ref 'refs/remotes/origin/HEAD')"
-branch_remote_default_name="${branch_remote_default_path#'refs/remotes/origin/'}"
+branch_remote_default_path="$(git -C './client1/repo' symbolic-ref 'refs/remotes/origin/HEAD')"; echo "$branch_remote_default_path"
+branch_remote_default_name="${branch_remote_default_path#'refs/remotes/origin/'}"; echo "$branch_remote_default_name"
 git -C './client1/repo' checkout "$branch_remote_default_name"
 git -C './client1/repo' branch --list --all --verbose --verbose
 
@@ -152,7 +151,8 @@ git -C './client2/repo' commit --message="$((++number))" --allow-empty
 git -C './client2/repo' --namespace='client2' push origin tests
 git -C './client2/repo' lg --all
 
-tree './client1/repo/.git/refs' './client2/repo/.git/refs' './server/repo.git/refs'
+git -C './client1/repo' show-ref --head
+git -C './client2/repo' show-ref --head
 git -C './server/repo.git' show-ref --head
 git -C './server/repo.git' lg --all --clear-decorations
 
@@ -177,7 +177,7 @@ IFS= read -rd '' windows_path < <(cygpath --windows "$(realpath './server/repo.g
         }
         printf("%s", RT);
     }
-')
+'); echo "$windows_path"
 git -C './tester12' -c protocol.ext.allow=always clone --branch tests ext::'git --namespace=client1 %s '"${windows_path%?}" 'repo'
 git -C './tester12/repo' branch --list --all --verbose --verbose
 git -C './tester12/repo' lg --all

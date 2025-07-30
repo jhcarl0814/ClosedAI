@@ -57,11 +57,11 @@ EOF0
 			git init --separate-git-dir='./repo1.git' './repo'
 			tree '.'
 			treex './repo'
-			git -C './repo' rev-parse --absolute-git-dir --show-toplevel
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 			git init --separate-git-dir='./repo2.git' './repo'
 			tree '.'
 			treex './repo'
-			git -C './repo' rev-parse --absolute-git-dir --show-toplevel
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 		EOF0
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -70,23 +70,23 @@ EOF0
 		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
 			git init './repo'
 			tree '.'
-			git -C './repo' rev-parse --absolute-git-dir --show-toplevel
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 			git init --separate-git-dir='./repo.git' './repo'
 			tree '.'
 			treex './repo'
-			git -C './repo' rev-parse --absolute-git-dir --show-toplevel
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 			git init './repo'
 			tree '.'
 			treex './repo'
-			git -C './repo' rev-parse --absolute-git-dir --show-toplevel
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 			git init --separate-git-dir='./repo/.git' './repo'
 			tree '.'
 			treex './repo'
-			git -C './repo' rev-parse --absolute-git-dir --show-toplevel
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 			git init --separate-git-dir='./repo/.git2' './repo'
 			tree '.'
 			treex './repo/.git'
-			git -C './repo' rev-parse --absolute-git-dir --show-toplevel
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 		EOF0
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>

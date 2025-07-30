@@ -142,7 +142,7 @@
 			git ls-remote --get-url './server/repo.git'
 			git -c 'url.scheme://authority/path/.insteadOf=./' ls-remote --get-url './server/repo.git'
 			git ls-remote --get-url 'file://'"$(realpath './server/repo.git')"
-			git -c 'url.scheme://authority/.insteadOf=file:///' ls-remote --get-url 'file://'"$(realpath './server/repo.git')"
+			git -c 'url.scheme://authority/path/.insteadOf=file:///' ls-remote --get-url 'file://'"$(realpath './server/repo.git')"
 			git ls-remote --get-url 'file://'"$(realpath '.')"'/server/repo.git'
 			git -c 'url.scheme://authority/path/.insteadOf=file:///' ls-remote --get-url 'file://'"$(realpath '.')"'/server/repo.git'
 		EOF0
