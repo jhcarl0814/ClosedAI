@@ -7,10 +7,9 @@
 		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
 			git init './repo'
 			git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag1
-			git -C './repo' branch branch2
-			git -C './repo' checkout -b branch1; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag2
-			git -C './repo' checkout branch2; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag3
-			git -C './repo' checkout branch1; git -C './repo' merge --message="$((++number))" branch2; git -C './repo' tag tag4
+			git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag2
+			git -C './repo' reset --hard HEAD~1; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag3
+			git -C './repo' merge --message="$((++number))" tag2; git -C './repo' tag tag4
 			git -C './repo' lg --all
 			git -C './repo' tag --list --contains=tag2
 			git -C './repo' tag --list --contains=tag3

@@ -404,8 +404,8 @@
 					git -C './repo' -c 'core.editor=cat' rebase --onto=branch3 --root --rebase-merges --interactive
 					git -C './repo' lg --all --patch --diff-merges=separate
 					echo '6' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
-					echo '7' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '8' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '7' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '9' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					git -C './repo' lg --all --patch --diff-merges=separate
 				EOF0
@@ -455,8 +455,8 @@
 					git -C './repo' lg --all --patch --diff-merges=separate
 					git -C './repo' -c 'core.editor=cat' rebase --onto=branch3 --root --rebase-merges --interactive
 					git -C './repo' lg --all --patch --diff-merges=separate
-					echo '5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '6' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '7' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					git -C './repo' lg --all --patch --diff-merges=separate
 				EOF0
@@ -561,10 +561,10 @@
 					echo '8' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' merge --continue
 					git -C './repo' lg --all --patch --diff-merges=separate
 					git -C './repo' -c 'core.editor=cat' rebase --interactive --rebase-merges=rebase-cousins "$branch_default_name" branch1
-					echo '9' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '10' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
-					echo '11' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '12' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '9' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
+					echo '11' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '13' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					git -C './repo' lg --all --patch --diff-merges=separate
 				EOF0

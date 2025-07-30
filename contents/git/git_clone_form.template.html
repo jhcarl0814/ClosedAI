@@ -84,7 +84,7 @@
 			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_template~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_template')">
 				<input type="checkbox" id="git_clone_has_template" name="git_clone_has_template">
 				<div class="subform basis-0 grow">
-					<label for="git_clone_has_template"><span class="command">--template=&lt;template-directory&gt;</span> Specify the directory from which templates will be used. (Defaults to <span class="command">$GIT_TEMPLATE_DIR</span> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-codeinittemplateDircode"><span class="inline_code">init.templateDir</span></a> / <span class="command">/usr/share/git-core/templates</span>.)</label>
+					<label for="git_clone_has_template"><span class="command">--template=&lt;template-directory&gt;</span> Specify the directory from which templates will be used. (Defaults to <span class="command">$GIT_TEMPLATE_DIR</span> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-inittemplateDir"><span class="inline_code">init.templateDir</span></a> / <span class="command">/usr/share/git-core/templates</span>.)</label>
 					<div class="form_item"><label for="git_clone_template"><span class="command">&lt;template-directory&gt;</span>:</label><textarea wrap="off" id="git_clone_template" name="git_clone_template" class="basis-0 grow command_input"></textarea></div>
 				</div>
 			</div>
@@ -119,7 +119,7 @@
 			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_origin~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_origin')">
 				<input type="checkbox" id="git_clone_has_origin" name="git_clone_has_origin">
 				<div class="subform basis-0 grow">
-					<label for="git_clone_has_origin"><span class="command">--origin=&lt;name&gt;</span> Instead of using the remote name <span class="inline_code">origin</span> to keep track of the upstream repository, use <span class="command">&lt;name&gt;</span>. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-codeclonedefaultRemoteNamecode"><span class="inline_code">clone.defaultRemoteName</span></a> which defaults to <span class="inline_code">origin</span>.)</label>
+					<label for="git_clone_has_origin"><span class="command">--origin=&lt;name&gt;</span> Instead of using the remote name <span class="inline_code">origin</span> to keep track of the upstream repository, use <span class="command">&lt;name&gt;</span>. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-clonedefaultRemoteName"><span class="inline_code">clone.defaultRemoteName</span></a> which defaults to <span class="inline_code">origin</span>.)</label>
 					<div class="form_item"><label for="git_clone_origin"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_clone_origin" name="git_clone_origin" class="basis-0 grow command_input" value="origin"></div>
 				</div>
 			</div>
@@ -180,7 +180,7 @@
 		<fieldset>
 			<legend><p>(limit the set of requested commits:)</p></legend>
 			<div class="form_item"><input type="radio" id="git_clone_tags_no_option" name="git_clone_tags" value="" checked><label for="git_clone_tags_no_option">(Defaults to <span class="command">--tags</span>.)</label></div>
-			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_tags~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_tags')"><input type="radio" id="git_clone_tags_has_no_tags" name="git_clone_tags" value="false"><label for="git_clone_tags_has_no_tags"><span class="command">--no-tags</span> Tags are not cloned. Ensures that future <span class="command">git pull</span> and <span class="command">git fetch</span> won’t follow any tags by setting the <span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegttagOpt">remote.&lt;remote&gt;.tagOpt</a>=<a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt---no-tags">--no-tags</a></span> configuration.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_tags~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_tags')"><input type="radio" id="git_clone_tags_has_no_tags" name="git_clone_tags" value="false"><label for="git_clone_tags_has_no_tags"><span class="command">--no-tags</span> Tags are not cloned. Ensures that future <span class="command">git pull</span> and <span class="command">git fetch</span> won’t follow any tags by setting the <span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenametagOpt">remote.&lt;remote&gt;.tagOpt</a>=<a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt---no-tags">--no-tags</a></span> configuration.</label></div>
 			<div class="form_item"><input type="radio" id="git_clone_tags_has_tags" name="git_clone_tags" value="true"><label for="git_clone_tags_has_tags"><span class="command">--tags</span> Cancels out a previous <span class="command">--no-tags</span>.</label></div>
 
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -257,7 +257,7 @@
 			</fieldset>
 
 			<fieldset class="border-none p-[0px]">
-				<div class="form_item"><input type="checkbox" id="git_clone_has_also_filter_submodules" name="git_clone_has_also_filter_submodules"><label for="git_clone_has_also_filter_submodules"><span class="command">--also-filter-submodules</span> Also apply the partial clone filter to any submodules in the repository. (Requires <span class="command">--filter</span> and <span class="command">--recurse-submodules</span>.) (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-codeclonefilterSubmodulescode"><span class="inline_code">clone.filterSubmodules</span></a>.)</label></div>
+				<div class="form_item"><input type="checkbox" id="git_clone_has_also_filter_submodules" name="git_clone_has_also_filter_submodules"><label for="git_clone_has_also_filter_submodules"><span class="command">--also-filter-submodules</span> Also apply the partial clone filter to any submodules in the repository. (Requires <span class="command">--filter</span> and <span class="command">--recurse-submodules</span>.) (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-clonefilterSubmodules"><span class="inline_code">clone.filterSubmodules</span></a>.)</label></div>
 			</fieldset>
 		</fieldset>
 
@@ -266,13 +266,13 @@
 			<div class="form_item">
 				<input type="checkbox" id="git_clone_has_upload_pack" name="git_clone_has_upload_pack">
 				<div class="subform basis-0 grow">
-					<label for="git_clone_has_upload_pack"><span class="command">--upload-pack=&lt;upload-pack&gt;</span> When the repository to clone from is accessed via ssh, specifies a non-default path for the command run on the other end. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtuploadpack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.uploadpack</span></a>.)</label>
+					<label for="git_clone_has_upload_pack"><span class="command">--upload-pack=&lt;upload-pack&gt;</span> When the repository to clone from is accessed via ssh, specifies a non-default path for the command run on the other end. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameuploadpack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.uploadpack</span></a>.)</label>
 					<div class="form_item"><label for="git_clone_upload_pack"><span class="command">&lt;upload-pack&gt;</span>:</label><textarea wrap="off" id="git_clone_upload_pack" name="git_clone_upload_pack" class="basis-0 grow command_input"></textarea></div>
 				</div>
 			</div>
 
 			<fieldset>
-				<legend><p><span class="command">--server-option=&lt;option&gt;</span> Transmit the given string to the server when communicating using protocol version 2. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtserverOption"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.serverOption</span></a>.)</p></legend>
+				<legend><p><span class="command">--server-option=&lt;option&gt;</span> Transmit the given string to the server when communicating using protocol version 2. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameserverOption"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.serverOption</span></a>.)</p></legend>
 				<input id="git_clone_server_option_list_add" type="button" value="Add">
 				<div id="git_clone_server_option_list" class="subform"></div>
 				<script>
@@ -290,7 +290,7 @@
 				</script>
 			</fieldset>
 
-			<div class="form_item"><input type="radio" id="git_clone_reject_shallow_no_option" name="git_clone_reject_shallow" value="" checked><label for="git_clone_reject_shallow_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-codeclonerejectShallowcode"><span class="inline_code">clone.rejectShallow</span></a>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_clone_reject_shallow_no_option" name="git_clone_reject_shallow" value="" checked><label for="git_clone_reject_shallow_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-clonerejectShallow"><span class="inline_code">clone.rejectShallow</span></a>.)</label></div>
 			<div class="form_item"><input type="radio" id="git_clone_reject_shallow_has_no_reject_shallow" name="git_clone_reject_shallow" value="false"><label for="git_clone_reject_shallow_has_no_reject_shallow"><span class="command">--no-reject-shallow</span></label></div>
 			<div class="form_item"><input type="radio" id="git_clone_reject_shallow_has_reject_shallow" name="git_clone_reject_shallow" value="true"><label for="git_clone_reject_shallow_has_reject_shallow"><span class="command">--reject-shallow</span> Fail if the source repository is a shallow repository.</label></div>
 		</fieldset>

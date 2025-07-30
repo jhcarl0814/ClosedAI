@@ -9,11 +9,11 @@
 		<div class="form_item"><input type="radio" id="git_merge_action_quit" name="git_merge_action" value="quit"><label for="git_merge_action_quit"><span class="command">--quit</span> Forget about the current merge in progress. Leave the index and the working tree as-is. If <span class="inline_code">MERGE_AUTOSTASH</span> is present, the stash entry will be saved to the stash list.</label></div>
 		<fieldset>
 			<legend>
-				<div class="form_item"><input type="radio" id="git_merge_action_no_option" name="git_merge_action" value="no_option" checked><label for="git_merge_action_no_option"><span class="command">[&lt;commit&gt;…]</span></label></div>
+				<div class="form_item"><input type="radio" id="git_merge_action_no_option" name="git_merge_action" value="no_option" checked><label for="git_merge_action_no_option"><span class="command">[&lt;commit&gt;...]</span></label></div>
 			</legend>
-			<p>(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchltnamegtmergeOptions"><span class="inline_code">branch.<span class="command">&lt;name&gt;</span>.mergeOptions</span></a>.)</p>
+			<p>(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamemergeOptions"><span class="inline_code">branch.<span class="command">&lt;name&gt;</span>.mergeOptions</span></a>.)</p>
 			<fieldset>
-				<legend><p><span class="command">&lt;commit&gt;…</span> Commits, usually other branch heads, to merge into our branch.</p></legend>
+				<legend><p><span class="command">&lt;commit&gt;...</span> Commits, usually other branch heads, to merge into our branch.</p></legend>
 				<input id="git_merge_commit_list_add" type="button" value="Add">
 				<div id="git_merge_commit_list" class="subform"></div>
 				<script>
@@ -211,8 +211,8 @@
 						<div class="form_item">
 							<input type="radio" id="git_merge_gpg_sign_gpg_sign" name="git_merge_gpg_sign" value="gpg_sign">
 							<div class="subform basis-0 grow">
-								<label for="git_merge_gpg_sign_gpg_sign"><span class="command">--gpg-sign<input type="checkbox" id="git_merge_gpg_sign_gpg_sign_has_argument" name="git_merge_gpg_sign_gpg_sign_has_argument"><label for="git_merge_gpg_sign_gpg_sign_has_argument">[=&lt;keyid&gt;]</label></span> GPG-sign the resulting merge commit. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"><span class="inline_code">user.signingKey</span></a> / the committer identity.)</label>
-								<div class="form_item"><label for="git_merge_gpg_sign_gpg_sign_keyid"><span class="command">&lt;keyid&gt;</span>:</label><textarea wrap="off" id="git_merge_gpg_sign_gpg_sign_keyid" name="git_merge_gpg_sign_gpg_sign_keyid" class="basis-0 grow command_input"></textarea></div>
+								<label for="git_merge_gpg_sign_gpg_sign"><span class="command">--gpg-sign<input type="checkbox" id="git_merge_gpg_sign_gpg_sign_has_argument" name="git_merge_gpg_sign_gpg_sign_has_argument"><label for="git_merge_gpg_sign_gpg_sign_has_argument">[=&lt;key-id&gt;]</label></span> GPG-sign the resulting merge commit. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"><span class="inline_code">user.signingKey</span></a> / the committer identity.)</label>
+								<div class="form_item"><label for="git_merge_gpg_sign_gpg_sign_key_id"><span class="command">&lt;key-id&gt;</span>:</label><textarea wrap="off" id="git_merge_gpg_sign_gpg_sign_key_id" name="git_merge_gpg_sign_gpg_sign_key_id" class="basis-0 grow command_input"></textarea></div>
 							</div>
 						</div>
 					</fieldset>
@@ -263,7 +263,7 @@
 			document.getElementById("git_merge_cleanup_mode_scissors").disabled = !document.getElementById("git_merge_has_cleanup").checked;
 			document.getElementById("git_merge_cleanup_mode_default").disabled = !document.getElementById("git_merge_has_cleanup").checked;
 			document.getElementById("git_merge_gpg_sign_gpg_sign_has_argument").disabled = !document.getElementById("git_merge_gpg_sign_gpg_sign").checked;
-			document.getElementById("git_merge_gpg_sign_gpg_sign_keyid").disabled = !(document.getElementById("git_merge_gpg_sign_gpg_sign").checked && document.getElementById("git_merge_gpg_sign_gpg_sign_has_argument").checked);
+			document.getElementById("git_merge_gpg_sign_gpg_sign_key_id").disabled = !(document.getElementById("git_merge_gpg_sign_gpg_sign").checked && document.getElementById("git_merge_gpg_sign_gpg_sign_has_argument").checked);
 
 			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
 			command_components.push("merge");
@@ -441,9 +441,9 @@
 									break;
 								case "gpg_sign":
 									if(form_data.get("git_merge_gpg_sign_gpg_sign_has_argument")){
-										let element_value = form_data.get("git_merge_gpg_sign_gpg_sign_keyid"), element_has_error = element_value.length == 0;
+										let element_value = form_data.get("git_merge_gpg_sign_gpg_sign_key_id"), element_has_error = element_value.length == 0;
 										command_components.push("--gpg-sign=" + shell_quote(element_value));
-										document.getElementById("git_merge_gpg_sign_gpg_sign_keyid").classList.toggle("error_input", element_has_error);
+										document.getElementById("git_merge_gpg_sign_gpg_sign_key_id").classList.toggle("error_input", element_has_error);
 										has_error ||= element_has_error;
 									}
 									else{

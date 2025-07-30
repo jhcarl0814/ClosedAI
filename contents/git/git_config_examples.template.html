@@ -16,7 +16,7 @@ git config set --file='./config.txt' 'section.'$'\x01\x02\x03\x04\x05\x06\x07\x0
 git config set --file='./config.txt' 'section.'$'\x0B\x0C\x0D\x0E\x0F\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1A\x1B\x1C\x1D\x1E\x1F\x20"\\\x7F''.key' 'value'
 git config set --file='./config.txt' 'section.subse.ction.key' 'value'
 treex '.'
-git config list --file='./config.txt'
+git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 
 echo -n -e '[section "a\0b\0c"]
     key = value
@@ -51,7 +51,7 @@ git config set --file='./config.txt' 'section.key2' ' val
 ue '
 git config set --file='./config.txt' 'section.key3' $'\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0A\x0B\x0C\x0D\x0E\x0F\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1A\x1B\x1C\x1D\x1E\x1F\x20"\\\x7F'
 treex '.'
-git config list --file='./config.txt'
+git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 
 echo -n -e '[section]
     key = v\0al\0ue
@@ -780,9 +780,11 @@ EOF
 			treex .
 			git config rename-section --file='./config.txt' 'section4' 'section2'
 			treex .
+			git config rename-section --file='./config.txt' 'section2' 'section5'
+			treex .
 			git config remove-section --file='./config.txt' 'section3'
 			treex .
-			git config remove-section --file='./config.txt' 'section2'
+			git config remove-section --file='./config.txt' 'section5'
 			treex .
 		EOF0
 	}}

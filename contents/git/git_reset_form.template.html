@@ -7,9 +7,9 @@
 		<fieldset>
 			<legend>
 				<p>Copy entries from <span class="command">&lt;tree-ish&gt;</span> to the index.</p>
-				<div class="form_item"><input type="radio" id="git_reset_action_pathspec_list" name="git_reset_action" value="pathspec_list"><label for="git_reset_action_pathspec_list"><span class="command">[&lt;tree-ish&gt;] [--] &lt;pathspec&gt;…</span> Resets the index entries for all paths that match the <span class="command">&lt;pathspec&gt;</span> to their state at <span class="command">&lt;tree-ish&gt;</span>. (Does not affect the working tree or the current branch.)</label></div>
+				<div class="form_item"><input type="radio" id="git_reset_action_pathspec_list" name="git_reset_action" value="pathspec_list"><label for="git_reset_action_pathspec_list"><span class="command">[&lt;tree-ish&gt;] [--] &lt;pathspec&gt;...</span> Resets the index entries for all paths that match the <span class="command">&lt;pathspec&gt;</span> to their state at <span class="command">&lt;tree-ish&gt;</span>. (Does not affect the working tree or the current branch.)</label></div>
 				<div class="form_item"><input type="radio" id="git_reset_action_pathspec_from_file" name="git_reset_action" value="pathspec_from_file"><label for="git_reset_action_pathspec_from_file"><span class="command">--pathspec-from-file=&lt;file&gt; [--pathspec-file-nul] [&lt;tree-ish&gt;]</span> Resets the index entries for all paths that match the <span class="command">&lt;pathspec&gt;</span> to their state at <span class="command">&lt;tree-ish&gt;</span>. (Does not affect the working tree or the current branch.)</label></div>
-				<div class="form_item"><input type="radio" id="git_reset_action_patch" name="git_reset_action" value="patch"><label for="git_reset_action_patch"><span class="command">--patch [&lt;tree-ish&gt;] [--] [&lt;pathspec&gt;…]</span> Interactively selects hunks in the difference between the index and <span class="command">&lt;tree-ish&gt;</span>. The chosen hunks are applied in reverse to the index.</label></div>
+				<div class="form_item"><input type="radio" id="git_reset_action_patch" name="git_reset_action" value="patch"><label for="git_reset_action_patch"><span class="command">--patch [&lt;tree-ish&gt;] [--] [&lt;pathspec&gt;...]</span> Interactively selects hunks in the difference between the index and <span class="command">&lt;tree-ish&gt;</span>. The chosen hunks are applied in reverse to the index.</label></div>
 			</legend>
 			<div id="git_reset_pathspec_from_file" class="subform">
 				<p><span class="command">--pathspec-from-file=&lt;file&gt;</span> Pathspec is passed in <span class="command">&lt;file&gt;</span> instead of commandline args.</p>
@@ -18,7 +18,7 @@
 			</div>
 			<div class="form_item"><input type="checkbox" id="git_reset_has_treeish" name="git_reset_has_treeish"><label for="git_reset_has_treeish"><span class="command">&lt;tree-ish&gt;</span></label><label for="git_reset_treeish" class="hidden"><span class="command">&lt;tree-ish&gt;</span>:</label><textarea wrap="off" id="git_reset_treeish" name="git_reset_treeish" class="basis-0 grow command_input">HEAD</textarea></div>
 			<fieldset id="git_reset_pathspec_list_">
-				<legend><p><span class="command">&lt;pathspec&gt;…</span> Limits the paths affected by the operation.</p></legend>
+				<legend><p><span class="command">&lt;pathspec&gt;...</span> Limits the paths affected by the operation.</p></legend>
 				<input id="git_reset_pathspec_list_add" type="button" value="Add">
 				<div id="git_reset_pathspec_list" class="subform"></div>
 				<script>

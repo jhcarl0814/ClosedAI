@@ -17,7 +17,7 @@
 
 		<fieldset>
 			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_push\_what~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_push_what')"><p>what to push:</p></legend>
-			<div class="form_item"><input type="radio" id="git_push_what_no_option" name="git_push_what" value="no_option" checked><label for="git_push_what_no_option">(Defaults to <span class="command">--mirror</span> if the configuration option <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtmirror"><span class="inline_code">remote.<span class="command">&lt;remote&gt;</span>.mirror</span></a> is set.)</label></div>
+			<div class="form_item"><input type="radio" id="git_push_what_no_option" name="git_push_what" value="no_option" checked><label for="git_push_what_no_option">(Defaults to <span class="command">--mirror</span> if the configuration option <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamemirror"><span class="inline_code">remote.<span class="command">&lt;remote&gt;</span>.mirror</span></a> is set.)</label></div>
 			<fieldset>
 				<legend>
 					<div class="form_item"><input type="radio" id="git_push_what_refspecs" name="git_push_what" value="refspecs"><label for="git_push_what_refspecs"><span class="command">&lt;refspec&gt;…</span> (when <span class="command">&lt;repository&gt;</span>:) Specify what destination ref to update with what source object.</label></div>
@@ -43,7 +43,7 @@
 		</fieldset>
 
 		<fieldset>
-			<legend><p>modifying <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtpushurl"><span class="inline_code">remote.<span class="command">&lt;remote&gt;</span>.pushurl</span></a> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegturl"><span class="inline_code">remote.<span class="command">&lt;remote&gt;</span>.url</span></a>:</p></legend>
+			<legend><p>modifying <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamepushurl"><span class="inline_code">remote.<span class="command">&lt;remote&gt;</span>.pushurl</span></a> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameurl"><span class="inline_code">remote.<span class="command">&lt;remote&gt;</span>.url</span></a>:</p></legend>
 			<div class="form_item"><input type="radio" id="git_push_modifying_url_no_option" name="git_push_modifying_url" value="no_option" checked><label for="git_push_modifying_url_no_option"></label></div>
 			<div class="form_item"><input type="radio" id="git_push_modifying_url_ipv4" name="git_push_modifying_url" value="ipv4"><label for="git_push_modifying_url_ipv4"><span class="command">--ipv4</span> Use IPv4 addresses only, ignoring IPv6 addresses.</label></div>
 			<div class="form_item"><input type="radio" id="git_push_modifying_url_ipv6" name="git_push_modifying_url" value="ipv6"><label for="git_push_modifying_url_ipv6"><span class="command">--ipv6</span> Use IPv6 addresses only, ignoring IPv4 addresses.</label></div>
@@ -140,7 +140,7 @@
 			<div class="form_item">
 				<input type="checkbox" id="git_push_has_receive_pack" name="git_push_has_receive_pack">
 				<div class="subform basis-0 grow">
-					<label for="git_push_has_receive_pack"><span class="command">--receive-pack=&lt;receive-pack&gt;</span> Path to the <span class="command">git-receive-pack</span> program on the remote end. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtreceivepack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.receivepack</span></a>.)</label>
+					<label for="git_push_has_receive_pack"><span class="command">--receive-pack=&lt;receive-pack&gt;</span> Path to the <span class="command">git-receive-pack</span> program on the remote end. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamereceivepack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.receivepack</span></a>.)</label>
 					<div class="form_item"><label for="git_push_receive_pack"><span class="command">&lt;receive-pack&gt;</span>:</label><textarea wrap="off" id="git_push_receive_pack" name="git_push_receive_pack" class="basis-0 grow command_input"></textarea></div>
 				</div>
 			</div>

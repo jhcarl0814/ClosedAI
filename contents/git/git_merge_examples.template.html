@@ -567,7 +567,7 @@
 	<div class="grid grid-cols-[minmax(0px,1fr),minmax(0px,1fr)] gap-[1em]">
 		<div>
 			<h3 class="heading3">merge with conflict</h3>
-			<p class="paragraph"><span class="command">--squash</span> record conflicts in <span class="inline_code">AUTO_MERGE</span> and index and working tree, doesn't record commits in <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_HEAD</span></p>
+			<p class="paragraph"><span class="command">--squash</span> record conflicts in <span class="inline_code">AUTO_MERGE</span> and index and working tree, doesn't record commits in <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_HEAD</span>; use <span class="command">git commit</span> to create non-merge commit</p>
 			{{
 				git config set --system --all 'color.ui' 'always';
 				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
@@ -592,11 +592,16 @@
 					git -C './repo' show HEAD:file
 					git -C './repo' show MERGE_HEAD:file
 					git -C './repo' show AUTO_MERGE:file
+
+					echo '4' >'./repo/file'; git -C './repo' add './file'
+					git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' commit --message="$((++number))"
+					git -C './repo' lg --all --patch
 				EOF0
 				git config unset --system --all 'color.ui';
 			}}
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-			<p class="paragraph"><span class="command">--no-commit</span> record conflicts in <span class="inline_code">AUTO_MERGE</span> and index and working tree, record commits in <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_HEAD</span></p>
+			<p class="paragraph"><span class="command">--no-commit</span> record conflicts in <span class="inline_code">AUTO_MERGE</span> and index and working tree, record commits in <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_HEAD</span>; use <span class="command">git merge --continue</span> or <span class="command">git commit</span> to create merge commit</p>
 			{{
 				git config set --system --all 'color.ui' 'always';
 				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
@@ -621,13 +626,17 @@
 					git -C './repo' show HEAD:file
 					git -C './repo' show MERGE_HEAD:file
 					git -C './repo' show AUTO_MERGE:file
+
+					echo '4' >'./repo/file'; git -C './repo' add './file'
+					git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
 				EOF0
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
 		<div>
 			<h3 class="heading3">merge without conflict</h3>
-			<p class="paragraph"><span class="command">--squash</span> record merge result in index and working tree, doesn't create merge commit, doesn't record commits in <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_HEAD</span></p>
+			<p class="paragraph"><span class="command">--squash</span> record merge result in index and working tree, doesn't create merge commit, doesn't record commits in <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_HEAD</span>; use <span class="command">git commit</span> to create non-merge commit</p>
 			{{
 				git config set --system --all 'color.ui' 'always';
 				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
@@ -647,11 +656,15 @@
 					git -C './repo' show HEAD:file
 					git -C './repo' show MERGE_HEAD:file
 					git -C './repo' show AUTO_MERGE:file
+
+					git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' commit --message="$((++number))"
+					git -C './repo' lg --all --patch
 				EOF0
 				git config unset --system --all 'color.ui';
 			}}
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-			<p class="paragraph"><span class="command">--no-commit</span> record merge result in index and working tree, doesn't create merge commit, record commits in <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_HEAD</span></p>
+			<p class="paragraph"><span class="command">--no-commit</span> record merge result in index and working tree, doesn't create merge commit, record commits in <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_HEAD</span>; use <span class="command">git merge --continue</span> or <span class="command">git commit</span> to create merge commit</p>
 			{{
 				git config set --system --all 'color.ui' 'always';
 				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
@@ -671,6 +684,9 @@
 					git -C './repo' show HEAD:file
 					git -C './repo' show MERGE_HEAD:file
 					git -C './repo' show AUTO_MERGE:file
+
+					git -C './repo' -c 'core.editor=:' merge --continue
+					git -C './repo' lg --all --patch --diff-merges=separate
 				EOF0
 				git config unset --system --all 'color.ui';
 			}}

@@ -56,13 +56,13 @@
 				<div class="form_item">
 					<input type="checkbox" id="git_ls_remote_action_no_option_has_upload_pack" name="git_ls_remote_action_no_option_has_upload_pack">
 					<div class="subform basis-0 grow">
-						<label for="git_ls_remote_action_no_option_has_upload_pack"><span class="command">--upload-pack=&lt;exec&gt;</span> Specify the full path of <span class="command">git-upload-pack</span> on the remote host. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtuploadpack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.uploadpack</span></a>.)</label>
+						<label for="git_ls_remote_action_no_option_has_upload_pack"><span class="command">--upload-pack=&lt;exec&gt;</span> Specify the full path of <span class="command">git-upload-pack</span> on the remote host. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameuploadpack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.uploadpack</span></a>.)</label>
 						<div class="form_item"><label for="git_ls_remote_action_no_option_upload_pack"><span class="command">&lt;exec&gt;</span>:</label><textarea wrap="off" id="git_ls_remote_action_no_option_upload_pack" name="git_ls_remote_action_no_option_upload_pack" class="basis-0 grow command_input"></textarea></div>
 					</div>
 				</div>
 
 				<fieldset>
-					<legend><p><span class="command">--server-option=&lt;option&gt;</span> Transmit the given string to the server when communicating using protocol version 2. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtserverOption"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.serverOption</span></a>.)</p></legend>
+					<legend><p><span class="command">--server-option=&lt;option&gt;</span> Transmit the given string to the server when communicating using protocol version 2. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameserverOption"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.serverOption</span></a>.)</p></legend>
 					<input id="git_ls_remote_action_no_option_server_option_list_add" type="button" value="Add">
 					<div id="git_ls_remote_action_no_option_server_option_list" class="subform"></div>
 					<script>
@@ -111,7 +111,7 @@
 
 		<fieldset>
 			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_remote\_action\_get\_url~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_remote_action_get_url')">
-				<div class="form_item"><input type="radio" id="git_ls_remote_action_get_url" name="git_ls_remote_action" value="get_url"><label for="git_ls_remote_action_get_url"><span class="command">--get-url</span> Expand the URL of the given remote repository taking into account any "<span class="inline-code">url.&lt;base&gt;.insteadOf</span>" config setting and exit without talking to the remote.</label></div>
+				<div class="form_item"><input type="radio" id="git_ls_remote_action_get_url" name="git_ls_remote_action" value="get_url"><label for="git_ls_remote_action_get_url"><span class="command">--get-url</span> Expand the URL of the given remote repository taking into account any "<span class="inline_code">url.&lt;base&gt;.insteadOf</span>" config setting and exit without talking to the remote.</label></div>
 			</legend>
 			<p><span class="command">&lt;repository&gt;</span> The "remote" repository.</p>
 			<div class="form_item"><label for="git_ls_remote_action_get_url_repository" class="hidden"><span class="command">&lt;repository&gt;</span>:</label><textarea wrap="off" id="git_ls_remote_action_get_url_repository" name="git_ls_remote_action_get_url_repository" class="basis-0 grow command_input"></textarea></div>

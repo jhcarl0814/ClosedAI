@@ -235,9 +235,9 @@ EOF0
 			git -C './client' clone --separate-git-dir='./repo.git' '../server/repo.git' './worktree1'
 			tree '.'
 			treex './client/worktree1'
-			git -C './client/repo.git' rev-parse --absolute-git-dir
-			git -C './client/repo.git' rev-parse --show-toplevel
-			git -C './client/worktree1' rev-parse --absolute-git-dir --show-toplevel
+			git -C './client/repo.git' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir
+			git -C './client/repo.git' rev-parse --path-format=absolute --show-toplevel
+			git -C './client/worktree1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
 		EOF0
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -635,12 +635,11 @@ EOF0
 			git -C './server' init --bare './repo.git'
 			branch_default_path="$(git -C './server/repo.git' symbolic-ref HEAD)"; echo "$branch_default_path"
 			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
-			git -C './server/repo.git' tag tag
 			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git -C './server/repo.git' update-ref 'refs/heads2/branch' HEAD~1
+			git -C './server/repo.git' show-ref 'refs/heads2/branch'
 			git -C './server/repo.git' symbolic-ref HEAD 'refs/heads2/branch'
 			git -C './server/repo.git' symbolic-ref HEAD
-			git -C './server/repo.git' update-ref 'refs/heads2/branch' tag
-			git -C './server/repo.git' show-ref 'refs/heads2/branch'
 			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
 			git -C './server/repo.git' symbolic-ref HEAD "$branch_default_path"
 			git -C './server/repo.git' symbolic-ref HEAD

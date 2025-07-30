@@ -11,7 +11,7 @@
 				</legend>
 				<div class="form_item"><input type="radio" id="git_pull_what_no_option_all_no_option" name="git_pull_what_no_option_all" value="" checked><label for="git_pull_what_no_option_all_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchall"><span class="inline_code">fetch.all</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
 				<div class="form_item"><input type="radio" id="git_pull_what_no_option_all_has_no_all" name="git_pull_what_no_option_all" value="false"><label for="git_pull_what_no_option_all_has_no_all"><span class="command">--no-all</span></label></div>
-				<div class="form_item"><input type="radio" id="git_pull_what_no_option_all_has_all" name="git_pull_what_no_option_all" value="true"><label for="git_pull_what_no_option_all_has_all"><span class="command">--all</span> Fetch all remotes, except for the ones that has the <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtskipFetchAll"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.skipFetchAll</span></a> configuration variable set.</label></div>
+				<div class="form_item"><input type="radio" id="git_pull_what_no_option_all_has_all" name="git_pull_what_no_option_all" value="true"><label for="git_pull_what_no_option_all_has_all"><span class="command">--all</span> Fetch all remotes, except for the ones that has the <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameskipFetchAll"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.skipFetchAll</span></a> configuration variable set.</label></div>
 			</fieldset>
 			<fieldset>
 				<legend>
@@ -38,9 +38,9 @@
 					</script>
 				</fieldset>
 
-				<p>modifying <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtfetch"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.fetch</span></a>:</p>
+				<p>modifying <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.fetch</span></a>:</p>
 				<fieldset>
-					<legend><p><span class="command">--refmap=&lt;refspec&gt;</span> When fetching refs listed on the command line, use the specified refspec (can be given more than once) to map the refs to remote-tracking branches, instead of the values of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtfetch"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.fetch</span></a> configuration variables for the remote repository.</p></legend>
+					<legend><p><span class="command">--refmap=&lt;refspec&gt;</span> When fetching refs listed on the command line, use the specified refspec (can be given more than once) to map the refs to remote-tracking branches, instead of the values of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.fetch</span></a> configuration variables for the remote repository.</p></legend>
 					<input id="git_pull_what_repository_refspecs_repository_refmap_list_add" type="button" value="Add">
 					<div id="git_pull_what_repository_refspecs_repository_refmap_list" class="subform"></div>
 					<script>
@@ -60,12 +60,12 @@
 			</fieldset>
 		</fieldset>
 
-		<div class="form_item"><input type="radio" id="git_pull_recurse_submodules_no_option" name="git_pull_recurse_submodules" value="no_option" checked><label for="git_pull_recurse_submodules_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submoduleltnamegtfetchRecurseSubmodules"><span class="inline_code">submodule.<span class="command">&lt;name&gt;</span>.fetchRecurseSubmodules</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchrecurseSubmodules"><span class="inline_code">fetch.recurseSubmodules</span></a> (which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulerecurse"><span class="inline_code">submodule.recurse</span></a>) / <span class="inline_code">on-demand</span>.)</label></div>
+		<div class="form_item"><input type="radio" id="git_pull_recurse_submodules_no_option" name="git_pull_recurse_submodules" value="no_option" checked><label for="git_pull_recurse_submodules_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulenamefetchRecurseSubmodules"><span class="inline_code">submodule.<span class="command">&lt;name&gt;</span>.fetchRecurseSubmodules</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchrecurseSubmodules"><span class="inline_code">fetch.recurseSubmodules</span></a> (which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulerecurse"><span class="inline_code">submodule.recurse</span></a>) / <span class="inline_code">on-demand</span>.)</label></div>
 		<div class="form_item"><input type="radio" id="git_pull_recurse_submodules_recurse_submodules" name="git_pull_recurse_submodules" value="recurse_submodules"><label for="git_pull_recurse_submodules_recurse_submodules"><span class="command">--recurse-submodules<input type="checkbox" id="git_pull_recurse_submodules_recurse_submodules_has_argument" name="git_pull_recurse_submodules_recurse_submodules_has_argument"><label for="git_pull_recurse_submodules_recurse_submodules_has_argument">[=(<input type="radio" id="git_pull_recurse_submodules_mode_yes" name="git_pull_recurse_submodules_mode" value="yes" checked><label for="git_pull_recurse_submodules_mode_yes">yes</label>|<input type="radio" id="git_pull_recurse_submodules_mode_on_demand" name="git_pull_recurse_submodules_mode" value="on_demand"><label for="git_pull_recurse_submodules_mode_on_demand">on-demand</label>|<input type="radio" id="git_pull_recurse_submodules_mode_no" name="git_pull_recurse_submodules_mode" value="no"><label for="git_pull_recurse_submodules_mode_no">no</label>)]</label></span> Controls if new commits of populated submodules should be fetched, and if the working trees of active submodules should be updated, too.<br>If the checkout is done via rebase, local submodule commits are rebased as well.<br>If the update is done via merge, the submodule conflicts are resolved and checked out.</label></div>
 		<div class="form_item"><input type="radio" id="git_pull_recurse_submodules_no_recurse_submodules" name="git_pull_recurse_submodules" value="no_recurse_submodules"><label for="git_pull_recurse_submodules_no_recurse_submodules"><span class="command">--no-recurse-submodules</span></label></div>
 
 		<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-		<div class="form_item"><input type="radio" id="git_pull_rebase_no_option" name="git_pull_rebase" value="no_option" checked><label for="git_pull_rebase_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchltnamegtrebase"><span class="inline_code">branch.<span class="command">&lt;name&gt;</span>.rebase</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullrebase"><span class="inline_code">pull.rebase</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+		<div class="form_item"><input type="radio" id="git_pull_rebase_no_option" name="git_pull_rebase" value="no_option" checked><label for="git_pull_rebase_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamerebase"><span class="inline_code">branch.<span class="command">&lt;name&gt;</span>.rebase</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullrebase"><span class="inline_code">pull.rebase</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
 		<div class="form_item"><input type="radio" id="git_pull_rebase_rebase" name="git_pull_rebase" value="rebase"><label for="git_pull_rebase_rebase"><span class="command">--rebase<input type="checkbox" id="git_pull_rebase_rebase_has_argument" name="git_pull_rebase_rebase_has_argument"><label for="git_pull_rebase_rebase_has_argument">[=(<input type="radio" id="git_pull_rebase_mode_false" name="git_pull_rebase_mode" value="false"><label for="git_pull_rebase_mode_false">false</label>|<input type="radio" id="git_pull_rebase_mode_true" name="git_pull_rebase_mode" value="true" checked><label for="git_pull_rebase_mode_true">true</label>|<input type="radio" id="git_pull_rebase_mode_merges" name="git_pull_rebase_mode" value="merges"><label for="git_pull_rebase_mode_merges">merges</label>|<input type="radio" id="git_pull_rebase_mode_interactive" name="git_pull_rebase_mode" value="interactive"><label for="git_pull_rebase_mode_interactive">interactive</label>)]</label></span><br>
 			<div class="ml-[1em]">
 				<span class="command">false</span> Merge the upstream branch into the current branch.<br>
@@ -83,7 +83,7 @@
 		<fieldset>
 			<legend><p>options for <span class="command">git fetch</span>:</p></legend>
 			<fieldset>
-				<legend><p>modifying <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegturl"><span class="inline_code">remote.<span class="command">&lt;remote&gt;</span>.url</span></a>:</p></legend>
+				<legend><p>modifying <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameurl"><span class="inline_code">remote.<span class="command">&lt;remote&gt;</span>.url</span></a>:</p></legend>
 				<div class="form_item"><input type="radio" id="git_pull_modifying_url_no_option" name="git_pull_modifying_url" value="no_option" checked><label for="git_pull_modifying_url_no_option"></label></div>
 				<div class="form_item"><input type="radio" id="git_pull_modifying_url_ipv4" name="git_pull_modifying_url" value="ipv4"><label for="git_pull_modifying_url_ipv4"><span class="command">--ipv4</span> Use IPv4 addresses only, ignoring IPv6 addresses.</label></div>
 				<div class="form_item"><input type="radio" id="git_pull_modifying_url_ipv6" name="git_pull_modifying_url" value="ipv6"><label for="git_pull_modifying_url_ipv6"><span class="command">--ipv6</span> Use IPv6 addresses only, ignoring IPv4 addresses.</label></div>
@@ -93,7 +93,7 @@
 				<legend><p>modifying refspecs:</p></legend>
 				<div class="form_item"><input type="checkbox" id="git_pull_has_force" name="git_pull_has_force"><label for="git_pull_has_force"><span class="command">--force</span> When <span class="command">git fetch</span> is used with <span class="command">&lt;src&gt;:&lt;dst&gt;</span> refspec, it may refuse to update the local branch. Overrides that check.</label></div>
 				<div class="form_item"><input type="checkbox" id="git_pull_has_prefetch" name="git_pull_has_prefetch"><label for="git_pull_has_prefetch"><span class="command">--prefetch</span> Modify the configured refspec to place all refs into the <span class="inline_code">refs/prefetch/</span> namespace.</label></div>
-				<div class="form_item"><input type="checkbox" id="git_pull_has_prune_tags" name="git_pull_has_prune_tags"><label for="git_pull_has_prune_tags"><span class="command">--prune-tags</span> Is a shorthand for providing an explicit tag refspec (<span class="command">refs/tags/*:refs/tags/*</span>). (Before fetching, remove any local tags that no longer exist on the remote if <span class="command">--prune</span> is enabled.) (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtpruneTags"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.pruneTags</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchpruneTags"><span class="inline_code">fetch.pruneTags</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+				<div class="form_item"><input type="checkbox" id="git_pull_has_prune_tags" name="git_pull_has_prune_tags"><label for="git_pull_has_prune_tags"><span class="command">--prune-tags</span> Is a shorthand for providing an explicit tag refspec (<span class="command">refs/tags/*:refs/tags/*</span>). (Before fetching, remove any local tags that no longer exist on the remote if <span class="command">--prune</span> is enabled.) (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamepruneTags"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.pruneTags</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchpruneTags"><span class="inline_code">fetch.pruneTags</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
 				<div class="form_item"><input type="checkbox" id="git_pull_has_stdin" name="git_pull_has_stdin" disabled><label for="git_pull_has_stdin"><span class="command">--stdin</span> Read refspecs, one per line, from stdin in addition to those provided as arguments.</label></div>
 			</fieldset>
 
@@ -123,12 +123,12 @@
 
 			<fieldset>
 				<legend><p>before fetching:</p></legend>
-				<div class="form_item"><input type="checkbox" id="git_pull_has_prune" name="git_pull_has_prune"><label for="git_pull_has_prune"><span class="command">--prune</span> Before fetching, remove any remote-tracking references that no longer exist on the remote. Tags are not subject to pruning if they are fetched only because of the default tag auto-following or due to a <span class="command">--tags</span> option. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtprune"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.prune</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchprune"><span class="inline_code">fetch.prune</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+				<div class="form_item"><input type="checkbox" id="git_pull_has_prune" name="git_pull_has_prune"><label for="git_pull_has_prune"><span class="command">--prune</span> Before fetching, remove any remote-tracking references that no longer exist on the remote. Tags are not subject to pruning if they are fetched only because of the default tag auto-following or due to a <span class="command">--tags</span> option. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameprune"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.prune</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchprune"><span class="inline_code">fetch.prune</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
 			</fieldset>
 
 			<fieldset>
 				<legend><p>(limit the set of requested commits:)</p></legend>
-				<div class="form_item"><input type="radio" id="git_pull_tags_no_option" name="git_pull_tags" value="no_option" checked><label for="git_pull_tags_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegttagOpt"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.tagOpt</span></a> / "tags that point at objects that are downloaded from the remote repository are fetched and stored locally".)</label></div>
+				<div class="form_item"><input type="radio" id="git_pull_tags_no_option" name="git_pull_tags" value="no_option" checked><label for="git_pull_tags_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenametagOpt"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.tagOpt</span></a> / "tags that point at objects that are downloaded from the remote repository are fetched and stored locally".)</label></div>
 				<div class="form_item"><input type="radio" id="git_pull_tags_has_no_tags" name="git_pull_tags" value="false"><label for="git_pull_tags_has_no_tags"><span class="command">--no-tags</span> Disables the automatic tag following.</label></div>
 				<div class="form_item"><input type="radio" id="git_pull_tags_has_tags" name="git_pull_tags" value="true"><label for="git_pull_tags_has_tags"><span class="command">--tags</span> Fetch all tags from the remote (i.e., fetch remote tags <span class="inline_code">refs/tags/*</span> into local tags with the same name), in addition to whatever else would otherwise be fetched.</label></div>
 				<fieldset>
@@ -190,13 +190,13 @@
 				<div class="form_item">
 					<input type="checkbox" id="git_pull_has_upload_pack" name="git_pull_has_upload_pack">
 					<div class="subform basis-0 grow">
-						<label for="git_pull_has_upload_pack"><span class="command">--upload-pack=&lt;upload-pack&gt;</span> When given, and the repository to fetch from is handled by <span class="command">git fetch-pack</span>, <span class="command">--exec=&lt;upload-pack&gt;</span> is passed to the command to specify non-default path for the command run on the other end. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtuploadpack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.uploadpack</span></a>.)</label>
+						<label for="git_pull_has_upload_pack"><span class="command">--upload-pack=&lt;upload-pack&gt;</span> When given, and the repository to fetch from is handled by <span class="command">git fetch-pack</span>, <span class="command">--exec=&lt;upload-pack&gt;</span> is passed to the command to specify non-default path for the command run on the other end. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameuploadpack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.uploadpack</span></a>.)</label>
 						<div class="form_item"><label for="git_pull_upload_pack"><span class="command">&lt;upload-pack&gt;</span>:</label><textarea wrap="off" id="git_pull_upload_pack" name="git_pull_upload_pack" class="basis-0 grow command_input"></textarea></div>
 					</div>
 				</div>
 
 				<fieldset>
-					<legend><p><span class="command">--server-option=&lt;option&gt;</span> Transmit the given string to the server when communicating using protocol version 2. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtserverOption"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.serverOption</span></a>.)</p></legend>
+					<legend><p><span class="command">--server-option=&lt;option&gt;</span> Transmit the given string to the server when communicating using protocol version 2. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameserverOption"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.serverOption</span></a>.)</p></legend>
 					<input id="git_pull_server_option_list_add" type="button" value="Add">
 					<div id="git_pull_server_option_list" class="subform"></div>
 					<script>
@@ -276,7 +276,7 @@
 
 		<fieldset>
 			<legend><p>options for <span class="command">git merge</span>:</p></legend>
-			<p>(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchltnamegtmergeOptions"><span class="inline_code">branch.<span class="command">&lt;name&gt;</span>.mergeOptions</span></a>.)</p>
+			<p>(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamemergeOptions"><span class="inline_code">branch.<span class="command">&lt;name&gt;</span>.mergeOptions</span></a>.)</p>
 			<fieldset>
 				<legend><p>preconditions:</p></legend>
 				<div class="form_item"><input type="radio" id="git_pull_allow_unrelated_histories_no_option" name="git_pull_allow_unrelated_histories" value="" checked><label for="git_pull_allow_unrelated_histories_no_option">(Defaults to <span class="command">--no-allow-unrelated-histories</span>.)</label></div>
@@ -450,8 +450,8 @@
 						<div class="form_item">
 							<input type="radio" id="git_pull_gpg_sign_gpg_sign" name="git_pull_gpg_sign" value="gpg_sign">
 							<div class="subform basis-0 grow">
-								<label for="git_pull_gpg_sign_gpg_sign"><span class="command">--gpg-sign<input type="checkbox" id="git_pull_gpg_sign_gpg_sign_has_argument" name="git_pull_gpg_sign_gpg_sign_has_argument"><label for="git_pull_gpg_sign_gpg_sign_has_argument">[=&lt;keyid&gt;]</label></span> GPG-sign the resulting merge commit. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"><span class="inline_code">user.signingKey</span></a> / the committer identity.)</label>
-								<div class="form_item"><label for="git_pull_gpg_sign_gpg_sign_keyid"><span class="command">&lt;keyid&gt;</span>:</label><textarea wrap="off" id="git_pull_gpg_sign_gpg_sign_keyid" name="git_pull_gpg_sign_gpg_sign_keyid" class="basis-0 grow command_input"></textarea></div>
+								<label for="git_pull_gpg_sign_gpg_sign"><span class="command">--gpg-sign<input type="checkbox" id="git_pull_gpg_sign_gpg_sign_has_argument" name="git_pull_gpg_sign_gpg_sign_has_argument"><label for="git_pull_gpg_sign_gpg_sign_has_argument">[=&lt;key-id&gt;]</label></span> GPG-sign the resulting merge commit. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"><span class="inline_code">user.signingKey</span></a> / the committer identity.)</label>
+								<div class="form_item"><label for="git_pull_gpg_sign_gpg_sign_key_id"><span class="command">&lt;key-id&gt;</span>:</label><textarea wrap="off" id="git_pull_gpg_sign_gpg_sign_key_id" name="git_pull_gpg_sign_gpg_sign_key_id" class="basis-0 grow command_input"></textarea></div>
 							</div>
 						</div>
 					</fieldset>
@@ -516,7 +516,7 @@
 				document.getElementById("git_pull_cleanup_mode_scissors").disabled = !document.getElementById("git_pull_has_cleanup").checked;
 				document.getElementById("git_pull_cleanup_mode_default").disabled = !document.getElementById("git_pull_has_cleanup").checked;
 				document.getElementById("git_pull_gpg_sign_gpg_sign_has_argument").disabled = !document.getElementById("git_pull_gpg_sign_gpg_sign").checked;
-				document.getElementById("git_pull_gpg_sign_gpg_sign_keyid").disabled = !(document.getElementById("git_pull_gpg_sign_gpg_sign").checked && document.getElementById("git_pull_gpg_sign_gpg_sign_has_argument").checked);
+				document.getElementById("git_pull_gpg_sign_gpg_sign_key_id").disabled = !(document.getElementById("git_pull_gpg_sign_gpg_sign").checked && document.getElementById("git_pull_gpg_sign_gpg_sign_has_argument").checked);
 			}
 
 			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
@@ -901,9 +901,9 @@
 								break;
 							case "gpg_sign":
 								if(form_data.get("git_pull_gpg_sign_gpg_sign_has_argument")){
-									let element_value = form_data.get("git_pull_gpg_sign_gpg_sign_keyid"), element_has_error = element_value.length == 0;
+									let element_value = form_data.get("git_pull_gpg_sign_gpg_sign_key_id"), element_has_error = element_value.length == 0;
 									command_components.push("--gpg-sign=" + shell_quote(element_value));
-									document.getElementById("git_pull_gpg_sign_gpg_sign_keyid").classList.toggle("error_input", element_has_error);
+									document.getElementById("git_pull_gpg_sign_gpg_sign_key_id").classList.toggle("error_input", element_has_error);
 									has_error ||= element_has_error;
 								}
 								else{
