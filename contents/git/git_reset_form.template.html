@@ -35,6 +35,25 @@
 					})
 				</script>
 			</fieldset>
+
+			<p>(when <span class="command">--patch</span>:)</p>
+			<fieldset>
+				<legend><p>context lines and hunks:</p></legend>
+				<div class="form_item">
+					<input type="checkbox" id="git_reset_has_unified" name="git_reset_has_unified">
+					<div class="subform basis-0 grow">
+						<label for="git_reset_has_unified"><span class="command">--unified=&lt;n&gt;</span> Generate diffs with <span class="command">&lt;n&gt;</span> lines of context. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffcontext"><span class="inline_code">diff.context</span></a> which defaults to <span class="inline_code">3</span>.)</label>
+						<div class="form_item"><label for="git_reset_unified_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_reset_unified_n" name="git_reset_unified_n" class="basis-0 grow command_input" value="3"></div>
+					</div>
+				</div>
+				<div class="form_item">
+					<input type="checkbox" id="git_reset_has_inter_hunk_context" name="git_reset_has_inter_hunk_context">
+					<div class="subform basis-0 grow">
+						<label for="git_reset_has_inter_hunk_context"><span class="command">--inter-hunk-context=&lt;number&gt;</span> Show the context between diff hunks, up to the specified <span class="command">&lt;number&gt;</span> of lines, thereby fusing hunks that are close to each other. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffinterHunkContext"><span class="inline_code">diff.interHunkContext</span></a> which defaults to <span class="inline_code">0</span>.)</label>
+						<div class="form_item"><label for="git_reset_inter_hunk_context_number"><span class="command">&lt;number&gt;</span>:</label><input type="text" id="git_reset_inter_hunk_context_number" name="git_reset_inter_hunk_context_number" class="basis-0 grow command_input" value="0"></div>
+					</div>
+				</div>
+			</fieldset>
 		</fieldset>
 		<fieldset>
 			<legend>
@@ -71,6 +90,9 @@
 			document.getElementById("git_reset_pathspec_list_").classList.toggle("hidden", !(document.getElementById("git_reset_action_pathspec_list").checked || document.getElementById("git_reset_action_patch").checked));
 			document.getElementById("git_reset_pathspec_from_file").classList.toggle("hidden", !document.getElementById("git_reset_action_pathspec_from_file").checked);
 			document.getElementById("git_reset_treeish").disabled = !document.getElementById("git_reset_has_treeish").checked;
+			document.getElementById("git_reset_has_unified").closest("fieldset").disabled = !document.getElementById("git_reset_action_patch").checked;
+			document.getElementById("git_reset_unified_n").disabled = !document.getElementById("git_reset_has_unified").checked;
+			document.getElementById("git_reset_inter_hunk_context_number").disabled = !document.getElementById("git_reset_has_inter_hunk_context").checked;
 
 			document.getElementById("git_reset_action_mode_commit").closest("fieldset").disabled = !document.getElementById("git_reset_action_mode_commit").checked;
 			document.getElementById("git_reset_mode_mixed").closest("fieldset").disabled = !document.getElementById("git_reset_mode_mixed").checked;
@@ -124,6 +146,18 @@
 					break;
 				case "patch":
 					command_components.push("--patch");
+					if(form_data.get("git_reset_has_unified")){
+						let element_value = form_data.get("git_reset_unified_n"), element_has_error = element_value.length == 0;
+						command_components.push("--unified=" + shell_quote(element_value));
+						document.getElementById("git_reset_unified_n").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_reset_has_inter_hunk_context")){
+						let element_value = form_data.get("git_reset_inter_hunk_context_number"), element_has_error = element_value.length == 0;
+						command_components.push("--inter-hunk-context=" + shell_quote(element_value));
+						document.getElementById("git_reset_inter_hunk_context_number").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
 
 					if(form_data.get("git_reset_has_treeish")){
 						command_components.push("--end-of-options");

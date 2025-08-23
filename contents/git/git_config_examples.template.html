@@ -195,7 +195,7 @@ EOF0
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_list~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_get~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_formatting~*_&]:block">
-	<h2 class="heading2"><span class="command">git config list/get --null</span><br><span class="command">git config list/get --name-only</span></h2>
+	<h2 class="heading2"><span class="command">git config list/get --null</span><br><span class="command">git config get --show-names/--no-show-names</span><br><span class="command">git config list/get --name-only</span></h2>
 	{{
 		cd '/'; cd '/';
 		git config set --system --all 'section.key' 'value1'
@@ -203,14 +203,18 @@ EOF0
 		git config set --global --all 'section.key' 'value3'
 		git config set --global --append 'section.key' 'value4'
 		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
-			git config list --show-origin --show-scope --null | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 			git config list --show-origin --show-scope | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
-			git config get --show-origin --show-scope --null --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
-			git config get --show-origin --show-scope --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
-			git config list --show-origin --show-scope --null --name-only | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git config list --show-origin --show-scope --null | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 			git config list --show-origin --show-scope --name-only | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
-			git config get --show-origin --show-scope --null --name-only --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git config list --show-origin --show-scope --null --name-only | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git config get --show-origin --show-scope --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git config get --show-origin --show-scope --null --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 			git config get --show-origin --show-scope --name-only --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git config get --show-origin --show-scope --null --name-only --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git config get --show-origin --show-scope --show-names --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git config get --show-origin --show-scope --show-names --null --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git config get --show-origin --show-scope --show-names --name-only --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+			git config get --show-origin --show-scope --show-names --null --name-only --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 		EOF0
 		git config unset --system --all 'section.key'
 		git config unset --global --all 'section.key'
@@ -218,7 +222,7 @@ EOF0
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_get~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_filtering\_and\_precedence~*_&]:block">
-	<h2 class="heading2"><span class="command">git config get --regexp</span><br><span class="command">git config get --value=&lt;regexp&gt;</span><br><span class="command">git config get --value=&lt;regexp&gt; --fixed-value</span></h2>
+	<h2 class="heading2"><span class="command">git config get --regexp</span><br><span class="command">git config get --value=&lt;pattern&gt;</span><br><span class="command">git config get --value=&lt;pattern&gt; --fixed-value</span></h2>
 	{{
 		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
 		git config set --system --all 'section.key' 'value1'
@@ -656,7 +660,7 @@ EOF
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_set~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_filtering\_and\_precedence~*_&]:block">
-	<h2 class="heading2"><span class="command">git config set --value=&lt;regexp&gt;</span><br><span class="command">git config set --value=&lt;regexp&gt; --fixed-value</span></h2>
+	<h2 class="heading2"><span class="command">git config set --value=&lt;pattern&gt;</span><br><span class="command">git config set --value=&lt;pattern&gt; --fixed-value</span></h2>
 	{{
 		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
 		cat >'./config.txt' <<'EOF'

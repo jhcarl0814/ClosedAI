@@ -300,7 +300,7 @@
 				<div><input type="radio" id="git_pull_verify_signatures_has_no_verify_signatures" name="git_pull_verify_signatures" value="false"><label for="git_pull_verify_signatures_has_no_verify_signatures"><span class="command">--no-verify-signatures</span></label></div>
 			</fieldset>
 
-			<div class="form_item"><input type="radio" id="git_pull_autostash_no_option" name="git_pull_autostash" value="" checked><label for="git_pull_autostash_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeautoStash"><span class="inline_code">merge.autoStash</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_pull_autostash_no_option" name="git_pull_autostash" value="" checked><label for="git_pull_autostash_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullautoStash"><span class="inline_code">pull.autoStash</span></a> which defaults to either <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeautoStash"><span class="inline_code">merge.autoStash</span></a> (which defaults to <span class="inline_code">false</span>) or <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-rebaseautoStash"><span class="inline_code">rebase.autoStash</span></a> (which defaults to <span class="inline_code">false</span>) depending on the value of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamerebase"><span class="inline_code">branch.<span class="command">&lt;name&gt;</span>.rebase</span></a> (which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullrebase"><span class="inline_code">pull.rebase</span></a> which defaults to <span class="inline_code">false</span>).)</label></div>
 			<div class="form_item"><input type="radio" id="git_pull_autostash_has_autostash" name="git_pull_autostash" value="true"><label for="git_pull_autostash_has_autostash"><span class="command">--autostash</span> Automatically create a temporary stash entry before the operation begins, record it in the ref <span class="inline_code">MERGE_AUTOSTASH</span> and apply it after the operation ends.</label></div>
 			<div class="form_item"><input type="radio" id="git_pull_autostash_has_no_autostash" name="git_pull_autostash" value="false"><label for="git_pull_autostash_has_no_autostash"><span class="command">--no-autostash</span></label></div>
 
@@ -461,7 +461,12 @@
 			<fieldset>
 				<legend><p>output:</p></legend>
 				<div class="form_item"><input type="radio" id="git_pull_stat_no_option" name="git_pull_stat" value="" checked><label for="git_pull_stat_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergestat"><span class="inline_code">merge.stat</span></a> which defaults to <span class="inline_code">true</span>.)</label></div>
-				<div class="form_item"><input type="radio" id="git_pull_stat_has_stat" name="git_pull_stat" value="true"><label for="git_pull_stat_has_stat"><span class="command">--stat</span> Show a diffstat at the end of the merge.</label></div>
+				<fieldset>
+					<legend>
+						<div class="form_item"><input type="radio" id="git_pull_stat_has_stat" name="git_pull_stat" value="true"><label for="git_pull_stat_has_stat"><span class="command">--stat</span> Show a diffstat at the end of the merge.</label></div>
+					</legend>
+					<div class="form_item"><input type="checkbox" id="git_pull_has_compact_summary" name="git_pull_has_compact_summary"><label for="git_pull_has_compact_summary"><span class="command">--compact-summary</span> Show a compact-summary at the end of the merge.</label></div>
+				</fieldset>
 				<div class="form_item"><input type="radio" id="git_pull_stat_has_no_stat" name="git_pull_stat" value="false"><label for="git_pull_stat_has_no_stat"><span class="command">--no-stat</span> Do not show a diffstat at the end of the merge.</label></div>
 			</fieldset>
 
@@ -517,6 +522,7 @@
 				document.getElementById("git_pull_cleanup_mode_default").disabled = !document.getElementById("git_pull_has_cleanup").checked;
 				document.getElementById("git_pull_gpg_sign_gpg_sign_has_argument").disabled = !document.getElementById("git_pull_gpg_sign_gpg_sign").checked;
 				document.getElementById("git_pull_gpg_sign_gpg_sign_key_id").disabled = !(document.getElementById("git_pull_gpg_sign_gpg_sign").checked && document.getElementById("git_pull_gpg_sign_gpg_sign_has_argument").checked);
+				document.getElementById("git_pull_stat_has_stat").closest("fieldset").disabled = !document.getElementById("git_pull_stat_has_stat").checked;
 			}
 
 			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
@@ -920,6 +926,8 @@
 						break;
 					case "true":
 						command_components.push("--stat");
+						if(form_data.get("git_pull_has_compact_summary"))
+							command_components.push("--compact-summary");
 						break;
 				}
 				switch(form_data.get("git_pull_verify")){
