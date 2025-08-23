@@ -19,7 +19,7 @@
 					<p><span class="command">--glob[=&lt;glob-pattern&gt;]</span> Pretend as if all the refs matching shell glob <span class="command">&lt;glob-pattern&gt;</span> are listed on the command line as <span class="command">&lt;commit&gt;</span>.</p>
 					<p class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_log\_revisions~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_log_revisions')"><span class="command">--all</span> Pretend as if all the refs in <span class="inline_code">refs/</span>, along with <span class="inline_code">HEAD</span>, are listed on the command line as <span class="command">&lt;commit&gt;</span>.</p>
 					<p><span class="command">--exclude=&lt;glob-pattern&gt;</span> Do not include refs matching <span class="command">&lt;glob-pattern&gt;</span> that the next <span class="command">--all</span>, <span class="command">--branches</span>, <span class="command">--tags</span>, <span class="command">--remotes</span>, or <span class="command">--glob</span> would otherwise consider.</p>
-					<p><span class="command">--exclude-hidden=[fetch|receive|uploadpack]</span> Do not include refs that would be hidden by <span class="command">git-fetch</span>, <span class="command">git-receive-pack</span> or <span class="command">git-upload-pack</span> by consulting the appropriate <span class="inline_code">fetch.hideRefs</span>, <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-receivehideRefs"><span class="inline_code">receive.hideRefs</span></a> or <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-uploadpackhideRefs"><span class="inline_code">uploadpack.hideRefs</span></a> configuration along with <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-transferhideRefs"><span class="inline_code">transfer.hideRefs</span></a>. Affects the next pseudo-ref option <span class="command">--all</span> or <span class="command">--glob</span> and is cleared after processing them.</p>
+					<p><span class="command">--exclude-hidden=[(fetch|receive|uploadpack)]</span> Do not include refs that would be hidden by <span class="command">git-fetch</span>, <span class="command">git-receive-pack</span> or <span class="command">git-upload-pack</span> by consulting the appropriate <span class="inline_code">fetch.hideRefs</span>, <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-receivehideRefs"><span class="inline_code">receive.hideRefs</span></a> or <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-uploadpackhideRefs"><span class="inline_code">uploadpack.hideRefs</span></a> configuration along with <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-transferhideRefs"><span class="inline_code">transfer.hideRefs</span></a>. Affects the next pseudo-ref option <span class="command">--all</span> or <span class="command">--glob</span> and is cleared after processing them.</p>
 					<p class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_log\_reflog~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_log_reflog')"><span class="command">--reflog</span> Pretend as if all objects mentioned by reflogs are listed on the command line as <span class="command">&lt;commit&gt;</span>.</p>
 					<p><span class="command">--alternate-refs</span> Pretend as if all objects mentioned as ref tips of alternate repositories were listed on the command line.</p>
 					<p><span class="command">--bisect</span> Pretend as if the bad bisection ref <span class="inline_code">refs/bisect/bad</span> was listed and as if it was followed by <span class="command">--not</span> and the good bisection refs <span class="inline_code">refs/bisect/good-*</span> on the command line.</p>
@@ -106,7 +106,7 @@
 					<div class="form_item"><input type="radio" id="git_log_commit_limiting_walk_reflogs" name="git_log_commit_limiting" value="walk_reflogs"><label for="git_log_commit_limiting_walk_reflogs"><span class="command">--walk-reflogs</span> Walk reflog entries from the most recent one to older ones. (Cannot specify commits to exclude.) <span id="git_log_walk_reflogs_reverse_warning">(Incompatible with <span class="command">--reverse</span>.</span>)</label></div>
 				</legend>
 				<fieldset>
-					<legend><p><span class="command">--grep-reflog=&lt;pattern&gt;</span> Limit the commits output to ones with reflog entries that match the specified pattern (regular expression). With more than one <span class="command">--grep-reflog=&lt;pattern&gt;</span>, commits whose reflog message matches any of the given patterns are chosen.</p></legend>
+					<legend><p><span class="command">--grep-reflog=&lt;pattern&gt;</span> Limit the commits output to ones with reflog entries that match the <span class="command">&lt;pattern&gt;</span> regular expression. With more than one <span class="command">--grep-reflog=&lt;pattern&gt;</span>, commits whose reflog message matches any of the given patterns are chosen.</p></legend>
 					<input id="git_log_grep_reflog_list_add" type="button" value="Add">
 					<div id="git_log_grep_reflog_list" class="subform"></div>
 					<script>
@@ -156,26 +156,26 @@
 				<div class="form_item">
 					<input type="checkbox" id="git_log_has_since_as_filter" name="git_log_has_since_as_filter">
 					<div class="subform basis-0 grow">
-						<label for="git_log_has_since_as_filter"><span class="command">--since-as-filter=&lt;date&gt;</span> Show all commits more recent than a specific date. Visits all commits in the range, rather than stopping at the first commit which is older than a specific date.</label>
+						<label for="git_log_has_since_as_filter"><span class="command">--since-as-filter=&lt;date&gt;</span> Show all commits more recent than <span class="command">&lt;date&gt;</span>. Visits all commits in the range, rather than stopping at the first commit which is older than <span class="command">&lt;date&gt;</span>.</label>
 						<div class="form_item"><label for="git_log_since_as_filter_date"><span class="command">&lt;date&gt;</span>:</label><input type="text" id="git_log_since_as_filter_date" name="git_log_since_as_filter_date" class="basis-0 grow command_input" value=""></div>
 					</div>
 				</div>
 				<div class="form_item">
 					<input type="checkbox" id="git_log_has_after" name="git_log_has_after">
 					<div class="subform basis-0 grow">
-						<label for="git_log_has_after"><span class="command">--after=&lt;date&gt;</span> Show commits more recent than a specific date.</label>
+						<label for="git_log_has_after"><span class="command">--after=&lt;date&gt;</span> Show commits more recent than <span class="command">&lt;date&gt;</span>.</label>
 						<div class="form_item"><label for="git_log_after_date"><span class="command">&lt;date&gt;</span>:</label><input type="text" id="git_log_after_date" name="git_log_after_date" class="basis-0 grow command_input" value=""></div>
 					</div>
 				</div>
 				<div class="form_item">
 					<input type="checkbox" id="git_log_has_before" name="git_log_has_before">
 					<div class="subform basis-0 grow">
-						<label for="git_log_has_before"><span class="command">--before=&lt;date&gt;</span> Show commits older than a specific date.</label>
+						<label for="git_log_has_before"><span class="command">--before=&lt;date&gt;</span> Show commits older than <span class="command">&lt;date&gt;</span>.</label>
 						<div class="form_item"><label for="git_log_before_date"><span class="command">&lt;date&gt;</span>:</label><input type="text" id="git_log_before_date" name="git_log_before_date" class="basis-0 grow command_input" value=""></div>
 					</div>
 				</div>
 				<fieldset>
-					<legend><p><span class="command">--author=&lt;pattern&gt;</span> Limit the commits output to ones with author header lines that match the specified pattern (regular expression). With more than one <span class="command">--author=&lt;pattern&gt;</span>, commits whose author matches any of the given patterns are chosen.</p></legend>
+					<legend><p><span class="command">--author=&lt;pattern&gt;</span> Limit the commits output to ones with author header lines that match the <span class="command">&lt;pattern&gt;</span> regular expression. With more than one <span class="command">--author=&lt;pattern&gt;</span>, commits whose author matches any of the <span class="command">&lt;pattern&gt;</span> are chosen.</p></legend>
 					<input id="git_log_author_list_add" type="button" value="Add">
 					<div id="git_log_author_list" class="subform"></div>
 					<script>
@@ -193,7 +193,7 @@
 					</script>
 				</fieldset>
 				<fieldset>
-					<legend><p><span class="command">--committer=&lt;pattern&gt;</span> Limit the commits output to ones with committer header lines that match the specified pattern (regular expression).  With more than one <span class="command">--committer=&lt;pattern&gt;</span>, commits whose author matches any of the given patterns are chosen.</p></legend>
+					<legend><p><span class="command">--committer=&lt;pattern&gt;</span> Limit the commits output to ones with committer header lines that match the <span class="command">&lt;pattern&gt;</span> regular expression.  With more than one <span class="command">--committer=&lt;pattern&gt;</span>, commits whose committer matches any of the <span class="command">&lt;pattern&gt;</span> are chosen.</p></legend>
 					<input id="git_log_committer_list_add" type="button" value="Add">
 					<div id="git_log_committer_list" class="subform"></div>
 					<script>
@@ -215,7 +215,7 @@
 			<fieldset>
 				<legend><p>by commit message:</p></legend>
 				<fieldset>
-					<legend><p><span class="command">--grep=&lt;pattern&gt;</span> Limit the commits output to ones with a log message that matches the specified pattern (regular expression). With more than one <span class="command">--grep=&lt;pattern&gt;</span>, commits whose message matches any of the given patterns are chosen.</p></legend>
+					<legend><p><span class="command">--grep=&lt;pattern&gt;</span> Limit the commits output to ones with a log message that matches the <span class="command">&lt;pattern&gt;</span> regular expression. With more than one <span class="command">--grep=&lt;pattern&gt;</span>, commits whose message matches any of the <span class="command">&lt;pattern&gt;</span> are chosen.</p></legend>
 					<input id="git_log_grep_list_add" type="button" value="Add">
 					<div id="git_log_grep_list" class="subform"></div>
 					<script>
@@ -233,7 +233,7 @@
 					</script>
 				</fieldset>
 				<div class="form_item"><input type="checkbox" id="git_log_has_all_match" name="git_log_has_all_match"><label for="git_log_has_all_match"><span class="command">--all-match</span> Limit the commits output to ones that match all given <span class="command">--grep</span>, instead of ones that match at least one.</label></div>
-				<div class="form_item"><input type="checkbox" id="git_log_has_invert_grep" name="git_log_has_invert_grep"><label for="git_log_has_invert_grep"><span class="command">--invert-grep</span> Limit the commits output to ones with a log message that do not match the pattern specified with <span class="command">--grep=&lt;pattern&gt;</span>.</label></div>
+				<div class="form_item"><input type="checkbox" id="git_log_has_invert_grep" name="git_log_has_invert_grep"><label for="git_log_has_invert_grep"><span class="command">--invert-grep</span> Limit the commits output to ones with a log message that do not match the <span class="command">&lt;pattern&gt;</span> specified with <span class="command">--grep=&lt;pattern&gt;</span>.</label></div>
 
 				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 				<div class="form_item"><input type="checkbox" id="git_log_has_regexp_ignore_case" name="git_log_has_regexp_ignore_case"><label for="git_log_has_regexp_ignore_case"><span class="command">--regexp-ignore-case</span> Match the regular expression limiting patterns without regard to letter case.</label></div>
@@ -288,7 +288,7 @@
 			<div class="form_item">
 				<input type="checkbox" id="git_log_has_max_count" name="git_log_has_max_count">
 				<div class="subform basis-0 grow">
-					<label for="git_log_has_max_count"><span class="command">--max-count=&lt;number&gt;</span> Limit the number of commits to output.</label>
+					<label for="git_log_has_max_count"><span class="command">--max-count=&lt;number&gt;</span> Limit the output to <span class="command">&lt;number&gt;</span> commits.</label>
 					<div class="form_item"><label for="git_log_max_count_number"><span class="command">&lt;number&gt;</span>:</label><input type="text" id="git_log_max_count_number" name="git_log_max_count_number" class="basis-0 grow command_input" value=""></div>
 				</div>
 			</div>
@@ -300,7 +300,7 @@
 			<fieldset>
 				<legend><p>select the commits to be shown:</p></legend>
 				<fieldset>
-					<legend><p><span class="command">&lt;path&gt;…</span> Show only commits that are enough to explain how the files that match the specified paths came to be. Commits modifying the given <span class="command">&lt;path&gt;</span>s are selected.</p></legend>
+					<legend><p><span class="command">&lt;path&gt;...</span> Show only commits that are enough to explain how the files that match the specified paths came to be. Commits modifying the given <span class="command">&lt;path&gt;</span>s are selected.</p></legend>
 					<input id="git_log_path_list_add" type="button" value="Add">
 					<div id="git_log_path_list" class="subform"></div>
 					<script>
@@ -391,8 +391,8 @@
 				<div class="form_item"><input type="radio" id="git_log_decorate_no_option" name="git_log_decorate" value="no_option" checked><label for="git_log_decorate_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-logdecorate"><span class="inline_code">log.decorate</span></a> which defaults to <span class="inline_code">auto</span>.)</label></div>
 				<div class="form_item"><input type="radio" id="git_log_decorate_decorate" name="git_log_decorate" value="decorate"><label for="git_log_decorate_decorate"><span class="command">--decorate<input type="checkbox" id="git_log_decorate_decorate_has_argument" name="git_log_decorate_decorate_has_argument"><label for="git_log_decorate_decorate_has_argument">[=(<input type="radio" id="git_log_decorate_decorate_mode_short" name="git_log_decorate_decorate_mode" value="short" checked><label for="git_log_decorate_decorate_mode_short">short</label>|<input type="radio" id="git_log_decorate_decorate_mode_full" name="git_log_decorate_decorate_mode" value="full"><label for="git_log_decorate_decorate_mode_full">full</label>|<input type="radio" id="git_log_decorate_decorate_mode_auto" name="git_log_decorate_decorate_mode" value="auto"><label for="git_log_decorate_decorate_mode_auto">auto</label>|<input type="radio" id="git_log_decorate_decorate_mode_no" name="git_log_decorate_decorate_mode" value="no"><label for="git_log_decorate_decorate_mode_no">no</label>)]</label></span> Print out the ref names of any commits that are shown.<br>
 					<div class="ml-[1em]">
-						<span class="command">short</span> The ref name prefixes <span class="inline_code">refs/heads/</span>, <span class="inline_code">refs/tags/</span> and <span class="inline_code">refs/remotes/</span> will not be printed.<br>
-						<span class="command">full</span> The full ref name (including prefix) will be printed.<br>
+						<span class="command">short</span> The ref name prefixes <span class="inline_code">refs/heads/</span>, <span class="inline_code">refs/tags/</span> and <span class="inline_code">refs/remotes/</span> are not printed.<br>
+						<span class="command">full</span> The full ref name (including prefix) is printed.<br>
 						<span class="command">auto</span> If the output is going to a terminal, the ref names are shown as if <span class="command">short</span> were given, otherwise no ref names are shown.<br>
 						<span class="command">no</span><br>
 					</div></label></div>
@@ -405,7 +405,7 @@
 						<div class="form_item"><input type="radio" id="git_log_decorate_refs_decorate_refs" name="git_log_decorate_refs" value="decorate_refs"><label for="git_log_decorate_refs_decorate_refs"></label></div>
 					</legend>
 					<fieldset>
-						<legend><p><span class="command">--decorate-refs=&lt;pattern&gt;</span> For each candidate reference, do not use it for decoration if it matches any patterns given to <span class="command">--decorate-refs-exclude</span> or if it doesn’t match any of the patterns given to <span class="command">--decorate-refs</span>.</p></legend>
+						<legend><p><span class="command">--decorate-refs=&lt;pattern&gt;</span> For each candidate reference, do not use it for decoration if it matches any of the <span class="command">&lt;pattern&gt;</span> parameters given to <span class="command">--decorate-refs-exclude</span> or if it doesn’t match any of the <span class="command">&lt;pattern&gt;</span> parameters given to <span class="command">--decorate-refs</span>.</p></legend>
 						<input id="git_log_decorate_refs_list_add" type="button" value="Add">
 						<div id="git_log_decorate_refs_list" class="subform"></div>
 						<script>
@@ -423,7 +423,7 @@
 						</script>
 					</fieldset>
 					<fieldset>
-						<legend><p><span class="command">--decorate-refs-exclude=&lt;pattern&gt;</span> For each candidate reference, do not use it for decoration if it matches any patterns given to <span class="command">--decorate-refs-exclude</span> or if it doesn’t match any of the patterns given to <span class="command">--decorate-refs</span>.</p></legend>
+						<legend><p><span class="command">--decorate-refs-exclude=&lt;pattern&gt;</span> For each candidate reference, do not use it for decoration if it matches any of the <span class="command">&lt;pattern&gt;</span> parameters given to <span class="command">--decorate-refs-exclude</span> or if it doesn’t match any of the <span class="command">&lt;pattern&gt;</span> parameters given to <span class="command">--decorate-refs</span>.</p></legend>
 						<input id="git_log_decorate_refs_exclude_list_add" type="button" value="Add">
 						<div id="git_log_decorate_refs_exclude_list" class="subform"></div>
 						<script>
@@ -454,7 +454,7 @@
 
 			<fieldset>
 				<legend><p>commit message:</p></legend>
-				<div class="form_item"><input type="checkbox" id="git_log_has_log_size" name="git_log_has_log_size"><label for="git_log_has_log_size"><span class="command">--log-size</span> Include a line “<span class="inline_code">log size &lt;number&gt;</span>” in the output for each commit, where <span class="inline_code">&lt;number&gt;</span> is the length of that commit’s message in bytes.</label></div>
+				<div class="form_item"><input type="checkbox" id="git_log_has_log_size" name="git_log_has_log_size"><label for="git_log_has_log_size"><span class="command">--log-size</span> Include a line <span class="inline_code">log size &lt;number&gt;</span> in the output for each commit, where <span class="inline_code">&lt;number&gt;</span> is the length of that commit’s message in bytes.</label></div>
 				<div class="form_item">
 					<input type="checkbox" id="git_log_has_pretty" name="git_log_has_pretty">
 					<div class="subform basis-0 grow">
@@ -554,7 +554,7 @@
 					</div>
 
 					<div class="form_item"><input type="radio" id="git_log_fullness_no_option" name="git_log_fullness" value="no_option" checked><label for="git_log_fullness_no_option">Shows commits that touch the specified paths, and diffs about the same specified paths.</label></div>
-					<div class="form_item"><input type="radio" id="git_log_fullness_full_diff" name="git_log_fullness" value="full_diff"><label for="git_log_fullness_full_diff"><span class="command">--full-diff</span> The full diff is shown for commits that touch the specified paths; this means that "<span class="command">&lt;path&gt;…</span>" limits only commits, and doesn’t limit diff for those commits.</label></div>
+					<div class="form_item"><input type="radio" id="git_log_fullness_full_diff" name="git_log_fullness" value="full_diff"><label for="git_log_fullness_full_diff"><span class="command">--full-diff</span> The full diff is shown for commits that touch the specified paths; this means that "<span class="command">&lt;path&gt;...</span>" limits only commits, and doesn’t limit diff for those commits.</label></div>
 				</fieldset>
 
 				<fieldset>

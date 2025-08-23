@@ -47,7 +47,7 @@
 			<div class="form_item"><input type="radio" id="git_diff_what_commit_vs_commit3" name="git_diff_what" value="commit_vs_commit3"><label for="git_diff_what_commit_vs_commit3"><span class="command">[&lt;commit1&gt;]...[&lt;commit2&gt;] [&lt;path&gt;…]</span> <span class="command">&lt;commit2&gt;</span> vs (Merge base of <span class="command">&lt;commit1&gt;</span> and <span class="command">&lt;commit2&gt;</span>).</label></div>
 			<div class="form_item"><input type="radio" id="git_diff_what_combined_diff" name="git_diff_what" value="combined_diff"><label for="git_diff_what_combined_diff"><span class="command">&lt;commit_merge&gt; &lt;commit_parent&gt;… [&lt;path&gt;…]</span> Combined diff.</label></div>
 			<div class="form_item"><input type="radio" id="git_diff_what_blob_vs_blob" name="git_diff_what" value="blob_vs_blob"><label for="git_diff_what_blob_vs_blob"><span class="command">&lt;blob1&gt; &lt;blob2&gt;</span> <span class="command">&lt;blob2&gt;</span> vs <span class="command">&lt;blob1&gt;</span>.</label></div>
-			<div class="form_item"><input type="radio" id="git_diff_what_path_vs_path" name="git_diff_what" value="path_vs_path"><label for="git_diff_what_path_vs_path"><span class="command">--no-index &lt;path1&gt; &lt;path2&gt;</span> <span class="command">&lt;path2&gt;</span> vs <span class="command">&lt;path1&gt;</span>. (Implies <span class="command">--exit-code</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_diff_what_path_vs_path" name="git_diff_what" value="path_vs_path"><label for="git_diff_what_path_vs_path"><span class="command">--no-index &lt;path1&gt; &lt;path2&gt; [&lt;pathspec&gt;...]</span> <span class="command">&lt;path2&gt;</span> vs <span class="command">&lt;path1&gt;</span>. (Implies <span class="command">--exit-code</span>.)</label></div>
 
 			<div class="form_item" id="git_diff_commit__"><input type="checkbox" id="git_diff_has_commit" name="git_diff_has_commit"><label for="git_diff_has_commit" id="git_diff_has_commit_"><span class="command">&lt;commit&gt;</span></label><label for="git_diff_commit" id="git_diff_commit_"><span class="command">&lt;commit&gt;</span>:</label><textarea wrap="off" id="git_diff_commit" name="git_diff_commit" class="basis-0 grow command_input">HEAD</textarea></div>
 			<div class="form_item" id="git_diff_commit1__"><input type="checkbox" id="git_diff_has_commit1" name="git_diff_has_commit1"><label for="git_diff_has_commit1" id="git_diff_has_commit1_"><span class="command">&lt;commit1&gt;</span></label><label for="git_diff_commit1" id="git_diff_commit1_"><span class="command">&lt;commit1&gt;</span>:</label><textarea wrap="off" id="git_diff_commit1" name="git_diff_commit1" class="basis-0 grow command_input">HEAD</textarea></div>
@@ -82,6 +82,24 @@
 				<script>
 					document.getElementById("git_diff_path_list_add").addEventListener("click",function(e){
 						document.getElementById("git_diff_path_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_diff_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_diff_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_diff_refresh();
+					})
+				</script>
+			</fieldset>
+			<fieldset id="git_diff_pathspec">
+				<legend><p><span class="command">&lt;pathspec&gt;...</span> If both paths point to directories, additional pathspecs may be provided. These will limit the files included in the difference. All such pathspecs must be relative as they apply to both sides of the diff.</p></legend>
+				<input id="git_diff_pathspec_list_add" type="button" value="Add">
+				<div id="git_diff_pathspec_list" class="subform"></div>
+				<script>
+					document.getElementById("git_diff_pathspec_list_add").addEventListener("click",function(e){
+						document.getElementById("git_diff_pathspec_list").append((function(){
 							let div = document.createElement("div"); div.className = "form_item";
 							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
 							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_diff_refresh);
@@ -656,6 +674,7 @@
 			document.getElementById("git_diff_path1_").classList.toggle("hidden", !document.getElementById("git_diff_what_path_vs_path").checked);
 			document.getElementById("git_diff_path2_").classList.toggle("hidden", !document.getElementById("git_diff_what_path_vs_path").checked);
 			document.getElementById("git_diff_path").classList.toggle("hidden", !(document.getElementById("git_diff_what_working_tree_vs_index").checked || document.getElementById("git_diff_what_index_vs_commit").checked || document.getElementById("git_diff_what_working_tree_vs_commit").checked || document.getElementById("git_diff_what_commit_vs_commit1").checked || document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked || document.getElementById("git_diff_what_combined_diff").checked));
+			document.getElementById("git_diff_pathspec").classList.toggle("hidden", !document.getElementById("git_diff_what_path_vs_path").checked);
 
 			document.getElementById("git_diff_relative_relative_has_argument").disabled = !document.getElementById("git_diff_relative_relative").checked;
 			document.getElementById("git_diff_relative_relative_path").disabled = !(document.getElementById("git_diff_relative_relative").checked && document.getElementById("git_diff_relative_relative_has_argument").checked);
@@ -1480,6 +1499,12 @@
 						document.getElementById("git_diff_path2").classList.toggle("error_input", element_has_error);
 						has_error ||= element_has_error;
 					}
+					Array.from(document.getElementById("git_diff_pathspec_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
 					break;
 			}
 

@@ -223,25 +223,26 @@
 			<legend><p>commit content:</p></legend>
 			<fieldset>
 				<legend>
-					<div class="form_item"><input type="radio" id="git_commit_all_no_option" name="git_commit_all" value="false" checked><label for="git_commit_all_has_all"></label></div>
+					<fieldset>
+						<legend>
+							<div class="form_item"><input type="radio" id="git_commit_filter_by_path_pathspec_list" name="git_commit_filter_by_path" value="pathspec_list" checked><label for="git_commit_filter_by_path_pathspec_list"><span class="command">[&lt;pathspec&gt;...]</span></label></div>
+							<div class="form_item"><input type="radio" id="git_commit_filter_by_path_pathspec_from_file" name="git_commit_filter_by_path" value="pathspec_from_file"><label for="git_commit_filter_by_path_pathspec_from_file"><span class="command">--pathspec-from-file=&lt;file&gt; [--pathspec-file-nul]</span></label></div>
+						</legend>
+						<div class="form_item"><input type="radio" id="git_commit_manual_method_staged_and_or_listed_no_option" name="git_commit_manual_method_staged_and_or_listed" value="no_option" checked><label for="git_commit_manual_method_staged_and_or_listed_no_option">(If any paths are given on the command line, defaults to <span class="command">--only</span>; otherwise defauls to "create a new commit containing the current contents of the index and the given log message describing the changes".)</label></div>
+						<div class="form_item"><input type="radio" id="git_commit_manual_method_staged_and_or_listed_include" name="git_commit_manual_method_staged_and_or_listed" value="include"><label for="git_commit_manual_method_staged_and_or_listed_include"><span class="command">--include</span> Before making a commit out of staged contents so far, stage the contents of paths given on the command line as well.</label></div>
+						<div class="form_item"><input type="radio" id="git_commit_manual_method_staged_and_or_listed_only" name="git_commit_manual_method_staged_and_or_listed" value="only"><label for="git_commit_manual_method_staged_and_or_listed_only"><span class="command">--only</span> Make a commit by taking the updated working tree contents of the paths specified on the command line, disregarding any contents that have been staged for other paths.</label></div>
+					</fieldset>
+					<div class="form_item"><input type="radio" id="git_commit_filter_by_path_interactive" name="git_commit_filter_by_path" value="interactive"><label for="git_commit_filter_by_path_interactive"><span class="command">--interactive [--] [&lt;pathspec&gt;...]</span> (Equivalent to <span class="command">git add --interactive</span>)</label></div>
+					<div class="form_item"><input type="radio" id="git_commit_filter_by_path_patch" name="git_commit_filter_by_path" value="patch"><label for="git_commit_filter_by_path_patch"><span class="command">--patch [--] [&lt;pathspec&gt;...]</span> Use the interactive patch selection interface to choose which changes to commit. (Equivalent to <span class="command">git add --patch</span>)</label></div>
+					<div class="form_item"><input type="radio" id="git_commit_filter_by_path_all" name="git_commit_filter_by_path" value="all"><label for="git_commit_filter_by_path_all"><span class="command">--all</span> Automatically stage files that have been modified and deleted, but new files you have not told Git about are not affected. (Equivalent to <span class="command">git add --update</span>)</label></div>
 				</legend>
-				<fieldset>
-					<legend>
-						<div class="form_item"><input type="radio" id="git_commit_manual_method_staged_and_or_listed" name="git_commit_manual_method" value="staged_and_or_listed" checked><label for="git_commit_manual_method_staged_and_or_listed"> (staged and/or listed)</label></div>
-					</legend>
-					<div class="form_item"><input type="radio" id="git_commit_manual_method_staged_and_or_listed_no_option" name="git_commit_manual_method_staged_and_or_listed" value="no_option" checked><label for="git_commit_manual_method_staged_and_or_listed_no_option">(If any paths are given on the command line, defaults to <span class="command">--only</span>; otherwise defauls to "create a new commit containing the current contents of the index and the given log message describing the changes".)</label></div>
-					<div class="form_item"><input type="radio" id="git_commit_manual_method_staged_and_or_listed_include" name="git_commit_manual_method_staged_and_or_listed" value="include"><label for="git_commit_manual_method_staged_and_or_listed_include"><span class="command">--include</span> Before making a commit out of staged contents so far, stage the contents of paths given on the command line as well.</label></div>
-					<div class="form_item"><input type="radio" id="git_commit_manual_method_staged_and_or_listed_only" name="git_commit_manual_method_staged_and_or_listed" value="only"><label for="git_commit_manual_method_staged_and_or_listed_only"><span class="command">--only</span> Make a commit by taking the updated working tree contents of the paths specified on the command line, disregarding any contents that have been staged for other paths.</label></div>
-				</fieldset>
-				<div class="form_item"><input type="radio" id="git_commit_manual_method_interactive" name="git_commit_manual_method" value="interactive"><label for="git_commit_manual_method_interactive"><span class="command">--interactive</span> (Equivalent to <span class="command">git add --interactive</span>)</label></div>
-				<div class="form_item"><input type="radio" id="git_commit_manual_method_patch" name="git_commit_manual_method" value="patch"><label for="git_commit_manual_method_patch"><span class="command">--patch</span> Use the interactive patch selection interface to choose which changes to commit. (Equivalent to <span class="command">git add --patch</span>)</label></div>
-
-				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-				<div class="form_item"><input type="radio" id="git_commit_filter_by_path_no_option" name="git_commit_filter_by_path" value="no_option" checked><label for="git_commit_filter_by_path_no_option"></label></div>
-				<fieldset>
-					<legend>
-						<div class="form_item"><input type="radio" id="git_commit_filter_by_path_pathspec_list" name="git_commit_filter_by_path" value="pathspec_list"><label for="git_commit_filter_by_path_pathspec_list"><span class="command">&lt;pathspec&gt;...</span> Commit the contents of the files that match the pathspec without recording the changes already added to the index. The contents of these files are also staged for the next commit on top of what have been staged before.</label></div>
-					</legend>
+				<div id="git_commit_pathspec_from_file" class="subform">
+					<p><span class="command">--pathspec-from-file=&lt;file&gt;</span> Pass pathspec in <span class="command">&lt;file&gt;</span> instead of commandline args.</p>
+					<div class="form_item"><label for="git_commit_pathspec_from_file_file"><span class="command">&lt;file&gt;</span>:</label><textarea wrap="off" id="git_commit_pathspec_from_file_file" name="git_commit_pathspec_from_file_file" class="basis-0 grow command_input"></textarea></div>
+					<div class="form_item"><input type="checkbox" id="git_commit_has_pathspec_file_nul" name="git_commit_has_pathspec_file_nul"><label for="git_commit_has_pathspec_file_nul"><span class="command">--pathspec-file-nul</span> Pathspec elements are separated with NUL character and all other characters are taken literally (including newlines and quotes).</label></div>
+				</div>
+				<fieldset id="git_commit_pathspec_list_">
+					<legend><p><span class="command">&lt;pathspec&gt;...</span> Commit the contents of the files that match the pathspec without recording the changes already added to the index. The contents of these files are also staged for the next commit on top of what have been staged before.</p></legend>
 					<input id="git_commit_pathspec_list_add" type="button" value="Add">
 					<div id="git_commit_pathspec_list" class="subform"></div>
 					<script>
@@ -258,18 +259,26 @@
 						})
 					</script>
 				</fieldset>
-				<div class="form_item">
-					<input type="radio" id="git_commit_filter_by_path_pathspec_from_file" name="git_commit_filter_by_path" value="pathspec_from_file">
-					<div class="subform basis-0 grow">
-						<label for="git_commit_filter_by_path_pathspec_from_file"><span class="command">--pathspec-from-file=&lt;file&gt;</span> Pass pathspec in <span class="command">&lt;file&gt;</span> instead of commandline args.</label>
-						<div class="form_item"><label for="git_commit_filter_by_path_pathspec_from_file_file"><span class="command">&lt;file&gt;</span>:</label><textarea wrap="off" id="git_commit_filter_by_path_pathspec_from_file_file" name="git_commit_filter_by_path_pathspec_from_file_file" class="basis-0 grow command_input"></textarea></div>
+				<p>(when <span class="command">--interactive</span>/<span class="command">--patch</span>:)</p>
+				<fieldset>
+					<legend><p>context lines and hunks:</p></legend>
+					<div class="form_item">
+						<input type="checkbox" id="git_commit_has_unified" name="git_commit_has_unified">
+						<div class="subform basis-0 grow">
+							<label for="git_commit_has_unified"><span class="command">--unified=&lt;n&gt;</span> Generate diffs with <span class="command">&lt;n&gt;</span> lines of context. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffcontext"><span class="inline_code">diff.context</span></a> which defaults to <span class="inline_code">3</span>.)</label>
+							<div class="form_item"><label for="git_commit_unified_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_commit_unified_n" name="git_commit_unified_n" class="basis-0 grow command_input" value="3"></div>
+						</div>
 					</div>
-				</div>
-				<div class="form_item"><input type="checkbox" id="git_commit_has_pathspec_file_nul" name="git_commit_has_pathspec_file_nul"><label for="git_commit_has_pathspec_file_nul"><span class="command">--pathspec-file-nul</span> Pathspec elements are separated with NUL character and all other characters are taken literally (including newlines and quotes).</label></div>
+					<div class="form_item">
+						<input type="checkbox" id="git_commit_has_inter_hunk_context" name="git_commit_has_inter_hunk_context">
+						<div class="subform basis-0 grow">
+							<label for="git_commit_has_inter_hunk_context"><span class="command">--inter-hunk-context=&lt;number&gt;</span> Show the context between diff hunks, up to the specified <span class="command">&lt;number&gt;</span> of lines, thereby fusing hunks that are close to each other. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffinterHunkContext"><span class="inline_code">diff.interHunkContext</span></a> which defaults to <span class="inline_code">0</span>.)</label>
+							<div class="form_item"><label for="git_commit_inter_hunk_context_number"><span class="command">&lt;number&gt;</span>:</label><input type="text" id="git_commit_inter_hunk_context_number" name="git_commit_inter_hunk_context_number" class="basis-0 grow command_input" value="0"></div>
+						</div>
+					</div>
+				</fieldset>
 			</fieldset>
-			<div class="form_item"><input type="radio" id="git_commit_all_has_all" name="git_commit_all" value="true"><label for="git_commit_all_has_all"><span class="command">--all</span> Automatically stage files that have been modified and deleted, but new files you have not told Git about are not affected. (Equivalent to <span class="command">git add --update</span>)</label></div>
 
-			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 			<div class="form_item"><input type="checkbox" id="git_commit_has_allow_empty" name="git_commit_has_allow_empty"><label for="git_commit_has_allow_empty"><span class="command">--allow-empty</span> Usually recording a commit that has the exact same tree as its sole parent commit is a mistake, and the command prevents you from making such a commit. Bypasses the safety, and is primarily for use by foreign SCM interface scripts.</label></div>
 		</fieldset>
 
@@ -325,11 +334,12 @@
 			document.getElementById("git_commit_gpg_sign_gpg_sign_key_id").disabled = !(document.getElementById("git_commit_gpg_sign_gpg_sign").checked && document.getElementById("git_commit_gpg_sign_gpg_sign_has_argument").checked);
 
 			document.getElementById("git_commit_verify_no_option").closest("fieldset").disabled = document.getElementById("git_commit_action_dry_run").checked;
-			document.getElementById("git_commit_all_no_option").closest("fieldset").disabled = !document.getElementById("git_commit_all_no_option").checked;
-			document.getElementById("git_commit_manual_method_staged_and_or_listed").closest("fieldset").disabled = !document.getElementById("git_commit_manual_method_staged_and_or_listed").checked;
-			document.getElementById("git_commit_filter_by_path_pathspec_list").closest("fieldset").disabled = !document.getElementById("git_commit_filter_by_path_pathspec_list").checked;
-			document.getElementById("git_commit_filter_by_path_pathspec_from_file_file").disabled = !document.getElementById("git_commit_filter_by_path_pathspec_from_file").checked;
-			document.getElementById("git_commit_has_pathspec_file_nul").disabled = !document.getElementById("git_commit_filter_by_path_pathspec_from_file").checked;
+			document.getElementById("git_commit_filter_by_path_pathspec_list").closest("fieldset").disabled = !(document.getElementById("git_commit_filter_by_path_pathspec_list").checked || document.getElementById("git_commit_filter_by_path_pathspec_from_file").checked);
+			document.getElementById("git_commit_pathspec_list_").classList.toggle("hidden", !(document.getElementById("git_commit_filter_by_path_pathspec_list").checked || document.getElementById("git_commit_filter_by_path_interactive").checked || document.getElementById("git_commit_filter_by_path_patch").checked));
+			document.getElementById("git_commit_pathspec_from_file").classList.toggle("hidden", !document.getElementById("git_commit_filter_by_path_pathspec_from_file").checked);
+			document.getElementById("git_commit_has_unified").closest("fieldset").disabled = !(document.getElementById("git_commit_filter_by_path_interactive").checked || document.getElementById("git_commit_filter_by_path_patch").checked);
+			document.getElementById("git_commit_unified_n").disabled = !document.getElementById("git_commit_has_unified").checked;
+			document.getElementById("git_commit_inter_hunk_context_number").disabled = !document.getElementById("git_commit_has_inter_hunk_context").checked;
 
 			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
 			command_components.push("commit");
@@ -574,19 +584,29 @@
 				}
 			}
 
-			switch(form_data.get("git_commit_all")){
-				case "false":
-					switch(form_data.get("git_commit_manual_method")){
-						case "staged_and_or_listed":
-							switch(form_data.get("git_commit_manual_method_staged_and_or_listed")){
-								case "include":
-									command_components.push("--include");
-									break;
-								case "only":
-									command_components.push("--only");
-									break;
-							}
+			switch(form_data.get("git_commit_filter_by_path")){
+				case "pathspec_list":
+				case "pathspec_from_file":
+					if(form_data.get("git_commit_filter_by_path") == "pathspec_from_file"){
+						let element_value = form_data.get("git_commit_pathspec_from_file_file"), element_has_error = element_value.length == 0;
+						command_components.push("--pathspec-from-file=" + shell_quote(element_value));
+						document.getElementById("git_commit_pathspec_from_file_file").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+						if(form_data.get("git_commit_has_pathspec_file_nul"))
+							command_components.push("--pathspec-file-nul");
+					}
+					switch(form_data.get("git_commit_manual_method_staged_and_or_listed")){
+						case "include":
+							command_components.push("--include");
 							break;
+						case "only":
+							command_components.push("--only");
+							break;
+					}
+					break;
+				case "interactive":
+				case "patch":
+					switch(form_data.get("git_commit_filter_by_path")){
 						case "interactive":
 							command_components.push("--interactive");
 							break;
@@ -594,18 +614,20 @@
 							command_components.push("--patch");
 							break;
 					}
-					switch(form_data.get("git_commit_filter_by_path")){
-						case "pathspec_from_file":
-							let element_value = form_data.get("git_commit_filter_by_path_pathspec_from_file_file"), element_has_error = element_value.length == 0;
-							command_components.push("--pathspec-from-file=" + shell_quote(element_value));
-							document.getElementById("git_commit_filter_by_path_pathspec_from_file_file").classList.toggle("error_input", element_has_error);
-							has_error ||= element_has_error;
-							if(form_data.get("git_commit_has_pathspec_file_nul"))
-								command_components.push("--pathspec-file-nul");
-							break;
+					if(form_data.get("git_commit_has_unified")){
+						let element_value = form_data.get("git_commit_unified_n"), element_has_error = element_value.length == 0;
+						command_components.push("--unified=" + shell_quote(element_value));
+						document.getElementById("git_commit_unified_n").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_commit_has_inter_hunk_context")){
+						let element_value = form_data.get("git_commit_inter_hunk_context_number"), element_has_error = element_value.length == 0;
+						command_components.push("--inter-hunk-context=" + shell_quote(element_value));
+						document.getElementById("git_commit_inter_hunk_context_number").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
 					}
 					break;
-				case "true":
+				case "all":
 					command_components.push("--all");
 					break;
 			}
@@ -625,20 +647,18 @@
 					command_components.push("--no-post-rewrite");
 			}
 
-			switch(form_data.get("git_commit_all")){
-				case "false":
-					switch(form_data.get("git_commit_filter_by_path")){
-						case "pathspec_list":
-							if(Array.from(document.getElementById("git_commit_pathspec_list").querySelectorAll("textarea:enabled")).length != 0)
-								command_components.push("--end-of-options");
-							Array.from(document.getElementById("git_commit_pathspec_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
-								let element_value = textarea.value, element_has_error = element_value.length == 0;
-								command_components.push(shell_quote(element_value));
-								textarea.classList.toggle("error_input", element_has_error);
-								has_error ||= element_has_error;
-							});
-							break;
-					}
+			switch(form_data.get("git_commit_filter_by_path")){
+				case "pathspec_list":
+				case "interactive":
+				case "patch":
+					if(Array.from(document.getElementById("git_commit_pathspec_list").querySelectorAll("textarea:enabled")).length != 0)
+						command_components.push("--end-of-options");
+					Array.from(document.getElementById("git_commit_pathspec_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
 					break;
 			}
 
