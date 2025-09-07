@@ -1,0 +1,445 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_config~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_config~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_config')">git config</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-config">https://git-scm.com/docs/git-config</a></p>
+	<p class="paragraph">Get and set repository or global options.</p>
+	<form id="git_config_form">
+		<fieldset>
+			<legend><p>Choose an action to perform:</p></legend>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_config\_action\_list~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_config_action_list')"><input type="radio" id="git_config_action_list" name="git_config_action" value="list" checked><label for="git_config_action_list"><span class="command">list</span> List all variables set in config file, along with their values.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_config\_action\_get~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_config_action_get')"><input type="radio" id="git_config_action_get" name="git_config_action" value="get"><label for="git_config_action_get"><span class="command">get &lt;name&gt;</span> Emits the value of the specified key.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_config\_action\_set~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_config_action_set')"><input type="radio" id="git_config_action_set" name="git_config_action" value="set"><label for="git_config_action_set"><span class="command">set &lt;name&gt; &lt;value&gt;</span> Set value for one or more config options.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_config\_action\_unset~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_config_action_unset')"><input type="radio" id="git_config_action_unset" name="git_config_action" value="unset"><label for="git_config_action_unset"><span class="command">unset &lt;name&gt;</span> Unset value for one or more config options.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_config\_action\_rename\_section~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_config_action_rename_section')"><input type="radio" id="git_config_action_rename_section" name="git_config_action" value="rename_section"><label for="git_config_action_rename_section"><span class="command">rename-section &lt;old-name&gt; &lt;new-name&gt;</span> Rename the given section to a new name.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_config\_action\_remove\_section~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_config_action_remove_section')"><input type="radio" id="git_config_action_remove_section" name="git_config_action" value="remove_section"><label for="git_config_action_remove_section"><span class="command">remove-section &lt;name&gt;</span> Remove the given section from the configuration file.</label></div>
+			<div class="form_item"><input type="radio" id="git_config_action_edit" name="git_config_action" value="edit"><label for="git_config_action_edit"><span class="command">edit</span> Opens an editor to modify the specified config file.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_config\_action\_get\_colorbool~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_config_action_get_colorbool')"><input type="radio" id="git_config_action_get_colorbool" name="git_config_action" value="get_colorbool"><label for="git_config_action_get_colorbool"><span class="command">--get-colorbool &lt;name&gt; [&lt;stdout-is-tty&gt;]</span> Find the color setting for <span class="command">&lt;name&gt;</span> (e.g. color.diff) and output "<span class="command">true</span>" or "<span class="command">false</span>". If <span class="command">&lt;stdout-is-tty&gt;</span> is missing, then checks the standard output of the command itself, and exits with status 0 if color is to be used, or exits with status 1 otherwise.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><label for="git_config_name"><span class="command">&lt;name&gt;</span>:</label><textarea wrap="off" id="git_config_name" name="git_config_name" class="basis-0 grow command_input">section.key</textarea></div>
+			<div class="form_item"><label for="git_config_value"><span class="command">&lt;value&gt;</span>:</label><textarea wrap="off" id="git_config_value" name="git_config_value" class="basis-0 grow command_input">value</textarea></div>
+			<div class="form_item"><label for="git_config_section_name_old"><span class="command">&lt;old-name&gt;</span>:</label><textarea wrap="off" id="git_config_section_name_old" name="git_config_section_name_old" class="basis-0 grow command_input">section</textarea></div>
+			<div class="form_item"><label for="git_config_section_name_new"><span class="command">&lt;new-name&gt;</span>:</label><textarea wrap="off" id="git_config_section_name_new" name="git_config_section_name_new" class="basis-0 grow command_input">section</textarea></div>
+			<div class="form_item"><label for="git_config_section_name"><span class="command">&lt;name&gt;</span>:</label><textarea wrap="off" id="git_config_section_name" name="git_config_section_name" class="basis-0 grow command_input">section</textarea></div>
+			<div class="form_item"><input type="checkbox" id="git_config_has_stdout_is_tty" name="git_config_has_stdout_is_tty"><label for="git_config_has_stdout_is_tty"><span class="command">&lt;stdout-is-tty&gt;</span></label><label for="git_config_stdout_is_tty" class="hidden"><span class="command">&lt;stdout-is-tty&gt;</span>:</label><input type="text" id="git_config_stdout_is_tty" name="git_config_stdout_is_tty" class="basis-0 grow command_input" value="true"></div>
+		</fieldset>
+
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_config\_scope~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_config_scope')"><p>scope:</p></legend>
+			<div class="form_item"><input type="radio" id="git_config_scope_no_option" name="git_config_scope" value="no_option" checked><label for="git_config_scope_no_option">For writing options: write to the repository <span class="inline_code">.git/config</span> file.<br>For reading options: read from all available files.</label></div>
+			<div class="form_item"><input type="radio" id="git_config_scope_system" name="git_config_scope" value="system"><label for="git_config_scope_system"><span class="command">--system</span><br>For writing options: write to system-wide <span class="inline_code">$(prefix)/etc/gitconfig</span>.<br>For reading options: read only from system-wide <span class="inline_code">$(prefix)/etc/gitconfig</span>.</label></div>
+			<div class="form_item"><input type="radio" id="git_config_scope_global" name="git_config_scope" value="global"><label for="git_config_scope_global"><span class="command">--global</span><br>For writing options: write to global <span class="inline_code">~/.gitconfig</span> file, write to <span class="inline_code">$XDG_CONFIG_HOME/git/config</span> file if this file exists and the <span class="inline_code">~/.gitconfig</span> file doesn’t.<br>For reading options: read only from global <span class="inline_code">~/.gitconfig</span> and from <span class="inline_code">$XDG_CONFIG_HOME/git/config</span>.</label></div>
+			<div class="form_item"><input type="radio" id="git_config_scope_local" name="git_config_scope" value="local"><label for="git_config_scope_local"><span class="command">--local</span><br>For writing options: write to the repository <span class="inline_code">.git/config</span> file.<br>For reading options: read only from the repository <span class="inline_code">.git/config</span>.</label></div>
+			<div class="form_item"><input type="radio" id="git_config_scope_worktree" name="git_config_scope" value="worktree"><label for="git_config_scope_worktree"><span class="command">--worktree</span><br>If <span class="inline_code">extensions.worktreeConfig</span> is enabled, <span class="inline_code"><span class="command">$GIT_DIR</span>/config.worktree</span> is read from or written to; otherwise, it’s the same as <span class="command">--local</span>.</label></div>
+			<div class="form_item">
+				<input type="radio" id="git_config_scope_file" name="git_config_scope" value="file">
+				<div class="subform basis-0 grow">
+					<label for="git_config_scope_file"><span class="command">--file=&lt;config-file&gt;</span><br>For writing options: write to the specified file.<br>For reading options: read only from the specified file.</label>
+					<div class="form_item"><label for="git_config_scope_file_file"><span class="command">&lt;config-file&gt;</span>:</label><textarea wrap="off" id="git_config_scope_file_file" name="git_config_scope_file_file" class="basis-0 grow command_input"></textarea></div>
+				</div>
+			</div>
+			<div class="form_item">
+				<input type="radio" id="git_config_scope_blob" name="git_config_scope" value="blob">
+				<div class="subform basis-0 grow">
+					<label for="git_config_scope_blob"><span class="command">--blob=&lt;blob&gt;</span><br>Similar to <span class="command">--file</span> but use the given blob instead of a file.</label>
+					<div class="form_item"><label for="git_config_scope_blob_blob"><span class="command">&lt;blob&gt;</span>:</label><textarea wrap="off" id="git_config_scope_blob_blob" name="git_config_scope_blob_blob" class="basis-0 grow command_input">master:.gitconfig</textarea></div>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>including (<span class="command">list</span>/<span class="command">get</span>):</p></legend>
+			<div class="form_item"><input type="radio" id="git_config_includes_no_option" name="git_config_includes" value="" checked><label for="git_config_includes_no_option">Defaults to <span class="command">off</span> when a specific file is given (e.g., using <span class="command">--file</span>, <span class="command">--global</span>, etc) and <span class="command">on</span> when searching all config files.</label></div>
+			<div class="form_item"><input type="radio" id="git_config_includes_has_includes" name="git_config_includes" value="true"><label for="git_config_includes_has_includes"><span class="command">--includes</span> Respect <span class="inline_code">include.*</span> directives in config files when looking up values.</label></div>
+			<div class="form_item"><input type="radio" id="git_config_includes_has_no_includes" name="git_config_includes" value="false"><label for="git_config_includes_has_no_includes"><span class="command">--no-includes</span></label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_config\_filtering\_and\_precedence~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_config_filtering_and_precedence')"><p>filtering and precedence (<span class="command">get</span>/<span class="command">set</span>/<span class="command">unset</span>):</p></legend>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_config_filtering_and_precedence_not_url" name="git_config_filtering_and_precedence" value="not_url" checked><label for="git_config_filtering_and_precedence_not_url"></label></div>
+				</legend>
+				<fieldset>
+					<legend><p>Filter options by key (<span class="command">get</span>):</p></legend>
+					<div class="form_item"><input type="radio" id="git_config_filter_by_key_no_option" name="git_config_filter_by_key" value="no_option" checked><label for="git_config_filter_by_key_no_option"></label></div>
+					<div class="form_item"><input type="radio" id="git_config_filter_by_key_regexp" name="git_config_filter_by_key" value="regexp"><label for="git_config_filter_by_key_regexp"><span class="command">--regexp</span> Interpret the name as a regular expression.</label></div>
+				</fieldset>
+				<fieldset>
+					<legend><p>Filter options by value (<span class="command">get</span>/<span class="command">set</span>/<span class="command">unset</span>):</p></legend>
+					<div class="form_item"><input type="radio" id="git_config_filter_by_value_no_option" name="git_config_filter_by_value" value="no_option" checked><label for="git_config_filter_by_value_no_option"></label></div>
+					<div class="form_item"><input type="radio" id="git_config_filter_by_value_no_value" name="git_config_filter_by_value" value="no_value"><label for="git_config_filter_by_value_no_value"><span class="command">--no-value</span> Unset <span class="command">&lt;pattern&gt;</span>.</label></div>
+					<div class="form_item"><input type="radio" id="git_config_filter_by_value_value" name="git_config_filter_by_value" value="value"><label for="git_config_filter_by_value_value"><span class="command">--value=&lt;pattern&gt;</span> Match only against <span class="command">&lt;pattern&gt;</span> (an extended regular expression). Prepend a single exclamation mark in front to handle the lines that do not match the pattern.</label></div>
+					<div class="form_item">
+						<input type="radio" id="git_config_filter_by_value_value_fixed_value" name="git_config_filter_by_value" value="value_fixed_value">
+						<div class="subform basis-0 grow">
+							<label for="git_config_filter_by_value_value_fixed_value"><span class="command">--value=&lt;pattern&gt; --fixed-value</span> Match only against <span class="command">&lt;pattern&gt;</span>. Treat <span class="command">&lt;pattern&gt;</span> as an exact string instead of a regular expression.</label>
+							<div class="form_item"><label for="git_config_filter_by_value_pattern"><span class="command">&lt;pattern&gt;</span>:</label><textarea wrap="off" id="git_config_filter_by_value_pattern" name="git_config_filter_by_value_pattern" class="basis-0 grow command_input"></textarea></div>
+						</div>
+					</div>
+					<div class="form_item"><input type="radio" id="git_config_filter_by_value_append" name="git_config_filter_by_value" value="append"><label for="git_config_filter_by_value_append"><span class="command">--append</span> <span id="git_config_filter_by_value_append_condition_on_action">(<span class="command">set</span>)</span> Adds a new line to the option without altering any existing values. (Is the same as providing <span class="command">--value=^$</span>.)</label></div>
+				</fieldset>
+				<fieldset>
+					<legend><p>operate on the last config option or all config options (<span class="command">get</span>/<span class="command">set</span>/<span class="command">unset</span>):</p></legend>
+					<fieldset>
+						<legend>
+							<div class="form_item"><input type="radio" id="git_config_precedence_no_option" name="git_config_precedence" value="no_option" checked><label for="git_config_precedence_no_option"><br><span class="command">get</span> Emits the last value.<br><span class="command">set</span> Refuses to write multi-valued config options.<br><span class="command">unset</span> Refuses to unset multi-valued keys.</label></div>
+						</legend>
+						<div class="form_item">
+							<input type="checkbox" id="git_config_precedence_no_option_has_default" name="git_config_precedence_no_option_has_default">
+							<div class="subform basis-0 grow">
+								<label for="git_config_precedence_no_option_has_default"><span class="command">--default=&lt;value&gt;</span> (<span class="command">get</span>) If the requested variable is not found, behave as if <span class="command">&lt;value&gt;</span> were the value assigned to that variable.</label>
+								<div class="form_item"><label for="git_config_precedence_no_option_default_value"><span class="command">&lt;value&gt;</span>:</label><textarea wrap="off" id="git_config_precedence_no_option_default_value" name="git_config_precedence_no_option_default_value" class="basis-0 grow command_input"></textarea></div>
+							</div>
+						</div>
+					</fieldset>
+					<div class="form_item"><input type="radio" id="git_config_precedence_all" name="git_config_precedence" value="all"><label for="git_config_precedence_all"><span class="command">--all</span><br><span class="command">get</span> Emits all values associated with key.<br><span class="command">set</span> Replace all multi-valued config options with the new value.<br><span class="command">unset</span> Unset all multi-valued config options</label></div>
+				</fieldset>
+			</fieldset>
+			<div class="form_item">
+				<input type="radio" id="git_config_filtering_and_precedence_url" name="git_config_filtering_and_precedence" value="url">
+				<div class="subform basis-0 grow">
+					<label for="git_config_filtering_and_precedence_url"><span class="command">--url=&lt;URL&gt;</span> <span id="git_config_filtering_and_precedence_url_condition_on_action">(<span class="command">get</span>)</span> When given a two-part &lt;name&gt; as &lt;section&gt;.&lt;key&gt;, the value for &lt;section&gt;.&lt;URL&gt;.&lt;key&gt; whose &lt;URL&gt; part matches the best to the given URL is returned (if no such key exists, the value for &lt;section&gt;.&lt;key&gt; is used as a fallback). When given just the &lt;section&gt; as name, do so for all the keys in the section and list them.</label>
+					<div class="form_item"><label for="git_config_url_URL"><span class="command">&lt;URL&gt;</span>:</label><input type="text" id="git_config_url_URL" name="git_config_url_URL" class="basis-0 grow command_input" value=""></div>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_config\_type~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_config_type')"><p>type (<span class="command">get</span>/<span class="command">set</span>):</p></legend>
+			<div class="form_item"><input type="radio" id="git_config_type_no_option" name="git_config_type" value="" checked><label for="git_config_type_no_option">(Defaults to <span class="command">--no-type</span>.)</label></div>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_config_type_has_type" name="git_config_type" value="true"><label for="git_config_type_has_type"><span class="command">--type=&lt;type&gt;</span> Ensure that any input or output is valid under the given type constraint(s), and canonicalize outgoing values in <span class="command">&lt;type&gt;</span>'s canonical form.</label></div>
+				</legend>
+				<div class="form_item"><input type="radio" id="git_config_type_type_bool" name="git_config_type_type" value="bool" checked><label for="git_config_type_type_bool"><span class="command">bool</span></label></div>
+				<div class="form_item"><input type="radio" id="git_config_type_type_int" name="git_config_type_type" value="int"><label for="git_config_type_type_int"><span class="command">int</span></label></div>
+				<div class="form_item"><input type="radio" id="git_config_type_type_bool_or_int" name="git_config_type_type" value="bool_or_int"><label for="git_config_type_type_bool_or_int"><span class="command">bool-or-int</span></label></div>
+				<div class="form_item"><input type="radio" id="git_config_type_type_path" name="git_config_type_type" value="path"><label for="git_config_type_type_path"><span class="command">path</span></label></div>
+				<div class="form_item"><input type="radio" id="git_config_type_type_expiry_date" name="git_config_type_type" value="expiry_date"><label for="git_config_type_type_expiry_date"><span class="command">expiry-date</span></label></div>
+				<div class="form_item"><input type="radio" id="git_config_type_type_color" name="git_config_type_type" value="color"><label for="git_config_type_type_color"><span class="command">color</span></label></div>
+			</fieldset>
+			<div class="form_item"><input type="radio" id="git_config_type_has_no_type" name="git_config_type" value="false"><label for="git_config_type_has_no_type"><span class="command">--no-type</span> Un-sets the previously set type specifier (if one was previously set). Requests that git config not canonicalize the retrieved variable.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_config\_formatting~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_config_formatting')"><p>formatting (<span class="command">list</span>/<span class="command">get</span>):</p></legend>
+			<div class="form_item"><input type="checkbox" id="git_config_formatting_has_show_origin" name="git_config_formatting_has_show_origin" checked><label for="git_config_formatting_has_show_origin"><span class="command">--show-origin</span> Augment the output of all queried config options with the origin type (file, standard input, blob, command line) and the actual origin (config file path, ref, or blob id if applicable).</label></div>
+			<div class="form_item"><input type="checkbox" id="git_config_formatting_has_show_scope" name="git_config_formatting_has_show_scope" checked><label for="git_config_formatting_has_show_scope"><span class="command">--show-scope</span> Similar to <span class="command">--show-origin</span> in that it augments the output of all queried config options with the scope of that value (worktree, local, global, system, command).</label></div>
+			<fieldset>
+				<legend><p>visibility of keys (<span class="command">get</span>):</p></legend>
+				<div class="form_item"><input type="radio" id="git_config_show_names_no_option" name="git_config_show_names" value="" checked><label for="git_config_show_names_no_option">(Defaults to <span class="command">--no-show-names</span> unless <span class="command">--url</span> is given and there are no subsections in <span class="command">&lt;name&gt;</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_config_show_names_has_show_names" name="git_config_show_names" value="true"><label for="git_config_show_names_has_show_names"><span class="command">--show-names</span> Show config keys in addition to their values.</label></div>
+				<div class="form_item"><input type="radio" id="git_config_show_names_has_no_show_names" name="git_config_show_names" value="false"><label for="git_config_show_names_has_no_show_names"><span class="command">--no-show-names</span></label></div>
+			</fieldset>
+			<fieldset>
+				<legend><p>visibility of values:</p></legend>
+				<div class="form_item"><input type="checkbox" id="git_config_formatting_has_name_only" name="git_config_formatting_has_name_only"><label for="git_config_formatting_has_name_only"><span class="command">--name-only</span> Output only the names of config variables.</label></div>
+			</fieldset>
+			<div class="form_item"><input type="checkbox" id="git_config_formatting_has_null" name="git_config_formatting_has_null"><label for="git_config_formatting_has_null"><span class="command">--null</span> End values with the null character (instead of a newline). Use newline instead as a delimiter between key and value.</label></div>
+		</fieldset>
+	</form>
+	<textarea readonly wrap="off" id="git_config_command" name="git_config_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_config_refresh(){
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("config");
+
+			let git_config_action = (new FormData(document.getElementById("git_config_form"))).get("git_config_action");
+			document.getElementById("git_config_name").closest("div").classList.toggle("hidden", !(git_config_action == "get" || git_config_action == "set" || git_config_action == "unset" || git_config_action == "get_colorbool"));
+			document.getElementById("git_config_value").closest("div").classList.toggle("hidden", !(git_config_action == "set"));
+			document.getElementById("git_config_section_name_old").closest("div").classList.toggle("hidden", !(git_config_action == "rename_section"));
+			document.getElementById("git_config_section_name_new").closest("div").classList.toggle("hidden", !(git_config_action == "rename_section"));
+			document.getElementById("git_config_section_name").closest("div").classList.toggle("hidden", !(git_config_action == "remove_section"));
+			document.getElementById("git_config_has_stdout_is_tty").closest("div").classList.toggle("hidden", !(git_config_action == "get_colorbool"));
+			document.getElementById("git_config_stdout_is_tty").disabled = !document.getElementById("git_config_has_stdout_is_tty").checked;
+
+			document.getElementById("git_config_scope_file_file").disabled = !document.getElementById("git_config_scope_file").checked;
+			document.getElementById("git_config_scope_blob_blob").disabled = !document.getElementById("git_config_scope_blob").checked;
+
+			document.getElementById("git_config_includes_no_option").closest("fieldset").disabled = !(git_config_action == "list" || git_config_action == "get");
+
+			document.getElementById("git_config_filtering_and_precedence_not_url").closest("fieldset").closest("fieldset:not(:scope)").disabled = !(git_config_action == "get" || git_config_action == "set" || git_config_action == "unset");
+			document.getElementById("git_config_filtering_and_precedence_not_url").closest("fieldset").disabled = !document.getElementById("git_config_filtering_and_precedence_not_url").checked;
+			document.getElementById("git_config_filter_by_key_no_option").closest("fieldset").disabled = !(git_config_action == "get");
+			document.getElementById("git_config_filter_by_value_pattern").disabled = !(document.getElementById("git_config_filter_by_value_value").checked || document.getElementById("git_config_filter_by_value_value_fixed_value").checked);
+			let show_git_config_filter_by_value_append_condition_on_action = (git_config_action == "get" || git_config_action == "unset") && document.getElementById("git_config_filter_by_value_append").checked;
+			document.getElementById("git_config_filter_by_value_append_condition_on_action").classList.toggle("bg-[#FF8888]", show_git_config_filter_by_value_append_condition_on_action);
+			document.getElementById("git_config_filter_by_value_append_condition_on_action").classList.toggle("[&_*]:bg-[#FF8888]", show_git_config_filter_by_value_append_condition_on_action);
+			document.getElementById("git_config_filter_by_value_append").disabled = !(git_config_action == "set");
+			document.getElementById("git_config_precedence_no_option").closest("fieldset").disabled = !document.getElementById("git_config_precedence_no_option").checked;
+			document.getElementById("git_config_precedence_no_option_has_default").disabled = !(git_config_action == "get");
+			document.getElementById("git_config_precedence_no_option_default_value").disabled = !(git_config_action == "get" && document.getElementById("git_config_precedence_no_option_has_default").checked);
+			document.getElementById("git_config_filtering_and_precedence_url").disabled = !(git_config_action == "get");
+			let show_git_config_filtering_and_precedence_url_condition_on_action = (git_config_action == "set" || git_config_action == "unset") && document.getElementById("git_config_filtering_and_precedence_url").checked;
+			document.getElementById("git_config_filtering_and_precedence_url_condition_on_action").classList.toggle("bg-[#FF8888]", show_git_config_filtering_and_precedence_url_condition_on_action);
+			document.getElementById("git_config_filtering_and_precedence_url_condition_on_action").classList.toggle("[&_*]:bg-[#FF8888]", show_git_config_filtering_and_precedence_url_condition_on_action);
+			document.getElementById("git_config_url_URL").disabled = !(git_config_action == "get" && document.getElementById("git_config_filtering_and_precedence_url").checked);
+
+			document.getElementById("git_config_type_no_option").closest("fieldset").disabled = !(git_config_action == "get" || git_config_action == "set");
+			document.getElementById("git_config_type_has_type").closest("fieldset").disabled = !document.getElementById("git_config_type_has_type").checked;
+
+			document.getElementById("git_config_formatting_has_show_origin").closest("fieldset").disabled = !(git_config_action == "list" || git_config_action == "get");
+			document.getElementById("git_config_show_names_no_option").closest("fieldset").disabled = !(git_config_action == "get");
+
+			let form_data = new FormData(document.getElementById("git_config_form"));
+			let push_file_options = function () {
+				switch(form_data.get("git_config_scope")){
+					case "no_option":
+						break;
+					case "system":
+						command_components.push("--system");
+						break;
+					case "global":
+						command_components.push("--global");
+						break;
+					case "local":
+						command_components.push("--local");
+						break;
+					case "worktree":
+						command_components.push("--worktree");
+						break;
+					case "file":
+						{
+							let element_value = form_data.get("git_config_scope_file_file"), element_has_error = element_value.length == 0;
+							command_components.push("--file=" + shell_quote(element_value));
+							document.getElementById("git_config_scope_file_file").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						break;
+					case "blob":
+						{
+							let element_value = form_data.get("git_config_scope_blob_blob"), element_has_error = element_value.length == 0;
+							command_components.push("--blob=" + shell_quote(element_value));
+							document.getElementById("git_config_scope_blob_blob").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+						break;
+				}
+			};
+			let push_include_options = function () {
+				switch(form_data.get("git_config_includes")){
+					case "false":
+						command_components.push("--no-includes");
+						break;
+					case "true":
+						command_components.push("--includes");
+						break;
+				}
+			};
+			let push_formatting_options = function () {
+				if(form_data.get("git_config_formatting_has_show_origin"))
+					command_components.push("--show-origin");
+				if(form_data.get("git_config_formatting_has_show_scope"))
+					command_components.push("--show-scope");
+				if(git_config_action == "get"){
+					switch(form_data.get("git_config_show_names")){
+						case "false":
+							command_components.push("--no-show-names");
+							break;
+						case "true":
+							command_components.push("--show-names");
+							break;
+					}
+				}
+				if(form_data.get("git_config_formatting_has_name_only"))
+					command_components.push("--name-only");
+				if(form_data.get("git_config_formatting_has_null"))
+					command_components.push("--null");
+			};
+			let push_type_options = function () {
+				switch(form_data.get("git_config_type")){
+					case "false":
+						command_components.push("--no-type");
+						break;
+					case "true":
+						switch(form_data.get("git_config_type_type")){
+							case "bool":
+								command_components.push("--type=bool");
+								break;
+							case "int":
+								command_components.push("--type=int");
+								break;
+							case "bool_or_int":
+								command_components.push("--type=bool-or-int");
+								break;
+							case "path":
+								command_components.push("--type=path");
+								break;
+							case "expiry_date":
+								command_components.push("--type=expiry-date");
+								break;
+							case "color":
+								command_components.push("--type=color");
+								break;
+						}
+						break;
+				}
+			};
+			let push_filter_and_precedence_options = function () {
+				if(show_git_config_filter_by_value_append_condition_on_action)
+					has_error = true;
+				if(show_git_config_filtering_and_precedence_url_condition_on_action)
+					has_error = true;
+				switch(form_data.get("git_config_filtering_and_precedence")){
+					case "not_url":
+						if(git_config_action == "get"){
+							switch(form_data.get("git_config_filter_by_key")){
+								case "regexp":
+									command_components.push("--regexp");
+									break;
+							}
+						}
+						switch(form_data.get("git_config_filter_by_value")){
+							case "no_value":
+								command_components.push("--no-value");
+								break;
+							case "value":
+								command_components.push("--value=" + shell_quote(form_data.get("git_config_filter_by_value_pattern")));
+								break;
+							case "value_fixed_value":
+								command_components.push("--value=" + shell_quote(form_data.get("git_config_filter_by_value_pattern")), "--fixed-value");
+								break;
+							case "append":
+								command_components.push("--append");
+								break;
+						}
+						switch(form_data.get("git_config_precedence")){
+							case "no_option":
+								if(git_config_action == "get"){
+									if(form_data.get("git_config_precedence_no_option_has_default")){
+										command_components.push("--default=" + shell_quote(form_data.get("git_config_precedence_no_option_default_value")));
+									}
+								}
+								break;
+							case "all":
+								command_components.push("--all");
+								break;
+						}
+						break;
+					case "url":
+						let element_value = form_data.get("git_config_url_URL"), element_has_error = element_value.length == 0;
+						command_components.push("--url=" + shell_quote(element_value));
+						document.getElementById("git_config_url_URL").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+						break;
+				}
+			};
+			switch(git_config_action){
+				case "list":
+					command_components.push("list");
+					push_file_options();
+					push_formatting_options();
+					push_include_options();
+					break;
+				case "get":
+					command_components.push("get");
+					push_file_options();
+					push_formatting_options();
+					push_include_options();
+					push_filter_and_precedence_options();
+					push_type_options();
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_config_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_config_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "set":
+					command_components.push("set");
+					push_file_options();
+					push_filter_and_precedence_options();
+					push_type_options();
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_config_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_config_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					{
+						let element_value = form_data.get("git_config_value"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_config_value").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "unset":
+					command_components.push("unset");
+					push_file_options();
+					push_filter_and_precedence_options();
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_config_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_config_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "rename_section":
+					command_components.push("rename-section");
+					push_file_options();
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_config_section_name_old"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_config_section_name_old").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					{
+						let element_value = form_data.get("git_config_section_name_new"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_config_section_name_new").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "remove_section":
+					command_components.push("remove-section");
+					push_file_options();
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_config_section_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_config_section_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "edit":
+					command_components.push("edit");
+					push_file_options();
+					break;
+				case "get_colorbool":
+					push_file_options();
+					command_components.push("--get-colorbool");
+
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_config_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_config_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_config_has_stdout_is_tty")){
+						command_components.push(shell_quote(form_data.get("git_config_stdout_is_tty")));
+					}
+					break;
+			}
+
+			let git_config_command = document.getElementById("git_config_command");
+			git_config_command.classList.toggle("error_output", has_error);
+			git_config_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_config_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_config_refresh);
+		});
+		Array.from(document.getElementById("git_config_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_config_refresh);
+		});
+	</script>
+</div>
