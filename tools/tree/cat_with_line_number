@@ -1,0 +1,31 @@
+#!/bin/bash
+
+temp_file_stdin="$(mktemp)";
+exec {fd_stdin_rw}<>"$temp_file_stdin" {fd_stdin_w}>"$temp_file_stdin" {fd_stdin_r1}<"$temp_file_stdin" {fd_stdin_r2}<"$temp_file_stdin" {fd_stdin_rw}>&-;
+rm "$temp_file_stdin";
+
+cat 1>&"$fd_stdin_w";
+exec {fd_stdin_w}>&-;
+
+number_of_lines="$(wc -l 0<&"$fd_stdin_r1")";
+exec {fd_stdin_r1}<&-;
+
+awk --characters-as-bytes --assign BINMODE='rw' --assign number_of_lines="$number_of_lines" '
+	BEGIN {
+		++number_of_lines;
+		number_of_digits_of_line_number = length(number_of_lines);
+		fg_grey = "\033[38;5;247m";
+		fg_reset = "\033[39m";
+		bg_grey = "\033[48;5;237m";
+		bg_reset = "\033[49m";
+
+		printf_str = fg_grey bg_grey "%" number_of_digits_of_line_number "d" bg_reset fg_reset " %s%s";
+	}
+	{ printf(printf_str, NR, $0, RT); }
+	END {
+		if (NR == 0 || NR != 0 && RT == "\n") {
+			printf(fg_grey bg_grey "%" number_of_digits_of_line_number "d" bg_reset fg_reset " ", NR + 1);
+		}
+	}
+' 0<&"$fd_stdin_r2";
+exec {fd_stdin_r2}<&-;

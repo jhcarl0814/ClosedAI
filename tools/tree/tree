@@ -1,0 +1,133 @@
+#!/bin/bash
+
+regular_file_is_text_file='iconv --from-code=UTF-8 --to-code=UTF-8';
+regex_regular_file_is_text_file='^--regular_file_is_text_file=(.*)$';
+text_file_transformer='';
+regex_text_file_transformer='^--text_file_transformer=(.*)$';
+declare -a options;
+for option in "$@"; do
+	shift;
+	if [[ $option =~ $regex_regular_file_is_text_file ]] ; then
+		regular_file_is_text_file="${BASH_REMATCH[1]}";
+	elif [[ $option =~ $regex_text_file_transformer ]] ; then
+		text_file_transformer="${BASH_REMATCH[1]}";
+	else
+		options+=("$option");
+	fi
+done
+find "${options[@]}" -printf '%p\0%d\0' -execdir 'stat' '--printf=%A\0%f\0%s\0%F\0\0' '{}' ';' | awk --assign BINMODE='rw' --assign command_regular_file_is_text_file="$regular_file_is_text_file" --assign command_text_file_transformer="$text_file_transformer" --file '/dev/fd/3' 3<<-'EOF'
+	BEGIN {
+		RS = "\0\0";
+		FS = "\0";
+		fg_grey = "\033[38;5;245m";
+		fg_reset = "\033[39m";
+		bg_grey = "\033[48;5;235m";
+		bg_reset = "\033[49m";
+		#command_regular_file_is_text_file = "iconv --from-code=UTF-8 --to-code=UTF-8";
+		#command_text_file_transformer = "special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number";
+	}
+	# $1: path (starts_with one of the starting points)
+	# $2: depth (starting from 0)
+	# $3: file_type and permission in character form
+	# $4: file_type and permission in hex
+	# $5: size in bytes
+	# $6: file_type in natural language
+	{
+		path = $1;
+
+		path_quoted = shell_quote(path);
+
+		is_directory = substr($3, 1, 1) == "d";
+		is_regular_file = substr($3, 1, 1) == "-";
+		if (is_regular_file) {
+			regular_file_is_empty = $5 == 0;
+
+			printf("( " command_regular_file_is_text_file " ) 0<" path_quoted " 1>/dev/null 2>/dev/null ; echo $? ;") |& "exec \"$SHELL\" -s";
+			close("exec \"$SHELL\" -s", "to");
+			"exec \"$SHELL\" -s" |& getline command_regular_file_is_text_file_exit_status;
+			close("exec \"$SHELL\" -s");
+			regular_file_is_text_file = command_regular_file_is_text_file_exit_status == 0;
+
+			if (regular_file_is_empty) {
+				path_lstriped_fg_color = "\033[31m";
+				path_lstriped_fg_reset = "\033[39m";
+			}
+			else if (regular_file_is_text_file){
+				path_lstriped_fg_color = "\033[33m";
+				path_lstriped_fg_reset = "\033[39m";
+			}
+			else {
+				path_lstriped_fg_color = "\033[32m";
+				path_lstriped_fg_reset = "\033[39m";
+			}
+		}
+		else {
+			path_lstriped_fg_color = "";
+			path_lstriped_fg_reset = "";
+		}
+
+		path_lstriped = path;
+		if ($2 == 0) {
+			lstrip_length = substr(path_lstriped, length(path_lstriped), 1) == "/" ? length(path_lstriped) - 1 : length(path_lstriped);
+		}
+		else {
+			path_lstriped = substr(path_lstriped, lstrip_length + 1);
+		}
+
+		printf("%s", path_lstriped) |& "exec \"$SHELL\" -c 'special_character_to_escape_sequence' \"$SHELL\"";
+		close("exec \"$SHELL\" -c 'special_character_to_escape_sequence' \"$SHELL\"", "to");
+		"exec \"$SHELL\" -c 'special_character_to_escape_sequence' \"$SHELL\"" |& getline path_lstriped_escaped;
+		close("exec \"$SHELL\" -c 'special_character_to_escape_sequence' \"$SHELL\"");
+
+		path_lstriped_escaped_pipe = path_lstriped_escaped;
+		if ($2 == 0) {
+			path_lstriped_escaped_pipe = path_lstriped_fg_color path_lstriped_escaped_pipe path_lstriped_fg_reset (is_directory && substr(path_lstriped_escaped_pipe, length(path_lstriped_escaped_pipe), 1) != "/" ? "/" : "");
+		}
+		else {
+			number_of_pipes = gsub(/[^/]*\//, "│ ", path_lstriped_escaped_pipe);
+			pipe_preceding_content = substr(path_lstriped_escaped_pipe, 1, number_of_pipes * 2);
+			path_lstriped_escaped_pipe = substr(path_lstriped_escaped_pipe, 1, number_of_pipes * 2 - 2) "├╴" path_lstriped_fg_color substr(path_lstriped_escaped_pipe, number_of_pipes * 2 + 1) path_lstriped_fg_reset (is_directory && substr(path_lstriped_escaped_pipe, length(path_lstriped_escaped_pipe), 1) != "/" ? "/" : "");
+		}
+
+		file_type_and_permission_in_octal = sprintf("%06o", strtonum("0x" $4));
+
+		printf("%s " fg_grey bg_grey "%s/0o%s/%s" bg_reset fg_reset " " fg_grey bg_grey "%s/0o%s" bg_reset fg_reset "\n", path_lstriped_escaped_pipe, substr($3, 1, 1), substr(file_type_and_permission_in_octal, 1, 3), $6, substr($3, 2, 9), substr(file_type_and_permission_in_octal, 4, 3));
+
+		if (is_regular_file && regular_file_is_text_file && command_text_file_transformer != "") {
+			RS_old = RS;
+			FS_old = FS;
+			RS = "\n";
+			FS = "\n";
+			$0 = "";
+			RT = "";
+
+			printf("( " command_text_file_transformer " ) 0<" path_quoted) |& "exec \"$SHELL\" -s";
+			close("exec \"$SHELL\" -s", "to");
+			while(("exec \"$SHELL\" -s" |& getline) == 1) {
+				printf("%s  %s%s", pipe_preceding_content, $0, RT);
+			}
+			if (RT == "" && $0 == "") { # file is empty
+				printf("%s  \n", pipe_preceding_content);
+			}
+			else {
+				if (RT == "") { # last line doesn't end_with "\n"
+					printf("\n");
+				}
+				else { # last line ends_with "\n"
+					printf("%s  \n", pipe_preceding_content);
+				}
+			}
+			close("exec \"$SHELL\" -s");
+
+			FS = FS_old;
+			RS = RS_old;
+		}
+	}
+
+	function shell_quote(s) {
+		gsub(/'/, "'\\''", s);
+		gsub(/\r/, "'$'\\r''", s);
+		s = "'" s "'";
+		return s;
+	}
+EOF
