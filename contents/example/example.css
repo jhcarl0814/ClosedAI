@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xs: 30rem;
+  --breakpoint-3xl: 120rem;
+  --container-8xl: 96rem;
+}
+
+@layer base {
+	*
+	{
+		word-break: normal; overflow-wrap: anywhere;
+	}
+}
+
+@layer components {
+}
+
+@utility highlight_yellow
+{
+	@apply bg-[#FFFF00]/[0.8];
+}
+@utility highlight_bold
+{
+	@apply font-bold;
+}
