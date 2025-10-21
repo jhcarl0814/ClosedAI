@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Example Help Desk</title>
-	<link rel="shortcut icon" href="data:image/bmp;base64,{{base64 --wrap=0 <'../favicon.bmp'}}">
+	<link rel="icon" href="data:image/bmp;base64,{{base64 --wrap=0 <'../favicon.bmp'}}">
 	<link rel="stylesheet" href="data:text/css;base64,{{ '../../tools/tailwindcss/tailwindcss-windows-x64.exe' --input='./example.css' --minify 2>/dev/null | base64 --wrap=0 }}">
 	<script src="data:text/javascript;base64,{{base64 --wrap=0 <<'EOF'
 		function create_element(tagName, properties = {}, attributes = {}, children = [], callback = function(e){}){ // https://stackoverflow.com/questions/7006253/javascript-dom-how-to-handle-special-properties-as-versus-attributes
@@ -19,14 +19,14 @@ EOF}}"></script>
 	<script src="data:text/javascript;base64,{{base64 --wrap=0 <<'EOF'
 		try{
 			if(window.location.protocol == "https:" && window.location.hostname == "jhcarl0814.github.io" && window.location.port == "" && window.location.pathname == "/ClosedAI/example/example.html"){
-				document.head.insertBefore(create_element("script", { async: true, src: "https://www.googletagmanager.com/gtag/js?id=G-ZHJ8ZJK2B8", }), document.head.childNodes.item(0));
-				document.head.insertBefore(create_element("script", { text: `
+				document.head.insertBefore(create_element("script", {}, { async: "", src: "https://www.googletagmanager.com/gtag/js?id=G-ZHJ8ZJK2B8", }), document.head.childNodes.item(0));
+				document.head.insertBefore(create_element("script", {}, {}, [ document.createTextNode(`
 					window.dataLayer = window.dataLayer || [];
 					function gtag(){dataLayer.push(arguments);}
 					gtag('js', new Date());
 
 					gtag('config', 'G-ZHJ8ZJK2B8');
-				`, }), document.head.childNodes.item(1));
+				`), ]), document.head.childNodes.item(1));
 			}
 		}
 		finally{
