@@ -1,42 +1,68 @@
 @import "tailwindcss";
 
 @theme {
-  --breakpoint-xs: 30rem;
-  --breakpoint-3xl: 120rem;
-  --container-8xl: 96rem;
+	--breakpoint-xs: 30rem;
+	--breakpoint-3xl: 120rem;
+	--aspect-retro: 4 / 3;
+	--container-4xs: 14rem;
+	--container-8xl: 96rem;
+	--font-sans_serif: DejaVuSans, "DejaVu Sans", arial, sans-serif;
+	/*--font-monospace: DejaVuSansMono, "DejaVu Sans Mono", Consolas, Courier, monospace;*/
+	--font-monospace: Consolas, monospace;
+	--font-monospace_can_oblique: Courier, monospace;
+	--font-weight-extrablack: 1000;
+	--tracking-tightest: -0.075em;
+	--color-regal-blue: #243c5a;
+	--radius-5xl: 3rem;
+	--shadow-3xl: 0 35px 35px rgba(0, 0, 0, 0.25);
+	--inset-shadow-md: inset 0 2px 3px rgba(0, 0, 0, 0.25);
+	--text-shadow-xl: 0 35px 35px rgb(0, 0, 0 / 0.25);
+	--blur-2xs: 2px;
+	--drop-shadow-3xl: 0 35px 35px rgba(0, 0, 0, 0.25);
+	--ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+	--animate-wiggle: wiggle 1s ease-in-out infinite;
+	@keyframes wiggle {
+		0%,
+		100% {
+			transform: rotate(-3deg);
+		}
+		50% {
+			transform: rotate(3deg);
+		}
+	}
+	--perspective-remote: 1800px;
+}
+@theme inline{
+	--text-restore: calc(var(--font-size-paragraph)*1rem);
+	--text-restore--line-height: calc(var(--line-height-paragraph)*1em);
 }
 
 @layer base {
 	*
 	{
-		word-break: normal; overflow-wrap: anywhere;
+		@apply break-normal wrap-anywhere;
 	}
 
-	.font-restore {
-		font-family: DejaVuSans,"DejaVu Sans",arial,sans-serif;
-		@apply text-[calc(var(--font-size-paragraph)*1rem)] leading-[calc(var(--line-height-paragraph)*1em)];
-	}
 	.heading1 {
-		@apply [margin-block:12px] text-[180%] leading-[1.5em];
+		@apply my-[12px] text-[180%] leading-[1.5em];
 	}
 	.heading2 {
-		@apply [margin-block-start:12px] [margin-block-end:12px] font-bold text-[140%] leading-[1.5em];
+		@apply my-[12px] font-bold text-[140%] leading-[1.5em];
 	}
 	.heading3 {
-		@apply [margin-block-start:12px] [margin-block-end:12px] font-bold text-[120%] leading-[1.5em];
+		@apply my-[12px] font-bold text-[120%] leading-[1.5em];
 	}
 	.paragraph {
-		@apply [margin-block:6px];
+		@apply my-[6px];
 	}
 
 	a
 	{
-		color: #0000FF;
-		background-color:#0000FF09;
-	}
-	a:hover, a:hover *
-	{
-		text-decoration-line: underline;
+		@apply text-[#0000FF] bg-[#0000FF09];
+		&:hover, &:hover *
+		{
+			@apply underline;
+		}
 	}
 
 	form, fieldset, legend, .subform
@@ -55,58 +81,64 @@
 	}
 	.form_item
 	{
-		@apply flex gap-x-[0.25em] [align-items:first_baseline];
+		@apply flex gap-x-[0.25em] items-baseline;
 	}
-	input[type="radio"]
+	input[type="radio"], input[type="checkbox"]
 	{
-		@apply align-middle;
-	}
-	input[type="text"], textarea
-	{
-		border:groove 2px #C0C0C0;
-		@apply p-[0.5em] block w-full;
+		@apply align-text-top;
 	}
 	textarea
 	{
 		@apply min-h-[2.5em];
 	}
-	input[type="text"]:disabled, textarea:disabled
+	input[type="text"], textarea
 	{
-		@apply bg-[#F0F0F0];
-	}
-	input[type="text"]:enabled:read-only, textarea:enabled:read-only
-	{
-		@apply bg-[#FAFAFA];
-	}
-	input[type="text"]:enabled:read-write, textarea:enabled:read-write
-	{
-		@apply bg-[#FFFFFF];
-	}
-	input[type="text"]:enabled.error_input, textarea:enabled.error_input
-	{
-		@apply bg-[#FF8888];
-	}
-	input[type="text"]:enabled.error_output, textarea:enabled.error_output
-	{
-		@apply bg-[#FF8888];
+		@apply [border:groove_2px_#C0C0C0];
+		@apply p-[0.5em] block w-full;
+		&:disabled
+		{
+			@apply bg-[#F0F0F0];
+		}
+		&:enabled
+		{
+			&:read-only
+			{
+				@apply bg-[#FAFAFA];
+			}
+			&:read-write
+			{
+				@apply bg-[#FFFFFF];
+			}
+			&.error_input
+			{
+				@apply bg-[#FF8888];
+			}
+			&.error_output
+			{
+				@apply bg-[#FF8888];
+			}
+		}
 	}
 	input[type="button"], button
 	{
-		border:outset 2px #C0C0C0;
+		@apply [border:outset_2px_#C0C0C0];
 		@apply p-[0.5em];
-	}
-	input[type="button"]:disabled, button:disabled
-	{
-		@apply bg-[#F0F0F0];
-	}
-	input[type="button"]:enabled:not(:active), button:enabled:not(:active)
-	{
-		@apply bg-[#F0F0F0];
-	}
-	input[type="button"]:enabled:active, button:enabled:active
-	{
-		border:inset 2px #C0C0C0;
-		@apply bg-[#F0F0F0];
+		&:disabled
+		{
+			@apply bg-[#F0F0F0];
+		}
+		&:enabled
+		{
+			&:not(:active)
+			{
+				@apply bg-[#F0F0F0];
+			}
+			&:active
+			{
+				@apply [border:inset_2px_#C0C0C0];
+				@apply bg-[#F0F0F0];
+			}
+		}
 	}
 	fieldset:disabled > *:not(legend), input[type="text"]:disabled, textarea:disabled, label:has(+ input[type="text"]:disabled, + textarea:disabled), :is(input[type="checkbox"]:disabled, input[type="radio"]:disabled) + label, :is(input[type="checkbox"]:disabled, input[type="radio"]:disabled) + div > label:first-child
 	{
@@ -128,8 +160,7 @@
 
 	.inline_code
 	{
-		font-family:DejaVuSansMono,"DejaVu Sans Mono",courier,monospace;
-		font-family:Consolas,monospace;
+		@apply font-monospace;
 		@apply whitespace-break-spaces;
 
 		@apply inline border-[1px] border-[#D6D6D6] bg-[#000000]/[0.031] [padding-block:0.5px] [padding-inline:2px] leading-[calc((var(--line-height-paragraph)_+_0.25)*1em)];
@@ -137,13 +168,13 @@
 
 	.command
 	{
-		font-family:Courier, monospace;
+		@apply font-monospace_can_oblique;
 		@apply whitespace-break-spaces;
 		@apply bg-[#E8E7DD];
 	}
 	.command_input
 	{
-		font-family:Courier, monospace;
+		@apply font-monospace_can_oblique;
 	}
 	.porcelain_link
 	{
