@@ -3,8 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="The ultimate help center for Git users, introducing concepts/terminologies in a pedagogically sound order and illustrating command options and their combinations/interactions with examples.">
 	<title>Git Help Desk</title>
-	<link rel="shortcut icon" href="data:image/bmp;base64,{{base64 --wrap=0 <'../favicon.bmp'}}">
+	<link rel="icon" href="data:image/bmp;base64,{{base64 --wrap=0 <'../favicon.bmp'}}">
 	<link rel="stylesheet" href="data:text/css;base64,{{ '../../tools/tailwindcss/tailwindcss-windows-x64.exe' --input='./git.css' --minify 2>/dev/null | base64 --wrap=0 }}">
 	<link rel="stylesheet" href="data:text/css;base64,{{base64 --wrap=0 <<'EOF'
 		/* pre { white-space: pre-wrap; } */
@@ -323,8 +324,9 @@ EOF}}"></script>
 			document.currentScript.remove();
 		}
 EOF}}"></script>
+	<base target="_blank">
 </head>
-<body class="overflow-x-auto h-[100%] [--font-size-paragraph:0.8] [--line-height-paragraph:1.2] [--font-size-code:1] [--line-height-code:1.2] font-restore">
+<body class="overflow-x-auto h-[100%] [--font-size-paragraph:0.8] [--line-height-paragraph:1.2] [--font-size-code:1] [--line-height-code:1.2] font-sans_serif text-restore">
 	<!-- screen width <= 1200px: 0                           , 1200px            + 0                           -->
 	<!-- screen width >= 1200px: (100vw-max(1200px, 82vw))/2 , max(1200px, 82vw) + (100vw-max(1200px, 82vw))/2 -->
 	<div class="relative w-[calc(max(1200px,(100vw_+_max(1200px,82vw))/2))] ml-[calc(max(0px,(100vw_-_max(1200px,82vw))/2))] mr-0 h-[100%] flex">
@@ -652,7 +654,7 @@ EOF}}"></script>
 									&quot;label_expression evaluate_arrow label_denotation&quot;
 									&quot;label_expression unevaluate_arrow label_denotation&quot;
 									&quot;unevaluate_plumbing unevaluate_plumbing unevaluate_plumbing&quot;;">
-									<div class="[grid-area:evaluate\_plumbing] justify-self-center font-restore">
+									<div class="[grid-area:evaluate\_plumbing] justify-self-center text-restore">
 										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-dereference">dereference</a><br>
 										<div class="ml-[1em]">
 											<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-peel">peel</a><br>
@@ -665,12 +667,12 @@ EOF}}"></script>
 									<div class="[grid-area:unevaluate\_arrow] select-none flex">
 										<div class="font-[Arial,sans-serif] self-center">◀</div><div class="h-[1px] bg-[#000000] grow self-center"></div>
 									</div>
-									<div class="[grid-area:unevaluate\_plumbing] justify-self-center font-restore">
+									<div class="[grid-area:unevaluate\_plumbing] justify-self-center text-restore">
 										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-name-rev"><span class="command">git name-rev</span></a><br>
 										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-describe"><span class="command">git describe</span></a><br>
 									</div>
-									<div class="self-center [grid-area:label\_expression] font-restore">expression</div>
-									<div class="self-center [grid-area:label\_denotation] font-restore">denotation</div>
+									<div class="self-center [grid-area:label\_expression] text-restore">expression</div>
+									<div class="self-center [grid-area:label\_denotation] text-restore">denotation</div>
 								</div>
 							</div>
 
@@ -764,12 +766,12 @@ EOF}}"></script>
 							&quot;label_local fetch_plumbing_local fetch_arrow fetch_plumbing_remote label_remote&quot;
 							&quot;label_local push_plumbing_local push_arrow push_plumbing_remote label_remote&quot;
 							&quot;. push_porcelain push_porcelain push_porcelain .&quot;;">
-							<div class="[grid-area:fetch\_porcelain] justify-self-center font-restore">
+							<div class="[grid-area:fetch\_porcelain] justify-self-center text-restore">
 								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_clone~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_clone git_with_command','git_clone');git_clone_refresh();"><span class="command">git clone</span></a>, <a class="external_link porcelain_link" href="https://git-scm.com/docs/git-backfill"><span class="command">🧪git backfill</span></a><br>
 								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_fetch~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_fetch git_with_command','git_fetch');git_fetch_refresh();"><span class="command">git fetch</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/FETCH_HEAD</span></a><br>
 								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_pull~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_pull git_with_command','git_pull');git_pull_refresh();"><span class="command">git pull</span></a><br>
 							</div>
-							<div class="[grid-area:fetch\_plumbing\_local] font-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-fetch-pack">
+							<div class="[grid-area:fetch\_plumbing\_local] text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-fetch-pack">
 								<span class="command">git fetch-pack</span></a><br>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/git-fetch-pack#Documentation/git-fetch-pack.txt---thin">"thin" pack</a><br>
@@ -778,8 +780,8 @@ EOF}}"></script>
 							<div class="[grid-area:fetch\_arrow] select-none self-start flex">
 								<div class="font-[Arial,sans-serif] self-center">◀</div><div class="h-[1px] bg-[#000000] grow self-center"></div>
 							</div>
-							<div class="[grid-area:fetch\_plumbing\_remote] font-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-upload-pack"><span class="command">git upload-pack</span></a><br></div>
-							<div class="[grid-area:push\_plumbing\_local] font-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-send-pack">
+							<div class="[grid-area:fetch\_plumbing\_remote] text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-upload-pack"><span class="command">git upload-pack</span></a><br></div>
+							<div class="[grid-area:push\_plumbing\_local] text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-send-pack">
 								<span class="command">git send-pack</span></a><br>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/git-send-pack#Documentation/git-send-pack.txt---thin">"thin" pack</a><br>
@@ -788,7 +790,7 @@ EOF}}"></script>
 							<div class="[grid-area:push\_arrow] select-none self-start flex">
 								<div class="h-[1px] bg-[#000000] grow self-center"></div><div class="font-[Arial,sans-serif] self-center">▶</div>
 							</div>
-							<div class="[grid-area:push\_plumbing\_remote] font-restore">
+							<div class="[grid-area:push\_plumbing\_remote] text-restore">
 								<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-receive-pack"><span class="command">git receive-pack</span></a><br>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/git-receive-pack#_quarantine_environment">quarantine environment</a><br>
@@ -844,14 +846,14 @@ EOF}}"></script>
 							&quot;. write_tree_arrow4 write_tree_arrow3 write_tree_arrow3 write_tree_arrow3 write_tree_arrow2 . update_index_arrow4 update_index_arrow3 update_index_arrow3 update_index_arrow3 update_index_arrow2 .&quot;
 							&quot;. write_tree_plumbing write_tree_plumbing write_tree_plumbing write_tree_plumbing write_tree_plumbing . update_index_plumbing update_index_plumbing update_index_plumbing update_index_plumbing update_index_plumbing .&quot;
 							&quot;. write_tree_porcelain write_tree_porcelain write_tree_porcelain write_tree_porcelain write_tree_porcelain . update_index_porcelain update_index_porcelain update_index_porcelain update_index_porcelain update_index_porcelain .&quot;;">
-							<div class="[grid-area:read\_tree\_plumbing] justify-self-center font-restore">
+							<div class="[grid-area:read\_tree\_plumbing] justify-self-center text-restore">
 								<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-read-tree"><span class="command">git read-tree</span></a><br>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/git-read-tree#_sparse_checkout">sparse checkout</a>, <a class="git_scm_link" href="https://git-scm.com/docs/git-read-tree#_sparse_checkout">how to repopulate the working directory</a><br>
 								</div>
 							</div>
-							<div class="[grid-area:checkout\_index\_plumbing] justify-self-center font-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-checkout-index"><span class="command">git checkout-index</span></a><br></div>
-							<div class="[grid-area:update\_index\_plumbing] justify-self-center font-restore">
+							<div class="[grid-area:checkout\_index\_plumbing] justify-self-center text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-checkout-index"><span class="command">git checkout-index</span></a><br></div>
+							<div class="[grid-area:update\_index\_plumbing] justify-self-center text-restore">
 								<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-update-index"><span class="command">git update-index</span></a><br>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/git-update-index#_using_refresh">refresh</a><br>
@@ -863,8 +865,8 @@ EOF}}"></script>
 									<a class="git_scm_link" href="https://git-scm.com/docs/git-update-index#_notes">how to ignore tracked files</a><br>
 								</div>
 							</div>
-							<div class="[grid-area:write\_tree\_plumbing] justify-self-center font-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-write-tree"><span class="command">git write-tree</span></a><br></div>
-							<div class="[grid-area:read\_tree\_porcelain] justify-self-center self-end mb-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] font-restore">
+							<div class="[grid-area:write\_tree\_plumbing] justify-self-center text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-write-tree"><span class="command">git write-tree</span></a><br></div>
+							<div class="[grid-area:read\_tree\_porcelain] justify-self-center self-end mb-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] text-restore">
 								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_checkout git_with_command','git_checkout');git_checkout_refresh();"><span class="command">git checkout</span></a><br>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-checkout">checkout</a><br>
@@ -874,7 +876,7 @@ EOF}}"></script>
 								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-sparse-checkout"><span class="command">git sparse-checkout</span></a><br>
 								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span></a><br>
 							</div>
-							<div class="[grid-area:checkout\_index\_porcelain] justify-self-center self-end mb-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] font-restore">
+							<div class="[grid-area:checkout\_index\_porcelain] justify-self-center self-end mb-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] text-restore">
 								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-clean"><span class="command">git clean</span></a><br>
 								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_checkout git_with_command','git_checkout');git_checkout_refresh();"><span class="command">git checkout</span></a><br>
 								<div class="ml-[1em]">
@@ -889,12 +891,12 @@ EOF}}"></script>
 								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-sparse-checkout"><span class="command">git sparse-checkout</span></a><br>
 								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span></a><br>
 							</div>
-							<div class="[grid-area:update\_index\_porcelain] justify-self-center self-start mt-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] font-restore">
+							<div class="[grid-area:update\_index\_porcelain] justify-self-center self-start mt-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] text-restore">
 								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_add~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_add git_with_command','git_add');git_add_refresh();"><span class="command">git add</span></a><br>
 								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-rm"><span class="command">git rm</span></a><br>
 								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-mv"><span class="command">git mv</span></a><br>
 							</div>
-							<div class="[grid-area:write\_tree\_porcelain] justify-self-center self-start mt-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] font-restore">
+							<div class="[grid-area:write\_tree\_porcelain] justify-self-center self-start mt-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] text-restore">
 								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_commit~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_commit git_with_command','git_commit');git_commit_refresh();"><span class="command">git commit</span></a><br>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-commit">commit</a><br>
@@ -902,7 +904,7 @@ EOF}}"></script>
 									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-interpret-trailers"><span class="command">git interpret-trailers</span></a><br>
 								</div>
 							</div>
-							<div class="[grid-area:label\_db] flex flex-col justify-center items-center border-solid border-[1px] border-[#000000] font-restore">
+							<div class="[grid-area:label\_db] flex flex-col justify-center items-center border-solid border-[1px] border-[#000000] text-restore">
 								<div>
 									DB<br>
 								</div>
@@ -918,9 +920,9 @@ EOF}}"></script>
 								</div>
 							</div>
 							<div class="[grid-area:spacing\_db\_index] min-w-[0.5em]"></div>
-							<div class="[grid-area:label\_index] flex justify-center items-center border-solid border-[1px] border-[#000000] font-restore">index</div>
+							<div class="[grid-area:label\_index] flex justify-center items-center border-solid border-[1px] border-[#000000] text-restore">index</div>
 							<div class="[grid-area:spacing\_index\_working\_tree] min-w-[0.5em]"></div>
-							<div class="[grid-area:label\_working\_tree] flex justify-center items-center text-center border-solid border-[1px] border-[#000000] font-restore">working tree</div>
+							<div class="[grid-area:label\_working\_tree] flex justify-center items-center text-center border-solid border-[1px] border-[#000000] text-restore">working tree</div>
 							<div class="[grid-area:read\_tree\_arrow1] select-none">│</div>
 							<div class="[grid-area:read\_tree\_arrow2] select-none font-[Arial,sans-serif] self-center">┌</div>
 							<div class="[grid-area:read\_tree\_arrow3] select-none flex"><div class="h-[1px] bg-[#000000] grow self-center"></div></div>
@@ -973,14 +975,14 @@ EOF}}"></script>
 							&quot;. . . index_arrow1 . . . . . index_arrow5 index_arrow6 index_arrow7 index_arrow8 index_arrow9 .&quot;
 							&quot;. . . index_arrow2 index_arrow3 index_arrow3 index_arrow3 index_arrow3 index_arrow3 index_arrow3 index_arrow3 index_arrow4 . . .&quot;
 							&quot;. . . index_plumbing index_plumbing index_plumbing index_plumbing index_plumbing index_plumbing index_plumbing index_plumbing . . . .&quot;;">
-							<div class="[grid-area:tree\_plumbing] justify-self-center font-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-diff-tree"><span class="command">git diff-tree</span></a><br></div>
-							<div class="[grid-area:files\_plumbing] justify-self-center font-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-diff-files"><span class="command">git diff-files</span></a><br></div>
-							<div class="[grid-area:index\_plumbing] justify-self-center font-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-diff-index"><span class="command">git diff-index</span></a><br></div>
-							<div class="[grid-area:label\_db] flex justify-center items-center border-solid border-[1px] border-[#000000] font-restore">DB</div>
+							<div class="[grid-area:tree\_plumbing] justify-self-center text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-diff-tree"><span class="command">git diff-tree</span></a><br></div>
+							<div class="[grid-area:files\_plumbing] justify-self-center text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-diff-files"><span class="command">git diff-files</span></a><br></div>
+							<div class="[grid-area:index\_plumbing] justify-self-center text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-diff-index"><span class="command">git diff-index</span></a><br></div>
+							<div class="[grid-area:label\_db] flex justify-center items-center border-solid border-[1px] border-[#000000] text-restore">DB</div>
 							<div class="[grid-area:spacing\_db\_index] min-w-[0.5em]"></div>
-							<div class="[grid-area:label\_index] flex justify-center items-center border-solid border-[1px] border-[#000000] font-restore">index</div>
+							<div class="[grid-area:label\_index] flex justify-center items-center border-solid border-[1px] border-[#000000] text-restore">index</div>
 							<div class="[grid-area:spacing\_index\_working\_tree] min-w-[0.5em]"></div>
-							<div class="[grid-area:label\_working\_tree] flex justify-center items-center text-center border-solid border-[1px] border-[#000000] font-restore">working<br>tree</div>
+							<div class="[grid-area:label\_working\_tree] flex justify-center items-center text-center border-solid border-[1px] border-[#000000] text-restore">working<br>tree</div>
 							<div class="[grid-area:tree\_arrow1] select-none">▼</div>
 							<div class="[grid-area:tree\_arrow2] select-none font-[Arial,sans-serif] self-center">┌</div>
 							<div class="[grid-area:tree\_arrow3] select-none flex"><div class="h-[1px] bg-[#000000] grow self-center"></div></div>
