@@ -17,7 +17,7 @@
 				<legend>
 					<div class="form_item"><input type="radio" id="git_pull_what_repository_refspecs" name="git_pull_what" value="repository_refspecs"><label for="git_pull_what_repository_refspecs"><span class="command">&lt;repository&gt; [&lt;refspec&gt;…]</span></label></div>
 				</legend>
-				<p><span class="command">&lt;repository&gt;</span> The "remote" repository that is the source of a pull operation.</p>
+				<p><span class="command">&lt;repository&gt;</span> The "remote" repository to pull from.</p>
 				<div class="form_item"><label for="git_pull_what_repository_refspecs_repository" class="hidden"><span class="command">&lt;repository&gt;</span>:</label><textarea wrap="off" id="git_pull_what_repository_refspecs_repository" name="git_pull_what_repository_refspecs_repository" class="basis-0 grow command_input"></textarea></div>
 				<fieldset>
 					<legend><p><span class="command">&lt;refspec&gt;…</span> Specifies which refs to fetch and which local refs to update.</p></legend>
@@ -65,7 +65,7 @@
 		<div class="form_item"><input type="radio" id="git_pull_recurse_submodules_no_recurse_submodules" name="git_pull_recurse_submodules" value="no_recurse_submodules"><label for="git_pull_recurse_submodules_no_recurse_submodules"><span class="command">--no-recurse-submodules</span></label></div>
 
 		<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-		<div class="form_item"><input type="radio" id="git_pull_rebase_no_option" name="git_pull_rebase" value="no_option" checked><label for="git_pull_rebase_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamerebase"><span class="inline_code">branch.<span class="command">&lt;name&gt;</span>.rebase</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullrebase"><span class="inline_code">pull.rebase</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+		<div class="form_item"><input type="radio" id="git_pull_rebase_no_option" name="git_pull_rebase" value="no_option" checked><label for="git_pull_rebase_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamerebase"><span class="inline_code">branch.<span class="command">&lt;name&gt;</span>.rebase</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullrebase"><span class="inline_code">pull.rebase</span></a>.)</label></div>
 		<div class="form_item"><input type="radio" id="git_pull_rebase_rebase" name="git_pull_rebase" value="rebase"><label for="git_pull_rebase_rebase"><span class="command">--rebase<input type="checkbox" id="git_pull_rebase_rebase_has_argument" name="git_pull_rebase_rebase_has_argument"><label for="git_pull_rebase_rebase_has_argument">[=(<input type="radio" id="git_pull_rebase_mode_false" name="git_pull_rebase_mode" value="false"><label for="git_pull_rebase_mode_false">false</label>|<input type="radio" id="git_pull_rebase_mode_true" name="git_pull_rebase_mode" value="true" checked><label for="git_pull_rebase_mode_true">true</label>|<input type="radio" id="git_pull_rebase_mode_merges" name="git_pull_rebase_mode" value="merges"><label for="git_pull_rebase_mode_merges">merges</label>|<input type="radio" id="git_pull_rebase_mode_interactive" name="git_pull_rebase_mode" value="interactive"><label for="git_pull_rebase_mode_interactive">interactive</label>)]</label></span><br>
 			<div class="ml-[1em]">
 				<span class="command">false</span> Merge the upstream branch into the current branch.<br>
@@ -74,6 +74,26 @@
 				<span class="command">interactive</span> Enable the interactive mode of rebase.<br>
 			</div></label></div>
 		<div class="form_item"><input type="radio" id="git_pull_rebase_no_rebase" name="git_pull_rebase" value="no_rebase"><label for="git_pull_rebase_no_rebase"><span class="command">--no-rebase</span> Is shorthand for <span class="command">--rebase=false</span>.</label></div>
+
+		<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+		<div class="form_item"><input type="radio" id="git_pull_ff_no_option" name="git_pull_ff" value="no_option" checked><label for="git_pull_ff_no_option">not <span class="command">--ff-only</span>/<span class="command">--no-ff</span>/<span class="command">--ff</span><br>
+			<div class="ml-[1em]">
+				If <span class="command">--[no-]rebase</span> results in unspecified: Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullff"><span class="inline_code">pull.ff</span></a> which defaults to <span class="inline_code">only</span>.<br>
+				If <span class="command">--[no-]rebase</span> results in merge: Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullff"><span class="inline_code">pull.ff</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeff"><span class="inline_code">merge.ff</span></a> (which defaults to <span class="inline_code">false</span> when merging an annotated (and possibly signed) tag that is not stored in its natural place in the <span class="inline_code">refs/tags/</span> hierarchy or <span class="inline_code">true</span> otherwise).<br>
+				If <span class="command">--[no-]rebase</span> results in rebase: Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullff"><span class="inline_code">pull.ff</span></a> which defaults to <span class="inline_code">false</span> or <span class="inline_code">true</span>.<br>
+			</div></label></div>
+		<div class="form_item"><input type="radio" id="git_pull_ff_ff_only" name="git_pull_ff" value="ff_only"><label for="git_pull_ff_ff_only"><span class="command">--ff-only</span> Only update to the new history if there is no divergent local history.</label></div>
+		<div class="form_item"><input type="radio" id="git_pull_ff_no_ff" name="git_pull_ff" value="no_ff"><label for="git_pull_ff_no_ff"><span class="command">--no-ff</span><br>
+			<div class="ml-[1em]">
+				If <span class="command">--[no-]rebase</span> results in unspecified or merge: Create a merge commit in all cases, even when the merge could instead be resolved as a fast-forward.<br>
+				If <span class="command">--[no-]rebase</span> results in rebase: Rebase.<br>
+			</div></label></div>
+		<div class="form_item"><input type="radio" id="git_pull_ff_ff" name="git_pull_ff" value="ff"><label for="git_pull_ff_ff"><span class="command">--ff</span><br>
+			<div class="ml-[1em]">
+				If <span class="command">--[no-]rebase</span> results in unspecified or merge: When possible resolve the merge as a fast-forward (only update the branch pointer to match the merged branch; do not create a merge commit). When not possible (when the merged-in history is not a descendant of the current history), create a merge commit.<br>
+				If <span class="command">--[no-]rebase</span> results in rebase: Rebase.<br>
+			</div></label></div>
+
 		<fieldset>
 			<legend><p>options for <span class="command">git fetch</span> and <span class="command">git merge</span>:</p></legend>
 			<div class="form_item"><input type="checkbox" id="git_pull_has_quiet" name="git_pull_has_quiet"><label for="git_pull_has_quiet"><span class="command">--quiet</span> This is passed to both underlying <span class="command">git-fetch</span> to squelch reporting of during transfer, and underlying <span class="command">git-merge</span> to squelch output during merging.</label></div>
@@ -284,12 +304,6 @@
 				<div class="form_item"><input type="radio" id="git_pull_allow_unrelated_histories_has_no_allow_unrelated_histories" name="git_pull_allow_unrelated_histories" value="false"><label for="git_pull_allow_unrelated_histories_has_no_allow_unrelated_histories"><span class="command">--no-allow-unrelated-histories</span> Refuses to merge histories that do not share a common ancestor.</label></div>
 
 				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-				<div class="form_item"><input type="radio" id="git_pull_ff_no_option" name="git_pull_ff" value="no_option" checked><label for="git_pull_ff_no_option">If merging an annotated (and possibly signed) tag that is not stored in its natural place in the <span class="inline_code">refs/tags/</span> hierarchy, defaults to <span class="command">--no-ff</span>; otherwise, defaults to <span class="command">--ff</span>. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullff"><span class="inline_code">pull.ff</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeff"><span class="inline_code">merge.ff</span></a> which defaults to "Git does not create an extra merge commit when merging a commit that is a descendant of the current commit. Instead, the tip of the current branch is fast-forwarded".)</label></div>
-				<div class="form_item"><input type="radio" id="git_pull_ff_ff_only" name="git_pull_ff" value="ff_only"><label for="git_pull_ff_ff_only"><span class="command">--ff-only</span> Only update to the new history if there is no divergent local history.</label></div>
-				<div class="form_item"><input type="radio" id="git_pull_ff_ff" name="git_pull_ff" value="ff"><label for="git_pull_ff_ff"><span class="command">--ff</span> When possible resolve the merge as a fast-forward (only update the branch pointer to match the merged branch; do not create a merge commit). When not possible (when the merged-in history is not a descendant of the current history), create a merge commit.</label></div>
-				<div class="form_item"><input type="radio" id="git_pull_ff_no_ff" name="git_pull_ff" value="no_ff"><label for="git_pull_ff_no_ff"><span class="command">--no-ff</span> Create a merge commit in all cases, even when the merge could instead be resolved as a fast-forward.</label></div>
-
-				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 				<div class="form_item"><input type="radio" id="git_pull_overwrite_ignore_no_option" name="git_pull_overwrite_ignore" value="" checked disabled><label for="git_pull_overwrite_ignore_no_option">(Defaults to <span class="command">--overwrite-ignore</span>.)</label></div>
 				<div class="form_item"><input type="radio" id="git_pull_overwrite_ignore_has_overwrite_ignore" name="git_pull_overwrite_ignore" value="true" disabled><label for="git_pull_overwrite_ignore_has_overwrite_ignore"><span class="command">--overwrite-ignore</span> Silently overwrite ignored files from the merge result.</label></div>
 				<div class="form_item"><input type="radio" id="git_pull_overwrite_ignore_has_no_overwrite_ignore" name="git_pull_overwrite_ignore" value="false" disabled><label for="git_pull_overwrite_ignore_has_no_overwrite_ignore"><span class="command">--no-overwrite-ignore</span> Abort.</label></div>
@@ -300,7 +314,7 @@
 				<div><input type="radio" id="git_pull_verify_signatures_has_no_verify_signatures" name="git_pull_verify_signatures" value="false"><label for="git_pull_verify_signatures_has_no_verify_signatures"><span class="command">--no-verify-signatures</span></label></div>
 			</fieldset>
 
-			<div class="form_item"><input type="radio" id="git_pull_autostash_no_option" name="git_pull_autostash" value="" checked><label for="git_pull_autostash_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullautoStash"><span class="inline_code">pull.autoStash</span></a> which defaults to either <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeautoStash"><span class="inline_code">merge.autoStash</span></a> (which defaults to <span class="inline_code">false</span>) or <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-rebaseautoStash"><span class="inline_code">rebase.autoStash</span></a> (which defaults to <span class="inline_code">false</span>) depending on the value of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamerebase"><span class="inline_code">branch.<span class="command">&lt;name&gt;</span>.rebase</span></a> (which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullrebase"><span class="inline_code">pull.rebase</span></a> which defaults to <span class="inline_code">false</span>).)</label></div>
+			<div class="form_item"><input type="radio" id="git_pull_autostash_no_option" name="git_pull_autostash" value="" checked><label for="git_pull_autostash_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullautoStash"><span class="inline_code">pull.autoStash</span></a> which defaults to either <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeautoStash"><span class="inline_code">merge.autoStash</span></a> (which defaults to <span class="inline_code">false</span>) or <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-rebaseautoStash"><span class="inline_code">rebase.autoStash</span></a> (which defaults to <span class="inline_code">false</span>) depending on the value of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamerebase"><span class="inline_code">branch.<span class="command">&lt;name&gt;</span>.rebase</span></a> (which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullrebase"><span class="inline_code">pull.rebase</span></a>).)</label></div>
 			<div class="form_item"><input type="radio" id="git_pull_autostash_has_autostash" name="git_pull_autostash" value="true"><label for="git_pull_autostash_has_autostash"><span class="command">--autostash</span> Automatically create a temporary stash entry before the operation begins, record it in the ref <span class="inline_code">MERGE_AUTOSTASH</span> and apply it after the operation ends.</label></div>
 			<div class="form_item"><input type="radio" id="git_pull_autostash_has_no_autostash" name="git_pull_autostash" value="false"><label for="git_pull_autostash_has_no_autostash"><span class="command">--no-autostash</span></label></div>
 
@@ -494,6 +508,7 @@
 			document.getElementById("git_pull_rebase_mode_true").disabled = !(document.getElementById("git_pull_rebase_rebase").checked && document.getElementById("git_pull_rebase_rebase_has_argument").checked);
 			document.getElementById("git_pull_rebase_mode_merges").disabled = !(document.getElementById("git_pull_rebase_rebase").checked && document.getElementById("git_pull_rebase_rebase_has_argument").checked);
 			document.getElementById("git_pull_rebase_mode_interactive").disabled = !(document.getElementById("git_pull_rebase_rebase").checked && document.getElementById("git_pull_rebase_rebase_has_argument").checked);
+			document.getElementById("git_pull_rerere_autoupdate_no_option").closest("fieldset").closest("fieldset:not(:scope)").disabled = document.getElementById("git_pull_ff_ff_only").checked;
 
 			{
 				document.getElementById("git_pull_jobs_n").disabled = !document.getElementById("git_pull_has_jobs").checked;
@@ -507,7 +522,6 @@
 				//document.getElementById("git_pull_submodule_prefix_path").disabled = !document.getElementById("git_pull_has_submodule_prefix").checked;
 			}
 			{
-				document.getElementById("git_pull_rerere_autoupdate_no_option").closest("fieldset").closest("fieldset:not(:scope)").disabled = document.getElementById("git_pull_ff_ff_only").checked;
 				document.getElementById("git_pull_commit_no_option").closest("fieldset").disabled = document.getElementById("git_pull_squash_has_squash").checked;
 				document.getElementById("git_pull_message_source_no_option").closest("fieldset").closest("fieldset:not(:scope)").disabled = !(!document.getElementById("git_pull_squash_has_squash").checked && !document.getElementById("git_pull_commit_has_no_commit").checked);
 				//document.getElementById("git_pull_message_source_message").closest("fieldset").disabled = !document.getElementById("git_pull_message_source_message").checked;
@@ -596,6 +610,17 @@
 					break;
 				case "no_rebase":
 					command_components.push("--no-rebase");
+					break;
+			}
+			switch(form_data.get("git_pull_ff")){
+				case "ff_only":
+					command_components.push("--ff-only");
+					break;
+				case "no_ff":
+					command_components.push("--no-ff");
+					break;
+				case "ff":
+					command_components.push("--ff");
 					break;
 			}
 			if(form_data.get("git_pull_has_quiet"))
@@ -752,17 +777,6 @@
 						break;
 					case "true":
 						command_components.push("--allow-unrelated-histories");
-						break;
-				}
-				switch(form_data.get("git_pull_ff")){
-					case "ff_only":
-						command_components.push("--ff-only");
-						break;
-					case "ff":
-						command_components.push("--ff");
-						break;
-					case "no_ff":
-						command_components.push("--no-ff");
 						break;
 				}
 				switch(form_data.get("git_pull_overwrite_ignore")){

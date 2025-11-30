@@ -1,7 +1,7 @@
 <div class="hidden [#reference\_desk\_dispatcher\_form.git\_tag~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
 	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_tag~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_tag')">git tag</span></h1>
 	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-tag">https://git-scm.com/docs/git-tag</a></p>
-	<p class="paragraph">Create, list, delete or verify a tag object signed with GPG.</p>
+	<p class="paragraph">Create, list, delete or verify tags.</p>
 	<form id="git_tag_form">
 		<p>Choose an action to perform:</p>
 		<fieldset>
@@ -26,7 +26,7 @@
 						</legend>
 
 						<fieldset>
-							<legend><p><span class="command">--contains[=&lt;commit&gt;]</span> Only list tags which contain the specified commit (<span class="inline_code">HEAD</span> if not specified).</p></legend>
+							<legend><p><span class="command">--contains[=&lt;commit&gt;]</span> Only list tags which contain <span class="command">&lt;commit&gt;</span> (<span class="inline_code">HEAD</span> if not specified).</p></legend>
 							<input id="git_tag_action_list_filter_by_reachability_contains_list_add" type="button" value="Add">
 							<div id="git_tag_action_list_filter_by_reachability_contains_list" class="subform"></div>
 							<script>
@@ -51,7 +51,7 @@
 						</fieldset>
 
 						<fieldset>
-							<legend><p><span class="command">--merged[=&lt;commit&gt;]</span> Only list tags whose commits are reachable from the specified commit (<span class="inline_code">HEAD</span> if not specified).</p></legend>
+							<legend><p><span class="command">--merged[=&lt;commit&gt;]</span> Only list tags whose commits are reachable from <span class="command">&lt;commit&gt;</span> (<span class="inline_code">HEAD</span> if not specified).</p></legend>
 							<input id="git_tag_action_list_filter_by_reachability_merged_list_add" type="button" value="Add">
 							<div id="git_tag_action_list_filter_by_reachability_merged_list" class="subform"></div>
 							<script>
@@ -76,7 +76,7 @@
 						</fieldset>
 
 						<fieldset>
-							<legend><p><span class="command">--no-contains[=&lt;commit&gt;]</span> Only list tags which don’t contain the specified commit (<span class="inline_code">HEAD</span> if not specified).</p></legend>
+							<legend><p><span class="command">--no-contains[=&lt;commit&gt;]</span> Only list tags which don’t contain <span class="command">&lt;commit&gt;</span> (<span class="inline_code">HEAD</span> if not specified).</p></legend>
 							<input id="git_tag_action_list_filter_by_reachability_no_contains_list_add" type="button" value="Add">
 							<div id="git_tag_action_list_filter_by_reachability_no_contains_list" class="subform"></div>
 							<script>
@@ -101,7 +101,7 @@
 						</fieldset>
 
 						<fieldset>
-							<legend><p><span class="command">--no-merged[=&lt;commit&gt;]</span> Only list tags whose commits are not reachable from the specified commit (<span class="inline_code">HEAD</span> if not specified).</p></legend>
+							<legend><p><span class="command">--no-merged[=&lt;commit&gt;]</span> Only list tags whose commits are not reachable from <span class="command">&lt;commit&gt;</span> (<span class="inline_code">HEAD</span> if not specified).</p></legend>
 							<input id="git_tag_action_list_filter_by_reachability_no_merged_list_add" type="button" value="Add">
 							<div id="git_tag_action_list_filter_by_reachability_no_merged_list" class="subform"></div>
 							<script>
@@ -241,11 +241,11 @@
 					</legend>
 					<div class="form_item"><input type="checkbox" id="git_tag_action_create_type_annotate_has_no_sign" name="git_tag_action_create_type_annotate_has_no_sign"><label for="git_tag_action_create_type_annotate_has_no_sign"><span class="command">--no-sign</span> Override <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-taggpgSign"><span class="inline_code">tag.gpgSign</span></a> configuration variable that is set to force each and every tag to be signed.</label></div>
 				</fieldset>
-				<div class="form_item"><input type="radio" id="git_tag_action_create_type_sign" name="git_tag_action_create_type" value="sign"><label for="git_tag_action_create_type_sign"><span class="command">--sign</span> Make a GPG-signed tag, using the default e-mail address’s key. (Opens editor by default when not <span class="command">--message</span>/<span class="command">--file</span>.) (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"><span class="inline_code">user.signingKey</span></a> / "the committer identity for the current user is used to find the GnuPG key for signing".)</label></div>
+				<div class="form_item"><input type="radio" id="git_tag_action_create_type_sign" name="git_tag_action_create_type" value="sign"><label for="git_tag_action_create_type_sign"><span class="command">--sign</span> Make a cryptographically signed tag, using the default signing key. (Opens editor by default when not <span class="command">--message</span>/<span class="command">--file</span>.) (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"><span class="inline_code">user.signingKey</span></a> / "the committer identity for the current user is used to find the GnuPG key for signing".)</label></div>
 				<div class="form_item">
 					<input type="radio" id="git_tag_action_create_type_local_user" name="git_tag_action_create_type" value="local_user">
 					<div class="subform basis-0 grow">
-						<label for="git_tag_action_create_type_local_user"><span class="command">--local-user=&lt;key-id&gt;</span> Make a GPG-signed tag, using the given key. (Opens editor by default when not <span class="command">--message</span>/<span class="command">--file</span>.)</label>
+						<label for="git_tag_action_create_type_local_user"><span class="command">--local-user=&lt;key-id&gt;</span> Make a cryptographically signed tag using the given key. (Opens editor by default when not <span class="command">--message</span>/<span class="command">--file</span>.)</label>
 						<div class="form_item"><label for="git_tag_action_create_type_local_user_key_id"><span class="command">&lt;key-id&gt;</span>:</label><textarea wrap="off" id="git_tag_action_create_type_local_user_key_id" name="git_tag_action_create_type_local_user_key_id" class="basis-0 grow command_input"></textarea></div>
 					</div>
 				</div>
@@ -258,7 +258,7 @@
 				<div class="form_item"><input type="radio" id="git_tag_action_create_message_source_no_option" name="git_tag_action_create_message_source" value="no_option" checked><label for="git_tag_action_create_message_source_no_option"></label></div>
 				<fieldset>
 					<legend>
-						<div class="form_item"><input type="radio" id="git_tag_action_create_message_source_message" name="git_tag_action_create_message_source" value="message"><label for="git_tag_action_create_message_source_message"><span class="command">--message=&lt;msg&gt;</span> Use the given tag message (instead of prompting). If multiple <span class="command">--message</span> options are given, their values are concatenated as separate paragraphs. Implies <span class="command">--annotate</span> if none of <span class="command">--annotate</span>, <span class="command">--sign</span>, or <span class="command">--local-user=&lt;key-id&gt;</span> is given.</label></div>
+						<div class="form_item"><input type="radio" id="git_tag_action_create_message_source_message" name="git_tag_action_create_message_source" value="message"><label for="git_tag_action_create_message_source_message"><span class="command">--message=&lt;msg&gt;</span> Use <span class="command">&lt;msg&gt;</span> (instead of prompting). If multiple <span class="command">--message</span> options are given, their values are concatenated as separate paragraphs. Implies <span class="command">--annotate</span> if none of <span class="command">--annotate</span>, <span class="command">--sign</span>, or <span class="command">--local-user=&lt;key-id&gt;</span> is given.</label></div>
 					</legend>
 					<input id="git_tag_action_create_message_source_message_msg_list_add" type="button" value="Add">
 					<div id="git_tag_action_create_message_source_message_msg_list" class="subform"></div>
@@ -279,7 +279,7 @@
 				<div class="form_item">
 					<input type="radio" id="git_tag_action_create_message_source_file" name="git_tag_action_create_message_source" value="file">
 					<div class="subform basis-0 grow">
-						<label for="git_tag_action_create_message_source_file"><span class="command">--file=&lt;file&gt;</span> Take the tag message from the given file. Implies <span class="command">--annotate</span> if none of <span class="command">--annotate</span>, <span class="command">--sign</span>, or <span class="command">--local-user=&lt;key-id&gt;</span> is given.</label>
+						<label for="git_tag_action_create_message_source_file"><span class="command">--file=&lt;file&gt;</span> Take the tag message from <span class="command">&lt;file&gt;</span>. Implies <span class="command">--annotate</span> if none of <span class="command">--annotate</span>, <span class="command">--sign</span>, or <span class="command">--local-user=&lt;key-id&gt;</span> is given.</label>
 						<div class="form_item"><label for="git_tag_action_create_message_source_file_file"><span class="command">&lt;file&gt;</span>:</label><textarea wrap="off" id="git_tag_action_create_message_source_file_file" name="git_tag_action_create_message_source_file_file" class="basis-0 grow command_input"></textarea></div>
 					</div>
 				</div>
@@ -303,12 +303,12 @@
 					</script>
 				</fieldset>
 
-				<div class="form_item"><input type="checkbox" id="git_tag_action_create_has_edit" name="git_tag_action_create_has_edit"><label for="git_tag_action_create_has_edit"><span class="command">--edit</span> The message taken from file with <span class="command">--file</span> and command line with <span class="command">--message</span> are usually used as the tag message unmodified. Lets you further edit the message taken from these sources.</label></div>
+				<div class="form_item"><input type="checkbox" id="git_tag_action_create_has_edit" name="git_tag_action_create_has_edit"><label for="git_tag_action_create_has_edit"><span class="command">--edit</span> Let further edit the message taken from file with <span class="command">--file</span> and command line with <span class="command">--message</span>.</label></div>
 
 				<div class="form_item">
 					<input type="checkbox" id="git_tag_action_create_has_cleanup" name="git_tag_action_create_has_cleanup">
 					<div class="subform basis-0 grow">
-						<label for="git_tag_action_create_has_cleanup"><span class="command">--cleanup=(<input type="radio" id="git_tag_action_create_cleanup_mode_verbatim" name="git_tag_action_create_cleanup_mode" value="verbatim"><label for="git_tag_action_create_cleanup_mode_verbatim">verbatim</label>|<input type="radio" id="git_tag_action_create_cleanup_mode_whitespace" name="git_tag_action_create_cleanup_mode" value="whitespace"><label for="git_tag_action_create_cleanup_mode_whitespace">whitespace</label>|<input type="radio" id="git_tag_action_create_cleanup_mode_strip" name="git_tag_action_create_cleanup_mode" value="strip" checked><label for="git_tag_action_create_cleanup_mode_strip">strip</label>)</span> Sets how the tag message is cleaned up.<br>
+						<label for="git_tag_action_create_has_cleanup"><span class="command">--cleanup=(<input type="radio" id="git_tag_action_create_cleanup_mode_verbatim" name="git_tag_action_create_cleanup_mode" value="verbatim"><label for="git_tag_action_create_cleanup_mode_verbatim">verbatim</label>|<input type="radio" id="git_tag_action_create_cleanup_mode_whitespace" name="git_tag_action_create_cleanup_mode" value="whitespace"><label for="git_tag_action_create_cleanup_mode_whitespace">whitespace</label>|<input type="radio" id="git_tag_action_create_cleanup_mode_strip" name="git_tag_action_create_cleanup_mode" value="strip" checked><label for="git_tag_action_create_cleanup_mode_strip">strip</label>)</span> Set how the tag message is cleaned up.<br>
 							<div class="ml-[1em]">
 								<span class="command">verbatim</span> does not change message at all;<br>
 								<span class="command">whitespace</span> removes just leading/trailing whitespace lines;<br>
@@ -350,7 +350,7 @@
 		</fieldset>
 		<fieldset>
 			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_tag\_action\_verify~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_tag_action_verify')">
-				<div class="form_item"><input type="radio" id="git_tag_action_verify" name="git_tag_action" value="verify"><label for="git_tag_action_verify"><span class="command">--verify &lt;tagname&gt;…</span> Verify the GPG signature of the given tag names.</label></div>
+				<div class="form_item"><input type="radio" id="git_tag_action_verify" name="git_tag_action" value="verify"><label for="git_tag_action_verify"><span class="command">--verify &lt;tagname&gt;…</span> Verify the cryptographic signature of the given tags.</label></div>
 			</legend>
 			<fieldset>
 				<legend><p><span class="command">&lt;tagname&gt;…</span> The name of the tag to describe.</p></legend>
