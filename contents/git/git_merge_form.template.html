@@ -41,10 +41,10 @@
 
 				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 				<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_merge\_ff~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_merge_ff')">
-					<div class="form_item"><input type="radio" id="git_merge_ff_no_option" name="git_merge_ff" value="no_option" checked><label for="git_merge_ff_no_option">If merging an annotated (and possibly signed) tag that is not stored in its natural place in the <span class="inline_code">refs/tags/</span> hierarchy, defaults to <span class="command">--no-ff</span>; otherwise, defaults to <span class="command">--ff</span>. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeff"><span class="inline_code">merge.ff</span></a> which defaults to "Git does not create an extra merge commit when merging a commit that is a descendant of the current commit. Instead, the tip of the current branch is fast-forwarded".)</label></div>
+					<div class="form_item"><input type="radio" id="git_merge_ff_no_option" name="git_merge_ff" value="no_option" checked><label for="git_merge_ff_no_option">not <span class="command">--ff-only</span>/<span class="command">--no-ff</span>/<span class="command">--ff</span> Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeff"><span class="inline_code">merge.ff</span></a> which defaults to <span class="inline_code">false</span> when merging an annotated (and possibly signed) tag that is not stored in its natural place in the <span class="inline_code">refs/tags/</span> hierarchy or <span class="inline_code">true</span> otherwise.</label></div>
 					<div class="form_item"><input type="radio" id="git_merge_ff_ff_only" name="git_merge_ff" value="ff_only"><label for="git_merge_ff_ff_only"><span class="command">--ff-only</span> Resolve the merge as a fast-forward when possible. When not possible, refuse to merge and exit with a non-zero status.</label></div>
-					<div class="form_item"><input type="radio" id="git_merge_ff_ff" name="git_merge_ff" value="ff"><label for="git_merge_ff_ff"><span class="command">--ff</span> When possible resolve the merge as a fast-forward (only update the branch pointer to match the merged branch; do not create a merge commit). When not possible (when the merged-in history is not a descendant of the current history), create a merge commit.</label></div>
 					<div class="form_item"><input type="radio" id="git_merge_ff_no_ff" name="git_merge_ff" value="no_ff"><label for="git_merge_ff_no_ff"><span class="command">--no-ff</span> Create a merge commit in all cases, even when the merge could instead be resolved as a fast-forward.</label></div>
+					<div class="form_item"><input type="radio" id="git_merge_ff_ff" name="git_merge_ff" value="ff"><label for="git_merge_ff_ff"><span class="command">--ff</span> When possible resolve the merge as a fast-forward (only update the branch pointer to match the merged branch; do not create a merge commit). When not possible (when the merged-in history is not a descendant of the current history), create a merge commit.</label></div>
 				</div>
 
 				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -298,11 +298,11 @@
 						case "ff_only":
 							command_components.push("--ff-only");
 							break;
-						case "ff":
-							command_components.push("--ff");
-							break;
 						case "no_ff":
 							command_components.push("--no-ff");
+							break;
+						case "ff":
+							command_components.push("--ff");
 							break;
 					}
 					switch(form_data.get("git_merge_overwrite_ignore")){

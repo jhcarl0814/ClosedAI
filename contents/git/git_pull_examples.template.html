@@ -28,6 +28,7 @@
 			git -C './client/repo' config set --local --append 'remote.server.fetch' '+refs/heads/branch2:refs/remotes/server/branch2'
 			git -C './client/repo' remote --verbose show server
 			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' -c 'core.editor=:' pull
 			git -C './client/repo' -c 'core.editor=:' pull --ff
 			treex './client/repo/.git/FETCH_HEAD'
 			git -C './client/repo' lg --all
@@ -36,6 +37,7 @@
 			git -C './client/repo' config set --local --append 'remote.server.fetch' '+refs/heads/*:refs/remotes/server/*'
 			git -C './client/repo' remote --verbose show server
 			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' -c 'core.editor=:' pull
 			git -C './client/repo' -c 'core.editor=:' pull --ff
 			treex './client/repo/.git/FETCH_HEAD'
 			git -C './client/repo' lg --all
