@@ -1,3 +1,62 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_max\_depth~*_&]:block">
+	<h2 class="heading2"><span class="command">git diff --max-depth=&lt;depth&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			mkdir --parents -- './repo/1/2/3/4/5/6'
+			echo '1' >'./repo/1/2/3/4/5/6/7'; git -C './repo' add './1/2/3/4/5/6/7'; git -C './repo' commit --message="$((++number))"
+			echo '2' >'./repo/1/2/3/4/5/6/7'; git -C './repo' add './1/2/3/4/5/6/7'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' lg --all --patch
+
+			git -C './repo' diff 'HEAD~1' HEAD
+			git -C './repo' diff --max-depth=5 'HEAD~1' HEAD
+			git -C './repo' diff --max-depth=6 'HEAD~1' HEAD
+
+			git -C './repo' diff 'HEAD~1' HEAD './1'
+			git -C './repo' diff --max-depth=5 'HEAD~1' HEAD './1'
+			git -C './repo' diff --max-depth=6 'HEAD~1' HEAD './1'
+
+			git -C './repo' diff 'HEAD~1' HEAD './1/2'
+			git -C './repo' diff --max-depth=4 'HEAD~1' HEAD './1/2'
+			git -C './repo' diff --max-depth=5 'HEAD~1' HEAD './1/2'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			mkdir --parents -- './repo/1/2/3/4/5/6'
+			echo '1' >'./repo/1/2/3/4/5/6/7'; git -C './repo' add './1/2/3/4/5/6/7'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
+			git -C './repo' checkout -b branch1; echo '2' >'./repo/1/2/3/4/5/6/7'; git -C './repo' add './1/2/3/4/5/6/7'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch2; echo '3' >'./repo/1/2/3/4/5/6/7'; git -C './repo' add './1/2/3/4/5/6/7'; git -C './repo' commit --message="$((++number))"
+			git -C './repo' checkout branch1
+			git -C './repo' merge --message="$((++number))" branch2
+			echo '4' >'./repo/1/2/3/4/5/6/7'; git -C './repo' add './1/2/3/4/5/6/7'; git -C './repo' -c 'core.editor=:' merge --continue
+			git -C './repo' lg --all --patch --diff-merges=separate
+
+			git -C './repo' diff HEAD 'HEAD^1' 'HEAD^2'
+			git -C './repo' diff --max-depth=5 HEAD 'HEAD^1' 'HEAD^2'
+			git -C './repo' diff --max-depth=6 HEAD 'HEAD^1' 'HEAD^2'
+
+			git -C './repo' diff HEAD 'HEAD^1' 'HEAD^2' './1'
+			git -C './repo' diff --max-depth=5 HEAD 'HEAD^1' 'HEAD^2' './1'
+			git -C './repo' diff --max-depth=6 HEAD 'HEAD^1' 'HEAD^2' './1'
+
+			git -C './repo' diff HEAD 'HEAD^1' 'HEAD^2' './1/2'
+			git -C './repo' diff --max-depth=4 HEAD 'HEAD^1' 'HEAD^2' './1/2'
+			git -C './repo' diff --max-depth=5 HEAD 'HEAD^1' 'HEAD^2' './1/2'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_diff~*_&]:block [#reference\_desk\_dispatcher\_example.git\_diff\_diff\_algorithm~*_&]:block">
 	<h2 class="heading2"><span class="command">git diff --diff-algorithm=myers/minimal/patience/histogram</span><br><span class="command">git diff --anchored=&lt;text&gt;</span></h2>
 	{{

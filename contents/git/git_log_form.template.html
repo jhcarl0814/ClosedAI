@@ -527,6 +527,14 @@
 
 				<fieldset>
 					<legend><p>what to diff:</p></legend>
+					<div class="form_item">
+						<input type="checkbox" id="git_log_has_max_depth" name="git_log_has_max_depth">
+						<div class="subform basis-0 grow">
+							<label for="git_log_has_max_depth"><span class="command">--max-depth=&lt;depth&gt;</span> For each pathspec given on command line, descend at most <span class="command">&lt;depth&gt;</span> levels of directories. If no pathspec is given, the depth is measured as if all top-level entries were specified rather than measuring from the root.</label>
+							<div class="form_item"><label for="git_log_max_depth_depth"><span class="command">&lt;depth&gt;</span>:</label><input type="text" id="git_log_max_depth_depth" name="git_log_max_depth_depth" class="basis-0 grow command_input" value="-1"></div>
+						</div>
+					</div>
+
 					<div class="form_item"><input type="radio" id="git_log_relative_no_option" name="git_log_relative" value="no_option" checked><label for="git_log_relative_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffrelative"><span class="inline_code">diff.relative</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
 					<div class="form_item"><input type="radio" id="git_log_relative_no_relative" name="git_log_relative" value="no_relative"><label for="git_log_relative_no_relative"><span class="command">--no-relative</span> Countermand both <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffrelative"><span class="inline_code">diff.relative</span></a> config option and previous <span class="command">--relative</span>.</label></div>
 					<div class="form_item">
@@ -1102,6 +1110,7 @@
 			document.getElementById("git_log_expand_tabs_expand_tabs_n").disabled = !(document.getElementById("git_log_expand_tabs_expand_tabs").checked && document.getElementById("git_log_expand_tabs_expand_tabs_has_argument").checked);
 			document.getElementById("git_log_notes_notes").closest("fieldset").disabled = !document.getElementById("git_log_notes_notes").checked;
 
+			document.getElementById("git_log_max_depth_depth").disabled = !document.getElementById("git_log_has_max_depth").checked;
 			document.getElementById("git_log_relative_relative_has_argument").disabled = !document.getElementById("git_log_relative_relative").checked;
 			document.getElementById("git_log_relative_relative_path").disabled = !(document.getElementById("git_log_relative_relative").checked && document.getElementById("git_log_relative_relative_has_argument").checked);
 			document.getElementById("git_log_ignore_submodules_has_argument").disabled = !document.getElementById("git_log_has_ignore_submodules").checked;
@@ -1595,6 +1604,12 @@
 				case "check":
 					command_components.push("--check");
 					break;
+			}
+			if(form_data.get("git_log_has_max_depth")){
+				let element_value = form_data.get("git_log_max_depth_depth"), element_has_error = element_value.length == 0;
+				command_components.push("--max-depth=" + shell_quote(element_value));
+				document.getElementById("git_log_max_depth_depth").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
 			}
 			switch(form_data.get("git_log_relative")){
 				case "no_relative":

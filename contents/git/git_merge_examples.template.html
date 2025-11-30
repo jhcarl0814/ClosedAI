@@ -275,59 +275,8 @@
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_merge~*_&]:block [#reference\_desk\_dispatcher\_example.git\_merge\_ff~*_&]:block">
-	<h2 class="heading2"><span class="command">git merge --ff-only/--ff/--no-ff</span></h2>
+	<h2 class="heading2"><span class="command">git merge --ff-only/--no-ff/--ff</span></h2>
 	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
-		<div>
-			<h3 class="heading3">(use default)</h3>
-			{{
-				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
-					git init './repo'
-					git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch2
-					git -C './repo' checkout -b branch1; git -C './repo' commit --message="$((++number))" --allow-empty
-					git -C './repo' checkout branch2; git -C './repo' commit --message="$((++number))" --allow-empty
-					git -C './repo' checkout branch1
-					git -C './repo' lg --all
-					git -C './repo' merge --message="$((++number))" branch2
-					git -C './repo' lg --all
-				EOF0
-				git config unset --system --all 'color.ui';
-			}}
-			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-			{{
-				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
-					git init './repo'
-					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
-					git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch1
-					git -C './repo' commit --message="$((++number))" --allow-empty
-					git -C './repo' checkout branch1
-					git -C './repo' lg --all
-					git -C './repo' merge --message="$((++number))" "$branch_default_name"
-					git -C './repo' lg --all
-				EOF0
-				git config unset --system --all 'color.ui';
-			}}
-			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-			{{
-				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
-					git init './repo'
-					git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch1
-					git -C './repo' commit --message="$((++number))" --allow-empty
-					git -C './repo' lg --all
-					git -C './repo' merge --message="$((++number))" branch1
-					git -C './repo' lg --all
-				EOF0
-				git config unset --system --all 'color.ui';
-			}}
-		</div>
 		<div>
 			<h3 class="heading3"><span class="command">--ff-only</span></h3>
 			{{
@@ -380,57 +329,6 @@
 			}}
 		</div>
 		<div>
-			<h3 class="heading3"><span class="command">--ff</span></h3>
-			{{
-				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
-					git init './repo'
-					git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch2
-					git -C './repo' checkout -b branch1; git -C './repo' commit --message="$((++number))" --allow-empty
-					git -C './repo' checkout branch2; git -C './repo' commit --message="$((++number))" --allow-empty
-					git -C './repo' checkout branch1
-					git -C './repo' lg --all
-					git -C './repo' merge --message="$((++number))" --ff branch2
-					git -C './repo' lg --all
-				EOF0
-				git config unset --system --all 'color.ui';
-			}}
-			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-			{{
-				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
-					git init './repo'
-					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
-					git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch1
-					git -C './repo' commit --message="$((++number))" --allow-empty
-					git -C './repo' checkout branch1
-					git -C './repo' lg --all
-					git -C './repo' merge --message="$((++number))" --ff "$branch_default_name"
-					git -C './repo' lg --all
-				EOF0
-				git config unset --system --all 'color.ui';
-			}}
-			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
-			{{
-				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
-					git init './repo'
-					git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch1
-					git -C './repo' commit --message="$((++number))" --allow-empty
-					git -C './repo' lg --all
-					git -C './repo' merge --message="$((++number))" --ff branch1
-					git -C './repo' lg --all
-				EOF0
-				git config unset --system --all 'color.ui';
-			}}
-		</div>
-		<div>
 			<h3 class="heading3"><span class="command">--no-ff</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
@@ -476,6 +374,57 @@
 					git -C './repo' commit --message="$((++number))" --allow-empty
 					git -C './repo' lg --all
 					git -C './repo' merge --message="$((++number))" --no-ff branch1
+					git -C './repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3"><span class="command">--ff</span></h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch2
+					git -C './repo' checkout -b branch1; git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' checkout branch2; git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' checkout branch1
+					git -C './repo' lg --all
+					git -C './repo' merge --message="$((++number))" --ff branch2
+					git -C './repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
+					git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch1
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' checkout branch1
+					git -C './repo' lg --all
+					git -C './repo' merge --message="$((++number))" --ff "$branch_default_name"
+					git -C './repo' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './repo';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git init './repo'
+					git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch1
+					git -C './repo' commit --message="$((++number))" --allow-empty
+					git -C './repo' lg --all
+					git -C './repo' merge --message="$((++number))" --ff branch1
 					git -C './repo' lg --all
 				EOF0
 				git config unset --system --all 'color.ui';

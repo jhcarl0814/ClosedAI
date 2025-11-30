@@ -51,7 +51,7 @@
 
 			<div class="form_item" id="git_diff_commit__"><input type="checkbox" id="git_diff_has_commit" name="git_diff_has_commit"><label for="git_diff_has_commit" id="git_diff_has_commit_"><span class="command">&lt;commit&gt;</span></label><label for="git_diff_commit" id="git_diff_commit_"><span class="command">&lt;commit&gt;</span>:</label><textarea wrap="off" id="git_diff_commit" name="git_diff_commit" class="basis-0 grow command_input">HEAD</textarea></div>
 			<div class="form_item" id="git_diff_commit1__"><input type="checkbox" id="git_diff_has_commit1" name="git_diff_has_commit1"><label for="git_diff_has_commit1" id="git_diff_has_commit1_"><span class="command">&lt;commit1&gt;</span></label><label for="git_diff_commit1" id="git_diff_commit1_"><span class="command">&lt;commit1&gt;</span>:</label><textarea wrap="off" id="git_diff_commit1" name="git_diff_commit1" class="basis-0 grow command_input">HEAD</textarea></div>
-			<div class="form_item" id="git_diff_commit2__"><input type="checkbox" id="git_diff_has_commit2" name="git_diff_has_commit2"><label for="git_diff_has_commit2" id="git_diff_has_commit2_"><span class="command">&lt;commit2&gt;</span></label><label for="git_diff_commit2" id="git_diff_commit2_"><span class="command">&lt;commit2&gt;</span>:</label><textarea wrap="off" id="git_diff_commit2" name="git_diff_commit2" class="basis-0 grow command_input">HEAD</textarea></div>
+			<div class="form_item" id="git_diff_commit2__"><input type="checkbox" id="git_diff_has_commit2" name="git_diff_has_commit2" checked><label for="git_diff_has_commit2" id="git_diff_has_commit2_"><span class="command">&lt;commit2&gt;</span></label><label for="git_diff_commit2" id="git_diff_commit2_"><span class="command">&lt;commit2&gt;</span>:</label><textarea wrap="off" id="git_diff_commit2" name="git_diff_commit2" class="basis-0 grow command_input">HEAD</textarea></div>
 			<div class="form_item" id="git_diff_commit_merge_"><label for="git_diff_commit_merge"><span class="command">&lt;commit_merge&gt;</span>:</label><textarea wrap="off" id="git_diff_commit_merge" name="git_diff_commit_merge" class="basis-0 grow command_input">HEAD</textarea></div>
 			<fieldset id="git_diff_commit_parent">
 				<legend><p><span class="command">&lt;commit_parent&gt;…</span></p></legend>
@@ -111,6 +111,14 @@
 					})
 				</script>
 			</fieldset>
+
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_diff\_max\_depth~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_diff_max_depth')" id="git_diff_max_depth">
+				<input type="checkbox" id="git_diff_has_max_depth" name="git_diff_has_max_depth">
+				<div class="subform basis-0 grow">
+					<label for="git_diff_has_max_depth"><span class="command">--max-depth=&lt;depth&gt;</span> For each pathspec given on command line, descend at most <span class="command">&lt;depth&gt;</span> levels of directories. If no pathspec is given, the depth is measured as if all top-level entries were specified rather than measuring from the root.</label>
+					<div class="form_item"><label for="git_diff_max_depth_depth"><span class="command">&lt;depth&gt;</span>:</label><input type="text" id="git_diff_max_depth_depth" name="git_diff_max_depth_depth" class="basis-0 grow command_input" value="-1"></div>
+				</div>
+			</div>
 
 			<div class="form_item"><input type="radio" id="git_diff_relative_no_option" name="git_diff_relative" value="no_option" checked><label for="git_diff_relative_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffrelative"><span class="inline_code">diff.relative</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
 			<div class="form_item"><input type="radio" id="git_diff_relative_no_relative" name="git_diff_relative" value="no_relative"><label for="git_diff_relative_no_relative"><span class="command">--no-relative</span> Countermand both <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffrelative"><span class="inline_code">diff.relative</span></a> config option and previous <span class="command">--relative</span>.</label></div>
@@ -659,14 +667,19 @@
 			document.getElementById("git_diff_has_commit").classList.toggle("hidden", !document.getElementById("git_diff_what_index_vs_commit").checked);
 			document.getElementById("git_diff_has_commit_").classList.toggle("hidden", !document.getElementById("git_diff_what_index_vs_commit").checked);
 			document.getElementById("git_diff_commit_").classList.toggle("hidden", !document.getElementById("git_diff_what_working_tree_vs_commit").checked);
+			document.getElementById("git_diff_commit").disabled = !(document.getElementById("git_diff_what_index_vs_commit").checked && document.getElementById("git_diff_has_commit").checked || document.getElementById("git_diff_what_working_tree_vs_commit").checked);
 			document.getElementById("git_diff_commit1__").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit1").checked || document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
-			document.getElementById("git_diff_has_commit1").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
-			document.getElementById("git_diff_has_commit1_").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
 			document.getElementById("git_diff_commit2__").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit1").checked || document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
+			document.getElementById("git_diff_has_commit1").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
 			document.getElementById("git_diff_has_commit2").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
+			document.getElementById("git_diff_has_commit1_").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
 			document.getElementById("git_diff_has_commit2_").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked));
 			document.getElementById("git_diff_commit1_").classList.toggle("hidden", !document.getElementById("git_diff_what_commit_vs_commit1").checked);
 			document.getElementById("git_diff_commit2_").classList.toggle("hidden", !document.getElementById("git_diff_what_commit_vs_commit1").checked);
+			document.getElementById("git_diff_has_commit1").disabled = !document.getElementById("git_diff_has_commit2").checked;
+			document.getElementById("git_diff_has_commit2").disabled = !document.getElementById("git_diff_has_commit1").checked;
+			document.getElementById("git_diff_commit1").disabled = !(document.getElementById("git_diff_what_commit_vs_commit1").checked || (document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked) && document.getElementById("git_diff_has_commit1").checked);
+			document.getElementById("git_diff_commit2").disabled = !(document.getElementById("git_diff_what_commit_vs_commit1").checked || (document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked) && document.getElementById("git_diff_has_commit2").checked);
 			document.getElementById("git_diff_commit_merge_").classList.toggle("hidden", !document.getElementById("git_diff_what_combined_diff").checked);
 			document.getElementById("git_diff_commit_parent").classList.toggle("hidden", !document.getElementById("git_diff_what_combined_diff").checked);
 			document.getElementById("git_diff_blob1_").classList.toggle("hidden", !document.getElementById("git_diff_what_blob_vs_blob").checked);
@@ -675,6 +688,8 @@
 			document.getElementById("git_diff_path2_").classList.toggle("hidden", !document.getElementById("git_diff_what_path_vs_path").checked);
 			document.getElementById("git_diff_path").classList.toggle("hidden", !(document.getElementById("git_diff_what_working_tree_vs_index").checked || document.getElementById("git_diff_what_index_vs_commit").checked || document.getElementById("git_diff_what_working_tree_vs_commit").checked || document.getElementById("git_diff_what_commit_vs_commit1").checked || document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked || document.getElementById("git_diff_what_combined_diff").checked));
 			document.getElementById("git_diff_pathspec").classList.toggle("hidden", !document.getElementById("git_diff_what_path_vs_path").checked);
+			document.getElementById("git_diff_max_depth").classList.toggle("hidden", !(document.getElementById("git_diff_what_commit_vs_commit1").checked || document.getElementById("git_diff_what_commit_vs_commit2").checked || document.getElementById("git_diff_what_commit_vs_commit3").checked || document.getElementById("git_diff_what_combined_diff").checked));
+			document.getElementById("git_diff_max_depth_depth").disabled = !document.getElementById("git_diff_has_max_depth").checked;
 
 			document.getElementById("git_diff_relative_relative_has_argument").disabled = !document.getElementById("git_diff_relative_relative").checked;
 			document.getElementById("git_diff_relative_relative_path").disabled = !(document.getElementById("git_diff_relative_relative").checked && document.getElementById("git_diff_relative_relative_has_argument").checked);
@@ -788,6 +803,19 @@
 					command_components.push("--exit-code");
 					if(form_data.get("git_diff_has_quiet"))
 						command_components.push("--quiet");
+					break;
+			}
+			switch(form_data.get("git_diff_what")){
+				case "commit_vs_commit1":
+				case "commit_vs_commit2":
+				case "commit_vs_commit3":
+				case "combined_diff":
+					if(form_data.get("git_diff_has_max_depth")){
+						let element_value = form_data.get("git_diff_max_depth_depth"), element_has_error = element_value.length == 0;
+						command_components.push("--max-depth=" + shell_quote(element_value));
+						document.getElementById("git_diff_max_depth_depth").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
 					break;
 			}
 			switch(form_data.get("git_diff_relative")){
@@ -1393,14 +1421,14 @@
 					command_components.push("--end-of-options");
 					{
 						let commit1_and_commit2 = "";
-						if(form_data.get("git_diff_has_commit1")){
+						if(document.getElementById("git_diff_has_commit1").checked){
 							let element_value = form_data.get("git_diff_commit1"), element_has_error = element_value.length == 0;
 							commit1_and_commit2 += shell_quote(element_value);
 							document.getElementById("git_diff_commit1").classList.toggle("error_input", element_has_error);
 							has_error ||= element_has_error;
 						}
 						commit1_and_commit2 += "..";
-						if(form_data.get("git_diff_has_commit2")){
+						if(document.getElementById("git_diff_has_commit2").checked){
 							let element_value = form_data.get("git_diff_commit2"), element_has_error = element_value.length == 0;
 							commit1_and_commit2 += shell_quote(element_value);
 							document.getElementById("git_diff_commit2").classList.toggle("error_input", element_has_error);
@@ -1421,14 +1449,14 @@
 					command_components.push("--end-of-options");
 					{
 						let commit1_and_commit2 = "";
-						if(form_data.get("git_diff_has_commit1")){
+						if(document.getElementById("git_diff_has_commit1").checked){
 							let element_value = form_data.get("git_diff_commit1"), element_has_error = element_value.length == 0;
 							commit1_and_commit2 += shell_quote(element_value);
 							document.getElementById("git_diff_commit1").classList.toggle("error_input", element_has_error);
 							has_error ||= element_has_error;
 						}
 						commit1_and_commit2 += "...";
-						if(form_data.get("git_diff_has_commit2")){
+						if(document.getElementById("git_diff_has_commit2").checked){
 							let element_value = form_data.get("git_diff_commit2"), element_has_error = element_value.length == 0;
 							commit1_and_commit2 += shell_quote(element_value);
 							document.getElementById("git_diff_commit2").classList.toggle("error_input", element_has_error);

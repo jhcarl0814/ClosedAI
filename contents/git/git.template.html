@@ -310,14 +310,14 @@ EOF}}"></script>
 	<script src="data:text/javascript;base64,{{base64 --wrap=0 <<'EOF'
 		try{
 			if(window.location.protocol == "https:" && window.location.hostname == "jhcarl0814.github.io" && window.location.port == "" && window.location.pathname == "/ClosedAI/git/git.html"){
-				document.head.insertBefore(create_element("script", { async: true, src: "https://www.googletagmanager.com/gtag/js?id=G-ZHJ8ZJK2B8", }), document.head.childNodes.item(0));
-				document.head.insertBefore(create_element("script", { text: `
+				document.head.insertBefore(create_element("script", {}, { async: "", src: "https://www.googletagmanager.com/gtag/js?id=G-ZHJ8ZJK2B8", }), document.head.childNodes.item(0));
+				document.head.insertBefore(create_element("script", {}, {}, [ document.createTextNode(`
 					window.dataLayer = window.dataLayer || [];
 					function gtag(){dataLayer.push(arguments);}
 					gtag('js', new Date());
 
 					gtag('config', 'G-ZHJ8ZJK2B8');
-				`, }), document.head.childNodes.item(1));
+				`), ]), document.head.childNodes.item(1));
 			}
 		}
 		finally{
@@ -573,12 +573,16 @@ EOF}}"></script>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/gitignore#_pattern_format">pattern</a><br>
 									<a class="concept_link" href="https://git-scm.com/docs/gitignore#_description">overriding, {configuration files}</a><br>
-									<a class="git_scm_link" href="https://git-scm.com/docs/gitignore#_notes">how to stop tracking a currently tracked file</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/gitignore#_notes">how to stop tracking tracked and ignored files</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/git-add#_description">how to force tracking not-tracked and ignored files</a><br>
 									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-check-ignore"><span class="command">git check-ignore</span></a><br>
 								</div>
 							</div>
 							<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
 							<div class="basis-0 grow">
+								<a class="stackoverflow_link" href="https://stackoverflow.com/questions/7229885/what-are-the-differences-between-gitignore-and-gitkeep"><span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/**/.gitkeep</span></a><br>
+
+								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 								<a class="external_link blur-[1px]" href="https://lore.kernel.org/git/pull.1627.git.1703643931314.gitgitgadget@gmail.com/#Z31Documentation:technical:precious-files.txt">Precious Files Design Document</a><br>
 								tracked<br>
 								<div class="ml-[1em]">
@@ -596,7 +600,6 @@ EOF}}"></script>
 								</div>
 							</div>
 						</div>
-						<a class="stackoverflow_link" href="https://stackoverflow.com/questions/7229885/what-are-the-differences-between-gitignore-and-gitkeep"><span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/**/.gitkeep</span></a><br>
 
 						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 						<h2 class="highlight_bold text-[160%] leading-[1.5em]">Source Code Management Layer <a class="[#reference\_desk\_dispatcher\_form.git\_reference\_desk\_source\_code\_management\_layer~*_&]:[outline:dashed_2.5px_#0000FF] cursor-text" onmousedown="reference_desk_link_clicked0('git_reference_desk_source_code_management_layer','git_reference_desk_source_code_management_layer')" onclick="window.event.preventDefault()">🎯</a></h2>
@@ -643,7 +646,7 @@ EOF}}"></script>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/git-checkout#Documentation/git-checkout.txt-branch">(local) branch</a>, <span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/git#Documentation/git.txt-head">head</a>&gt;</span><br>
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefremotetrackingbrancharemote-trackingbranch">remote-tracking branch, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/refs/remotes/</span></a><br>
-									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-upstreambranch">upstream branch</a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-upstreambranch">upstream branch</a> <a class="concept_link" href="https://git-scm.com/docs/git-fetch#UPSTREAM-BRANCHES">(git fetch)</a><br>
 								</div>
 
 								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -709,23 +712,25 @@ EOF}}"></script>
 						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 						<h2 class="highlight_bold">Repository Creation and Synchronization</h2>
 						<div class="flex">
-							<div class="basis-auto grow">
+							<div class="basis-0 grow-[1.4]">
 								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_init~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_init git_with_command','git_init');git_init_refresh();"><span class="command">git init</span></a><br>
+								<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-repo"><span class="command">🧪git repo</span></a><br>
 
 								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 								<a class="external_link github_link" href="https://github.com/git/git/blob/master/contrib/subtree/git-subtree.adoc"><span class="command">git subtree</span></a><br>
 								<h2 class="highlight_bold">Submodules <a class="external_link git_scm_link" href="https://git-scm.com/docs/gitsubmodules"><span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/modules/</span></a></h2>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-submodule">submodule</a>, <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-superproject">superproject</a><br>
-									<a class="git_scm_link" href="https://git-scm.com/docs/gitsubmodules#_forms">how to completely remove a submodule</a><br>
 									<a class="external_link git_scm_link" href="https://git-scm.com/docs/gitmodules"><span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/.gitmodules</span></a><br>
 									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-submodule"><span class="command">git submodule</span></a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/git-submodule#Documentation/git-submodule.txt---force">how to force adding a submodule whose path-derived name is occupied</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/gitsubmodules#_forms">how to completely remove a submodule</a><br>
 								</div>
 								<a class="external_link github_link" href="https://github.com/ingydotnet/git-subrepo"><span class="command">git subrepo</span></a><br>
 							</div>
 
 							<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
-							<div class="basis-auto grow">
+							<div class="basis-0 grow">
 								<h2 class="highlight_bold">Tracked Repositories</h2>
 								<div class="ml-[1em]">
 									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_remote~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_remote git_with_command','git_remote');git_remote_refresh();"><span class="command">git remote</span></a><br>
@@ -807,33 +812,35 @@ EOF}}"></script>
 							</div>
 						</div>
 
-						branch's remote: <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnameremote"><span class="inline_code">branch.&lt;branch&gt;.remote</span></a><br>
-						branch's upstream branch(es): &lt;branch's remote, <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamemerge"><span class="inline_code">branch.&lt;branch&gt;.merge</span></a>&gt;<br>
-						<a class="git_scm_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergedefaultToUpstream">branch's remote tracking branch(es)</a>: <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamemerge"><span class="inline_code">branch.&lt;branch&gt;.merge</span></a> mapped via <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.&lt;branch's remote&gt;.fetch</span></a><br>
+						<ul class="ml-[1em] list-outside list-['•_']">
+							<li>branch's remote: <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnameremote"><span class="inline_code">branch.&lt;branch&gt;.remote</span></a></li>
+							<li>branch's upstream branch(es): &lt;branch's remote, <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamemerge"><span class="inline_code">branch.&lt;branch&gt;.merge</span></a>&gt;</li>
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergedefaultToUpstream">branch's remote tracking branch(es)</a>: <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamemerge"><span class="inline_code">branch.&lt;branch&gt;.merge</span></a> mapped via <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.&lt;branch's remote&gt;.fetch</span></a></li>
+						</ul>
 						<span class="command">git merge</span><br>
-						<div class="ml-[1em]">
-							<a class="git_scm_link" href="https://git-scm.com/docs/git-merge#Documentation/git-merge.txt-commit">default branch(es) to merge into current branch</a>: (if <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergedefaultToUpstream"><span class="inline_code">merge.defaultToUpstream</span></a>:) current branch's remote tracking branch(es)<br>
-						</div>
+						<ul class="ml-[1em] list-outside list-['•_']">
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-merge#Documentation/git-merge.txt-commit">default branch(es) to merge into current branch</a>: (if <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergedefaultToUpstream"><span class="inline_code">merge.defaultToUpstream</span></a>:) current branch's remote tracking branch(es)</li>
+						</ul>
 						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 						<span class="command">git fetch</span><br>
-						<div class="ml-[1em]">
-							remote's url to fetch from: first of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameurl"><span class="inline_code">remote.&lt;remote&gt;.url</span></a><br>
-							remote to fetch from: <a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt-repository"><span class="command">&lt;repository&gt;</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnameremote"><span class="inline_code">branch.&lt;current branch&gt;.remote</span></a>/(if only one remote:) the only remote<br>
-							<a class="git_scm_link" href="https://git-scm.com/docs/git-fetch#_configured_remote_tracking_branches">refs to fetch from remote</a> (recorded in <a class="external_link" href="https://git-scm.com/docs/git-fetch#_description"><span class="inline_code">FETCH_HEAD</span></a>): ((<span class="command">&lt;refspec&gt;</span>s present:) <a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt-refspec"><span class="command">&lt;refspec&gt;</span></a>s^(<span class="command">&lt;refspec&gt;</span>s absent:) <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.&lt;remote&gt;.fetch</span></a>)/<span class="inline_code">HEAD</span><br>
-							<a class="git_scm_link" href="https://git-scm.com/docs/git-fetch#_configured_remote_tracking_branches">local refs to update</a>: refs to fetch from remote mapped via (<a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt-refspec"><span class="command">&lt;refspec with dst&gt;</span></a>s&amp;((<span class="command">--refmap=&lt;refspec&gt;</span>s present:) <a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt---refmaprefspec"><span class="command">--refmap=&lt;refspec&gt;</span></a>s^(<span class="command">--refmap=&lt;refspec&gt;</span>s absent:) <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.&lt;remote&gt;.fetch</span></a>))<br>
-						</div>
+						<ul class="ml-[1em] list-outside list-['•_']">
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-fetch#_description">remote to fetch from</a>: <a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt-repository"><span class="command">&lt;repository&gt;</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnameremote"><span class="inline_code">branch.&lt;current branch&gt;.remote</span></a>/(if only one remote:) the only remote</li>
+							<li>remote's url to fetch from: first of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameurl"><span class="inline_code">remote.&lt;remote&gt;.url</span></a></li>
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-fetch#_configured_remote_tracking_branches">refs to fetch from remote</a> (recorded in <a class="external_link" href="https://git-scm.com/docs/git-fetch#_description"><span class="inline_code">FETCH_HEAD</span></a>): ((<span class="command">&lt;refspec&gt;</span>s present:) <a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt-refspec"><span class="command">&lt;refspec&gt;</span></a>s^(<span class="command">&lt;refspec&gt;</span>s absent:) <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.&lt;remote&gt;.fetch</span></a>)/<span class="inline_code">HEAD</span></li>
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-fetch#_configured_remote_tracking_branches">local refs to update</a>: refs to fetch from remote mapped via (<a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt-refspec"><span class="command">&lt;refspec with dst&gt;</span></a>s&amp;((<span class="command">--refmap=&lt;refspec&gt;</span>s present:) <a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt---refmaprefspec"><span class="command">--refmap=&lt;refspec&gt;</span></a>s^(<span class="command">--refmap=&lt;refspec&gt;</span>s absent:) <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.&lt;remote&gt;.fetch</span></a>))</li>
+						</ul>
 						<span class="command">git pull</span><br>
-						<div class="ml-[1em]">
-							<a class="git_scm_link" href="https://git-scm.com/docs/git-pull#_default_behaviour">default branch(es) to merge into current branch</a>: <a class="external_link" href="https://git-scm.com/docs/git-pull#Documentation/git-pull.txt-refspec"><span class="command">&lt;refspec&gt;</span></a>s' src/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamemerge"><span class="inline_code">branch.&lt;current branch&gt;.merge</span></a>/(first of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.&lt;remote&gt;.fetch</span></a> if not globbing)'s src<br>
-						</div>
+						<ul class="ml-[1em] list-outside list-['•_']">
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-pull#DEFAULT-BEHAVIOUR">default branch(es) to merge into current branch</a>: <a class="external_link" href="https://git-scm.com/docs/git-pull#Documentation/git-pull.txt-refspec"><span class="command">&lt;refspec&gt;</span></a>s' src/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamemerge"><span class="inline_code">branch.&lt;current branch&gt;.merge</span></a>/(first of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.&lt;remote&gt;.fetch</span></a> if not globbing)'s src</li>
+						</ul>
 						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 						<span class="command">git push</span><br>
-						<div class="ml-[1em]">
-							remote's url(s) to push to: <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamepushurl"><span class="inline_code">remote.&lt;remote&gt;.pushurl</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameurl"><span class="inline_code">remote.&lt;remote&gt;.url</span></a><br>
-							remote to push to: <a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-repository"><span class="command">&lt;repository&gt;</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamepushRemote"><span class="inline_code">branch.&lt;current branch&gt;.pushRemote</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotepushDefault"><span class="inline_code">remote.pushDefault</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnameremote"><span class="inline_code">branch.&lt;current branch&gt;.remote</span></a>/(if only one remote:) the only remote<br>
-							refs to push to remote: (<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-refspec"><span class="command">&lt;refspec&gt;</span></a>s[&amp;<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt---tags"><span class="command">--tags</span></a>]^<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt---branches"><span class="command">--branches</span></a>^<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt---mirror"><span class="command">--mirror</span></a>)/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamepush"><span class="inline_code">remote.&lt;remote&gt;.push</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault"><span class="inline_code">push.default</span></a>/<span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault">push.default</a>=simple</span><br>
-							remote refs to update: <a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-refspec"><span class="command">&lt;refspec with dst&gt;</span></a>s&amp;((<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-refspec"><span class="command">&lt;refspec without dst&gt;</span></a>s' src mapped via <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamepush"><span class="inline_code">remote.&lt;remote&gt;.push</span></a>)/<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-refspec"><span class="command">&lt;refspec without dst&gt;</span></a>s' src)/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault"><span class="inline_code">push.default</span></a>/<span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault">push.default</a>=simple</span><br>
-						</div>
+						<ul class="ml-[1em] list-outside list-['•_']">
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-push#_description">remote to push to</a>: <a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-repository"><span class="command">&lt;repository&gt;</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamepushRemote"><span class="inline_code">branch.&lt;current branch&gt;.pushRemote</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotepushDefault"><span class="inline_code">remote.pushDefault</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnameremote"><span class="inline_code">branch.&lt;current branch&gt;.remote</span></a>/(if only one remote:) the only remote</li>
+							<li>remote's url(s) to push to: <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamepushurl"><span class="inline_code">remote.&lt;remote&gt;.pushurl</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameurl"><span class="inline_code">remote.&lt;remote&gt;.url</span></a></li>
+							<li>refs to push to remote: (<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-refspec"><span class="command">&lt;refspec&gt;</span></a>s[&amp;<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt---tags"><span class="command">--tags</span></a>]^<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt---branches"><span class="command">--branches</span></a>^<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt---mirror"><span class="command">--mirror</span></a>)/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamepush"><span class="inline_code">remote.&lt;remote&gt;.push</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault"><span class="inline_code">push.default</span></a>/<span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault">push.default</a>=simple</span></li>
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-push#_description">remote refs to update</a>: <a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-refspec"><span class="command">&lt;refspec with dst&gt;</span></a>s&amp;((<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-refspec"><span class="command">&lt;refspec without dst&gt;</span></a>s' src mapped via <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamepush"><span class="inline_code">remote.&lt;remote&gt;.push</span></a>)/<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-refspec"><span class="command">&lt;refspec without dst&gt;</span></a>s' src)/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault"><span class="inline_code">push.default</span></a>/<span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault">push.default</a>=simple</span></li>
+						</ul>
 
 						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 						<h2 class="highlight_bold">Snapshotting</h2>
@@ -870,8 +877,8 @@ EOF}}"></script>
 								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_checkout git_with_command','git_checkout');git_checkout_refresh();"><span class="command">git checkout</span></a><br>
 								<div class="ml-[1em]">
 									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-checkout">checkout</a><br>
-									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-switch"><span class="command">🧪git switch</span></a><br>
-									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-restore"><span class="command">🧪git restore</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-switch"><span class="command">git switch</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-restore"><span class="command">git restore</span></a><br>
 								</div>
 								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-sparse-checkout"><span class="command">git sparse-checkout</span></a><br>
 								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span></a><br>
@@ -885,8 +892,8 @@ EOF}}"></script>
 										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-overlay">overlay/no-overlay</a><br>
 										<a class="git_scm_link" href="https://git-scm.com/docs/parallel-checkout">parallel checkout</a><br>
 									</div>
-									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-switch"><span class="command">🧪git switch</span></a><br>
-									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-restore"><span class="command">🧪git restore</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-switch"><span class="command">git switch</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-restore"><span class="command">git restore</span></a><br>
 								</div>
 								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-sparse-checkout"><span class="command">git sparse-checkout</span></a><br>
 								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span></a><br>
@@ -911,7 +918,7 @@ EOF}}"></script>
 								<div>
 									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_checkout git_with_command','git_checkout');git_checkout_refresh();"><span class="command">git checkout</span></a><br>
 									<div class="ml-[1em]">
-										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-switch"><span class="command">🧪git switch</span></a><br>
+										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-switch"><span class="command">git switch</span></a><br>
 									</div>
 									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/ORIG_HEAD</span></a><br>
 									<div class="ml-[1em]">
@@ -1020,7 +1027,7 @@ EOF}}"></script>
 									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_status~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_status git_with_command','git_status');git_status_refresh();"><span class="command">git status</span></a><br>
 									<div class="ml-[1em]">
 										<a class="concept_link" href="https://git-scm.com/docs/git-status#_short_format">path syntax in output (git status)</a><br>
-										<a class="concept_link" href="https://git-scm.com/docs/git-status#_output">status code</a><br>
+										<a class="concept_link" href="https://git-scm.com/docs/git-status#_short_format">status code</a><br>
 									</div>
 									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-show"><span class="command">git show</span></a><br>
 									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_diff~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_diff git_with_command','git_diff');git_diff_refresh();"><span class="command">git diff</span></a><br>
@@ -1045,6 +1052,7 @@ EOF}}"></script>
 									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-shortlog"><span class="command">git shortlog</span></a><br>
 									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-show-branch"><span class="command">git show-branch</span></a><br>
 									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-blame"><span class="command">git blame</span></a><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-last-modified"><span class="command">🧪git last-modified</span></a><br>
 								</div>
 
 								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
