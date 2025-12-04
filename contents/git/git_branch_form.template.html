@@ -1,0 +1,718 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_branch~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch')">git branch</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-branch">https://git-scm.com/docs/git-branch</a></p>
+	<p class="paragraph">List, create, or delete branches.</p>
+	<form id="git_branch_form">
+		<p>Choose an action to perform:</p>
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_show\_current~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_show_current')"><input type="radio" id="git_branch_action_show_current" name="git_branch_action" value="show_current"><label for="git_branch_action_show_current"><span class="command">--show-current</span> Print the name of the current branch. In detached HEAD state, nothing is printed.</label></div>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_list')">
+				<div class="form_item"><input type="radio" id="git_branch_action_list" name="git_branch_action" value="list" checked><label for="git_branch_action_list"><span class="command">--list [&lt;pattern&gt;…]</span> List branches.</label></div>
+			</legend>
+			<fieldset>
+				<legend><p>filtering:</p></legend>
+				<fieldset>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list\_filter\_by\_namespace~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_list_filter_by_namespace')"><p>by namespace:</p></legend>
+					<div class="form_item"><input type="radio" id="git_branch_action_list_filter_by_namespace_no_option" name="git_branch_action_list_filter_by_namespace" value="no_option"><label for="git_branch_action_list_filter_by_namespace_no_option">List local branches.</label></div>
+					<div class="form_item"><input type="radio" id="git_branch_action_list_filter_by_namespace_remotes" name="git_branch_action_list_filter_by_namespace" value="remotes"><label for="git_branch_action_list_filter_by_namespace_remotes"><span class="command">--remotes</span> List remote-tracking branches.</label></div>
+					<div class="form_item"><input type="radio" id="git_branch_action_list_filter_by_namespace_all" name="git_branch_action_list_filter_by_namespace" value="all" checked><label for="git_branch_action_list_filter_by_namespace_all"><span class="command">--all</span> List both remote-tracking branches and local branches.</label></div>
+				</fieldset>
+				<fieldset>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list\_filter\_by\_reachability~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_list_filter_by_reachability')"><p>by reachability:</p></legend>
+					<div class="form_item"><input type="radio" id="git_branch_action_list_filter_by_reachability_no_option" name="git_branch_action_list_filter_by_reachability" value="no_option" checked><label for="git_branch_action_list_filter_by_reachability_no_option"></label></div>
+					<div class="form_item">
+						<input type="radio" id="git_branch_action_list_filter_by_reachability_points_at" name="git_branch_action_list_filter_by_reachability" value="points_at">
+						<div class="subform basis-0 grow">
+							<label for="git_branch_action_list_filter_by_reachability_points_at"><span class="command">--points-at=&lt;object&gt;</span> Only list branches of the given object.</label>
+							<div class="form_item"><label for="git_branch_action_list_filter_by_reachability_points_at_object"><span class="command">&lt;object&gt;</span>:</label><textarea wrap="off" id="git_branch_action_list_filter_by_reachability_points_at_object" name="git_branch_action_list_filter_by_reachability_points_at_object" class="basis-0 grow command_input">master</textarea></div>
+						</div>
+					</div>
+					<fieldset>
+						<legend>
+							<div class="form_item"><input type="radio" id="git_branch_action_list_filter_by_reachability_contains_and_merged" name="git_branch_action_list_filter_by_reachability" value="contains_and_merged"><label for="git_branch_action_list_filter_by_reachability_contains_and_merged">When combining multiple <span class="command">--contains</span> and <span class="command">--no-contains</span> filters, only references that contain at least one of the <span class="command">--contains</span> commits and contain none of the <span class="command">--no-contains</span> commits are shown.<br>When combining multiple <span class="command">--merged</span> and <span class="command">--no-merged</span> filters, only references that are reachable from at least one of the <span class="command">--merged</span> commits and from none of the <span class="command">--no-merged</span> commits are shown.</label></div>
+						</legend>
+
+						<fieldset>
+							<legend><p><span class="command">--contains[=&lt;commit&gt;]</span> Only list branches which contain <span class="command">&lt;commit&gt;</span> (<span class="inline_code">HEAD</span> if not specified).</p></legend>
+							<input id="git_branch_action_list_filter_by_reachability_contains_list_add" type="button" value="Add">
+							<div id="git_branch_action_list_filter_by_reachability_contains_list" class="subform"></div>
+							<script>
+								document.getElementById("git_branch_action_list_filter_by_reachability_contains_list_add").addEventListener("click",function(e){
+									let checkbox, checkbox2, textarea;
+									document.getElementById("git_branch_action_list_filter_by_reachability_contains_list").append(create_element("div", { className: "form_item", }, {}, [
+										checkbox = create_element("input", { type: "checkbox", checked: true, }),
+										create_element("div", { className: "subform basis-0 grow", }, {}, [
+											create_element("div", { className: "form_item", }, {}, [
+												checkbox2 = create_element("input", { type: "checkbox", checked: false, id: "git_branch_action_list_filter_by_reachability_contains_list_item" + document.getElementById("git_branch_action_list_filter_by_reachability_contains_list").childElementCount + "_has_commit", }),
+												create_element("label", { innerHTML: "<span class=\"command\">=&lt;commit&gt;</span>", htmlFor: checkbox2.id, }),
+											]),
+											textarea = create_element("textarea", { wrap: "off", className: "command_input", disabled: true, }),
+										]),
+									]));
+									textarea.addEventListener("input", git_branch_refresh);
+									checkbox2.addEventListener("input", function(e){ textarea.disabled = !(checkbox.checked && checkbox2.checked); git_branch_refresh(); });
+									checkbox.addEventListener("input", function(e){ checkbox2.disabled = !checkbox.checked; textarea.disabled = !(checkbox.checked && checkbox2.checked); git_branch_refresh(); });
+									git_branch_refresh();
+								})
+							</script>
+						</fieldset>
+
+						<fieldset>
+							<legend><p><span class="command">--merged[=&lt;commit&gt;]</span> Only list branches whose tips are reachable from <span class="command">&lt;commit&gt;</span> (<span class="inline_code">HEAD</span> if not specified).</p></legend>
+							<input id="git_branch_action_list_filter_by_reachability_merged_list_add" type="button" value="Add">
+							<div id="git_branch_action_list_filter_by_reachability_merged_list" class="subform"></div>
+							<script>
+								document.getElementById("git_branch_action_list_filter_by_reachability_merged_list_add").addEventListener("click",function(e){
+									let checkbox, checkbox2, textarea;
+									document.getElementById("git_branch_action_list_filter_by_reachability_merged_list").append(create_element("div", { className: "form_item", }, {}, [
+										checkbox = create_element("input", { type: "checkbox", checked: true, }),
+										create_element("div", { className: "subform basis-0 grow", }, {}, [
+											create_element("div", { className: "form_item", }, {}, [
+												checkbox2 = create_element("input", { type: "checkbox", checked: false, id: "git_branch_action_list_filter_by_reachability_merged_list_item" + document.getElementById("git_branch_action_list_filter_by_reachability_merged_list").childElementCount + "_has_commit", }),
+												create_element("label", { innerHTML: "<span class=\"command\">=&lt;commit&gt;</span>", htmlFor: checkbox2.id, }),
+											]),
+											textarea = create_element("textarea", { wrap: "off", className: "command_input", disabled: true, }),
+										]),
+									]));
+									textarea.addEventListener("input", git_branch_refresh);
+									checkbox2.addEventListener("input", function(e){ textarea.disabled = !(checkbox.checked && checkbox2.checked); git_branch_refresh(); });
+									checkbox.addEventListener("input", function(e){ checkbox2.disabled = !checkbox.checked; textarea.disabled = !(checkbox.checked && checkbox2.checked); git_branch_refresh(); });
+									git_branch_refresh();
+								})
+							</script>
+						</fieldset>
+
+						<fieldset>
+							<legend><p><span class="command">--no-contains[=&lt;commit&gt;]</span> Only list branches which don’t contain <span class="command">&lt;commit&gt;</span> (<span class="inline_code">HEAD</span> if not specified).</p></legend>
+							<input id="git_branch_action_list_filter_by_reachability_no_contains_list_add" type="button" value="Add">
+							<div id="git_branch_action_list_filter_by_reachability_no_contains_list" class="subform"></div>
+							<script>
+								document.getElementById("git_branch_action_list_filter_by_reachability_no_contains_list_add").addEventListener("click",function(e){
+									let checkbox, checkbox2, textarea;
+									document.getElementById("git_branch_action_list_filter_by_reachability_no_contains_list").append(create_element("div", { className: "form_item", }, {}, [
+										checkbox = create_element("input", { type: "checkbox", checked: true, }),
+										create_element("div", { className: "subform basis-0 grow", }, {}, [
+											create_element("div", { className: "form_item", }, {}, [
+												checkbox2 = create_element("input", { type: "checkbox", checked: false, id: "git_branch_action_list_filter_by_reachability_no_contains_list_item" + document.getElementById("git_branch_action_list_filter_by_reachability_no_contains_list").childElementCount + "_has_commit", }),
+												create_element("label", { innerHTML: "<span class=\"command\">=&lt;commit&gt;</span>", htmlFor: checkbox2.id, }),
+											]),
+											textarea = create_element("textarea", { wrap: "off", className: "command_input", disabled: true, }),
+										]),
+									]));
+									textarea.addEventListener("input", git_branch_refresh);
+									checkbox2.addEventListener("input", function(e){ textarea.disabled = !(checkbox.checked && checkbox2.checked); git_branch_refresh(); });
+									checkbox.addEventListener("input", function(e){ checkbox2.disabled = !checkbox.checked; textarea.disabled = !(checkbox.checked && checkbox2.checked); git_branch_refresh(); });
+									git_branch_refresh();
+								})
+							</script>
+						</fieldset>
+
+						<fieldset>
+							<legend><p><span class="command">--no-merged[=&lt;commit&gt;]</span> Only list branches whose tips are not reachable from <span class="command">&lt;commit&gt;</span> (<span class="inline_code">HEAD</span> if not specified).</p></legend>
+							<input id="git_branch_action_list_filter_by_reachability_no_merged_list_add" type="button" value="Add">
+							<div id="git_branch_action_list_filter_by_reachability_no_merged_list" class="subform"></div>
+							<script>
+								document.getElementById("git_branch_action_list_filter_by_reachability_no_merged_list_add").addEventListener("click",function(e){
+									let checkbox, checkbox2, textarea;
+									document.getElementById("git_branch_action_list_filter_by_reachability_no_merged_list").append(create_element("div", { className: "form_item", }, {}, [
+										checkbox = create_element("input", { type: "checkbox", checked: true, }),
+										create_element("div", { className: "subform basis-0 grow", }, {}, [
+											create_element("div", { className: "form_item", }, {}, [
+												checkbox2 = create_element("input", { type: "checkbox", checked: false, id: "git_branch_action_list_filter_by_reachability_no_merged_list_item" + document.getElementById("git_branch_action_list_filter_by_reachability_no_merged_list").childElementCount + "_has_commit", }),
+												create_element("label", { innerHTML: "<span class=\"command\">=&lt;commit&gt;</span>", htmlFor: checkbox2.id, }),
+											]),
+											textarea = create_element("textarea", { wrap: "off", className: "command_input", disabled: true, }),
+										]),
+									]));
+									textarea.addEventListener("input", git_branch_refresh);
+									checkbox2.addEventListener("input", function(e){ textarea.disabled = !(checkbox.checked && checkbox2.checked); git_branch_refresh(); });
+									checkbox.addEventListener("input", function(e){ checkbox2.disabled = !checkbox.checked; textarea.disabled = !(checkbox.checked && checkbox2.checked); git_branch_refresh(); });
+									git_branch_refresh();
+								})
+							</script>
+						</fieldset>
+					</fieldset>
+				</fieldset>
+				<fieldset>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list\_filter\_by\_refname~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_list_filter_by_refname')"><p>by namespace<sup>-1</sup>refname:</p></legend>
+					<fieldset>
+						<legend><p><span class="command">&lt;pattern&gt;…</span> Used as shell wildcards to restrict the output to matching branches. If multiple patterns are given, a branch is shown if it matches any of the patterns.</p></legend>
+						<input id="git_branch_action_list_filter_by_refname_pattern_list_add" type="button" value="Add">
+						<div id="git_branch_action_list_filter_by_refname_pattern_list" class="subform"></div>
+						<script>
+							document.getElementById("git_branch_action_list_filter_by_refname_pattern_list_add").addEventListener("click",function(e){
+								document.getElementById("git_branch_action_list_filter_by_refname_pattern_list").append((function(){
+									let div = document.createElement("div"); div.className = "form_item";
+									let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+									let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_branch_refresh);
+									checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_branch_refresh(); });
+									div.append(checkbox, input);
+									return div;
+								})());
+								git_branch_refresh();
+							})
+						</script>
+					</fieldset>
+				</fieldset>
+			</fieldset>
+			<fieldset>
+				<legend><p>sorting:</p></legend>
+				<fieldset>
+					<legend><p><span class="command">--sort=&lt;key&gt;</span> Sort based on the key given. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchsort"><span class="inline_code">branch.sort</span></a>.)</p></legend>
+					<input id="git_branch_action_list_sort_key_list_add" type="button" value="Add">
+					<div id="git_branch_action_list_sort_key_list" class="subform"></div>
+					<script>
+						document.getElementById("git_branch_action_list_sort_key_list_add").addEventListener("click",function(e){
+							document.getElementById("git_branch_action_list_sort_key_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_branch_refresh);
+								checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_branch_refresh(); });
+								div.append(checkbox, input);
+								return div;
+							})());
+							git_branch_refresh();
+						})
+					</script>
+				</fieldset>
+			</fieldset>
+			<div class="form_item"><input type="checkbox" id="git_branch_action_list_has_ignore_case" name="git_branch_action_list_has_ignore_case"><label for="git_branch_action_list_has_ignore_case"><span class="command">--ignore-case</span> Sorting and filtering branches are case insensitive.</label></div>
+			<fieldset>
+				<legend><p>formatting:</p></legend>
+				<div class="form_item"><input type="radio" id="git_branch_action_list_format_no_option" name="git_branch_action_list_format" value="no_option"><label for="git_branch_action_list_format_no_option"></label></div>
+				<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list\_format\_verbose~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_list_format_verbose')">
+					<div class="form_item"><input type="radio" id="git_branch_action_list_format_verbose" name="git_branch_action_list_format" value="verbose"><label for="git_branch_action_list_format_verbose"><span class="command">--verbose</span> Show sha1 and commit subject line for each head, along with relationship to upstream branch (if any).</label></div>
+					<div class="form_item"><input type="radio" id="git_branch_action_list_format_verbose_verbose" name="git_branch_action_list_format" value="verbose_verbose" checked><label for="git_branch_action_list_format_verbose_verbose"><span class="command">--verbose --verbose</span> Print the path of the linked worktree (if any) and the name of the upstream branch, as well (see also <span class="command">git remote show &lt;remote&gt;</span>).</label></div>
+				</div>
+				<fieldset>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list\_format\_format~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_list_format_format')">
+						<div class="form_item">
+							<input type="radio" id="git_branch_action_list_format_format" name="git_branch_action_list_format" value="format">
+							<div class="subform basis-0 grow">
+								<label for="git_branch_action_list_format_format"><span class="command">--format=&lt;format&gt;</span> A string that interpolates <span class="command">%(fieldname)</span> from a branch ref being shown and the object it points at.</label>
+								<div class="form_item"><label for="git_branch_action_list_format_format_format"><span class="command">&lt;format&gt;</span>:</label><textarea wrap="off" id="git_branch_action_list_format_format_format" name="git_branch_action_list_format_format_format" class="basis-0 grow command_input">%(HEAD) %(refname) %(objectname)%(if)%(upstream)%(then) (fetch from %(upstream:remotename) with %(upstream:remoteref):%(upstream) %(upstream:track))%(end)%(if)%(push)%(then) (push to %(if)%(push:remotename)%(then)%(push:remotename)%(else)%(upstream:remotename)%(end) with %(if)%(push:remoteref)%(then)%(push:remoteref):%(refname)%(else)push.default%(end) %(push:track))%(end)%(if)%(worktreepath)%(then) worktreepath="%(worktreepath)"%(end)</textarea></div>
+							</div>
+						</div>
+					</legend>
+					<div class="form_item"><input type="checkbox" id="git_branch_action_list_has_omit_empty" name="git_branch_action_list_has_omit_empty"><label for="git_branch_action_list_has_omit_empty"><span class="command">--omit-empty</span> Do not print a newline after formatted refs where the format expands to the empty string.</label></div>
+				</fieldset>
+
+				<p>when not <span class="command">--verbose</span>/<span class="command">--verbose --verbose</span>:</p>
+				<div class="form_item"><input type="radio" id="git_branch_action_list_column_no_option" name="git_branch_action_list_column" value="no_option" checked><label for="git_branch_action_list_column_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-columnbranch"><span class="inline_code">column.branch</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-columnui"><span class="inline_code">column.ui</span></a> which defaults to <span class="inline_code">never,column,nodense</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_branch_action_list_column_no_column" name="git_branch_action_list_column" value="no_column"><label for="git_branch_action_list_column_no_column"><span class="command">--no-column</span> Equivalent to <span class="command">--column=never</span>.</label></div>
+				<div class="form_item">
+					<input type="radio" id="git_branch_action_list_column_column" name="git_branch_action_list_column" value="column">
+					<div class="subform basis-0 grow">
+						<label for="git_branch_action_list_column_column"><span class="command">--column<input type="checkbox" id="git_branch_action_list_column_column_has_argument" name="git_branch_action_list_column_column_has_argument"><label for="git_branch_action_list_column_column_has_argument">[=&lt;options&gt;]</label></span> Display branch listing in columns.</label>
+						<div class="form_item"><label for="git_branch_action_list_column_column_options"><span class="command">&lt;options&gt;</span>:</label><input type="text" id="git_branch_action_list_column_column_options" name="git_branch_action_list_column_column_options" class="basis-0 grow command_input" value="always"></div>
+					</div>
+				</div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<p>when <span class="command">--verbose</span>/<span class="command">--verbose --verbose</span>:</p>
+				<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_list\_abbrev~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_list_abbrev')">
+					<div class="form_item"><input type="radio" id="git_branch_action_list_abbrev_no_option" name="git_branch_action_list_abbrev" value="no_option" checked><label for="git_branch_action_list_abbrev_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreabbrev"><span class="inline_code">core.abbrev</span></a> which defaults to a value computed based on the approximate number of packed objects in your repository.)</label></div>
+					<div class="form_item"><input type="radio" id="git_branch_action_list_abbrev_no_abbrev" name="git_branch_action_list_abbrev" value="no_abbrev"><label for="git_branch_action_list_abbrev_no_abbrev"><span class="command">--no-abbrev</span> Display the full sha1s in the output listing rather than abbreviating them.</label></div>
+					<div class="form_item">
+						<input type="radio" id="git_branch_action_list_abbrev_abbrev" name="git_branch_action_list_abbrev" value="abbrev">
+						<div class="subform basis-0 grow">
+							<label for="git_branch_action_list_abbrev_abbrev"><span class="command">--abbrev<input type="checkbox" id="git_branch_action_list_abbrev_abbrev_has_argument" name="git_branch_action_list_abbrev_abbrev_has_argument"><label for="git_branch_action_list_abbrev_abbrev_has_argument">[=&lt;n&gt;]</label></span> Show the shortest prefix that is at least <span class="command">&lt;n&gt;</span> hexdigits long that uniquely refers the object.</label>
+							<div class="form_item"><label for="git_branch_action_list_abbrev_abbrev_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_branch_action_list_abbrev_abbrev_n" name="git_branch_action_list_abbrev_abbrev_n" class="basis-0 grow command_input" value="7"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div class="form_item"><input type="radio" id="git_branch_action_list_color_no_option" name="git_branch_action_list_color" value="no_option" checked><label for="git_branch_action_list_color_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-colorbranch"><span class="inline_code">color.branch</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-colorui"><span class="inline_code">color.ui</span></a> which defaults to <span class="inline_code">auto</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_branch_action_list_color_no_color" name="git_branch_action_list_color" value="no_color"><label for="git_branch_action_list_color_no_color"><span class="command">--no-color</span> Turn off branch colors, even when the configuration file gives the default to color output.</label></div>
+				<div class="form_item"><input type="radio" id="git_branch_action_list_color_color" name="git_branch_action_list_color" value="color"><label for="git_branch_action_list_color_color"><span class="command">--color<input type="checkbox" id="git_branch_action_list_color_color_has_argument" name="git_branch_action_list_color_color_has_argument"><label for="git_branch_action_list_color_color_has_argument">[=<input type="radio" id="git_branch_action_list_color_color_when_always" name="git_branch_action_list_color_color_when" value="always" checked><label for="git_branch_action_list_color_color_when_always">always</label>|<input type="radio" id="git_branch_action_list_color_color_when_never" name="git_branch_action_list_color_color_when" value="never"><label for="git_branch_action_list_color_color_when_never">never</label>|<input type="radio" id="git_branch_action_list_color_color_when_auto" name="git_branch_action_list_color_color_when" value="auto"><label for="git_branch_action_list_color_color_when_auto">auto</label>]</label></span> Color branches to highlight current, local, and remote-tracking branches.</label></div>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_create~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_create')">
+				<div class="form_item"><input type="radio" id="git_branch_action_create" name="git_branch_action" value="create"><label for="git_branch_action_create"><span class="command">&lt;branch-name&gt; [&lt;start-point&gt;]</span> Creates a new branch head named <span class="command">&lt;branch-name&gt;</span> which points to the current <span class="inline_code">HEAD</span>, or <span class="command">&lt;start-point&gt;</span> if given.</label></div>
+			</legend>
+			<p><span class="command">&lt;branch-name&gt;</span> The name of the branch to create.</p>
+			<div class="form_item"><label for="git_branch_action_create_branch" class="hidden"><span class="command">&lt;branch-name&gt;</span>:</label><input type="text" id="git_branch_action_create_branch" name="git_branch_action_create_branch" class="basis-0 grow command_input" value="master"></div>
+			<div class="form_item">
+				<input type="checkbox" id="git_branch_action_create_has_start_point" name="git_branch_action_create_has_start_point">
+				<div class="subform basis-0 grow">
+					<label for="git_branch_action_create_has_start_point"><span class="command">&lt;start-point&gt;</span> The new branch head will point to this commit.</label>
+					<div class="form_item"><label for="git_branch_action_create_start_point" class="hidden"><span class="command">&lt;start-point&gt;</span>:</label><textarea wrap="off" id="git_branch_action_create_start_point" name="git_branch_action_create_start_point" class="basis-0 grow command_input">HEAD</textarea></div>
+				</div>
+			</div>
+
+			<div class="form_item"><input type="checkbox" id="git_branch_action_create_has_force" name="git_branch_action_create_has_force"><label for="git_branch_action_create_has_force"><span class="command">--force</span> Reset <span class="command">&lt;branch-name&gt;</span> to <span class="command">&lt;start-point&gt;</span>, even if <span class="command">&lt;branch-name&gt;</span> exists already. Without <span class="command">--force</span>, refuses to change an existing branch. Even with <span class="command">--force</span>, refuses to change an existing branch <span class="command">&lt;branch-name&gt;</span> that is checked out in another worktree linked to the same repository.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_create\_track~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_create_track')">
+				<div class="form_item"><input type="radio" id="git_branch_action_create_track_no_option" name="git_branch_action_create_track" value="no_option" checked><label for="git_branch_action_create_track_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchautoSetupMerge"><span class="inline_code">branch.autoSetupMerge</span></a> which defaults to <span class="inline_code">true</span>, and <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchautoSetupRebase"><span class="inline_code">branch.autoSetupRebase</span></a> which defaults to <span class="inline_code">never</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_branch_action_create_track_track" name="git_branch_action_create_track" value="track"><label for="git_branch_action_create_track_track"><span class="command">--track<input type="checkbox" id="git_branch_action_create_track_track_has_argument" name="git_branch_action_create_track_track_has_argument"><label for="git_branch_action_create_track_track_has_argument">[=(<input type="radio" id="git_branch_action_create_track_track_action_direct" name="git_branch_action_create_track_track_action" value="direct" checked><label for="git_branch_action_create_track_track_action_direct">direct</label>|<input type="radio" id="git_branch_action_create_track_track_action_inherit" name="git_branch_action_create_track_track_action" value="inherit"><label for="git_branch_action_create_track_track_action_inherit">inherit</label>)]</label></span> When creating a new branch, set up <span class="inline_code">branch.&lt;name&gt;.remote</span> and <span class="inline_code">branch.&lt;name&gt;.merge</span> configuration entries to set "upstream" tracking configuration for the new branch.<br>
+					<div class="ml-[1em]">
+						<span class="command">--track=direct</span> use the start-point branch itself as the upstream;<br>
+						<span class="command">--track=inherit</span> copy the upstream configuration of the start-point branch;<br>
+					</div></label></div>
+				<div class="form_item"><input type="radio" id="git_branch_action_create_track_no_track" name="git_branch_action_create_track" value="no_track"><label for="git_branch_action_create_track_no_track"><span class="command">--no-track</span> Do not set up "upstream" configuration, even if the <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchautoSetupMerge"><span class="inline_code">branch.autoSetupMerge</span></a> configuration variable is set.</label></div>
+			</div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_create\_create\_reflog~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_create_create_reflog')">
+				<div class="form_item"><input type="radio" id="git_branch_action_create_create_reflog_no_option" name="git_branch_action_create_create_reflog" value="" checked><label for="git_branch_action_create_create_reflog_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-corelogAllRefUpdates"><span class="inline_code">core.logAllRefUpdates</span></a> which defaults to <span class="inline_code">true</span> in a repository that has a working directory associated with it and <span class="inline_code">false</span> in a bare repository.)</label></div>
+				<div class="form_item"><input type="radio" id="git_branch_action_create_create_reflog_has_create_reflog" name="git_branch_action_create_create_reflog" value="true"><label for="git_branch_action_create_create_reflog_has_create_reflog"><span class="command">--create-reflog</span> Create the branch’s reflog.</label></div>
+				<div class="form_item"><input type="radio" id="git_branch_action_create_create_reflog_has_no_create_reflog" name="git_branch_action_create_create_reflog" value="false"><label for="git_branch_action_create_create_reflog_has_no_create_reflog"><span class="command">--no-create-reflog</span> Only overrides an earlier <span class="command">--create-reflog</span>, but currently does not negate the setting of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-corelogAllRefUpdates"><span class="inline_code">core.logAllRefUpdates</span></a>.</label></div>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_move~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_move')">
+				<div class="form_item"><input type="radio" id="git_branch_action_move" name="git_branch_action" value="move"><label for="git_branch_action_move"><span class="command">--move [&lt;old-branch&gt;] &lt;new-branch&gt;</span> Move/rename a branch, together with its config and reflog.</label></div>
+			</legend>
+			<div class="form_item">
+				<input type="checkbox" id="git_branch_action_move_has_old_branch" name="git_branch_action_move_has_old_branch">
+				<div class="subform basis-0 grow">
+					<label for="git_branch_action_move_has_old_branch"><span class="command">&lt;old-branch&gt;</span> The name of an existing branch.</label>
+					<div class="form_item"><label for="git_branch_action_move_old_branch" class="hidden"><span class="command">&lt;old-branch&gt;</span>:</label><input type="text" id="git_branch_action_move_old_branch" name="git_branch_action_move_old_branch" class="basis-0 grow command_input" value="HEAD"></div>
+				</div>
+			</div>
+			<p><span class="command">&lt;new-branch&gt;</span> The new name for an existing branch.</p>
+			<div class="form_item"><label for="git_branch_action_move_new_branch" class="hidden"><span class="command">&lt;new-branch&gt;</span>:</label><input type="text" id="git_branch_action_move_new_branch" name="git_branch_action_move_new_branch" class="basis-0 grow command_input" value="master"></div>
+			<div class="form_item"><input type="checkbox" id="git_branch_action_move_has_force" name="git_branch_action_move_has_force"><label for="git_branch_action_move_has_force"><span class="command">--force</span> Allow renaming the branch even if the new branch name already exists.</label></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_copy~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_copy')">
+				<div class="form_item"><input type="radio" id="git_branch_action_copy" name="git_branch_action" value="copy"><label for="git_branch_action_copy"><span class="command">--copy [&lt;old-branch&gt;] &lt;new-branch&gt;</span> Copy a branch, together with its config and reflog.</label></div>
+			</legend>
+			<div class="form_item">
+				<input type="checkbox" id="git_branch_action_copy_has_old_branch" name="git_branch_action_copy_has_old_branch">
+				<div class="subform basis-0 grow">
+					<label for="git_branch_action_copy_has_old_branch"><span class="command">&lt;old-branch&gt;</span> The name of an existing branch.</label>
+					<div class="form_item"><label for="git_branch_action_copy_old_branch" class="hidden"><span class="command">&lt;old-branch&gt;</span>:</label><input type="text" id="git_branch_action_copy_old_branch" name="git_branch_action_copy_old_branch" class="basis-0 grow command_input" value="HEAD"></div>
+				</div>
+			</div>
+			<p><span class="command">&lt;new-branch&gt;</span> The new name for an existing branch.</p>
+			<div class="form_item"><label for="git_branch_action_copy_new_branch" class="hidden"><span class="command">&lt;new-branch&gt;</span>:</label><input type="text" id="git_branch_action_copy_new_branch" name="git_branch_action_copy_new_branch" class="basis-0 grow command_input" value="master"></div>
+			<div><input type="checkbox" id="git_branch_action_copy_has_force" name="git_branch_action_copy_has_force"><label for="git_branch_action_copy_has_force"><span class="command">--force</span> Allow copying the branch even if the new branch name already exists.</label></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_delete~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_delete')">
+				<div class="form_item"><input type="radio" id="git_branch_action_delete" name="git_branch_action" value="delete"><label for="git_branch_action_delete"><span class="command">--delete &lt;branch-name&gt;…</span> Delete a branch. The branch must be fully merged in its upstream branch, or in <span class="inline_code">HEAD</span> if no upstream was set with <span class="command">--track</span> or <span class="command">--set-upstream-to</span>.</label></div>
+			</legend>
+			<div class="form_item"><input type="radio" id="git_branch_action_delete_filter_by_namespace_no_option" name="git_branch_action_delete_filter_by_namespace" value="no_option" checked><label for="git_branch_action_delete_filter_by_namespace_no_option">Delete local branches.</label></div>
+			<div class="form_item"><input type="radio" id="git_branch_action_delete_filter_by_namespace_remotes" name="git_branch_action_delete_filter_by_namespace" value="remotes"><label for="git_branch_action_delete_filter_by_namespace_remotes"><span class="command">--remotes</span> Delete remote-tracking branches.</label></div>
+			<fieldset>
+				<legend><p><span class="command">&lt;branch-name&gt;…</span> The name of the branch to delete.</p></legend>
+				<input id="git_branch_action_delete_branch_name_list_add" type="button" value="Add">
+				<div id="git_branch_action_delete_branch_name_list" class="subform"></div>
+				<script>
+					document.getElementById("git_branch_action_delete_branch_name_list_add").addEventListener("click",function(e){
+						document.getElementById("git_branch_action_delete_branch_name_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_branch_refresh);
+							checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_branch_refresh(); });
+							div.append(checkbox, input);
+							return div;
+						})());
+						git_branch_refresh();
+					})
+				</script>
+			</fieldset>
+			<div class="form_item"><input type="checkbox" id="git_branch_action_delete_has_force" name="git_branch_action_delete_has_force"><label for="git_branch_action_delete_has_force"><span class="command">--force</span> Allow deleting the branch irrespective of its merged status, or whether it even points to a valid commit.</label></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_set\_upstream\_to~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_set_upstream_to')">
+				<div class="form_item"><input type="radio" id="git_branch_action_set_upstream_to" name="git_branch_action" value="set_upstream_to"><label for="git_branch_action_set_upstream_to"><span class="command">--set-upstream-to=&lt;upstream&gt; [&lt;branch-name&gt;]</span> Set up <span class="command">&lt;branch-name&gt;</span>'s tracking information so <span class="command">&lt;upstream&gt;</span> is considered <span class="command">&lt;branch-name&gt;</span>'s upstream branch.</label></div>
+			</legend>
+			<div class="form_item"><label for="git_branch_action_set_upstream_to_upstream"><span class="command">&lt;upstream&gt;</span>:</label><input type="text" id="git_branch_action_set_upstream_to_upstream" name="git_branch_action_set_upstream_to_upstream" class="basis-0 grow command_input" value="origin/master"></div>
+			<div class="form_item"><input type="checkbox" id="git_branch_action_set_upstream_to_has_branch_name" name="git_branch_action_set_upstream_to_has_branch_name"><label for="git_branch_action_set_upstream_to_has_branch_name"><span class="command">&lt;branch-name&gt;</span></label><label for="git_branch_action_set_upstream_to_branch_name" class="hidden"><span class="command">&lt;branch-name&gt;</span>:</label><input type="text" id="git_branch_action_set_upstream_to_branch_name" name="git_branch_action_set_upstream_to_branch_name" class="basis-0 grow command_input" value="HEAD"></div>
+		</fieldset>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_branch\_action\_unset\_upstream~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_branch_action_unset_upstream')">
+				<div class="form_item"><input type="radio" id="git_branch_action_unset_upstream" name="git_branch_action" value="unset_upstream"><label for="git_branch_action_unset_upstream"><span class="command">--unset-upstream [&lt;branch-name&gt;]</span> Remove the upstream information for <span class="command">&lt;branch-name&gt;</span>.</label></div>
+			</legend>
+			<div class="form_item"><input type="checkbox" id="git_branch_action_unset_upstream_has_branch_name" name="git_branch_action_unset_upstream_has_branch_name"><label for="git_branch_action_unset_upstream_has_branch_name"><span class="command">&lt;branch-name&gt;</span></label><label for="git_branch_action_unset_upstream_branch_name" class="hidden"><span class="command">&lt;branch-name&gt;</span>:</label><input type="text" id="git_branch_action_unset_upstream_branch_name" name="git_branch_action_unset_upstream_branch_name" class="basis-0 grow command_input" value="HEAD"></div>
+		</fieldset>
+		<fieldset>
+			<legend>
+				<div class="form_item"><input type="radio" id="git_branch_action_edit_description" name="git_branch_action" value="edit_description"><label for="git_branch_action_edit_description"><span class="command">--edit-description [&lt;branchname&gt;]</span> Open an editor and edit the text to explain what the branch is for, to be used by various other commands (e.g. <span class="command">format-patch</span>, <span class="command">request-pull</span>, and <span class="command">merge</span> (if enabled)).</label></div>
+			</legend>
+			<div class="form_item"><input type="checkbox" id="git_branch_action_edit_description_has_branch_name" name="git_branch_action_edit_description_has_branch_name"><label for="git_branch_action_edit_description_has_branch_name"><span class="command">&lt;branch-name&gt;</span></label><label for="git_branch_action_edit_description_branch_name" class="hidden"><span class="command">&lt;branch-name&gt;</span>:</label><input type="text" id="git_branch_action_edit_description_branch_name" name="git_branch_action_edit_description_branch_name" class="basis-0 grow command_input" value="HEAD"></div>
+		</fieldset>
+		<div class="form_item"><input type="checkbox" id="git_branch_has_quiet" name="git_branch_has_quiet"><label for="git_branch_has_quiet"><span class="command">--quiet</span> Be more quiet when creating or deleting a branch, suppressing non-error messages.</label></div>
+	</form>
+	<textarea readonly wrap="off" id="git_branch_command" name="git_branch_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_branch_refresh(){
+			document.getElementById("git_branch_action_list").closest("fieldset").disabled = !document.getElementById("git_branch_action_list").checked;
+			document.getElementById("git_branch_action_list_filter_by_reachability_points_at_object").disabled = !document.getElementById("git_branch_action_list_filter_by_reachability_points_at").checked;
+			document.getElementById("git_branch_action_list_filter_by_reachability_contains_and_merged").closest("fieldset").disabled = !document.getElementById("git_branch_action_list_filter_by_reachability_contains_and_merged").checked;
+			document.getElementById("git_branch_action_list_format_format").closest("fieldset").disabled = !document.getElementById("git_branch_action_list_format_format").checked;
+			document.getElementById("git_branch_action_list_format_format_format").disabled = !document.getElementById("git_branch_action_list_format_format").checked;
+			let can_have_column = !document.getElementById("git_branch_action_list_format_verbose").checked && !document.getElementById("git_branch_action_list_format_verbose_verbose").checked;
+			document.getElementById("git_branch_action_list_column_no_option").disabled = !can_have_column;
+			document.getElementById("git_branch_action_list_column_no_column").disabled = !can_have_column;
+			document.getElementById("git_branch_action_list_column_column").disabled = !can_have_column;
+			document.getElementById("git_branch_action_list_column_column_has_argument").disabled = !(can_have_column && document.getElementById("git_branch_action_list_column_column").checked);
+			document.getElementById("git_branch_action_list_column_column_options").disabled = !(can_have_column && document.getElementById("git_branch_action_list_column_column").checked && document.getElementById("git_branch_action_list_column_column_has_argument").checked);
+			let can_have_abbrev = document.getElementById("git_branch_action_list_format_verbose").checked || document.getElementById("git_branch_action_list_format_verbose_verbose").checked;
+			document.getElementById("git_branch_action_list_abbrev_no_option").disabled = !can_have_abbrev;
+			document.getElementById("git_branch_action_list_abbrev_no_abbrev").disabled = !can_have_abbrev;
+			document.getElementById("git_branch_action_list_abbrev_abbrev").disabled = !can_have_abbrev;
+			document.getElementById("git_branch_action_list_abbrev_abbrev_has_argument").disabled = !(can_have_abbrev && document.getElementById("git_branch_action_list_abbrev_abbrev").checked);
+			document.getElementById("git_branch_action_list_abbrev_abbrev_n").disabled = !(can_have_abbrev && document.getElementById("git_branch_action_list_abbrev_abbrev").checked && document.getElementById("git_branch_action_list_abbrev_abbrev_has_argument").checked);
+			document.getElementById("git_branch_action_list_color_color_has_argument").disabled = !document.getElementById("git_branch_action_list_color_color").checked;
+			document.getElementById("git_branch_action_list_color_color_when_always").disabled = !(document.getElementById("git_branch_action_list_color_color").checked && document.getElementById("git_branch_action_list_color_color_has_argument").checked);
+			document.getElementById("git_branch_action_list_color_color_when_never").disabled = !(document.getElementById("git_branch_action_list_color_color").checked && document.getElementById("git_branch_action_list_color_color_has_argument").checked);
+			document.getElementById("git_branch_action_list_color_color_when_auto").disabled = !(document.getElementById("git_branch_action_list_color_color").checked && document.getElementById("git_branch_action_list_color_color_has_argument").checked);
+
+			document.getElementById("git_branch_action_create").closest("fieldset").disabled = !document.getElementById("git_branch_action_create").checked;
+			document.getElementById("git_branch_action_create_start_point").disabled = !document.getElementById("git_branch_action_create_has_start_point").checked;
+			document.getElementById("git_branch_action_create_track_track_has_argument").disabled = !document.getElementById("git_branch_action_create_track_track").checked;
+			document.getElementById("git_branch_action_create_track_track_action_direct").disabled = !(document.getElementById("git_branch_action_create_track_track").checked && document.getElementById("git_branch_action_create_track_track_has_argument").checked);
+			document.getElementById("git_branch_action_create_track_track_action_inherit").disabled = !(document.getElementById("git_branch_action_create_track_track").checked && document.getElementById("git_branch_action_create_track_track_has_argument").checked);
+
+			document.getElementById("git_branch_action_move").closest("fieldset").disabled = !document.getElementById("git_branch_action_move").checked;
+			document.getElementById("git_branch_action_move_old_branch").disabled = !document.getElementById("git_branch_action_move_has_old_branch").checked;
+
+			document.getElementById("git_branch_action_copy").closest("fieldset").disabled = !document.getElementById("git_branch_action_copy").checked;
+			document.getElementById("git_branch_action_copy_old_branch").disabled = !document.getElementById("git_branch_action_copy_has_old_branch").checked;
+
+			document.getElementById("git_branch_action_delete").closest("fieldset").disabled = !document.getElementById("git_branch_action_delete").checked;
+
+			document.getElementById("git_branch_action_set_upstream_to").closest("fieldset").disabled = !document.getElementById("git_branch_action_set_upstream_to").checked;
+			document.getElementById("git_branch_action_set_upstream_to_branch_name").disabled = !document.getElementById("git_branch_action_set_upstream_to_has_branch_name").checked;
+
+			document.getElementById("git_branch_action_unset_upstream").closest("fieldset").disabled = !document.getElementById("git_branch_action_unset_upstream").checked;
+			document.getElementById("git_branch_action_unset_upstream_branch_name").disabled = !document.getElementById("git_branch_action_unset_upstream_has_branch_name").checked;
+
+			document.getElementById("git_branch_action_edit_description").closest("fieldset").disabled = !document.getElementById("git_branch_action_edit_description").checked;
+			document.getElementById("git_branch_action_edit_description_branch_name").disabled = !document.getElementById("git_branch_action_edit_description_has_branch_name").checked;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("branch");
+
+			let form_data = new FormData(document.getElementById("git_branch_form"));
+			switch(form_data.get("git_branch_action")){
+				case "show_current":
+					command_components.push("--show-current");
+					break;
+				case "list":
+					command_components.push("--list");
+					switch(form_data.get("git_branch_action_list_filter_by_namespace")){
+						case "remotes":
+							command_components.push("--remotes");
+							break;
+						case "all":
+							command_components.push("--all");
+							break;
+					}
+					switch(form_data.get("git_branch_action_list_filter_by_reachability")){
+						case "points_at":
+							let element_value = form_data.get("git_branch_action_list_filter_by_reachability_points_at_object"), element_has_error = element_value.length == 0;
+							command_components.push("--points-at=" + shell_quote(element_value));
+							document.getElementById("git_branch_action_list_filter_by_reachability_points_at_object").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+							break;
+						case "contains_and_merged":
+							Array.from(document.getElementById("git_branch_action_list_filter_by_reachability_contains_list").querySelectorAll(":scope>div:has(>input:checked)")).forEach(function(div){
+								if(!div.querySelector(":scope>div input").checked){
+									command_components.push("--contains");
+								}
+								else{
+									let textarea = div.querySelector(":scope>div textarea"), element_value = textarea.value, element_has_error = element_value.length == 0;
+									command_components.push("--contains=" + shell_quote(element_value));
+									textarea.classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+							});
+							Array.from(document.getElementById("git_branch_action_list_filter_by_reachability_merged_list").querySelectorAll(":scope>div:has(>input:checked)")).forEach(function(div){
+								if(!div.querySelector(":scope>div input").checked){
+									command_components.push("--merged");
+								}
+								else{
+									let textarea = div.querySelector(":scope>div textarea"), element_value = textarea.value, element_has_error = element_value.length == 0;
+									command_components.push("--merged=" + shell_quote(element_value));
+									textarea.classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+							});
+							Array.from(document.getElementById("git_branch_action_list_filter_by_reachability_no_contains_list").querySelectorAll(":scope>div:has(>input:checked)")).forEach(function(div){
+								if(!div.querySelector(":scope>div input").checked){
+									command_components.push("--no-contains");
+								}
+								else{
+									let textarea = div.querySelector(":scope>div textarea"), element_value = textarea.value, element_has_error = element_value.length == 0;
+									command_components.push("--no-contains=" + shell_quote(element_value));
+									textarea.classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+							});
+							Array.from(document.getElementById("git_branch_action_list_filter_by_reachability_no_merged_list").querySelectorAll(":scope>div:has(>input:checked)")).forEach(function(div){
+								if(!div.querySelector(":scope>div input").checked){
+									command_components.push("--no-merged");
+								}
+								else{
+									let textarea = div.querySelector(":scope>div textarea"), element_value = textarea.value, element_has_error = element_value.length == 0;
+									command_components.push("--no-merged=" + shell_quote(element_value));
+									textarea.classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+							});
+							break;
+					}
+					Array.from(document.getElementById("git_branch_action_list_sort_key_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+						let element_value = input.value, element_has_error = element_value.length == 0;
+						command_components.push("--sort=" + shell_quote(element_value));
+						input.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					if(form_data.get("git_branch_action_list_has_ignore_case"))
+						command_components.push("--ignore-case");
+					switch(form_data.get("git_branch_action_list_format")){
+						case "verbose":
+							command_components.push("--verbose");
+							break;
+						case "verbose_verbose":
+							command_components.push("--verbose", "--verbose");
+							break;
+						case "format":
+							command_components.push("--format=" + shell_quote(form_data.get("git_branch_action_list_format_format_format")));
+							if(form_data.get("git_branch_action_list_has_omit_empty"))
+								command_components.push("--omit-empty");
+							break;
+					}
+					if(can_have_column){
+						switch(form_data.get("git_branch_action_list_column")){
+							case "no_column":
+								command_components.push("--no-column");
+								break;
+							case "column":
+								if(form_data.get("git_branch_action_list_column_column_has_argument")){
+									let element_value = form_data.get("git_branch_action_list_column_column_options"), element_has_error = element_value.length == 0;
+									command_components.push("--column=" + shell_quote(element_value));
+									document.getElementById("git_branch_action_list_column_column_options").classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+								else{
+									command_components.push("--column");
+								}
+								break;
+						}
+					}
+					if(can_have_abbrev){
+						switch(form_data.get("git_branch_action_list_abbrev")){
+							case "no_abbrev":
+								command_components.push("--no-abbrev");
+								break;
+							case "abbrev":
+								if(form_data.get("git_branch_action_list_abbrev_abbrev_has_argument")){
+									let element_value = form_data.get("git_branch_action_list_abbrev_abbrev_n"), element_has_error = element_value.length == 0;
+									command_components.push("--abbrev=" + shell_quote(element_value));
+									document.getElementById("git_branch_action_list_abbrev_abbrev_n").classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+								else{
+									command_components.push("--abbrev");
+								}
+								break;
+						}
+					}
+					switch(form_data.get("git_branch_action_list_color")){
+						case "no_color":
+							command_components.push("--no-color");
+							break;
+						case "color":
+							if(form_data.get("git_branch_action_list_color_color_has_argument")){
+								switch(form_data.get("git_branch_action_list_color_color_when")){
+									case "always":
+										command_components.push("--color=always");
+										break;
+									case "never":
+										command_components.push("--color=never");
+										break;
+									case "auto":
+										command_components.push("--color=auto");
+										break;
+								}
+							}
+							else{
+								command_components.push("--color");
+							}
+							break;
+					}
+					break;
+				case "create":
+					if(form_data.get("git_branch_action_create_has_force"))
+						command_components.push("--force");
+					switch(form_data.get("git_branch_action_create_track")){
+						case "track":
+							if(form_data.get("git_branch_action_create_track_track_has_argument")){
+								switch(form_data.get("git_branch_action_create_track_track_action")){
+									case "direct":
+										command_components.push("--track=direct");
+										break;
+									case "inherit":
+										command_components.push("--track=inherit");
+										break;
+								}
+							}
+							else{
+								command_components.push("--track");
+							}
+							break;
+						case "no_track":
+							command_components.push("--no-track");
+							break;
+					}
+					switch(form_data.get("git_branch_action_create_create_reflog")){
+						case "false":
+							command_components.push("--no-create-reflog");
+							break;
+						case "true":
+							command_components.push("--create-reflog");
+							break;
+					}
+					break;
+				case "move":
+					command_components.push("--move");
+					if(form_data.get("git_branch_action_move_has_force"))
+						command_components.push("--force");
+					break;
+				case "copy":
+					command_components.push("--copy");
+					if(form_data.get("git_branch_action_copy_has_force"))
+						command_components.push("--force");
+					break;
+				case "delete":
+					command_components.push("--delete");
+					switch(form_data.get("git_branch_action_delete_filter_by_namespace")){
+						case "remotes":
+							command_components.push("--remotes");
+					}
+					if(form_data.get("git_branch_action_delete_has_force"))
+						command_components.push("--force");
+					break;
+				case "set_upstream_to":
+					{
+						let element_value = form_data.get("git_branch_action_set_upstream_to_upstream"), element_has_error = element_value.length == 0;
+						command_components.push("--set-upstream-to=" + shell_quote(element_value));
+						document.getElementById("git_branch_action_set_upstream_to_upstream").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "unset_upstream":
+					command_components.push("--unset-upstream");
+					break;
+				case "edit_description":
+					command_components.push("--edit-description");
+					break;
+			}
+			if(form_data.get("git_branch_has_quiet"))
+				command_components.push("--quiet");
+			switch(form_data.get("git_branch_action")){
+				case "show_current":
+					break;
+				case "list":
+					if(Array.from(document.getElementById("git_branch_action_list_filter_by_refname_pattern_list").querySelectorAll("input[type=\"text\"]:enabled")).length != 0)
+						command_components.push("--end-of-options");
+					Array.from(document.getElementById("git_branch_action_list_filter_by_refname_pattern_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+						let element_value = input.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						input.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "create":
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_branch_action_create_branch"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_branch_action_create_branch").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_branch_action_create_has_start_point")){
+						let element_value = form_data.get("git_branch_action_create_start_point"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_branch_action_create_start_point").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "move":
+					command_components.push("--end-of-options");
+					if(form_data.get("git_branch_action_move_has_old_branch")){
+						let element_value = form_data.get("git_branch_action_move_old_branch"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_branch_action_move_old_branch").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					{
+						let element_value = form_data.get("git_branch_action_move_new_branch"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_branch_action_move_new_branch").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "copy":
+					command_components.push("--end-of-options");
+					if(form_data.get("git_branch_action_copy_has_old_branch")){
+						let element_value = form_data.get("git_branch_action_copy_old_branch"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_branch_action_copy_old_branch").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					{
+						let element_value = form_data.get("git_branch_action_copy_new_branch"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_branch_action_copy_new_branch").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "delete":
+					command_components.push("--end-of-options");
+					Array.from(document.getElementById("git_branch_action_delete_branch_name_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+						let element_value = input.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						input.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "set_upstream_to":
+					if(form_data.get("git_branch_action_set_upstream_to_has_branch_name")){
+						command_components.push("--end-of-options");
+						let element_value = form_data.get("git_branch_action_set_upstream_to_branch_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_branch_action_set_upstream_to_branch_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "unset_upstream":
+					if(form_data.get("git_branch_action_unset_upstream_has_branch_name")){
+						command_components.push("--end-of-options");
+						let element_value = form_data.get("git_branch_action_unset_upstream_branch_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_branch_action_unset_upstream_branch_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "edit_description":
+					if(form_data.get("git_branch_action_edit_description_has_branch_name")){
+						command_components.push("--end-of-options");
+						let element_value = form_data.get("git_branch_action_edit_description_branch_name"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_branch_action_edit_description_branch_name").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+			}
+
+			let git_branch_command = document.getElementById("git_branch_command");
+			git_branch_command.classList.toggle("error_output", has_error);
+			git_branch_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_branch_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_branch_refresh);
+		});
+		Array.from(document.getElementById("git_branch_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_branch_refresh);
+		});
+	</script>
+</div>

@@ -1,0 +1,112 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_init~*_&]:block">
+	<h2 class="heading2"><span class="command">git init</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo1'
+			git -C './repo1' config list --local --show-origin --show-scope
+			tree '.'
+			git -C './repo2' init
+			mkdir --parents -- './repo2'
+			git -C './repo2' init
+			git init '-repo3'
+			git init './-repo4'
+			git init -- '-repo5'
+			git init --end-of-options '-repo6'
+			git init './dir1/dir2/repo7'
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_init~*_&]:block [#reference\_desk\_dispatcher\_example.git\_init\_bare~*_&]:block">
+	<h2 class="heading2"><span class="command">git init --bare</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init --bare './repo1.git'
+			git -C './repo2.git' init --bare
+			mkdir --parents -- './repo2.git'
+			git -C './repo2.git' init --bare
+			tree '.'
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_init~*_&]:block [#reference\_desk\_dispatcher\_example.git\_init\_template~*_&]:block">
+	<h2 class="heading2"><span class="command">git init --template=&lt;template-directory&gt;</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		"$SHELL" -i 0<<'EOF0' 2>&1 | ansi2html_pre
+which --all 'git' | sort | uniq | while IFS= read -r path_of_git; do
+    echo "$path_of_git"
+    tree "$(realpath "$(dirname "$path_of_git")"'/../share/git-core/templates')"
+done
+tree "$(git -c 'a.b=%(prefix)/' config get --type=path 'a.b')"'share/git-core/templates'
+
+git init --template="$(git -c 'a.b=%(prefix)/' config get --type=path 'a.b')"'share/git-core/templates' './repo1'
+tree '.'
+EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_init~*_&]:block [#reference\_desk\_dispatcher\_example.git\_init\_separate\_git\_dir~*_&]:block">
+	<h2 class="heading2"><span class="command">git init --separate-git-dir=&lt;git-dir&gt;</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init --separate-git-dir='./repo1.git' './repo'
+			tree '.'
+			treex './repo'
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git init --separate-git-dir='./repo2.git' './repo'
+			tree '.'
+			treex './repo'
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			tree '.'
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git init --separate-git-dir='./repo.git' './repo'
+			tree '.'
+			treex './repo'
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git init './repo'
+			tree '.'
+			treex './repo'
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git init --separate-git-dir='./repo/.git' './repo'
+			tree '.'
+			treex './repo'
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+			git init --separate-git-dir='./repo/.git2' './repo'
+			tree '.'
+			treex './repo/.git'
+			git -C './repo' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_init~*_&]:block [#reference\_desk\_dispatcher\_example.git\_init\_initial\_branch~*_&]:block">
+	<h2 class="heading2"><span class="command">git init --initial-branch=&lt;branch-name&gt;</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo1'
+			tree '.'
+			treex './repo1/.git/HEAD'
+			git -C './repo1' branch --show-current
+			git init --initial-branch="$(git var GIT_DEFAULT_BRANCH)"'1' './repo1'
+			git -C './repo1' branch --show-current
+
+			git init --initial-branch="$(git var GIT_DEFAULT_BRANCH)"'2' './repo2'
+			treex './repo2/.git/HEAD'
+			git -C './repo2' branch --show-current
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
