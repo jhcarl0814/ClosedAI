@@ -1,0 +1,591 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_rebase~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_rebase~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_rebase')">git rebase</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-rebase">https://git-scm.com/docs/git-rebase</a></p>
+	<p class="paragraph">Reapply commits on top of another base tip.</p>
+	<form id="git_rebase_form">
+		<p>Choose an action to perform:</p>
+
+		<fieldset>
+			<legend>
+				<p>(non-interactive mode: what to do with commit causing current merge failure)</p>
+				<p>(interactive mode: what to do with current command (or the command's commit) (but if next command is <span class="inline_code">pick</span>/... (command with commit) and process paused because current command is <span class="inline_code">break</span>/... (command without commit), <span class="command">--skip</span> means skip next command))</p>
+			</legend>
+			<div class="form_item"><input type="radio" id="git_rebase_action_show_current_patch" name="git_rebase_action" value="show_current_patch"><label for="git_rebase_action_show_current_patch"><span class="command">--show-current-patch</span> Show the current patch in an interactive rebase or when rebase is stopped because of conflicts. Is the equivalent of <span class="command">git show REBASE_HEAD</span>.</label></div>
+			<div class="form_item"><input type="radio" id="git_rebase_action_skip" name="git_rebase_action" value="skip"><label for="git_rebase_action_skip"><span class="command">--skip</span> Restart the rebasing process by skipping the current patch.</label></div>
+			<div class="form_item"><input type="radio" id="git_rebase_action_continue" name="git_rebase_action" value="continue"><label for="git_rebase_action_continue"><span class="command">--continue</span> Restart the rebasing process after having resolved a merge conflict.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend>
+				<p>(non-interactive mode: what to do with whole rebase process stopped by current merge failure)</p>
+				<p>(interactive mode: what to do with whole rebase process)</p>
+			</legend>
+			<div class="form_item"><input type="radio" id="git_rebase_action_abort" name="git_rebase_action" value="abort"><label for="git_rebase_action_abort"><span class="command">--abort</span> Abort the rebase operation and reset <span class="inline_code">HEAD</span> to the original branch.</label></div>
+			<div class="form_item"><input type="radio" id="git_rebase_action_quit" name="git_rebase_action" value="quit"><label for="git_rebase_action_quit"><span class="command">--quit</span> Abort the rebase operation but <span class="inline_code">HEAD</span> is not reset back to the original branch. The index and working tree are also left unchanged as a result. If a temporary stash entry was created using <span class="command">--autostash</span>, it will be saved to the stash list.</label></div>
+			<div class="form_item"><input type="radio" id="git_rebase_action_edit_todo" name="git_rebase_action" value="edit_todo"><label for="git_rebase_action_edit_todo"><span class="command">--edit-todo</span> Edit the todo list during an interactive rebase.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend>
+				<div class="form_item"><input type="radio" id="git_rebase_action_no_option" name="git_rebase_action" value="no_option" checked><label for="git_rebase_action_no_option"></label></div>
+			</legend>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_rebase_what_not_root" name="git_rebase_what" value="not_root" checked><label for="git_rebase_what_not_root"><span class="command">[[&lt;upstream&gt;] &lt;branch&gt;]</span></label></div>
+				</legend>
+				<div class="form_item"><input type="radio" id="git_rebase_fork_point_no_option" name="git_rebase_fork_point" value="no_option" checked><label for="git_rebase_fork_point_no_option">If <span class="command">&lt;upstream&gt;</span> or <span class="command">--keep-base</span> is given on the command line, then the default is <span class="command">--no-fork-point</span>, otherwise the default is <span class="command">--fork-point</span>. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-rebaseforkPoint"><span class="inline_code">rebase.forkPoint</span></a>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_rebase_fork_point_has_no_fork_point" name="git_rebase_fork_point" value="false"><label for="git_rebase_fork_point_has_no_fork_point"><span class="command">--no-fork-point</span> (transplant <span class="command">&lt;upstream&gt;..&lt;branch&gt;</span>)</label></div>
+				<div class="form_item"><input type="radio" id="git_rebase_fork_point_has_fork_point" name="git_rebase_fork_point" value="true"><label for="git_rebase_fork_point_has_fork_point"><span class="command">--fork-point</span> (transplant <span class="command">fork_point..&lt;branch&gt;</span>) Use reflog to find a better common ancestor between <span class="command">&lt;upstream&gt;</span> and <span class="command">&lt;branch&gt;</span> when calculating which commits have been introduced by <span class="command">&lt;branch&gt;</span>. <span class="command">fork_point</span> will be used instead of <span class="command">&lt;upstream&gt;</span> to calculate the set of commits to rebase, where <span class="command">fork_point</span> is the result of <span class="command">git merge-base --fork-point &lt;upstream&gt; &lt;branch&gt;</span> command. If <span class="command">fork_point</span> ends up being empty, the <span class="command">&lt;upstream&gt;</span> will be used as a fallback.</label></div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div class="form_item"><input type="radio" id="git_rebase_what_not_root_destination_no_option" name="git_rebase_what_not_root_destination" value="no_option" checked><label for="git_rebase_what_not_root_destination_no_option">(onto <span class="command">&lt;upstream&gt;</span>)</label></div>
+				<div class="form_item"><input type="radio" id="git_rebase_what_not_root_destination_onto" name="git_rebase_what_not_root_destination" value="onto"><label for="git_rebase_what_not_root_destination_onto"><span class="command">--onto=&lt;newbase&gt;</span> (onto <span class="command">&lt;newbase&gt;</span>) Starting point at which to create the new commits.</label></div>
+				<div class="form_item"><input type="radio" id="git_rebase_what_not_root_destination_keep_base" name="git_rebase_what_not_root_destination" value="keep_base"><label for="git_rebase_what_not_root_destination_keep_base"><span class="command">--keep-base</span> (onto <span class="command">&lt;upstream&gt;...&lt;branch&gt;</span>) Set the starting point at which to create the new commits to the merge base of <span class="command">&lt;upstream&gt;</span> and <span class="command">&lt;branch&gt;</span>. <span class="command">git rebase --keep-base &lt;upstream&gt; &lt;branch&gt;</span> is equivalent to <span class="command">git rebase --reapply-cherry-picks --no-fork-point --onto=&lt;upstream&gt;...&lt;branch&gt; &lt;upstream&gt; &lt;branch&gt;</span>. (<span class="command">--reapply-cherry-picks</span> and <span class="command">--no-fork-point</span> can be overriden by command line options.)</label></div>
+			</fieldset>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_rebase_what_root" name="git_rebase_what" value="root"><label for="git_rebase_what_root"><span class="command">--root [&lt;branch&gt;]</span> (transplant ancestors of <span class="command">&lt;branch&gt;</span>) Rebase all commits reachable from <span class="command">&lt;branch&gt;</span>, instead of limiting them with an <span class="command">&lt;upstream&gt;</span>.</label></div>
+				</legend>
+				<div class="form_item"><input type="radio" id="git_rebase_what_root_destination_no_option" name="git_rebase_what_root_destination" value="no_option" checked><label for="git_rebase_what_root_destination_no_option">(onto root)</label></div>
+				<div class="form_item"><input type="radio" id="git_rebase_what_root_destination_onto" name="git_rebase_what_root_destination" value="onto"><label for="git_rebase_what_root_destination_onto"><span class="command">--onto=&lt;newbase&gt;</span> (onto <span class="command">&lt;newbase&gt;</span>) Starting point at which to create the new commits.</label></div>
+			</fieldset>
+
+			<div id="git_rebase_upstream_" class="form_item">
+				<input type="checkbox" id="git_rebase_has_upstream" name="git_rebase_has_upstream">
+				<div class="subform basis-0 grow">
+					<label for="git_rebase_has_upstream"><span class="command">&lt;upstream&gt;</span> Upstream branch to compare against. Defaults to the configured upstream for the current branch.</label>
+					<div class="form_item"><label for="git_rebase_upstream"><span class="command">&lt;upstream&gt;</span>:</label><textarea wrap="off" id="git_rebase_upstream" name="git_rebase_upstream" class="basis-0 grow command_input">origin/master</textarea></div>
+				</div>
+			</div>
+			<div class="form_item">
+				<input type="checkbox" id="git_rebase_has_branch" name="git_rebase_has_branch">
+				<div class="subform basis-0 grow">
+					<label for="git_rebase_has_branch"><span class="command">&lt;branch&gt;</span> Working branch.</label>
+					<div class="form_item"><label for="git_rebase_branch"><span class="command">&lt;branch&gt;</span>:</label><textarea wrap="off" id="git_rebase_branch" name="git_rebase_branch" class="basis-0 grow command_input">HEAD</textarea></div>
+				</div>
+			</div>
+			<div id="git_rebase_newbase_" class="form_item"><label for="git_rebase_newbase"><span class="command">&lt;newbase&gt;</span>:</label><textarea wrap="off" id="git_rebase_newbase" name="git_rebase_newbase" class="basis-0 grow command_input">master</textarea></div>
+
+			<div class="form_item"><input type="radio" id="git_rebase_autostash_no_option" name="git_rebase_autostash" value="" checked><label for="git_rebase_autostash_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-rebaseautoStash"><span class="inline_code">rebase.autoStash</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_rebase_autostash_has_autostash" name="git_rebase_autostash" value="true"><label for="git_rebase_autostash_has_autostash"><span class="command">--autostash</span> Automatically create a temporary stash entry before the operation begins, and apply it after the operation ends.</label></div>
+			<div class="form_item"><input type="radio" id="git_rebase_autostash_has_no_autostash" name="git_rebase_autostash" value="false"><label for="git_rebase_autostash_has_no_autostash"><span class="command">--no-autostash</span></label></div>
+
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="checkbox" id="git_rebase_has_force_rebase" name="git_rebase_has_force_rebase"><label for="git_rebase_has_force_rebase"><span class="command">--force-rebase</span> Individually replay all rebased commits instead of fast-forwarding over the unchanged ones.</label></div>
+				</legend>
+				<div class="form_item"><input type="checkbox" id="git_rebase_has_committer_date_is_author_date" name="git_rebase_has_committer_date_is_author_date"><label for="git_rebase_has_committer_date_is_author_date"><span class="command">--committer-date-is-author-date</span> Instead of using the current time as the committer date, use the author date of the commit being rebased as the committer date.</label></div>
+				<div class="form_item"><input type="checkbox" id="git_rebase_has_reset_author_date" name="git_rebase_has_reset_author_date"><label for="git_rebase_has_reset_author_date"><span class="command">--reset-author-date</span> Instead of using the author date of the original commit, use the current time as the author date of the rebased commit.</label></div>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>rebase backend and options:</p></legend>
+				<div class="form_item"><input type="checkbox" id="git_rebase_has_ignore_whitespace" name="git_rebase_has_ignore_whitespace"><label for="git_rebase_has_ignore_whitespace"><span class="command">--ignore-whitespace</span> Ignore whitespace differences when trying to reconcile differences.</label></div>
+
+				<fieldset>
+					<legend><p>how to handle clean cherry-picks of any upstream commit (if <span class="command">--apply</span>, then need <span class="command">--keep-base</span>):</p></legend>
+					<div class="form_item"><input type="radio" id="git_rebase_reapply_cherry_picks_no_option" name="git_rebase_reapply_cherry_picks" value="" checked><label for="git_rebase_reapply_cherry_picks_no_option">(Defaults to <span class="command">--no-reapply-cherry-picks</span>.)</label></div>
+					<div class="form_item"><input type="radio" id="git_rebase_reapply_cherry_picks_has_reapply_cherry_picks" name="git_rebase_reapply_cherry_picks" value="true"><label for="git_rebase_reapply_cherry_picks_has_reapply_cherry_picks"><span class="command">--reapply-cherry-picks</span> Reapply all clean cherry-picks of any upstream commit instead of preemptively dropping them. Allows rebase to forgo reading all upstream commits, potentially improving performance. Commits which are clean cherry-picks (as determined by <span class="command">git log --cherry-mark ...</span>) are detected and dropped as a preliminary step.</label></div>
+					<div class="form_item"><input type="radio" id="git_rebase_reapply_cherry_picks_has_no_reapply_cherry_picks" name="git_rebase_reapply_cherry_picks" value="false"><label for="git_rebase_reapply_cherry_picks_has_no_reapply_cherry_picks"><span class="command">--no-reapply-cherry-picks</span> Clean cherry-picks of any upstream commit will be automatically dropped.</label></div>
+				</fieldset>
+
+				<div class="form_item"><input type="radio" id="git_rebase_backend_no_option" name="git_rebase_backend" value="no_option" checked><label for="git_rebase_backend_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-rebasebackend"><span class="inline_code">rebase.backend</span></a> which defaults to <span class="inline_code">merge</span>.)</label></div>
+
+				<fieldset>
+					<legend>
+						<div class="form_item"><input type="radio" id="git_rebase_backend_merge" name="git_rebase_backend" value="merge"><label for="git_rebase_backend_merge"><span class="command">--merge</span> Using merging strategies to rebase.</label></div>
+					</legend>
+					<fieldset>
+						<legend><p>preparing commands:</p></legend>
+						<div class="form_item"><input type="checkbox" id="git_rebase_has_interactive" name="git_rebase_has_interactive"><label for="git_rebase_has_interactive"><span class="command">--interactive</span> Make a list of the commits which are about to be rebased. Let the user edit that list before rebasing.</label></div>
+						<fieldset>
+							<legend><p><span class="command">--exec=&lt;cmd&gt;</span> Append "<span class="inline_code">exec <span class="command">&lt;cmd&gt;</span></span>" after each line creating a commit in the final history.</p></legend>
+							<input id="git_rebase_exec_cmd_list_add" type="button" value="Add">
+							<div id="git_rebase_exec_cmd_list" class="subform"></div>
+							<script>
+								document.getElementById("git_rebase_exec_cmd_list_add").addEventListener("click",function(e){
+									document.getElementById("git_rebase_exec_cmd_list").append((function(){
+										let div = document.createElement("div"); div.className = "form_item";
+										let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+										let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_rebase_refresh);
+										checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_rebase_refresh(); });
+										div.append(checkbox, textarea);
+										return div;
+									})());
+									git_rebase_refresh();
+								})
+							</script>
+						</fieldset>
+
+						<p>(when <span class="command">--interactive</span>/<span class="command">--exec</span>:)</p>
+						<div class="form_item"><input type="radio" id="git_rebase_reschedule_failed_exec_no_option" name="git_rebase_reschedule_failed_exec" value="" checked><label for="git_rebase_reschedule_failed_exec_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-rebaserescheduleFailedExec"><span class="inline_code">rebase.rescheduleFailedExec</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+						<div class="form_item"><input type="radio" id="git_rebase_reschedule_failed_exec_has_reschedule_failed_exec" name="git_rebase_reschedule_failed_exec" value="true"><label for="git_rebase_reschedule_failed_exec_has_reschedule_failed_exec"><span class="command">--reschedule-failed-exec</span> Automatically reschedule <span class="inline_code">exec</span> commands that failed.</label></div>
+						<div class="form_item"><input type="radio" id="git_rebase_reschedule_failed_exec_has_no_reschedule_failed_exec" name="git_rebase_reschedule_failed_exec" value="false"><label for="git_rebase_reschedule_failed_exec_has_no_reschedule_failed_exec"><span class="command">--no-reschedule-failed-exec</span></label></div>
+					</fieldset>
+
+					<fieldset>
+						<legend><p>whether rerere updates only working tree or updates working tree and index:</p></legend>
+						<div class="form_item"><input type="radio" id="git_rebase_rerere_autoupdate_no_option" name="git_rebase_rerere_autoupdate" value="" checked><label for="git_rebase_rerere_autoupdate_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-rerereautoUpdate"><span class="inline_code">rerere.autoUpdate</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+						<div class="form_item"><input type="radio" id="git_rebase_rerere_autoupdate_has_rerere_autoupdate" name="git_rebase_rerere_autoupdate" value="true"><label for="git_rebase_rerere_autoupdate_has_rerere_autoupdate"><span class="command">--rerere-autoupdate</span> After the rerere mechanism reuses a recorded resolution on the current conflict to update the files in the working tree, allow it to also update the index with the result of resolution.</label></div>
+						<div class="form_item"><input type="radio" id="git_rebase_rerere_autoupdate_has_no_rerere_autoupdate" name="git_rebase_rerere_autoupdate" value="false"><label for="git_rebase_rerere_autoupdate_has_no_rerere_autoupdate"><span class="command">--no-rerere-autoupdate</span> Double-check what <span class="command">rerere</span> did and catch potential mismerges, before committing the result to the index with a separate <span class="command">git add</span>.</label></div>
+					</fieldset>
+					<fieldset>
+						<legend><p><span class="command">--strategy=&lt;strategy&gt;</span> Use the given merge strategy, instead of the default <span class="command">ort</span>.</p></legend>
+						<input id="git_rebase_strategy_list_add" type="button" value="Add">
+						<div id="git_rebase_strategy_list" class="subform"></div>
+						<script>
+							document.getElementById("git_rebase_strategy_list_add").addEventListener("click",function(e){
+								document.getElementById("git_rebase_strategy_list").append((function(){
+									let div = document.createElement("div"); div.className = "form_item";
+									let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+									let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_rebase_refresh);
+									checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_rebase_refresh(); });
+									div.append(checkbox, input);
+									return div;
+								})());
+								git_rebase_refresh();
+							})
+						</script>
+					</fieldset>
+					<fieldset>
+						<legend><p><span class="command">--strategy-option=&lt;strategy-option&gt;</span> Pass the <span class="command">&lt;strategy-option&gt;</span> through to the merge strategy. If no strategy has been specified, implies <span class="command">--strategy=ort</span>.</p></legend>
+						<input id="git_rebase_strategy_option_list_add" type="button" value="Add">
+						<div id="git_rebase_strategy_option_list" class="subform"></div>
+						<script>
+							document.getElementById("git_rebase_strategy_option_list_add").addEventListener("click",function(e){
+								document.getElementById("git_rebase_strategy_option_list").append((function(){
+									let div = document.createElement("div"); div.className = "form_item";
+									let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+									let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_rebase_refresh);
+									checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_rebase_refresh(); });
+									div.append(checkbox, textarea);
+									return div;
+								})());
+								git_rebase_refresh();
+							})
+						</script>
+					</fieldset>
+
+					<fieldset>
+						<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_rebase\_rebase\_merges~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_rebase_rebase_merges')"><p>how to handle merge commits and cousin commits:</p></legend>
+						<div class="form_item"><input type="radio" id="git_rebase_rebase_merges_no_option" name="git_rebase_rebase_merges" value="no_option" checked><label for="git_rebase_rebase_merges_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-rebaserebaseMerges"><span class="inline_code">rebase.rebaseMerges</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+						<div class="form_item"><input type="radio" id="git_rebase_rebase_merges_rebase_merges" name="git_rebase_rebase_merges" value="rebase_merges"><label for="git_rebase_rebase_merges_rebase_merges"><span class="command">--rebase-merges<input type="checkbox" id="git_rebase_rebase_merges_rebase_merges_has_argument" name="git_rebase_rebase_merges_rebase_merges_has_argument"><label for="git_rebase_rebase_merges_rebase_merges_has_argument">[=(<input type="radio" id="git_rebase_rebase_merges_rebase_merges_mode_no_rebase_cousins" name="git_rebase_rebase_merges_rebase_merges_mode" value="no_rebase_cousins" checked><label for="git_rebase_rebase_merges_rebase_merges_mode_no_rebase_cousins">no-rebase-cousins</label>|<input type="radio" id="git_rebase_rebase_merges_rebase_merges_mode_rebase_cousins" name="git_rebase_rebase_merges_rebase_merges_mode" value="rebase_cousins"><label for="git_rebase_rebase_merges_rebase_merges_mode_rebase_cousins">rebase-cousins</label>)]</label></span> Preserve the branching structure within the commits that are to be rebased, by recreating the merge commits. Any resolved merge conflicts or manual amendments in these merge commits will have to be resolved/re-applied manually.<br>
+							<div class="ml-[1em]">
+								<span class="command">no-rebase-cousins</span> Commits which do not have <span class="command">&lt;upstream&gt;</span> as direct ancestor will keep their original branch point, i.e. commits that would be excluded by <span class="command">git-log</span>'s <span class="command">--ancestry-path</span> option will keep their original ancestry by default.<br>
+								<span class="command">rebase-cousins</span> Such commits are instead rebased onto <span class="command">&lt;upstream&gt;</span> (or <span class="command">&lt;onto&gt;</span>, if specified).<br>
+							</div>
+						</label></div>
+						<div class="form_item"><input type="radio" id="git_rebase_rebase_merges_no_rebase_merges" name="git_rebase_rebase_merges" value="no_rebase_merges"><label for="git_rebase_rebase_merges_no_rebase_merges"><span class="command">--no-rebase-merges</span> Drop merge commits from the todo list, and put the rebased commits into a single, linear branch.</label></div>
+					</fieldset>
+					<fieldset>
+						<legend><p>how to handle special commits created by <span class="command">git commit</span>:</p></legend>
+						<div class="form_item"><input type="radio" id="git_rebase_autosquash_no_option" name="git_rebase_autosquash" value="" checked><label for="git_rebase_autosquash_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-rebaseautoSquash"><span class="inline_code">rebase.autoSquash</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+						<div class="form_item"><input type="radio" id="git_rebase_autosquash_has_autosquash" name="git_rebase_autosquash" value="true"><label for="git_rebase_autosquash_has_autosquash"><span class="command">--autosquash</span> Automatically squash commits with specially formatted messages into previous commits being rebased.</label></div>
+						<div class="form_item"><input type="radio" id="git_rebase_autosquash_has_no_autosquash" name="git_rebase_autosquash" value="false"><label for="git_rebase_autosquash_has_no_autosquash"><span class="command">--no-autosquash</span></label></div>
+					</fieldset>
+					<fieldset>
+						<legend><p>how to handle commits that are not empty to start and are not clean cherry-picks of any upstream commit, but which become empty after rebasing (because they contain a subset of already upstream changes):</p></legend>
+						<div class="form_item"><input type="checkbox" id="git_rebase_has_empty" name="git_rebase_has_empty"><label for="git_rebase_has_empty"><span class="command">--empty=(<input type="radio" id="git_rebase_empty_mode_drop" name="git_rebase_empty_mode" value="drop" checked><label for="git_rebase_empty_mode_drop">drop</label>|<input type="radio" id="git_rebase_empty_mode_keep" name="git_rebase_empty_mode" value="keep"><label for="git_rebase_empty_mode_keep">keep</label>|<input type="radio" id="git_rebase_empty_mode_stop" name="git_rebase_empty_mode" value="stop"><label for="git_rebase_empty_mode_stop">stop</label>)</span> How to handle commits that are not empty to start and are not clean cherry-picks of any upstream commit, but which become empty after rebasing (because they contain a subset of already upstream changes).<br>
+							<div class="ml-[1em]">
+								<span class="command">drop</span> The commit will be dropped.<br>
+								<span class="command">keep</span> The commit will be kept. (Is implied when <span class="command">--exec</span> is specified unless <span class="command">--interactive</span> is also specified.)<br>
+								<span class="command">stop</span> The rebase will halt when the commit is applied, allowing you to choose whether to drop it, edit files more, or just commit the empty changes. (Is implied when <span class="command">--interactive</span> is specified.)<br>
+							</div></label></div>
+					</fieldset>
+					<fieldset>
+						<legend><p>how to handle commits that start empty before the rebase (i.e. that do not change anything from its parent):</p></legend>
+						<div class="form_item"><input type="radio" id="git_rebase_keep_empty_no_option" name="git_rebase_keep_empty" value="" checked><label for="git_rebase_keep_empty_no_option">(Defaults to <span class="command">--keep-empty</span>.)</label></div>
+						<div class="form_item"><input type="radio" id="git_rebase_keep_empty_has_keep_empty" name="git_rebase_keep_empty" value="true"><label for="git_rebase_keep_empty_has_keep_empty"><span class="command">--keep-empty</span> Keep commits which start empty, since creating such commits requires passing the <span class="command">--allow-empty</span> override flag to <span class="command">git commit</span>, signifying that a user is very intentionally creating such a commit and thus wants to keep it.</label></div>
+						<div class="form_item"><input type="radio" id="git_rebase_keep_empty_has_no_keep_empty" name="git_rebase_keep_empty" value="false"><label for="git_rebase_keep_empty_has_no_keep_empty"><span class="command">--no-keep-empty</span> Do not keep commits that start empty before the rebase (i.e. that do not change anything from its parent) in the result.</label></div>
+					</fieldset>
+
+					<fieldset>
+						<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_rebase\_update\_refs~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_rebase_update_refs')"><p>whether rebase process updates other refs:</p></legend>
+						<div class="form_item"><input type="radio" id="git_rebase_update_refs_no_option" name="git_rebase_update_refs" value="" checked><label for="git_rebase_update_refs_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-rebaseupdateRefs"><span class="inline_code">rebase.updateRefs</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+						<div class="form_item"><input type="radio" id="git_rebase_update_refs_has_update_refs" name="git_rebase_update_refs" value="true"><label for="git_rebase_update_refs_has_update_refs"><span class="command">--update-refs</span> Automatically force-update any branches that point to commits that are being rebased.</label></div>
+						<div class="form_item"><input type="radio" id="git_rebase_update_refs_has_no_update_refs" name="git_rebase_update_refs" value="false"><label for="git_rebase_update_refs_has_no_update_refs"><span class="command">--no-update-refs</span></label></div>
+					</fieldset>
+				</fieldset>
+
+				<fieldset>
+					<legend>
+						<div class="form_item"><input type="radio" id="git_rebase_backend_apply" name="git_rebase_backend" value="apply"><label for="git_rebase_backend_apply"><span class="command">--apply</span> Use applying strategies to rebase (calling <span class="command">git-am</span> internally).</label></div>
+					</legend>
+					<div class="form_item"><input type="checkbox" id="git_rebase_has_whitespace" name="git_rebase_has_whitespace"><label for="git_rebase_has_whitespace"><span class="command">--whitespace=(<input type="radio" id="git_rebase_whitespace_option_nowarn" name="git_rebase_whitespace_option" value="nowarn"><label for="git_rebase_whitespace_option_nowarn">nowarn</label>|<input type="radio" id="git_rebase_whitespace_option_warn" name="git_rebase_whitespace_option" value="warn" checked><label for="git_rebase_whitespace_option_warn">warn</label>|<input type="radio" id="git_rebase_whitespace_option_fix" name="git_rebase_whitespace_option" value="fix"><label for="git_rebase_whitespace_option_fix">fix</label>|<input type="radio" id="git_rebase_whitespace_option_error" name="git_rebase_whitespace_option" value="error"><label for="git_rebase_whitespace_option_error">error</label>|<input type="radio" id="git_rebase_whitespace_option_error_all" name="git_rebase_whitespace_option" value="error_all"><label for="git_rebase_whitespace_option_error_all">error-all</label>)</span> Is passed to the <span class="command">git apply</span> program that applies the patch. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-applywhitespace"><span class="inline_code">apply.whitespace</span></a> which defaults to <span class="inline_code">warn</span>.)</label></div>
+					<div class="form_item">
+						<input type="checkbox" id="git_rebase_has_C" name="git_rebase_has_C">
+						<div class="subform basis-0 grow">
+							<label for="git_rebase_has_C"><span class="command">-C&lt;n&gt;</span> Ensure at least <span class="command">&lt;n&gt;</span> lines of surrounding context match before and after each change. By default no context is ever ignored.</label>
+							<div class="form_item"><label for="git_rebase_C_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_rebase_C_n" name="git_rebase_C_n" class="basis-0 grow command_input" value=""></div>
+						</div>
+					</div>
+				</fieldset>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>commits message:</p></legend>
+				<div class="form_item"><input type="radio" id="git_rebase_signoff_no_option" name="git_rebase_signoff" value="" checked><label for="git_rebase_signoff_no_option">(Defaults to <span class="command">--no-signoff</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_rebase_signoff_has_signoff" name="git_rebase_signoff" value="true"><label for="git_rebase_signoff_has_signoff"><span class="command">--signoff</span> Add a <span class="inline_code">Signed-off-by</span> trailer to all the rebased commits.</label></div>
+				<div class="form_item"><input type="radio" id="git_rebase_signoff_has_no_signoff" name="git_rebase_signoff" value="false"><label for="git_rebase_signoff_has_no_signoff"><span class="command">--no-signoff</span></label></div>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>commits information:</p></legend>
+				<div class="form_item"><input type="radio" id="git_rebase_gpg_sign_no_option" name="git_rebase_gpg_sign" value="no_option" checked><label for="git_rebase_gpg_sign_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-commitgpgSign"><span class="inline_code">commit.gpgSign</span></a>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_rebase_gpg_sign_no_gpg_sign" name="git_rebase_gpg_sign" value="no_gpg_sign"><label for="git_rebase_gpg_sign_no_gpg_sign"><span class="command">--no-gpg-sign</span> Countermand both <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-commitgpgSign"><span class="inline_code">commit.gpgSign</span></a> configuration variable, and earlier <span class="command">--gpg-sign</span>.</label></div>
+				<div class="form_item">
+					<input type="radio" id="git_rebase_gpg_sign_gpg_sign" name="git_rebase_gpg_sign" value="gpg_sign">
+					<div class="subform basis-0 grow">
+						<label for="git_rebase_gpg_sign_gpg_sign"><span class="command">--gpg-sign<input type="checkbox" id="git_rebase_gpg_sign_gpg_sign_has_argument" name="git_rebase_gpg_sign_gpg_sign_has_argument"><label for="git_rebase_gpg_sign_gpg_sign_has_argument">[=&lt;key-id&gt;]</label></span> GPG-sign commits. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"><span class="inline_code">user.signingKey</span></a> / the committer identity.)</label>
+						<div class="form_item"><label for="git_rebase_gpg_sign_gpg_sign_key_id"><span class="command">&lt;key-id&gt;</span>:</label><textarea wrap="off" id="git_rebase_gpg_sign_gpg_sign_key_id" name="git_rebase_gpg_sign_gpg_sign_key_id" class="basis-0 grow command_input"></textarea></div>
+					</div>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>output:</p></legend>
+				<div class="form_item"><input type="checkbox" id="git_rebase_has_quiet" name="git_rebase_has_quiet"><label for="git_rebase_has_quiet"><span class="command">--quiet</span> Be quiet. Implies <span class="command">--no-stat</span>.</label></div>
+				<div class="form_item"><input type="checkbox" id="git_rebase_has_verbose" name="git_rebase_has_verbose"><label for="git_rebase_has_verbose"><span class="command">--verbose</span> Be verbose. Implies <span class="command">--stat</span>.</label></div>
+				<div class="form_item"><input type="radio" id="git_rebase_stat_no_option" name="git_rebase_stat" value="" checked><label for="git_rebase_stat_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-rebasestat"><span class="inline_code">rebase.stat</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_rebase_stat_has_stat" name="git_rebase_stat" value="true"><label for="git_rebase_stat_has_stat"><span class="command">--stat</span> Show a diffstat of what changed upstream since the last rebase.</label></div>
+				<div class="form_item"><input type="radio" id="git_rebase_stat_has_no_stat" name="git_rebase_stat" value="false"><label for="git_rebase_stat_has_no_stat"><span class="command">--no-stat</span> Do not show a diffstat as part of the rebase process.</label></div>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>hooks:</p></legend>
+				<div class="form_item"><input type="radio" id="git_rebase_verify_no_option" name="git_rebase_verify" value="" checked><label for="git_rebase_verify_no_option">(Defaults to <span class="command">--verify</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_rebase_verify_has_verify" name="git_rebase_verify" value="true"><label for="git_rebase_verify_has_verify"><span class="command">--verify</span> The pre-rebase hook is run.</label></div>
+				<div class="form_item"><input type="radio" id="git_rebase_verify_has_no_verify" name="git_rebase_verify" value="false"><label for="git_rebase_verify_has_no_verify"><span class="command">--no-verify</span> Bypasses the pre-rebase hook.</label></div>
+			</fieldset>
+		</fieldset>
+	</form>
+	<textarea readonly wrap="off" id="git_rebase_command" name="git_rebase_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_rebase_refresh(){
+			document.getElementById("git_rebase_action_no_option").closest("fieldset").disabled = !document.getElementById("git_rebase_action_no_option").checked;
+			document.getElementById("git_rebase_what_not_root").closest("fieldset").disabled = !document.getElementById("git_rebase_what_not_root").checked;
+			document.getElementById("git_rebase_what_root").closest("fieldset").disabled = !document.getElementById("git_rebase_what_root").checked;
+			document.getElementById("git_rebase_upstream_").classList.toggle("hidden", !document.getElementById("git_rebase_what_not_root").checked);
+			document.getElementById("git_rebase_upstream").disabled = !document.getElementById("git_rebase_has_upstream").checked;
+			let can_have_branch = document.getElementById("git_rebase_what_not_root").checked && document.getElementById("git_rebase_has_upstream").checked || document.getElementById("git_rebase_what_root").checked;
+			document.getElementById("git_rebase_has_branch").disabled = !can_have_branch;
+			document.getElementById("git_rebase_branch").disabled = !(can_have_branch && document.getElementById("git_rebase_has_branch").checked);
+			document.getElementById("git_rebase_newbase_").classList.toggle("hidden", !(document.getElementById("git_rebase_what_not_root").checked && document.getElementById("git_rebase_what_not_root_destination_onto").checked || document.getElementById("git_rebase_what_root").checked && document.getElementById("git_rebase_what_root_destination_onto").checked));
+
+			document.getElementById("git_rebase_has_force_rebase").closest("fieldset").disabled = !document.getElementById("git_rebase_has_force_rebase").checked;
+			document.getElementById("git_rebase_backend_merge").closest("fieldset").disabled = !(document.getElementById("git_rebase_backend_no_option").checked || document.getElementById("git_rebase_backend_merge").checked);
+			document.getElementById("git_rebase_reschedule_failed_exec_no_option").disabled = !(document.getElementById("git_rebase_has_interactive").checked || Array.from(document.getElementById("git_rebase_exec_cmd_list").querySelectorAll("textarea:enabled")).length != 0);
+			document.getElementById("git_rebase_reschedule_failed_exec_has_reschedule_failed_exec").disabled = !(document.getElementById("git_rebase_has_interactive").checked || Array.from(document.getElementById("git_rebase_exec_cmd_list").querySelectorAll("textarea:enabled")).length != 0);
+			document.getElementById("git_rebase_reschedule_failed_exec_has_no_reschedule_failed_exec").disabled = !(document.getElementById("git_rebase_has_interactive").checked || Array.from(document.getElementById("git_rebase_exec_cmd_list").querySelectorAll("textarea:enabled")).length != 0);
+			document.getElementById("git_rebase_rebase_merges_rebase_merges_has_argument").disabled = !document.getElementById("git_rebase_rebase_merges_rebase_merges").checked;
+			document.getElementById("git_rebase_rebase_merges_rebase_merges_mode_no_rebase_cousins").disabled = !(document.getElementById("git_rebase_rebase_merges_rebase_merges").checked && document.getElementById("git_rebase_rebase_merges_rebase_merges_has_argument").checked);
+			document.getElementById("git_rebase_rebase_merges_rebase_merges_mode_rebase_cousins").disabled = !(document.getElementById("git_rebase_rebase_merges_rebase_merges").checked && document.getElementById("git_rebase_rebase_merges_rebase_merges_has_argument").checked);
+			document.getElementById("git_rebase_empty_mode_drop").disabled = !document.getElementById("git_rebase_has_empty").checked;
+			document.getElementById("git_rebase_empty_mode_keep").disabled = !document.getElementById("git_rebase_has_empty").checked;
+			document.getElementById("git_rebase_empty_mode_stop").disabled = !document.getElementById("git_rebase_has_empty").checked;
+
+			document.getElementById("git_rebase_backend_apply").closest("fieldset").disabled = !(document.getElementById("git_rebase_backend_no_option").checked || document.getElementById("git_rebase_backend_apply").checked);
+			document.getElementById("git_rebase_whitespace_option_nowarn").disabled = !document.getElementById("git_rebase_has_whitespace").checked;
+			document.getElementById("git_rebase_whitespace_option_warn").disabled = !document.getElementById("git_rebase_has_whitespace").checked;
+			document.getElementById("git_rebase_whitespace_option_fix").disabled = !document.getElementById("git_rebase_has_whitespace").checked;
+			document.getElementById("git_rebase_whitespace_option_error").disabled = !document.getElementById("git_rebase_has_whitespace").checked;
+			document.getElementById("git_rebase_whitespace_option_error_all").disabled = !document.getElementById("git_rebase_has_whitespace").checked;
+			document.getElementById("git_rebase_C_n").disabled = !document.getElementById("git_rebase_has_C").checked;
+
+			document.getElementById("git_rebase_gpg_sign_gpg_sign_has_argument").disabled = !document.getElementById("git_rebase_gpg_sign_gpg_sign").checked;
+			document.getElementById("git_rebase_gpg_sign_gpg_sign_key_id").disabled = !(document.getElementById("git_rebase_gpg_sign_gpg_sign").checked && document.getElementById("git_rebase_gpg_sign_gpg_sign_has_argument").checked);
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("rebase");
+
+			let form_data = new FormData(document.getElementById("git_rebase_form"));
+			switch(form_data.get("git_rebase_action")){
+				case "show_current_patch":
+					command_components.push("--show-current-patch");
+					break;
+				case "skip":
+					command_components.push("--skip");
+					break;
+				case "continue":
+					command_components.push("--continue");
+					break;
+				case "abort":
+					command_components.push("--abort");
+					break;
+				case "quit":
+					command_components.push("--quit");
+					break;
+				case "edit_todo":
+					command_components.push("--edit-todo");
+					break;
+				case "no_option":
+					switch(form_data.get("git_rebase_what")){
+						case "not_root":
+							switch(form_data.get("git_rebase_fork_point")){
+								case "false":
+									command_components.push("--no-fork-point");
+									break;
+								case "true":
+									command_components.push("--fork-point");
+									break;
+							}
+							switch(form_data.get("git_rebase_what_not_root_destination")){
+								case "onto":
+									let element_value = form_data.get("git_rebase_newbase"), element_has_error = element_value.length == 0;
+									command_components.push("--onto=" + shell_quote(element_value));
+									document.getElementById("git_rebase_newbase").classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+									break;
+								case "keep_base":
+									command_components.push("--keep-base");
+									break;
+							}
+							break;
+						case "root":
+							command_components.push("--root");
+							switch(form_data.get("git_rebase_what_root_destination")){
+								case "onto":
+									let element_value = form_data.get("git_rebase_newbase"), element_has_error = element_value.length == 0;
+									command_components.push("--onto=" + shell_quote(element_value));
+									document.getElementById("git_rebase_newbase").classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+									break;
+							}
+							break;
+					}
+
+					switch(form_data.get("git_rebase_autostash")){
+						case "false":
+							command_components.push("--no-autostash");
+							break;
+						case "true":
+							command_components.push("--autostash");
+							break;
+					}
+					if(form_data.get("git_rebase_has_force_rebase")){
+						command_components.push("--force-rebase");
+						if(form_data.get("git_rebase_has_committer_date_is_author_date"))
+							command_components.push("--committer-date-is-author-date");
+						if(form_data.get("git_rebase_has_reset_author_date"))
+							command_components.push("--reset-author-date");
+					}
+					if(form_data.get("git_rebase_has_ignore_whitespace"))
+						command_components.push("--ignore-whitespace");
+					switch(form_data.get("git_rebase_reapply_cherry_picks")){
+						case "false":
+							command_components.push("--no-reapply-cherry-picks");
+							break;
+						case "true":
+							command_components.push("--reapply-cherry-picks");
+							break;
+					}
+					if(form_data.get("git_rebase_backend") == "no_option" || form_data.get("git_rebase_backend") == "merge"){
+						if(form_data.get("git_rebase_has_interactive"))
+							command_components.push("--interactive");
+						Array.from(document.getElementById("git_rebase_exec_cmd_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+							let element_value = textarea.value, element_has_error = element_value.length == 0;
+							command_components.push("--exec=" + shell_quote(element_value));
+							textarea.classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						});
+						if(form_data.get("git_rebase_has_interactive") || Array.from(document.getElementById("git_rebase_exec_cmd_list").querySelectorAll("textarea:enabled")).length != 0){
+							switch(form_data.get("git_rebase_reschedule_failed_exec")){
+								case "false":
+									command_components.push("--no-reschedule-failed-exec");
+									break;
+								case "true":
+									command_components.push("--reschedule-failed-exec");
+									break;
+							}
+						}
+						switch(form_data.get("git_rebase_rerere_autoupdate")){
+							case "false":
+								command_components.push("--no-rerere-autoupdate");
+								break;
+							case "true":
+								command_components.push("--rerere-autoupdate");
+								break;
+						}
+						Array.from(document.getElementById("git_rebase_strategy_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+							let element_value = input.value, element_has_error = element_value.length == 0;
+							command_components.push("--strategy=" + shell_quote(element_value));
+							input.classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						});
+						Array.from(document.getElementById("git_rebase_strategy_option_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+							let element_value = textarea.value, element_has_error = element_value.length == 0;
+							command_components.push("--strategy-option=" + shell_quote(element_value));
+							textarea.classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						});
+						switch(form_data.get("git_rebase_rebase_merges")){
+							case "rebase_merges":
+								if(form_data.get("git_rebase_rebase_merges_rebase_merges_has_argument")){
+									switch(form_data.get("git_rebase_rebase_merges_rebase_merges_mode")){
+										case "no_rebase_cousins":
+											command_components.push("--rebase-merges=no-rebase-cousins");
+											break;
+										case "rebase_cousins":
+											command_components.push("--rebase-merges=rebase-cousins");
+											break;
+									}
+								}
+								else{
+									command_components.push("--rebase-merges");
+								}
+								break;
+							case "no_rebase_merges":
+								command_components.push("--no-rebase-merges");
+								break;
+						}
+						switch(form_data.get("git_rebase_autosquash")){
+							case "false":
+								command_components.push("--no-autosquash");
+								break;
+							case "true":
+								command_components.push("--autosquash");
+								break;
+						}
+						if(form_data.get("git_rebase_has_empty")){
+							switch(form_data.get("git_rebase_empty_mode")){
+								case "drop":
+									command_components.push("--empty=drop");
+									break;
+								case "keep":
+									command_components.push("--empty=keep");
+									break;
+								case "stop":
+									command_components.push("--empty=stop");
+									break;
+							}
+						}
+						switch(form_data.get("git_rebase_keep_empty")){
+							case "false":
+								command_components.push("--no-keep-empty");
+								break;
+							case "true":
+								command_components.push("--keep-empty");
+								break;
+						}
+						switch(form_data.get("git_rebase_update_refs")){
+							case "false":
+								command_components.push("--no-update-refs");
+								break;
+							case "true":
+								command_components.push("--update-refs");
+								break;
+						}
+					}
+					if(form_data.get("git_rebase_backend") == "no_option" || form_data.get("git_rebase_backend") == "apply"){
+						if(form_data.get("git_rebase_has_whitespace")){
+							switch(form_data.get("git_rebase_whitespace_option")){
+								case "nowarn":
+									command_components.push("--whitespace=nowarn");
+									break;
+								case "warn":
+									command_components.push("--whitespace=warn");
+									break;
+								case "fix":
+									command_components.push("--whitespace=fix");
+									break;
+								case "error":
+									command_components.push("--whitespace=error");
+									break;
+								case "error_all":
+									command_components.push("--whitespace=error-all");
+									break;
+							}
+						}
+						if(form_data.get("git_rebase_has_C")){
+							let element_value = form_data.get("git_rebase_C_n"), element_has_error = element_value.length == 0;
+							command_components.push("-C" + shell_quote(element_value));
+							document.getElementById("git_rebase_C_n").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						}
+					}
+					switch(form_data.get("git_rebase_signoff")){
+						case "false":
+							command_components.push("--no-signoff");
+							break;
+						case "true":
+							command_components.push("--signoff");
+							break;
+					}
+					switch(form_data.get("git_rebase_gpg_sign")){
+						case "no_gpg_sign":
+							command_components.push("--no-gpg-sign");
+							break;
+						case "gpg_sign":
+							if(form_data.get("git_rebase_gpg_sign_gpg_sign_has_argument")){
+								let element_value = form_data.get("git_rebase_gpg_sign_gpg_sign_key_id"), element_has_error = element_value.length == 0;
+								command_components.push("--gpg-sign=" + shell_quote(element_value));
+								document.getElementById("git_rebase_gpg_sign_gpg_sign_key_id").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							else{
+								command_components.push("--gpg-sign");
+							}
+							break;
+					}
+					if(form_data.get("git_rebase_has_quiet"))
+						command_components.push("--quiet");
+					if(form_data.get("git_rebase_has_verbose"))
+						command_components.push("--verbose");
+					switch(form_data.get("git_rebase_stat")){
+						case "false":
+							command_components.push("--no-stat");
+							break;
+						case "true":
+							command_components.push("--stat");
+							break;
+					}
+					switch(form_data.get("git_rebase_verify")){
+						case "false":
+							command_components.push("--no-verify");
+							break;
+						case "true":
+							command_components.push("--verify");
+							break;
+					}
+
+					switch(form_data.get("git_rebase_what")){
+						case "not_root":
+							if(form_data.get("git_rebase_has_upstream")){
+								command_components.push("--end-of-options");
+								let element_value = form_data.get("git_rebase_upstream"), element_has_error = element_value.length == 0;
+								command_components.push(shell_quote(element_value));
+								document.getElementById("git_rebase_upstream").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+								if(form_data.get("git_rebase_has_branch")){
+									let element_value = form_data.get("git_rebase_branch"), element_has_error = element_value.length == 0;
+									command_components.push(shell_quote(element_value));
+									document.getElementById("git_rebase_branch").classList.toggle("error_input", element_has_error);
+									has_error ||= element_has_error;
+								}
+							}
+							break;
+						case "root":
+							if(form_data.get("git_rebase_has_branch")){
+								command_components.push("--end-of-options");
+								let element_value = form_data.get("git_rebase_branch"), element_has_error = element_value.length == 0;
+								command_components.push(shell_quote(element_value));
+								document.getElementById("git_rebase_branch").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							break;
+					}
+					break;
+			}
+
+			let git_rebase_command = document.getElementById("git_rebase_command");
+			git_rebase_command.classList.toggle("error_output", has_error);
+			git_rebase_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_rebase_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_rebase_refresh);
+		});
+		Array.from(document.getElementById("git_rebase_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_rebase_refresh);
+		});
+	</script>
+</div>

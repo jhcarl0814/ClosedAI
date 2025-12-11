@@ -1,0 +1,212 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_ls\_remote~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_remote~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_remote')">git ls-remote [&lt;repository&gt; [&lt;pattern&gt;…]]</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-ls-remote">https://git-scm.com/docs/git-ls-remote</a></p>
+	<p class="paragraph">List references in a remote repository.</p>
+	<form id="git_ls_remote_form">
+		<p>Choose an action to perform:</p>
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_remote\_action\_no\_option~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_remote_action_no_option')">
+				<div class="form_item"><input type="radio" id="git_ls_remote_action_no_option" name="git_ls_remote_action" value="no_option" checked><label for="git_ls_remote_action_no_option">Displays references available in a remote repository along with the associated commit IDs.</label></div>
+			</legend>
+			<fieldset>
+				<legend><p>output:</p></legend>
+				<fieldset>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_remote\_action\_no\_option\_what~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_remote_action_no_option_what')"><p>what refs to show:</p></legend>
+					<fieldset>
+						<legend>
+							<div class="form_item"><input type="radio" id="git_ls_remote_action_no_option_what_no_option" name="git_ls_remote_action_no_option_what" value="no_option" checked><label for="git_ls_remote_action_no_option_what_no_option">HEAD, branches, tags, other refs</label></div>
+						</legend>
+						<div class="form_item"><input type="checkbox" id="git_ls_remote_action_no_option_what_no_option_has_symref" name="git_ls_remote_action_no_option_what_no_option_has_symref" checked><label for="git_ls_remote_action_no_option_what_no_option_has_symref"><span class="command">--symref</span> In addition to the object pointed by it, show the underlying ref pointed by it when showing a symbolic ref.</label></div>
+					</fieldset>
+					<div class="form_item"><input type="radio" id="git_ls_remote_action_no_option_what_branches" name="git_ls_remote_action_no_option_what" value="branches"><label for="git_ls_remote_action_no_option_what_branches"><span class="command">--branches</span> branches</label></div>
+					<div class="form_item"><input type="radio" id="git_ls_remote_action_no_option_what_tags" name="git_ls_remote_action_no_option_what" value="tags"><label for="git_ls_remote_action_no_option_what_tags"><span class="command">--tags</span> tags</label></div>
+					<div class="form_item"><input type="radio" id="git_ls_remote_action_no_option_what_branches_tags" name="git_ls_remote_action_no_option_what" value="branches_tags"><label for="git_ls_remote_action_no_option_what_branches_tags"><span class="command">--branches --tags</span> branches, tags</label></div>
+
+					<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+					<p>(when <span class="command"></span>/<span class="command">--tags</span>/<span class="command">--branches --tags</span>:)</p>
+					<div class="form_item"><input type="checkbox" id="git_ls_remote_action_no_option_has_refs" name="git_ls_remote_action_no_option_has_refs"><label for="git_ls_remote_action_no_option_has_refs"><span class="command">--refs</span> Do not show peeled tags or pseudorefs like <span class="inline_code">HEAD</span> in the output.</label></div>
+				</fieldset>
+
+				<fieldset>
+					<legend><p><span class="command">--sort=&lt;key&gt;</span> Sort based on the key given.</p></legend>
+					<input id="git_ls_remote_action_no_option_sort_key_list_add" type="button" value="Add">
+					<div id="git_ls_remote_action_no_option_sort_key_list" class="subform"></div>
+					<script>
+						document.getElementById("git_ls_remote_action_no_option_sort_key_list_add").addEventListener("click",function(e){
+							document.getElementById("git_ls_remote_action_no_option_sort_key_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_ls_remote_refresh);
+								checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_ls_remote_refresh(); });
+								div.append(checkbox, input);
+								return div;
+							})());
+							git_ls_remote_refresh();
+						})
+					</script>
+				</fieldset>
+
+
+				<div class="form_item"><input type="checkbox" id="git_ls_remote_action_no_option_has_quiet" name="git_ls_remote_action_no_option_has_quiet"><label for="git_ls_remote_action_no_option_has_quiet"><span class="command">--quiet</span> Do not print remote URL to stderr.</label></div>
+				<div class="form_item"><input type="checkbox" id="git_show_ref_action_no_option_has_exit_code" name="git_show_ref_action_no_option_has_exit_code"><label for="git_show_ref_action_no_option_has_exit_code"><span class="command">--exit-code</span> Exit with status "2" when no matching refs are found in the remote repository. (Usually the command exits with status "0" to indicate it successfully talked with the remote repository, whether it found any matching refs.)</label></div>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>server options:</p></legend>
+				<div class="form_item">
+					<input type="checkbox" id="git_ls_remote_action_no_option_has_upload_pack" name="git_ls_remote_action_no_option_has_upload_pack">
+					<div class="subform basis-0 grow">
+						<label for="git_ls_remote_action_no_option_has_upload_pack"><span class="command">--upload-pack=&lt;exec&gt;</span> Specify the full path of <span class="command">git-upload-pack</span> on the remote host. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameuploadpack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.uploadpack</span></a>.)</label>
+						<div class="form_item"><label for="git_ls_remote_action_no_option_upload_pack"><span class="command">&lt;exec&gt;</span>:</label><textarea wrap="off" id="git_ls_remote_action_no_option_upload_pack" name="git_ls_remote_action_no_option_upload_pack" class="basis-0 grow command_input"></textarea></div>
+					</div>
+				</div>
+
+				<fieldset>
+					<legend><p><span class="command">--server-option=&lt;option&gt;</span> Transmit the given string to the server when communicating using protocol version 2. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameserverOption"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.serverOption</span></a>.)</p></legend>
+					<input id="git_ls_remote_action_no_option_server_option_list_add" type="button" value="Add">
+					<div id="git_ls_remote_action_no_option_server_option_list" class="subform"></div>
+					<script>
+						document.getElementById("git_ls_remote_action_no_option_server_option_list_add").addEventListener("click",function(e){
+							document.getElementById("git_ls_remote_action_no_option_server_option_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_ls_remote_refresh);
+								checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_ls_remote_refresh(); });
+								div.append(checkbox, input);
+								return div;
+							})());
+							git_ls_remote_refresh();
+						})
+					</script>
+				</fieldset>
+			</fieldset>
+
+			<div class="form_item">
+				<input type="checkbox" id="git_ls_remote_action_no_option_has_repository" name="git_ls_remote_action_no_option_has_repository">
+				<div class="subform basis-0 grow">
+					<label for="git_ls_remote_action_no_option_has_repository"><span class="command">&lt;repository&gt;</span> The "remote" repository to query.</label>
+					<div class="form_item"><label for="git_ls_remote_action_no_option_repository" class="hidden"><span class="command">&lt;repository&gt;</span>:</label><textarea wrap="off" id="git_ls_remote_action_no_option_repository" name="git_ls_remote_action_no_option_repository" class="basis-0 grow command_input"></textarea></div>
+				</div>
+			</div>
+
+			<fieldset>
+				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_remote\_action\_no\_option\_pattern~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_remote_action_no_option_pattern')"><p><span class="command">&lt;pattern&gt;…</span> When unspecified, all references, after filtering done with <span class="command">--heads</span> and <span class="command">--tags</span>, are shown. When specified, only references matching one or more of the given patterns are displayed.</p></legend>
+				<input id="git_ls_remote_action_no_option_pattern_list_add" type="button" value="Add">
+				<div id="git_ls_remote_action_no_option_pattern_list" class="subform"></div>
+				<script>
+					document.getElementById("git_ls_remote_action_no_option_pattern_list_add").addEventListener("click",function(e){
+						document.getElementById("git_ls_remote_action_no_option_pattern_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_ls_remote_refresh);
+							checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_ls_remote_refresh(); });
+							div.append(checkbox, input);
+							return div;
+						})());
+						git_ls_remote_refresh();
+					})
+				</script>
+			</fieldset>
+		</fieldset>
+
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_remote\_action\_get\_url~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_remote_action_get_url')">
+				<div class="form_item"><input type="radio" id="git_ls_remote_action_get_url" name="git_ls_remote_action" value="get_url"><label for="git_ls_remote_action_get_url"><span class="command">--get-url</span> Expand the URL of the given remote repository taking into account any "<span class="inline_code">url.&lt;base&gt;.insteadOf</span>" config setting and exit without talking to the remote.</label></div>
+			</legend>
+			<p><span class="command">&lt;repository&gt;</span> The "remote" repository.</p>
+			<div class="form_item"><label for="git_ls_remote_action_get_url_repository" class="hidden"><span class="command">&lt;repository&gt;</span>:</label><textarea wrap="off" id="git_ls_remote_action_get_url_repository" name="git_ls_remote_action_get_url_repository" class="basis-0 grow command_input"></textarea></div>
+		</fieldset>
+	</form>
+	<textarea readonly wrap="off" id="git_ls_remote_command" name="git_ls_remote_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_ls_remote_refresh(){
+			document.getElementById("git_ls_remote_action_no_option").closest("fieldset").disabled = !document.getElementById("git_ls_remote_action_no_option").checked;
+			document.getElementById("git_ls_remote_action_no_option_what_no_option").closest("fieldset").disabled = !document.getElementById("git_ls_remote_action_no_option_what_no_option").checked;
+			document.getElementById("git_ls_remote_action_no_option_has_refs").disabled = !(document.getElementById("git_ls_remote_action_no_option_what_no_option").checked || document.getElementById("git_ls_remote_action_no_option_what_tags").checked || document.getElementById("git_ls_remote_action_no_option_what_branches_tags").checked);
+			document.getElementById("git_ls_remote_action_no_option_upload_pack").disabled = !document.getElementById("git_ls_remote_action_no_option_has_upload_pack").checked;
+			document.getElementById("git_ls_remote_action_no_option_repository").disabled = !document.getElementById("git_ls_remote_action_no_option_has_repository").checked;
+			document.getElementById("git_ls_remote_action_no_option_pattern_list_add").closest("fieldset").disabled = !document.getElementById("git_ls_remote_action_no_option_has_repository").checked;
+
+			document.getElementById("git_ls_remote_action_get_url").closest("fieldset").disabled = !document.getElementById("git_ls_remote_action_get_url").checked;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("ls-remote");
+
+			let form_data = new FormData(document.getElementById("git_ls_remote_form"));
+			switch(form_data.get("git_ls_remote_action")){
+				case "no_option":
+					switch(form_data.get("git_ls_remote_action_no_option_what")){
+						case "no_option":
+							if(form_data.get("git_ls_remote_action_no_option_what_no_option_has_symref"))
+								command_components.push("--symref");
+							break;
+						case "branches":
+							command_components.push("--branches");
+							break;
+						case "tags":
+							command_components.push("--tags");
+							break;
+						case "branches_tags":
+							command_components.push("--branches", "--tags");
+							break;
+					}
+					if(form_data.get("git_ls_remote_action_no_option_what") == "no_option" || form_data.get("git_ls_remote_action_no_option_what") == "tags" || form_data.get("git_ls_remote_action_no_option_what") == "branches_tags"){
+						if(form_data.get("git_ls_remote_action_no_option_has_refs"))
+							command_components.push("--refs");
+					}
+					Array.from(document.getElementById("git_ls_remote_action_no_option_sort_key_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+						let element_value = input.value, element_has_error = element_value.length == 0;
+						command_components.push("--sort=" + shell_quote(element_value));
+						input.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					if(form_data.get("git_show_ref_action_no_option_has_quiet"))
+						command_components.push("--quiet");
+					if(form_data.get("git_show_ref_action_no_option_has_exit_code"))
+						command_components.push("--exit-code");
+					if(form_data.get("git_ls_remote_action_no_option_has_upload_pack")){
+						let element_value = form_data.get("git_ls_remote_action_no_option_upload_pack"), element_has_error = element_value.length == 0;
+						command_components.push("--upload-pack=" + shell_quote(element_value));
+						document.getElementById("git_ls_remote_action_no_option_upload_pack").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					Array.from(document.getElementById("git_ls_remote_action_no_option_server_option_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+						command_components.push("--server-option=" + shell_quote(input.value));
+					});
+					if(form_data.get("git_ls_remote_action_no_option_has_repository")){
+						command_components.push("--end-of-options");
+						let element_value = form_data.get("git_ls_remote_action_no_option_repository"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_ls_remote_action_no_option_repository").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+						Array.from(document.getElementById("git_ls_remote_action_no_option_pattern_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+							let element_value = input.value, element_has_error = element_value.length == 0;
+							command_components.push(shell_quote(element_value));
+							input.classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						});
+					}
+					break;
+				case "get_url":
+					command_components.push("--get-url");
+
+					command_components.push("--end-of-options");
+					let element_value = form_data.get("git_ls_remote_action_get_url_repository"), element_has_error = element_value.length == 0;
+					command_components.push(shell_quote(element_value));
+					document.getElementById("git_ls_remote_action_get_url_repository").classList.toggle("error_input", element_has_error);
+					has_error ||= element_has_error;
+					break;
+			}
+
+			let git_ls_remote_command = document.getElementById("git_ls_remote_command");
+			git_ls_remote_command.classList.toggle("error_output", has_error);
+			git_ls_remote_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_ls_remote_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_ls_remote_refresh);
+		});
+		Array.from(document.getElementById("git_ls_remote_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_ls_remote_refresh);
+		});
+	</script>
+</div>

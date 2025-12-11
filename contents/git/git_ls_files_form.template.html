@@ -1,0 +1,323 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_ls\_files~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_files')">git ls-files [&lt;pathspec&gt;…]</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-ls-files">https://git-scm.com/docs/git-ls-files</a></p>
+	<p class="paragraph">Show information about files in the index and the working tree.</p>
+	<form id="git_ls_files_form">
+		<fieldset>
+			<legend><p>showing index:</p></legend>
+			<div class="form_item"><input type="radio" id="git_ls_files_showing_index_no_option" name="git_ls_files_showing_index" value="no_option" checked><label for="git_ls_files_showing_index_no_option">Defaults to --cached if no <span class="command">--cached</span>/<span class="command">--stage</span>/<span class="command">--unmerged</span>/<span class="command">--resolve-undo</span>/<span class="command">--others</span>/<span class="command">--deleted</span>/<span class="command">--modified</span>/<span class="command">--killed</span> options are specified.</label></div>
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_files\_cached\_stage~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_files_cached_stage')">
+				<div class="form_item"><input type="radio" id="git_ls_files_showing_index_cached" name="git_ls_files_showing_index" value="cached"><label for="git_ls_files_showing_index_cached"><span class="command">--cached</span> Show all files cached in Git’s index, i.e. all tracked files.</label></div>
+				<div class="form_item"><input type="radio" id="git_ls_files_showing_index_stage" name="git_ls_files_showing_index" value="stage"><label for="git_ls_files_showing_index_stage"><span class="command">--stage</span> Show staged contents' mode bits, object name and stage number in the output.</label></div>
+			</div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_files\_unmerged~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_files_unmerged')"><input type="radio" id="git_ls_files_showing_index_unmerged" name="git_ls_files_showing_index" value="unmerged"><label for="git_ls_files_showing_index_unmerged"><span class="command">--unmerged</span> Show information about unmerged files in the output, but do not show any other tracked files. (Implies <span class="command">--stage</span>.)</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_files\_resolve\_undo~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_files_resolve_undo')"><input type="checkbox" id="git_ls_files_has_resolve_undo" name="git_ls_files_has_resolve_undo"><label for="git_ls_files_has_resolve_undo"><span class="command">--resolve-undo</span> Show files having resolve-undo information in the index together with their resolve-undo information.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="checkbox" id="git_ls_files_has_debug" name="git_ls_files_has_debug"><label for="git_ls_files_has_debug"><span class="command">--debug</span> After each line that describes a file, add more data about its cache entry.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>showing index vs worktree:</p></legend>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_files\_others~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_files_others')"><input type="checkbox" id="git_ls_files_showing_index_vs_worktree_has_others" name="git_ls_files_showing_index_vs_worktree_has_others"><label for="git_ls_files_showing_index_vs_worktree_has_others"><span class="command">--others</span> Show other (i.e. untracked) files in the output.</label></div>
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_files\_deleted\_modified~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_files_deleted_modified')">
+				<div class="form_item"><input type="checkbox" id="git_ls_files_showing_index_vs_worktree_has_deleted" name="git_ls_files_showing_index_vs_worktree_has_deleted"><label for="git_ls_files_showing_index_vs_worktree_has_deleted"><span class="command">--deleted</span> Show files with an unstaged deletion.</label></div>
+				<div class="form_item"><input type="checkbox" id="git_ls_files_showing_index_vs_worktree_has_modified" name="git_ls_files_showing_index_vs_worktree_has_modified"><label for="git_ls_files_showing_index_vs_worktree_has_modified"><span class="command">--modified</span> Show files with an unstaged modification (note that an unstaged deletion also counts as an unstaged modification).</label></div>
+			</div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_files\_killed~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_files_killed')"><input type="checkbox" id="git_ls_files_showing_index_vs_worktree_has_killed" name="git_ls_files_showing_index_vs_worktree_has_killed"><label for="git_ls_files_showing_index_vs_worktree_has_killed"><span class="command">--killed</span> Show untracked files on the filesystem that need to be removed due to file/directory conflicts for tracked files to be able to be written to the filesystem.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_files\_directory~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_files_directory')">
+				<p>(when <span class="command">--others</span>/<span class="command">--killed</span>:)</p>
+				<div class="form_item"><input type="checkbox" id="git_ls_files_has_directory" name="git_ls_files_has_directory"><label for="git_ls_files_has_directory"><span class="command">--directory</span> If a whole directory is classified as "other", show just its name (with a trailing slash) and not its whole contents.</label></div>
+				<div class="form_item"><input type="checkbox" id="git_ls_files_has_no_empty_directory" name="git_ls_files_has_no_empty_directory"><label for="git_ls_files_has_no_empty_directory"><span class="command">--no-empty-directory</span> Do not list empty directories.</label></div>
+			</div>
+		</fieldset>
+
+		<div class="form_item"><input type="checkbox" id="git_ls_files_has_sparse" name="git_ls_files_has_sparse"><label for="git_ls_files_has_sparse"><span class="command">--sparse</span> If the index is sparse, show the sparse directories without expanding to the contained files.</label></div>
+
+		<fieldset>
+			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_files\_filtering~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_files_filtering')"><p>filtering (has no effect on <span class="command">--resolve-undo</span>) (when <span class="command">--cached</span>/<span class="command">--others</span>):</p></legend>
+			<fieldset>
+				<legend><p><span class="command">--exclude=&lt;pattern&gt;</span> Skip untracked files matching pattern.</p></legend>
+				<input id="git_ls_files_exclude_list_add" type="button" value="Add">
+				<div id="git_ls_files_exclude_list" class="subform"></div>
+				<script>
+					document.getElementById("git_ls_files_exclude_list_add").addEventListener("click",function(e){
+						document.getElementById("git_ls_files_exclude_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_ls_files_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_ls_files_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_ls_files_refresh();
+					})
+				</script>
+			</fieldset>
+			<fieldset>
+				<legend><p><span class="command">--exclude-from=&lt;file&gt;</span> Read exclude patterns from <span class="command">&lt;file&gt;</span>; 1 per line.</p></legend>
+				<input id="git_ls_files_exclude_from_list_add" type="button" value="Add">
+				<div id="git_ls_files_exclude_from_list" class="subform"></div>
+				<script>
+					document.getElementById("git_ls_files_exclude_from_list_add").addEventListener("click",function(e){
+						document.getElementById("git_ls_files_exclude_from_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_ls_files_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_ls_files_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_ls_files_refresh();
+					})
+				</script>
+			</fieldset>
+			<fieldset>
+				<legend><p><span class="command">--exclude-per-directory=&lt;file&gt;</span> Read additional exclude patterns that apply only to the directory and its subdirectories in <span class="command">&lt;file&gt;</span>.</p></legend>
+				<input id="git_ls_files_exclude_per_directory_list_add" type="button" value="Add">
+				<div id="git_ls_files_exclude_per_directory_list" class="subform"></div>
+				<script>
+					document.getElementById("git_ls_files_exclude_per_directory_list_add").addEventListener("click",function(e){
+						document.getElementById("git_ls_files_exclude_per_directory_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_ls_files_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_ls_files_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_ls_files_refresh();
+					})
+				</script>
+			</fieldset>
+			<div class="form_item"><input type="checkbox" id="git_ls_files_has_exclude_standard" name="git_ls_files_has_exclude_standard"><label for="git_ls_files_has_exclude_standard"><span class="command">--exclude-standard</span> Add the standard Git exclusions: <span class="inline_code">.git/info/exclude</span>, <span class="inline_code">.gitignore</span> in each directory, and the user’s global exclusion file.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="checkbox" id="git_ls_files_showing_index_has_ignored" name="git_ls_files_showing_index_has_ignored"><label for="git_ls_files_showing_index_has_ignored"><span class="command">--ignored</span> Show only ignored files in the output. Must be used with either an explicit <span class="command">--cached</span> or <span class="command">--others</span>. When showing files in the index (i.e. when used with <span class="command">--cached</span>), print only those files matching an exclude pattern. When showing "other" files (i.e. when used with <span class="command">--others</span>), show only those matched by an exclude pattern.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>formatting:</p></legend>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_files\_z~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_files_z')"><input type="checkbox" id="git_ls_files_has_z" name="git_ls_files_has_z"><label for="git_ls_files_has_z"><span class="command">-z</span> \0 line termination on output and do not quote filenames.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_ls_files_status_tag_no_option" name="git_ls_files_status_tag" value="no_option"><label for="git_ls_files_status_tag_no_option"></label></div>
+			<div class="form_item"><input type="radio" id="git_ls_files_status_tag_t" name="git_ls_files_status_tag" value="t" checked><label for="git_ls_files_status_tag_t"><span class="command">-t</span> Show status tags together with filenames.</label></div>
+			<div class="form_item"><input type="radio" id="git_ls_files_status_tag_v" name="git_ls_files_status_tag" value="v"><label for="git_ls_files_status_tag_v"><span class="command">-v</span> Similar to <span class="command">-t</span>, but use lowercase letters for files that are marked as assume unchanged.</label></div>
+			<div class="form_item"><input type="radio" id="git_ls_files_status_tag_f" name="git_ls_files_status_tag" value="f"><label for="git_ls_files_status_tag_f"><span class="command">-f</span> Similar to <span class="command">-t</span>, but use lowercase letters for files that are marked as fsmonitor valid.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_ls_files_abbrev_no_option" name="git_ls_files_abbrev" value="no_option" checked><label for="git_ls_files_abbrev_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreabbrev"><span class="inline_code">core.abbrev</span></a> which defaults to a value computed based on the approximate number of packed objects in your repository.)</label></div>
+			<div class="form_item"><input type="radio" id="git_ls_files_abbrev_no_abbrev" name="git_ls_files_abbrev" value="no_abbrev"><label for="git_ls_files_abbrev_no_abbrev"><span class="command">--no-abbrev</span> Show the full 40-byte hexadecimal object lines</label></div>
+			<div class="form_item">
+				<input type="radio" id="git_ls_files_abbrev_abbrev" name="git_ls_files_abbrev" value="abbrev">
+				<div class="subform basis-0 grow">
+					<label for="git_ls_files_abbrev_abbrev"><span class="command">--abbrev<input type="checkbox" id="git_ls_files_abbrev_abbrev_has_argument" name="git_ls_files_abbrev_abbrev_has_argument"><label for="git_ls_files_abbrev_abbrev_has_argument">[=&lt;n&gt;]</label></span> Show the shortest prefix that is at least <span class="command">&lt;n&gt;</span> hexdigits long that uniquely refers the object.</label>
+					<div class="form_item"><label for="git_ls_files_abbrev_abbrev_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_ls_files_abbrev_abbrev_n" name="git_ls_files_abbrev_abbrev_n" class="basis-0 grow command_input" value=""></div>
+				</div>
+			</div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_files\_eol~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_files_eol')"><input type="checkbox" id="git_ls_files_has_eol" name="git_ls_files_has_eol"><label for="git_ls_files_has_eol"><span class="command">--eol</span> Show <span class="command">&lt;eolinfo&gt;</span> and <span class="command">&lt;eolattr&gt;</span> of files. (Has no effect on <span class="command">--resolve-undo</span>.)</label></div>
+			<div class="form_item"><input type="checkbox" id="git_ls_files_has_full_name" name="git_ls_files_has_full_name"><label for="git_ls_files_has_full_name"><span class="command">--full-name</span> When run from a subdirectory, the command usually outputs paths relative to the current directory. Forces paths to be output relative to the project top directory.</label></div>
+			<div class="form_item"><input type="checkbox" id="git_ls_files_has_deduplicate" name="git_ls_files_has_deduplicate"><label for="git_ls_files_has_deduplicate"><span class="command">--deduplicate</span> When only filenames are shown, suppress duplicates that may come from having multiple stages during a merge, or giving <span class="command">--deleted</span> and <span class="command">--modified</span> option at the same time. When any of the <span class="command">--stage</span>, <span class="command">--unmerged</span>, or <span class="command">-t</span> option is in use, this option has no effect.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_ls\_files\_format~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_ls_files_format')">
+				<input type="checkbox" id="git_ls_files_has_format" name="git_ls_files_has_format">
+				<div class="subform basis-0 grow">
+					<label for="git_ls_files_has_format"><span class="command">--format=&lt;format&gt;</span> A string that interpolates <span class="command">%(fieldname)</span> from the result being shown. Cannot be combined with <span class="command">--stage</span>, <span class="command">--unmerged</span>, <span class="command">--resolve-undo</span>, <span class="command">--others</span>, <span class="command">--killed</span>, <span class="command">-t</span>, <span class="command">-v</span>, <span class="command">-f</span>, <span class="command">--eol</span> and <span class="command">--deduplicate</span>.</label>
+					<div class="form_item"><label for="git_ls_files_format"><span class="command">&lt;format&gt;</span>:</label><textarea wrap="off" id="git_ls_files_format" name="git_ls_files_format" class="basis-0 grow command_input">%(objecttype) %(objectmode) %(objectname) %(stage) ii="%(eolinfo:index)" iw="%(eolinfo:worktree)" a="%(eolattr)" %(objectsize) %(path)</textarea></div>
+				</div>
+			</div>
+		</fieldset>
+
+		<div class="form_item"><input type="checkbox" id="git_ls_files_has_recurse_submodules" name="git_ls_files_has_recurse_submodules"><label for="git_ls_files_has_recurse_submodules"><span class="command">--recurse-submodules</span> Recursively calls <span class="command">ls-files</span> on each active submodule in the repository. Currently there is only support for the <span class="command">--cached</span> and <span class="command">--stage</span> modes.</label></div>
+
+		<fieldset>
+			<legend><p><span class="command">&lt;pathspec&gt;…</span> Files to show. If no files are given all files which match the other specified criteria are shown.</p></legend>
+			<input id="git_ls_files_pathspec_list_add" type="button" value="Add">
+			<div id="git_ls_files_pathspec_list" class="subform"></div>
+			<script>
+				document.getElementById("git_ls_files_pathspec_list_add").addEventListener("click",function(e){
+					document.getElementById("git_ls_files_pathspec_list").append((function(){
+						let div = document.createElement("div"); div.className = "form_item";
+						let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+						let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_ls_files_refresh);
+						checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_ls_files_refresh(); });
+						div.append(checkbox, textarea);
+						return div;
+					})());
+					git_ls_files_refresh();
+				})
+			</script>
+		</fieldset>
+		<div class="form_item"><input type="checkbox" id="git_ls_files_has_error_unmatch" name="git_ls_files_has_error_unmatch"><label for="git_ls_files_has_error_unmatch"><span class="command">--error-unmatch</span> If any <span class="command">&lt;file&gt;</span> does not appear in the index, treat this as an error (return 1).</label></div>
+		<div class="form_item">
+			<input type="checkbox" id="git_ls_files_has_with_tree" name="git_ls_files_has_with_tree">
+			<div class="subform basis-0 grow">
+				<label for="git_ls_files_has_with_tree"><span class="command">--with-tree=&lt;tree-ish&gt;</span> When using <span class="command">--error-unmatch</span> to expand the user supplied <span class="command">&lt;file&gt;</span> (i.e. path pattern) arguments to paths, pretend that paths which were removed in the index since the named <span class="command">&lt;tree-ish&gt;</span> are still present. Using this option with <span class="command">--stage</span> or <span class="command">--unmerged</span> options does not make any sense.</label>
+				<div class="form_item"><label for="git_ls_files_with_tree_treeish"><span class="command">&lt;tree-ish&gt;</span>:</label><textarea wrap="off" id="git_ls_files_with_tree_treeish" name="git_ls_files_with_tree_treeish" class="basis-0 grow command_input"></textarea></div>
+			</div>
+		</div>
+	</form>
+	<textarea readonly wrap="off" id="git_ls_files_command" name="git_ls_files_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_ls_files_refresh(){
+			document.getElementById("git_ls_files_has_directory").disabled = !(document.getElementById("git_ls_files_showing_index_vs_worktree_has_others").checked || document.getElementById("git_ls_files_showing_index_vs_worktree_has_killed").checked);
+			document.getElementById("git_ls_files_has_no_empty_directory").disabled = !((document.getElementById("git_ls_files_showing_index_vs_worktree_has_others").checked || document.getElementById("git_ls_files_showing_index_vs_worktree_has_killed").checked) && document.getElementById("git_ls_files_has_directory").checked);
+
+			let can_have_exclude = document.getElementById("git_ls_files_showing_index_vs_worktree_has_others").checked || document.getElementById("git_ls_files_showing_index_cached").checked || (document.getElementById("git_ls_files_showing_index_no_option").checked && !document.getElementById("git_ls_files_has_resolve_undo").checked && !document.getElementById("git_ls_files_showing_index_vs_worktree_has_deleted").checked && !document.getElementById("git_ls_files_showing_index_vs_worktree_has_modified").checked && !document.getElementById("git_ls_files_showing_index_vs_worktree_has_killed").checked);
+			document.getElementById("git_ls_files_exclude_list_add").closest("fieldset").closest("fieldset:not(:scope)").disabled = !can_have_exclude;
+
+			let can_have_ignore = Array.from(document.getElementById("git_ls_files_exclude_list").querySelectorAll("textarea:enabled")).length != 0 || Array.from(document.getElementById("git_ls_files_exclude_from_list").querySelectorAll("textarea:enabled")).length != 0 || Array.from(document.getElementById("git_ls_files_exclude_per_directory_list").querySelectorAll("textarea:enabled")).length != 0 || document.getElementById("git_ls_files_has_exclude_standard").checked;
+			document.getElementById("git_ls_files_showing_index_has_ignored").disabled = !can_have_ignore;
+
+			document.getElementById("git_ls_files_abbrev_abbrev_has_argument").disabled = !document.getElementById("git_ls_files_abbrev_abbrev").checked;
+			document.getElementById("git_ls_files_abbrev_abbrev_n").disabled = !(document.getElementById("git_ls_files_abbrev_abbrev").checked && document.getElementById("git_ls_files_abbrev_abbrev_has_argument").checked);
+
+			let can_have_eol = !(document.getElementById("git_ls_files_showing_index_no_option").checked && document.getElementById("git_ls_files_has_resolve_undo").checked && (!document.getElementById("git_ls_files_showing_index_vs_worktree_has_others").checked && !document.getElementById("git_ls_files_showing_index_vs_worktree_has_deleted").checked && !document.getElementById("git_ls_files_showing_index_vs_worktree_has_modified").checked && !document.getElementById("git_ls_files_showing_index_vs_worktree_has_killed").checked));
+			document.getElementById("git_ls_files_has_eol").disabled = !can_have_eol;
+			let can_have_deduplicate = !document.getElementById("git_ls_files_showing_index_stage").checked && !document.getElementById("git_ls_files_showing_index_unmerged").checked && !document.getElementById("git_ls_files_status_tag_t").checked;
+			document.getElementById("git_ls_files_has_deduplicate").disabled = !can_have_deduplicate;
+
+			let can_have_format = !document.getElementById("git_ls_files_showing_index_stage").checked && !document.getElementById("git_ls_files_showing_index_unmerged").checked && !document.getElementById("git_ls_files_has_resolve_undo").checked && !document.getElementById("git_ls_files_showing_index_vs_worktree_has_others").checked && !document.getElementById("git_ls_files_showing_index_vs_worktree_has_killed").checked && !(can_have_eol && document.getElementById("git_ls_files_has_eol").checked) && !(can_have_deduplicate && document.getElementById("git_ls_files_has_deduplicate").checked) && document.getElementById("git_ls_files_status_tag_no_option").checked;
+			document.getElementById("git_ls_files_has_format").disabled = !can_have_format;
+			document.getElementById("git_ls_files_format").disabled = !(can_have_format && document.getElementById("git_ls_files_has_format").checked);
+
+			let has_files = Array.from(document.getElementById("git_ls_files_pathspec_list").querySelectorAll("textarea:enabled")).length != 0;
+			document.getElementById("git_ls_files_has_error_unmatch").disabled = !has_files;
+			document.getElementById("git_ls_files_has_with_tree").disabled = !(has_files && document.getElementById("git_ls_files_has_error_unmatch").checked);
+			document.getElementById("git_ls_files_with_tree_treeish").disabled = !(has_files && document.getElementById("git_ls_files_has_error_unmatch").checked && document.getElementById("git_ls_files_has_with_tree").checked);
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("ls-files");
+
+			let form_data = new FormData(document.getElementById("git_ls_files_form"));
+			switch(form_data.get("git_ls_files_showing_index")){
+				case "cached":
+					command_components.push("--cached");
+					break;
+				case "stage":
+					command_components.push("--stage");
+					break;
+				case "unmerged":
+					command_components.push("--unmerged");
+					break;
+			}
+			if(form_data.get("git_ls_files_has_resolve_undo"))
+				command_components.push("--resolve-undo");
+			if(form_data.get("git_ls_files_has_debug"))
+				command_components.push("--debug");
+			if(form_data.get("git_ls_files_showing_index_vs_worktree_has_others"))
+				command_components.push("--others");
+			if(form_data.get("git_ls_files_showing_index_vs_worktree_has_deleted"))
+				command_components.push("--deleted");
+			if(form_data.get("git_ls_files_showing_index_vs_worktree_has_modified"))
+				command_components.push("--modified");
+			if(form_data.get("git_ls_files_showing_index_vs_worktree_has_killed"))
+				command_components.push("--killed");
+			if(form_data.get("git_ls_files_showing_index_vs_worktree_has_others") || form_data.get("git_ls_files_showing_index_vs_worktree_has_killed")){
+				if(form_data.get("git_ls_files_has_directory")){
+					command_components.push("--directory");
+					if(form_data.get("git_ls_files_has_no_empty_directory"))
+						command_components.push("--no-empty-directory");
+				}
+			}
+			if(form_data.get("git_ls_files_has_sparse"))
+				command_components.push("--sparse");
+			if(can_have_exclude){
+				Array.from(document.getElementById("git_ls_files_exclude_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+					command_components.push("--exclude=" + shell_quote(textarea.value));
+				});
+				Array.from(document.getElementById("git_ls_files_exclude_from_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+					command_components.push("--exclude-from=" + shell_quote(textarea.value));
+				});
+				Array.from(document.getElementById("git_ls_files_exclude_per_directory_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+					command_components.push("--exclude-per-directory=" + shell_quote(textarea.value));
+				});
+				if(form_data.get("git_ls_files_has_exclude_standard"))
+					command_components.push("--exclude-standard");
+				if(can_have_ignore){
+					if(form_data.get("git_ls_files_showing_index_has_ignored"))
+						command_components.push("--ignored");
+				}
+			}
+			if(form_data.get("git_ls_files_has_z"))
+				command_components.push("-z");
+			switch(form_data.get("git_ls_files_status_tag")){
+				case "t":
+					command_components.push("-t");
+					break;
+				case "v":
+					command_components.push("-v");
+					break;
+				case "f":
+					command_components.push("-f");
+					break;
+			}
+			switch(form_data.get("git_ls_files_abbrev")){
+				case "abbrev":
+					if(form_data.get("git_ls_files_abbrev_abbrev_has_argument")){
+						let element_value = form_data.get("git_ls_files_abbrev_abbrev_n"), element_has_error = element_value.length == 0;
+						command_components.push("--abbrev=" + shell_quote(element_value));
+						document.getElementById("git_ls_files_abbrev_abbrev_n").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					else{
+						command_components.push("--abbrev");
+					}
+					break;
+				case "no_abbrev":
+					command_components.push("--no-abbrev");
+					break;
+			}
+			if(can_have_eol){
+				if(form_data.get("git_ls_files_has_eol"))
+					command_components.push("--eol");
+			}
+			if(form_data.get("git_ls_files_has_full_name"))
+				command_components.push("--full-name");
+			if(can_have_deduplicate){
+				if(form_data.get("git_ls_files_has_deduplicate"))
+					command_components.push("--deduplicate");
+			}
+			if(can_have_format){
+				if(form_data.get("git_ls_files_has_format"))
+					command_components.push("--format=" + shell_quote(form_data.get("git_ls_files_format")));
+			}
+			if(form_data.get("git_ls_files_has_recurse_submodules"))
+				command_components.push("--recurse-submodules");
+			if(has_files){
+				if(form_data.get("git_ls_files_has_error_unmatch")){
+					command_components.push("--error-unmatch");
+					if(form_data.get("git_ls_files_has_with_tree")){
+						let element_value = form_data.get("git_ls_files_with_tree_treeish"), element_has_error = element_value.length == 0;
+						command_components.push("--with-tree=" + shell_quote(element_value));
+						document.getElementById("git_ls_files_with_tree_treeish").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+				}
+			}
+
+			if(Array.from(document.getElementById("git_ls_files_pathspec_list").querySelectorAll("textarea:enabled")).length != 0)
+				command_components.push("--end-of-options");
+			Array.from(document.getElementById("git_ls_files_pathspec_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				let element_value = textarea.value, element_has_error = element_value.length == 0;
+				command_components.push(shell_quote(element_value));
+				textarea.classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			});
+
+			let git_ls_files_command = document.getElementById("git_ls_files_command");
+			git_ls_files_command.classList.toggle("error_output", has_error);
+			git_ls_files_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_ls_files_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_ls_files_refresh);
+		});
+		Array.from(document.getElementById("git_ls_files_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_ls_files_refresh);
+		});
+	</script>
+</div>
