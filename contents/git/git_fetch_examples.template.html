@@ -1,0 +1,638 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_fetch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_fetch\_prune~*_&]:block [#reference\_desk\_dispatcher\_example.git\_fetch\_prune\_tags~*_&]:block">
+	<h2 class="heading2"><span class="command">git fetch</span><br><span class="command">git fetch --prune</span><br><span class="command">git fetch --prune --prune-tags</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch1; git -C './server/repo.git' branch branch2; git -C './server/repo.git' tag tag1; git -C './server/repo.git' tag tag2
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' fetch --dry-run
+			git -C './client/repo' fetch
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' fetch
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+
+			git -C './server/repo.git' branch --delete branch1; git -C './server/repo.git' branch branch3; git -C './server/repo.git' tag --delete tag1; git -C './server/repo.git' tag tag3
+			git -C './client/repo' fetch --dry-run
+			git -C './client/repo' fetch
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' fetch
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+
+			git -C './client/repo' fetch --dry-run --prune
+			git -C './client/repo' fetch --prune
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' fetch --prune
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+
+			git -C './client/repo' fetch --dry-run --prune --prune-tags
+			git -C './client/repo' fetch --prune --prune-tags
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' fetch --prune --prune-tags
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_fetch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_fetch\_refmap~*_&]:block">
+	<h2 class="heading2"><span class="command">git fetch --refmap=&lt;refspec&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch1; git -C './server/repo.git' branch branch2; git -C './server/repo.git' tag tag1; git -C './server/repo.git' tag tag2
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' fetch --dry-run
+			git -C './client/repo' fetch --dry-run --refmap='+refs/heads/*:refs/remotes/server/*' server branch1 branch2
+			git -C './client/repo' fetch --dry-run --refmap='+refs/heads/branch*:refs/remotes/server/branch*' server branch1 branch2
+			git -C './client/repo' fetch --dry-run --refmap='+refs/heads/branch1:refs/remotes/server/branch1' server branch1 branch2
+			git -C './client/repo' fetch --dry-run --refmap='+refs/heads/branch2:refs/remotes/server/branch2' server branch1 branch2
+			git -C './client/repo' fetch --dry-run --refmap='+refs/heads/*1:refs/remotes/server/*' server branch1 branch2
+			git -C './client/repo' fetch --dry-run --refmap='+refs/heads/*2:refs/remotes/server/*' server branch1 branch2
+			git -C './client/repo' fetch --dry-run --refmap='+refs/heads/*1:refs/remotes/server/*' --refmap='+refs/heads/*2:refs/remotes/server/*' server branch1 branch2
+
+			git -C './client/repo' config unset --local 'remote.server.fetch'
+			git -C './client/repo' fetch --dry-run
+			git -C './client/repo' -c 'remote.server.fetch=+refs/heads/*:refs/remotes/server/*' fetch --dry-run
+			git -C './client/repo' -c 'remote.server.fetch=+refs/heads/branch1:refs/remotes/server/branch1' fetch --dry-run
+			git -C './client/repo' -c 'remote.server.fetch=+refs/heads/branch1:refs/remotes/server/branch1' -c 'remote.server.fetch=+refs/heads/branch2:refs/remotes/server/branch2' fetch --dry-run
+			git -C './client/repo' -c 'remote.server.fetch=+refs/heads/branch*:refs/remotes/server/branch*' fetch --dry-run
+			git -C './client/repo' -c 'remote.server.fetch=+refs/heads/branch*:refs/remotes/server/branch*' -c 'remote.server.fetch=+refs/heads/branch2:refs/remotes/server/branch2' fetch --dry-run
+			git -C './client/repo' -c 'remote.server.fetch=+refs/heads/branch1:refs/remotes/server/branch1' fetch --dry-run --refmap='+refs/heads/branch1:refs/remotes/server/branch1' server branch1 branch2
+			git -C './client/repo' -c 'remote.server.fetch=+refs/heads/branch1:refs/remotes/server/branch1' fetch --dry-run --refmap='+refs/heads/branch2:refs/remotes/server/branch2' server branch1 branch2
+			git -C './client/repo' -c 'remote.server.fetch=+refs/heads/branch2:refs/remotes/server/branch2' fetch --dry-run --refmap='+refs/heads/branch1:refs/remotes/server/branch1' server branch1 branch2
+			git -C './client/repo' -c 'remote.server.fetch=+refs/heads/branch2:refs/remotes/server/branch2' fetch --dry-run --refmap='+refs/heads/branch2:refs/remotes/server/branch2' server branch1 branch2
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_fetch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_fetch\_tags~*_&]:block [#reference\_desk\_dispatcher\_example.git\_fetch\_prune~*_&]:block [#reference\_desk\_dispatcher\_example.git\_fetch\_prune\_tags~*_&]:block">
+	<h2 class="heading2">(limit the set of requested commits)<br><span class="command">git fetch --no-tags/--tags</span><br><span class="command">git fetch --prune --prune-tags</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' tag tag1
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty --amend
+			git -C './server/repo.git' tag tag2
+			git -C './server/repo.git' lg --all
+
+			git -C './client' init './repo1'
+			git -C './client/repo1' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo1' fetch --no-tags
+			git -C './client/repo1' lg --all
+
+			git -C './client' init './repo2'
+			git -C './client/repo2' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo2' fetch
+			git -C './client/repo2' lg --all
+
+			git -C './client' init './repo3'
+			git -C './client/repo3' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo3' fetch --tags
+			git -C './client/repo3' lg --all
+
+			git -C './client' init './repo4'
+			git -C './client/repo4' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo4' config set --local --append 'remote.server.fetch' '+refs/tags/*:refs/tags/*'
+			git -C './client/repo4' fetch
+			git -C './client/repo4' lg --all
+
+			git -C './server/repo.git' tag --delete tag2
+			git -C './client/repo1' fetch --prune --no-tags
+			git -C './client/repo1' lg --all
+			git -C './client/repo2' fetch --prune
+			git -C './client/repo2' lg --all
+			git -C './client/repo3' fetch --prune --tags
+			git -C './client/repo3' lg --all
+			git -C './client/repo4' fetch --prune
+			git -C './client/repo4' lg --all
+
+			git -C './client/repo1' fetch --prune --prune-tags --no-tags
+			git -C './client/repo1' lg --all
+			git -C './client/repo2' fetch --prune --prune-tags
+			git -C './client/repo2' lg --all
+			git -C './client/repo3' fetch --prune --prune-tags --tags
+			git -C './client/repo3' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_fetch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_fetch\_depth\_deepen~*_&]:block">
+	<h2 class="heading2">shallow fetch (limit the set of requested commits)<br><span class="command">git fetch --depth=&lt;depth&gt;</span><br><span class="command">git fetch --deepen=&lt;depth&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' lg --all
+
+			git -C './client' init './repo1'
+			git -C './client/repo1' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo1' remote --verbose
+			git -C './client/repo1' config list --local --show-scope --show-origin
+			git -C './client/repo1' fetch --depth=1
+			git -C './client/repo1' lg --all
+			treex './client/repo1/.git/shallow'
+			git -C './client/repo1' fetch --depth=2
+			git -C './client/repo1' lg --all
+			treex './client/repo1/.git/shallow'
+			git -C './client/repo1' fetch --depth=4
+			git -C './client/repo1' lg --all
+			treex './client/repo1/.git/shallow'
+			git -C './client/repo1' fetch --depth=8
+			git -C './client/repo1' lg --all
+			treex './client/repo1/.git/shallow'
+
+			git -C './client' init './repo2'
+			git -C './client/repo2' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo2' remote --verbose
+			git -C './client/repo2' config list --local --show-scope --show-origin
+			git -C './client/repo2' fetch --deepen=1
+			git -C './client/repo2' lg --all
+			treex './client/repo2/.git/shallow'
+
+			git -C './client' init './repo3'
+			git -C './client/repo3' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo3' remote --verbose
+			git -C './client/repo3' config list --local --show-scope --show-origin
+			git -C './client/repo3' fetch --depth=1
+			git -C './client/repo3' lg --all
+			treex './client/repo3/.git/shallow'
+			git -C './client/repo3' fetch --deepen=1
+			git -C './client/repo3' lg --all
+			treex './client/repo3/.git/shallow'
+			git -C './client/repo3' fetch --deepen=2
+			git -C './client/repo3' lg --all
+			treex './client/repo3/.git/shallow'
+			git -C './client/repo3' fetch --deepen=4
+			git -C './client/repo3' lg --all
+			treex './client/repo3/.git/shallow'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_fetch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_fetch\_shallow\_exclude~*_&]:block">
+	<h2 class="heading2">shallow fetch (limit the set of requested commits)<br><span class="command">git fetch --shallow-exclude=&lt;ref&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			branch_default_path="$(git -C './server/repo.git' symbolic-ref HEAD)"; echo "$branch_default_path"
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git -C './server/repo.git' branch branch; git -C './server/repo.git' tag tag
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			# git --git-dir='./server/repo.git' --work-tree='.' checkout branch
+			git -C './server/repo.git' symbolic-ref HEAD "$(git -C './server/repo.git' rev-parse --symbolic-full-name branch)"
+			git -C './server/repo.git' symbolic-ref HEAD
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git -C './server/repo.git' lg --all
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+
+			git -C './client' init './repo1'
+			git -C './client/repo1' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo1' remote --verbose
+			git -C './client/repo1' config list --local --show-scope --show-origin
+			git -C './client/repo1' fetch server branch
+			git -C './client/repo1' lg --all
+			git -C './client/repo1' cat-file --batch-check --batch-all-objects
+
+			git -C './client' init './repo2'
+			git -C './client/repo2' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo2' remote --verbose
+			git -C './client/repo2' config list --local --show-scope --show-origin
+			git -C './client/repo2' fetch --shallow-exclude="$branch_default_path" server branch
+			git -C './client/repo2' lg --all
+			git -C './client/repo2' cat-file --batch-check --batch-all-objects
+			treex './client/repo2/.git/shallow'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_fetch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_fetch\_update\_shallow~*_&]:block">
+	<h2 class="heading2"><span class="command">git fetch --update-shallow</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server1' init --bare './repo.git'
+			git -C './server1/repo.git' config list --local --show-scope --show-origin
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server1/repo.git' lg --all
+
+			git -C './server2' clone --mirror --depth=2 'file://'"$(realpath './server1/repo.git')" './repo.git'
+			git -C './server2/repo.git' remote --verbose
+			git -C './server2/repo.git' config list --local --show-scope --show-origin
+			git -C './server2/repo.git' lg --all
+			treex './server2/repo.git/shallow'
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+
+			git -C './client/repo' fetch
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' lg --all
+			treex './client/repo/.git/shallow'
+
+			git -C './client/repo' fetch --update-shallow
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' lg --all
+			treex './client/repo/.git/shallow'
+
+			git --git-dir='./server1/repo.git' --work-tree='.' checkout --orphan branch1
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server1/repo.git' lg --all
+
+			git -C './server2/repo.git' fetch --depth=2
+			git -C './server2/repo.git' lg --all
+			treex './server2/repo.git/shallow'
+
+			git -C './client/repo' fetch
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' lg --all
+			treex './client/repo/.git/shallow'
+
+			git -C './client/repo' fetch --update-shallow
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' lg --all
+			treex './client/repo/.git/shallow'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_fetch~*_&]:block [#reference\_desk\_dispatcher\_example.git\_fetch\_set\_upstream~*_&]:block">
+	<h2 class="heading2"><span class="command">git fetch --set-upstream</span></h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			<h3 class="heading3">"refs to fetch from remote" is <span class="inline_code">refs/heads/*</span>, as there is no non-globbing ref, <span class="command">--set-upstream</span> has no effect</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git -C './server/repo.git' branch branch1; git -C './server/repo.git' branch branch2
+
+					git -C './client' init './repo'
+					git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+					git -C './client/repo' remote --verbose
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+
+					git -C './client/repo' fetch --set-upstream server
+					treex './client/repo/.git/FETCH_HEAD'
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">"refs to fetch from remote" is <span class="inline_code">refs/heads/*</span> <span class="command">branch1</span> <span class="command">branch2</span>, as there is more than one non-globbing ref, <span class="command">--set-upstream</span> has no effect</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git -C './server/repo.git' branch branch1; git -C './server/repo.git' branch branch2
+
+					git -C './client' init './repo'
+					git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+					git -C './client/repo' remote --verbose
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+
+					git -C './client/repo' fetch --set-upstream server branch1 branch2
+					treex './client/repo/.git/FETCH_HEAD'
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">"refs to fetch from remote" is <span class="inline_code">refs/heads/*</span> <span class="command">branch1</span>, current branch is set to track the only non-globbing ref</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git -C './server/repo.git' branch branch1; git -C './server/repo.git' branch branch2
+
+					git -C './client' init './repo'
+					git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+					git -C './client/repo' remote --verbose
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+
+					git -C './client/repo' fetch --set-upstream server branch1
+					treex './client/repo/.git/FETCH_HEAD'
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+
+					git -C './client/repo' fetch --set-upstream server refs/heads/branch2
+					treex './client/repo/.git/FETCH_HEAD'
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">without <span class="inline_code">remote.<span class="command">&lt;remote&gt;</span>.fetch</span> or <span class="command">&lt;refspecs&gt;</span>, "refs to fetch from remote" is <span class="inline_code">HEAD</span> (so current branch is set to track <span class="inline_code">HEAD</span>) (note that initially there is no "local refs to update")</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git -C './server/repo.git' branch branch1; git -C './server/repo.git' branch branch2
+
+					git -C './client' init './repo'
+					git -C './client/repo' remote --verbose
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+
+					git -C './client/repo' fetch --set-upstream 'file://'"$(realpath './server/repo.git')"
+					treex './client/repo/.git/FETCH_HEAD'
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+					git -C './client/repo' fetch
+					treex './client/repo/.git/FETCH_HEAD'
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+
+					git -C './client/repo' config set --local 'remote.''file://'"$(realpath './server/repo.git')"'.fetch' '+HEAD:refs/remotes/server/HEAD'
+					git -C './client/repo' fetch
+					treex './client/repo/.git/FETCH_HEAD'
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+
+					git -C './client/repo' config set --local --append 'remote.''file://'"$(realpath './server/repo.git')"'.fetch' '+refs/heads/*:refs/remotes/server/*'
+					git -C './client/repo' fetch
+					treex './client/repo/.git/FETCH_HEAD'
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_fetch~*_&]:block">
+	<h2 class="heading2"><span class="command">git fetch</span> remote to fetch from</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server1' init --bare './repo.git'
+			branch_default_name="$(git -C './server1/repo.git' branch --show-current)"; echo "$branch_default_name"
+			git -C './server2' init --bare './repo.git'
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server1/repo.git' --work-tree='.' checkout -b branch1
+			git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server2/repo.git' --work-tree='.' checkout -b branch2
+			git -C './client/repo' fetch
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' remote remove server1
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' fetch
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' branch --set-upstream-to='file://'"$(realpath './server1/repo.git')" "$branch_default_name"
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' config set --local 'branch.'"$branch_default_name"'.remote' 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' fetch
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+			awk 'BEGIN { ORS = "\0"; } { print $1; }' <'./client/repo/.git/FETCH_HEAD' | xargs --null git -C './client/repo' lg --all
+
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' config unset --local 'branch.'"$branch_default_name"'.remote'
+			git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' fetch server2
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' fetch 'file://'"$(realpath './server1/repo.git')"
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+			git -C './client/repo' lg --all FETCH_HEAD
+			awk 'BEGIN { ORS = "\0"; } { print $1; }' <'./client/repo/.git/FETCH_HEAD' | xargs --null git -C './client/repo' lg --all
+
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' fetch 'file://'"$(realpath './server1/repo.git')" "$branch_default_name" branch1
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+			git -C './client/repo' lg --all FETCH_HEAD
+			awk 'BEGIN { ORS = "\0"; } { print $1; }' <'./client/repo/.git/FETCH_HEAD' | xargs --null git -C './client/repo' lg --all
+
+			git --git-dir='./server1/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server2/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' fetch 'file://'"$(realpath './server1/repo.git')" branch1 "$branch_default_name"
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+			git -C './client/repo' lg --all FETCH_HEAD
+			awk 'BEGIN { ORS = "\0"; } { print $1; }' <'./client/repo/.git/FETCH_HEAD' | xargs --null git -C './client/repo' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_fetch~*_&]:block">
+	<h2 class="heading2"><span class="command">git fetch</span> refs to fetch from remote</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' checkout --orphan branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' checkout --orphan branch2; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' checkout --orphan branch3; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' checkout --orphan branch4; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' checkout --orphan branch5; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' checkout --orphan branch6; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' checkout --orphan branch7; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' checkout --orphan branch8; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' config unset --local 'remote.server.fetch'
+			git -C './client/repo' config list --local --show-scope --show-origin
+
+			git -C './client/repo' fetch server
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+			git -C './client/repo' lg --all FETCH_HEAD
+
+			git -C './client/repo' -c 'remote.server.fetch=+refs/heads/*' fetch server
+			git -C './client/repo' -c 'remote.server.fetch=+refs/heads/*:' fetch server
+			git -C './client/repo' -c 'remote.server.fetch=+refs/heads/*:refs/remotes/server/*' fetch server
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+
+			git --git-dir='./server/repo.git' --work-tree='.' checkout branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch2; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch3; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch4; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch5; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch6; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch7; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch8; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' -c 'remote.server.fetch=+branch1' -c 'remote.server.fetch=+branch2:' -c 'remote.server.fetch=+heads/branch3:' -c 'remote.server.fetch=+heads/branch4' -c 'remote.server.fetch=+refs/heads/branch5' -c 'remote.server.fetch=+refs/heads/branch6:' fetch server
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+			git -C './client/repo' lg --all FETCH_HEAD
+			awk 'BEGIN { ORS = "\0"; } { print $1; }' <'./client/repo/.git/FETCH_HEAD' | xargs --null git -C './client/repo' lg --all
+
+			git -C './client/repo' fetch server 'branch*'
+			git -C './client/repo' fetch server 'branch*:'
+			git -C './client/repo' fetch server 'heads/branch*'
+			git -C './client/repo' fetch server 'heads/branch*:'
+			git -C './client/repo' fetch server 'refs/heads/branch*'
+			git -C './client/repo' fetch server 'refs/heads/branch*:'
+
+			git --git-dir='./server/repo.git' --work-tree='.' checkout branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch2; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch3; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch4; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch5; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch6; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch7; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch8; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' -c 'remote.server.fetch=+refs/heads/branch1:refs/remotes/server/branch1' fetch server 'branch2' 'branch3:' 'heads/branch4:' 'heads/branch5' 'refs/heads/branch6' 'refs/heads/branch7:'
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+			git -C './client/repo' lg --all FETCH_HEAD
+			awk 'BEGIN { ORS = "\0"; } { print $1; }' <'./client/repo/.git/FETCH_HEAD' | xargs --null git -C './client/repo' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_fetch~*_&]:block">
+	<h2 class="heading2"><span class="command">git fetch</span> local refs to update</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' checkout --orphan branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' checkout --orphan branch2; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' config set --local --all 'remote.server.fetch' '+refs/heads/*:refs/remotes/server/*1'
+			git -C './client/repo' config set --local --append 'remote.server.fetch' '+refs/heads/*:refs/remotes/server/*2'
+			git -C './client/repo' config list --local --show-scope --show-origin
+
+			git -C './client/repo' fetch server
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+
+			git --git-dir='./server/repo.git' --work-tree='.' checkout branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch2; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' fetch server branch1
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+
+			git --git-dir='./server/repo.git' --work-tree='.' checkout branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch2; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' fetch server --refmap='+refs/heads/*:refs/remotes/server/*5' --refmap='+refs/heads/*:refs/remotes/server/*6' branch1
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+
+			git --git-dir='./server/repo.git' --work-tree='.' checkout branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch2; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' fetch server '+refs/heads/branch*:refs/remotes/server/branch*3' '+refs/heads/branch*:refs/remotes/server/branch*4'
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+
+			git --git-dir='./server/repo.git' --work-tree='.' checkout branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch2; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' fetch server --refmap='+refs/heads/*:refs/remotes/server/*5' --refmap='+refs/heads/*:refs/remotes/server/*6' '+refs/heads/branch*:refs/remotes/server/branch*3' '+refs/heads/branch*:refs/remotes/server/branch*4'
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+
+			git --git-dir='./server/repo.git' --work-tree='.' checkout branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch2; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' fetch server '+refs/heads/branch*:refs/remotes/server/branch*3' '+refs/heads/branch*:refs/remotes/server/branch*4' branch1
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+
+			git --git-dir='./server/repo.git' --work-tree='.' checkout branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch2; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' fetch server --refmap='+refs/heads/*:refs/remotes/server/*5' --refmap='+refs/heads/*:refs/remotes/server/*6' '+refs/heads/branch*:refs/remotes/server/branch*3' '+refs/heads/branch*:refs/remotes/server/branch*4' branch1
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+
+			git --git-dir='./server/repo.git' --work-tree='.' checkout branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch2; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' fetch server '+refs/heads/branch1:refs/remotes/server/branch13' branch1
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+
+			git --git-dir='./server/repo.git' --work-tree='.' checkout branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git --git-dir='./server/repo.git' --work-tree='.' checkout branch2; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' fetch server --refmap='+refs/heads/*:refs/remotes/server/*5' --refmap='+refs/heads/*:refs/remotes/server/*6' '+refs/heads/branch1:refs/remotes/server/branch13' branch1
+			treex './client/repo/.git/FETCH_HEAD'
+			git -C './client/repo' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

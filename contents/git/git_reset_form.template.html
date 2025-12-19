@@ -1,0 +1,239 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_reset~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_reset~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_reset')">git reset</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-reset">https://git-scm.com/docs/git-reset</a></p>
+	<p class="paragraph">Reset current <span class="inline_code">HEAD</span> to the specified state.</p>
+	<form id="git_reset_form">
+		<p>Choose an action to perform:</p>
+		<fieldset>
+			<legend>
+				<p>Copy entries from <span class="command">&lt;tree-ish&gt;</span> to the index.</p>
+				<div class="form_item"><input type="radio" id="git_reset_action_pathspec_list" name="git_reset_action" value="pathspec_list"><label for="git_reset_action_pathspec_list"><span class="command">[&lt;tree-ish&gt;] [--] &lt;pathspec&gt;...</span> Resets the index entries for all paths that match the <span class="command">&lt;pathspec&gt;</span> to their state at <span class="command">&lt;tree-ish&gt;</span>. (Does not affect the working tree or the current branch.)</label></div>
+				<div class="form_item"><input type="radio" id="git_reset_action_pathspec_from_file" name="git_reset_action" value="pathspec_from_file"><label for="git_reset_action_pathspec_from_file"><span class="command">--pathspec-from-file=&lt;file&gt; [--pathspec-file-nul] [&lt;tree-ish&gt;]</span> Resets the index entries for all paths that match the <span class="command">&lt;pathspec&gt;</span> to their state at <span class="command">&lt;tree-ish&gt;</span>. (Does not affect the working tree or the current branch.)</label></div>
+				<div class="form_item"><input type="radio" id="git_reset_action_patch" name="git_reset_action" value="patch"><label for="git_reset_action_patch"><span class="command">--patch [&lt;tree-ish&gt;] [--] [&lt;pathspec&gt;...]</span> Interactively selects hunks in the difference between the index and <span class="command">&lt;tree-ish&gt;</span>. The chosen hunks are applied in reverse to the index.</label></div>
+			</legend>
+			<div id="git_reset_pathspec_from_file" class="subform">
+				<p><span class="command">--pathspec-from-file=&lt;file&gt;</span> Pathspec is passed in <span class="command">&lt;file&gt;</span> instead of commandline args.</p>
+				<div class="form_item"><label for="git_reset_pathspec_from_file_file"><span class="command">&lt;file&gt;</span>:</label><textarea wrap="off" id="git_reset_pathspec_from_file_file" name="git_reset_pathspec_from_file_file" class="basis-0 grow command_input"></textarea></div>
+				<div class="form_item"><input type="checkbox" id="git_reset_has_pathspec_file_nul" name="git_reset_has_pathspec_file_nul"><label for="git_reset_has_pathspec_file_nul"><span class="command">--pathspec-file-nul</span> Pathspec elements are separated with NUL character and all other characters are taken literally (including newlines and quotes).</label></div>
+			</div>
+			<div class="form_item"><input type="checkbox" id="git_reset_has_treeish" name="git_reset_has_treeish"><label for="git_reset_has_treeish"><span class="command">&lt;tree-ish&gt;</span></label><label for="git_reset_treeish" class="hidden"><span class="command">&lt;tree-ish&gt;</span>:</label><textarea wrap="off" id="git_reset_treeish" name="git_reset_treeish" class="basis-0 grow command_input">HEAD</textarea></div>
+			<fieldset id="git_reset_pathspec_list_">
+				<legend><p><span class="command">&lt;pathspec&gt;...</span> Limits the paths affected by the operation.</p></legend>
+				<input id="git_reset_pathspec_list_add" type="button" value="Add">
+				<div id="git_reset_pathspec_list" class="subform"></div>
+				<script>
+					document.getElementById("git_reset_pathspec_list_add").addEventListener("click",function(e){
+						document.getElementById("git_reset_pathspec_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_reset_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_reset_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_reset_refresh();
+					})
+				</script>
+			</fieldset>
+
+			<p>(when <span class="command">--patch</span>:)</p>
+			<fieldset>
+				<legend><p>context lines and hunks:</p></legend>
+				<div class="form_item">
+					<input type="checkbox" id="git_reset_has_unified" name="git_reset_has_unified">
+					<div class="subform basis-0 grow">
+						<label for="git_reset_has_unified"><span class="command">--unified=&lt;n&gt;</span> Generate diffs with <span class="command">&lt;n&gt;</span> lines of context. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffcontext"><span class="inline_code">diff.context</span></a> which defaults to <span class="inline_code">3</span>.)</label>
+						<div class="form_item"><label for="git_reset_unified_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_reset_unified_n" name="git_reset_unified_n" class="basis-0 grow command_input" value="3"></div>
+					</div>
+				</div>
+				<div class="form_item">
+					<input type="checkbox" id="git_reset_has_inter_hunk_context" name="git_reset_has_inter_hunk_context">
+					<div class="subform basis-0 grow">
+						<label for="git_reset_has_inter_hunk_context"><span class="command">--inter-hunk-context=&lt;number&gt;</span> Show the context between diff hunks, up to the specified <span class="command">&lt;number&gt;</span> of lines, thereby fusing hunks that are close to each other. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffinterHunkContext"><span class="inline_code">diff.interHunkContext</span></a> which defaults to <span class="inline_code">0</span>.)</label>
+						<div class="form_item"><label for="git_reset_inter_hunk_context_number"><span class="command">&lt;number&gt;</span>:</label><input type="text" id="git_reset_inter_hunk_context_number" name="git_reset_inter_hunk_context_number" class="basis-0 grow command_input" value="0"></div>
+					</div>
+				</div>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend>
+				<div class="form_item"><input type="radio" id="git_reset_action_mode_commit" name="git_reset_action" value="mode_commit" checked><label for="git_reset_action_mode_commit"><span class="command">&lt;mode&gt; [&lt;commit&gt;]</span> Resets the current branch head to <span class="command">&lt;commit&gt;</span> and possibly updates the index (resetting it to the tree of <span class="command">&lt;commit&gt;</span>) and the working tree depending on <span class="command">&lt;mode&gt;</span>.</label></div>
+			</legend>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_reset\_soft~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_reset_soft')"><input type="radio" id="git_reset_mode_soft" name="git_reset_mode" value="soft"><label for="git_reset_mode_soft"><span class="command">--soft</span> Does not touch the index file or the working tree at all (but resets the head to <span class="command">&lt;commit&gt;</span>, just like all modes do).</label></div>
+			<fieldset>
+				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_reset\_mixed~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_reset_mixed')">
+					<div class="form_item"><input type="radio" id="git_reset_mode_mixed" name="git_reset_mode" value="mixed" checked><label for="git_reset_mode_mixed"><span class="command">--mixed</span> Resets the index but not the working tree (i.e., the changed files are preserved but not marked for commit) and reports what has not been updated.</label></div>
+				</legend>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_reset\_intent\_to\_add~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_reset_intent_to_add')"><input type="checkbox" id="git_reset_has_intent_to_add" name="git_reset_has_intent_to_add"><label for="git_reset_has_intent_to_add"><span class="command">--intent-to-add</span> Removed paths are marked as intent-to-add.</label></div>
+				<div class="form_item"><input type="radio" id="git_reset_refresh_no_option" name="git_reset_refresh" value="" checked><label for="git_reset_refresh_no_option">(Defaults to <span class="command">--refresh</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_reset_refresh_has_refresh" name="git_reset_refresh" value="true"><label for="git_reset_refresh_has_refresh"><span class="command">--refresh</span> Refresh the index after a mixed reset.</label></div>
+				<div class="form_item"><input type="radio" id="git_reset_refresh_has_no_refresh" name="git_reset_refresh" value="false"><label for="git_reset_refresh_has_no_refresh"><span class="command">--no-refresh</span></label></div>
+			</fieldset>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_reset\_hard~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_reset_hard')"><input type="radio" id="git_reset_mode_hard" name="git_reset_mode" value="hard"><label for="git_reset_mode_hard"><span class="command">--hard</span> Resets the index and working tree. Any changes to tracked files in the working tree since <span class="command">&lt;commit&gt;</span> are discarded. Any untracked files or directories in the way of writing any tracked files are simply deleted.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_reset\_keep~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_reset_keep')"><input type="radio" id="git_reset_mode_keep" name="git_reset_mode" value="keep"><label for="git_reset_mode_keep"><span class="command">--keep</span> Resets index entries and updates files in the working tree that are different between <span class="command">&lt;commit&gt;</span> and <span class="inline_code">HEAD</span>. If a file that is different between <span class="command">&lt;commit&gt;</span> and <span class="inline_code">HEAD</span> has local changes, reset is aborted.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_reset\_merge~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_reset_merge')"><input type="radio" id="git_reset_mode_merge" name="git_reset_mode" value="merge"><label for="git_reset_mode_merge"><span class="command">--merge</span> Resets the index and updates the files in the working tree that are different between <span class="command">&lt;commit&gt;</span> and <span class="inline_code">HEAD</span>, but keeps those which are different between the index and working tree (i.e. which have changes which have not been added). If a file that is different between <span class="command">&lt;commit&gt;</span> and the index has unstaged changes, reset is aborted.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_reset_recurse_submodules_no_option" name="git_reset_recurse_submodules" value="" checked><label for="git_reset_recurse_submodules_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulerecurse"><span class="inline_code">submodule.recurse</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_reset_recurse_submodules_has_recurse_submodules" name="git_reset_recurse_submodules" value="true"><label for="git_reset_recurse_submodules_has_recurse_submodules"><span class="command">--recurse-submodules</span> When the working tree is updated, also recursively reset the working tree of all active submodules according to the commit recorded in the superproject, also setting the submodules' <span class="inline_code">HEAD</span> to be detached at that commit.</label></div>
+			<div class="form_item"><input type="radio" id="git_reset_recurse_submodules_has_no_recurse_submodules" name="git_reset_recurse_submodules" value="false"><label for="git_reset_recurse_submodules_has_no_recurse_submodules"><span class="command">--no-recurse-submodules</span></label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="checkbox" id="git_reset_has_commit" name="git_reset_has_commit"><label for="git_reset_has_commit"><span class="command">&lt;commit&gt;</span></label><label for="git_reset_commit" class="hidden"><span class="command">&lt;commit&gt;</span>:</label><textarea wrap="off" id="git_reset_commit" name="git_reset_commit" class="basis-0 grow command_input">HEAD</textarea></div>
+		</fieldset>
+		<div class="form_item"><input type="checkbox" id="git_reset_has_quiet" name="git_reset_has_quiet"><label for="git_reset_has_quiet"><span class="command">--quiet</span> Be quiet, only report errors.</label></div>
+	</form>
+	<textarea readonly wrap="off" id="git_reset_command" name="git_reset_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_reset_refresh(){
+			document.getElementById("git_reset_action_pathspec_list").closest("fieldset").disabled = !(document.getElementById("git_reset_action_pathspec_list").checked || document.getElementById("git_reset_action_pathspec_from_file").checked || document.getElementById("git_reset_action_patch").checked);
+			document.getElementById("git_reset_pathspec_list_").classList.toggle("hidden", !(document.getElementById("git_reset_action_pathspec_list").checked || document.getElementById("git_reset_action_patch").checked));
+			document.getElementById("git_reset_pathspec_from_file").classList.toggle("hidden", !document.getElementById("git_reset_action_pathspec_from_file").checked);
+			document.getElementById("git_reset_treeish").disabled = !document.getElementById("git_reset_has_treeish").checked;
+			document.getElementById("git_reset_has_unified").closest("fieldset").disabled = !document.getElementById("git_reset_action_patch").checked;
+			document.getElementById("git_reset_unified_n").disabled = !document.getElementById("git_reset_has_unified").checked;
+			document.getElementById("git_reset_inter_hunk_context_number").disabled = !document.getElementById("git_reset_has_inter_hunk_context").checked;
+
+			document.getElementById("git_reset_action_mode_commit").closest("fieldset").disabled = !document.getElementById("git_reset_action_mode_commit").checked;
+			document.getElementById("git_reset_mode_mixed").closest("fieldset").disabled = !document.getElementById("git_reset_mode_mixed").checked;
+			document.getElementById("git_reset_commit").disabled = !document.getElementById("git_reset_has_commit").checked;
+
+			document.getElementById("git_reset_has_quiet").disabled = !(document.getElementById("git_reset_action_pathspec_list").checked || document.getElementById("git_reset_action_pathspec_from_file").checked || document.getElementById("git_reset_action_mode_commit").checked);
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("reset");
+
+			let form_data = new FormData(document.getElementById("git_reset_form"));
+			switch(form_data.get("git_reset_action")){
+				case "pathspec_list":
+					if(form_data.get("git_reset_has_quiet"))
+						command_components.push("--quiet");
+
+					if(form_data.get("git_reset_has_treeish")){
+						command_components.push("--end-of-options");
+						let element_value = form_data.get("git_reset_treeish"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_reset_treeish").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+
+					command_components.push("--");
+					Array.from(document.getElementById("git_reset_pathspec_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "pathspec_from_file":
+					if(form_data.get("git_reset_has_quiet"))
+						command_components.push("--quiet");
+
+					let element_value = form_data.get("git_reset_pathspec_from_file_file"), element_has_error = element_value.length == 0;
+					command_components.push("--pathspec-from-file=" + shell_quote(element_value));
+					document.getElementById("git_reset_pathspec_from_file_file").classList.toggle("error_input", element_has_error);
+					has_error ||= element_has_error;
+					if(form_data.get("git_reset_has_pathspec_file_nul"))
+						command_components.push("--pathspec-file-nul");
+
+					if(form_data.get("git_reset_has_treeish")){
+						command_components.push("--end-of-options");
+						let element_value = form_data.get("git_reset_treeish"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_reset_treeish").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "patch":
+					command_components.push("--patch");
+					if(form_data.get("git_reset_has_unified")){
+						let element_value = form_data.get("git_reset_unified_n"), element_has_error = element_value.length == 0;
+						command_components.push("--unified=" + shell_quote(element_value));
+						document.getElementById("git_reset_unified_n").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_reset_has_inter_hunk_context")){
+						let element_value = form_data.get("git_reset_inter_hunk_context_number"), element_has_error = element_value.length == 0;
+						command_components.push("--inter-hunk-context=" + shell_quote(element_value));
+						document.getElementById("git_reset_inter_hunk_context_number").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+
+					if(form_data.get("git_reset_has_treeish")){
+						command_components.push("--end-of-options");
+						let element_value = form_data.get("git_reset_treeish"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_reset_treeish").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+
+					if(form_data.get("git_reset_has_treeish") || Array.from(document.getElementById("git_reset_pathspec_list").querySelectorAll("textarea:enabled")).length != 0)
+						command_components.push("--");
+					Array.from(document.getElementById("git_reset_pathspec_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "mode_commit":
+					switch(form_data.get("git_reset_mode")){
+						case "soft":
+							command_components.push("--soft");
+							break;
+						case "mixed":
+							command_components.push("--mixed");
+							if(form_data.get("git_reset_has_intent_to_add"))
+								command_components.push("--intent-to-add");
+							switch(form_data.get("git_reset_refresh")){
+								case "false":
+									command_components.push("--no-refresh");
+									break;
+								case "true":
+									command_components.push("--refresh");
+									break;
+							}
+							break;
+						case "hard":
+							command_components.push("--hard");
+							break;
+						case "keep":
+							command_components.push("--keep");
+							break;
+						case "merge":
+							command_components.push("--merge");
+							break;
+					}
+					switch(form_data.get("git_reset_recurse_submodules")){
+						case "false":
+							command_components.push("--no-recurse-submodules");
+							break;
+						case "true":
+							command_components.push("--recurse-submodules");
+							break;
+					}
+					if(form_data.get("git_reset_has_quiet"))
+						command_components.push("--quiet");
+
+					if(form_data.get("git_reset_has_commit")){
+						command_components.push("--end-of-options");
+						let element_value = form_data.get("git_reset_commit"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_reset_commit").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+			}
+
+			let git_reset_command = document.getElementById("git_reset_command");
+			git_reset_command.classList.toggle("error_output", has_error);
+			git_reset_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_reset_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_reset_refresh);
+		});
+		Array.from(document.getElementById("git_reset_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_reset_refresh);
+		});
+	</script>
+</div>

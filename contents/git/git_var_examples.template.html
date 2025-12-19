@@ -1,0 +1,13 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_var~*_&]:block">
+	<h2 class="heading2"><span class="command">git var</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git var -l
+			git var GIT_CONFIG_SYSTEM
+			git var GIT_CONFIG_GLOBAL
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
