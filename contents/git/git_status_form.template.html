@@ -60,17 +60,17 @@
 						<label for="git_status_has_untracked_files"><span class="command">--untracked-files<input type="checkbox" id="git_status_untracked_files_has_argument" name="git_status_untracked_files_has_argument"><label for="git_status_untracked_files_has_argument">[=(<input type="radio" id="git_status_untracked_files_mode_no" name="git_status_untracked_files_mode" value="no"><label for="git_status_untracked_files_mode_no">no</label>|<input type="radio" id="git_status_untracked_files_mode_normal" name="git_status_untracked_files_mode" value="normal"><label for="git_status_untracked_files_mode_normal">normal</label>|<input type="radio" id="git_status_untracked_files_mode_all" name="git_status_untracked_files_mode" value="all" checked><label for="git_status_untracked_files_mode_all">all</label>)]</label></span> Show untracked files. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-statusshowUntrackedFiles"><span class="inline_code">status.showUntrackedFiles</span></a> which defaults to <span class="inline_code">normal</span>.)<br>
 							<div class="ml-[1em]">
 								<span class="command">no</span> Show no untracked files.<br>
-								<span class="command">normal</span> Shows untracked files and directories.<br>
-								<span class="command">all</span> Also shows individual files in untracked directories..<br>
+								<span class="command">normal</span> Show untracked files and directories.<br>
+								<span class="command">all</span> Also show individual files in untracked directories.<br>
 							</div></label>
 					</div>
 				</div>
 
 				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_status\_ignored~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_status_ignored')"><input type="checkbox" id="git_status_has_ignored" name="git_status_has_ignored"><label for="git_status_has_ignored"><span class="command">--ignored<input type="checkbox" id="git_status_ignored_has_argument" name="git_status_ignored_has_argument"><label for="git_status_ignored_has_argument">[=(<input type="radio" id="git_status_ignored_mode_traditional" name="git_status_ignored_mode" value="traditional" checked><label for="git_status_ignored_mode_traditional">traditional</label>|<input type="radio" id="git_status_ignored_mode_no" name="git_status_ignored_mode" value="no"><label for="git_status_ignored_mode_no">no</label>|<input type="radio" id="git_status_ignored_mode_matching" name="git_status_ignored_mode" value="matching"><label for="git_status_ignored_mode_matching">matching</label>)]</label></span> Show ignored files as well.<br>
 					<div class="ml-[1em]">
-						<span class="command">traditional</span> Shows ignored files and directories, unless <span class="command">--untracked-files=all</span> is specified, in which case individual files in ignored directories are displayed.<br>
+						<span class="command">traditional</span> Show ignored files and directories, unless <span class="command">--untracked-files=all</span> is specified, in which case individual files in ignored directories are displayed.<br>
 						<span class="command">no</span> Show no ignored files.<br>
-						<span class="command">matching</span> Shows ignored files and directories matching an ignore pattern.<br>
+						<span class="command">matching</span> Show ignored files and directories matching an ignore pattern.<br>
 					</div></label></div>
 
 				<div class="form_item"><input type="radio" id="git_status_column_no_option" name="git_status_column" value="no_option" checked><label for="git_status_column_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-columnstatus"><span class="inline_code">column.status</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-columnui"><span class="inline_code">column.ui</span></a> which defaults to <span class="inline_code">never,column,nodense</span>.)</label></div>
@@ -101,7 +101,7 @@
 		</fieldset>
 
 		<fieldset>
-			<legend><p><span class="command">&lt;pathspec&gt;…</span></p></legend>
+			<legend><p><span class="command">&lt;pathspec&gt;...</span></p></legend>
 			<input id="git_status_pathspec_list_add" type="button" value="Add">
 			<div id="git_status_pathspec_list" class="subform"></div>
 			<script>

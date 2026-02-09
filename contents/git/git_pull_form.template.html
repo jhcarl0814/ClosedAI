@@ -130,7 +130,7 @@
 				<div class="form_item">
 					<input type="checkbox" id="git_pull_has_jobs" name="git_pull_has_jobs">
 					<div class="subform basis-0 grow">
-						<label for="git_pull_has_jobs"><span class="command">--jobs=&lt;n&gt;</span> Number of parallel children to be used for all forms of fetching. (For <span class="command">--multiple</span>, defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchparallel"><span class="inline_code">fetch.parallel</span></a> which defaults to <span class="inline_code">1</span>.) (For multiple submodules, defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulefetchJobs"><span class="inline_code">submodule.fetchJobs</span></a> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchparallel"><span class="inline_code">fetch.parallel</span></a> which defaults to <span class="inline_code">1</span>.)</label>
+						<label for="git_pull_has_jobs"><span class="command">--jobs=&lt;n&gt;</span> Parallelize all forms of fetching up to <span class="command">&lt;n&gt;</span> jobs at a time. (For <span class="command">--multiple</span>, defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchparallel"><span class="inline_code">fetch.parallel</span></a> which defaults to <span class="inline_code">1</span>.) (For multiple submodules, defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulefetchJobs"><span class="inline_code">submodule.fetchJobs</span></a> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchparallel"><span class="inline_code">fetch.parallel</span></a> which defaults to <span class="inline_code">1</span>.)</label>
 						<div class="form_item"><label for="git_pull_jobs_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_pull_jobs_n" name="git_pull_jobs_n" class="basis-0 grow command_input" value="1"></div>
 					</div>
 				</div>
@@ -235,7 +235,7 @@
 				</fieldset>
 
 				<fieldset>
-					<legend><p><span class="command">--negotiation-tip=&lt;commit|glob&gt;</span> By default, Git will report, to the server, commits reachable from all local refs to find common commits in an attempt to reduce the size of the to-be-received packfile. Only report commits reachable from the given tips. If specified more than once, report commits reachable from any of the given commits.</p></legend>
+					<legend><p><span class="command">--negotiation-tip=(&lt;commit&gt;|&lt;glob&gt;)</span> By default, Git will report, to the server, commits reachable from all local refs to find common commits in an attempt to reduce the size of the to-be-received packfile. Only report commits reachable from the given tips. If specified more than once, report commits reachable from any of the given commits.</p></legend>
 					<input id="git_pull_negotiation_tip_list_add" type="button" value="Add">
 					<div id="git_pull_negotiation_tip_list" class="subform"></div>
 					<script>
@@ -252,7 +252,7 @@
 						})
 					</script>
 				</fieldset>
-				<div class="form_item"><input type="checkbox" id="git_pull_has_negotiation_only" name="git_pull_has_negotiation_only"><label for="git_pull_has_negotiation_only"><span class="command">--negotiation-only</span> Do not fetch anything from the server, and instead print the ancestors of the provided <span class="command">--negotiation-tip=*</span> arguments, which we have in common with the server. <span id="git_pull_negotiation_only_recurse_submodules_yes_on_demand_warning">(Incompatible with <span class="command">--recurse-submodules[=(yes|on-demand)]</span>.)</span></label></div>
+				<div class="form_item"><input type="checkbox" id="git_pull_has_negotiation_only" name="git_pull_has_negotiation_only"><label for="git_pull_has_negotiation_only"><span class="command">--negotiation-only</span> Do not fetch anything from the server, and instead print the ancestors of the provided <span class="command">--negotiation-tip=</span> arguments, which we have in common with the server. <span id="git_pull_negotiation_only_recurse_submodules_yes_on_demand_warning">(Incompatible with <span class="command">--recurse-submodules=(yes|on-demand)</span>.)</span></label></div>
 			</fieldset>
 
 			<fieldset>
@@ -276,7 +276,7 @@
 			<fieldset>
 				<legend><p>output:</p></legend>
 				<div class="form_item"><input type="radio" id="git_pull_output_no_option" name="git_pull_output" value="no_option" checked><label for="git_pull_output_no_option"></label></div>
-				<div class="form_item"><input type="radio" id="git_pull_output_porcelain" name="git_pull_output" value="porcelain"><label for="git_pull_output_porcelain"><span class="command">--porcelain</span> Print the output to standard output in an easy-to-parse format for scripts. <span id="git_pull_porcelain_recurse_submodules_yes_on_demand_warning">(Incompatible with <span class="command">--recurse-submodules[=(yes|on-demand)]</span>.)</span></label></div>
+				<div class="form_item"><input type="radio" id="git_pull_output_porcelain" name="git_pull_output" value="porcelain"><label for="git_pull_output_porcelain"><span class="command">--porcelain</span> Print the output to standard output in an easy-to-parse format for scripts. <span id="git_pull_porcelain_recurse_submodules_yes_on_demand_warning">(Incompatible with <span class="command">--recurse-submodules=(yes|on-demand)</span>.)</span></label></div>
 
 				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 				<div class="form_item"><input type="radio" id="git_pull_show_forced_updates_no_option" name="git_pull_show_forced_updates" value="" checked><label for="git_pull_show_forced_updates_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchshowForcedUpdates"><span class="inline_code">fetch.showForcedUpdates</span></a> which defaults to <span class="inline_code">true</span>.)</label></div>

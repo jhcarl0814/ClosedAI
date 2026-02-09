@@ -136,19 +136,19 @@
 			<div class="form_item">
 				<input type="checkbox" id="git_fetch_has_jobs" name="git_fetch_has_jobs">
 				<div class="subform basis-0 grow">
-					<label for="git_fetch_has_jobs"><span class="command">--jobs=&lt;n&gt;</span> Number of parallel children to be used for all forms of fetching. (For <span class="command">--multiple</span>, defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchparallel"><span class="inline_code">fetch.parallel</span></a> which defaults to <span class="inline_code">1</span>.) (For multiple submodules, defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulefetchJobs"><span class="inline_code">submodule.fetchJobs</span></a> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchparallel"><span class="inline_code">fetch.parallel</span></a> which defaults to <span class="inline_code">1</span>.)</label>
+					<label for="git_fetch_has_jobs"><span class="command">--jobs=&lt;n&gt;</span> Parallelize all forms of fetching up to <span class="command">&lt;n&gt;</span> jobs at a time. (For <span class="command">--multiple</span>, defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchparallel"><span class="inline_code">fetch.parallel</span></a> which defaults to <span class="inline_code">1</span>.) (For multiple submodules, defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulefetchJobs"><span class="inline_code">submodule.fetchJobs</span></a> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchparallel"><span class="inline_code">fetch.parallel</span></a> which defaults to <span class="inline_code">1</span>.)</label>
 					<div class="form_item"><label for="git_fetch_jobs_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_fetch_jobs_n" name="git_fetch_jobs_n" class="basis-0 grow command_input" value="1"></div>
 				</div>
 			</div>
 			<div class="form_item"><input type="radio" id="git_fetch_recurse_submodules_no_option" name="git_fetch_recurse_submodules" value="no_option" checked><label for="git_fetch_recurse_submodules_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulenamefetchRecurseSubmodules"><span class="inline_code">submodule.<span class="command">&lt;name&gt;</span>.fetchRecurseSubmodules</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchrecurseSubmodules"><span class="inline_code">fetch.recurseSubmodules</span></a> (which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulerecurse"><span class="inline_code">submodule.recurse</span></a>) / <span class="inline_code">on-demand</span>.)</label></div>
-			<div class="form_item"><input type="radio" id="git_fetch_recurse_submodules_recurse_submodules" name="git_fetch_recurse_submodules" value="recurse_submodules"><label for="git_fetch_recurse_submodules_recurse_submodules"><span class="command">--recurse-submodules<input type="checkbox" id="git_fetch_recurse_submodules_recurse_submodules_has_argument" name="git_fetch_recurse_submodules_recurse_submodules_has_argument"><label for="git_fetch_recurse_submodules_recurse_submodules_has_argument">[=(<input type="radio" id="git_fetch_recurse_submodules_mode_yes" name="git_fetch_recurse_submodules_mode" value="yes" checked><label for="git_fetch_recurse_submodules_mode_yes">yes</label>|<input type="radio" id="git_fetch_recurse_submodules_mode_on_demand" name="git_fetch_recurse_submodules_mode" value="on_demand"><label for="git_fetch_recurse_submodules_mode_on_demand">on-demand</label>|<input type="radio" id="git_fetch_recurse_submodules_mode_no" name="git_fetch_recurse_submodules_mode" value="no"><label for="git_fetch_recurse_submodules_mode_no">no</label>)]</label></span> Controls if and under what conditions new commits of submodules should be fetched too.<br>
+			<div class="form_item"><input type="radio" id="git_fetch_recurse_submodules_recurse_submodules" name="git_fetch_recurse_submodules" value="recurse_submodules"><label for="git_fetch_recurse_submodules_recurse_submodules"><span class="command">--recurse-submodules<input type="checkbox" id="git_fetch_recurse_submodules_recurse_submodules_has_argument" name="git_fetch_recurse_submodules_recurse_submodules_has_argument"><label for="git_fetch_recurse_submodules_recurse_submodules_has_argument">[=(<input type="radio" id="git_fetch_recurse_submodules_mode_yes" name="git_fetch_recurse_submodules_mode" value="yes" checked><label for="git_fetch_recurse_submodules_mode_yes">yes</label>|<input type="radio" id="git_fetch_recurse_submodules_mode_on_demand" name="git_fetch_recurse_submodules_mode" value="on_demand"><label for="git_fetch_recurse_submodules_mode_on_demand">on-demand</label>|<input type="radio" id="git_fetch_recurse_submodules_mode_no" name="git_fetch_recurse_submodules_mode" value="no"><label for="git_fetch_recurse_submodules_mode_no">no</label>)]</label></span> Control if and under what conditions new commits of submodules should be fetched too.<br>
 				<div class="ml-[1em]">
 					<span class="command">on-demand</span> Only populated (is cloned e.g. by <span class="command">git submodule update</span> so is present locally e.g. in <span class="inline_code">$GIT_DIR/modules/</span>) and changed (a submodule that has commits that are referenced by a newly fetched superproject commit but are missing in the local submodule clone) submodules are fetched.<br>
 					<span class="command">yes</span> All populated submodules are fetched and submodules that are both unpopulated and changed are fetched.<br>
 					<span class="command">no</span> Submodules are never fetched.<br>
 				</div></label></div>
 			<div class="form_item"><input type="radio" id="git_fetch_recurse_submodules_no_recurse_submodules" name="git_fetch_recurse_submodules" value="no_recurse_submodules"><label for="git_fetch_recurse_submodules_no_recurse_submodules"><span class="command">--no-recurse-submodules</span> Disable recursive fetching of submodules (has the same effect as using the <span class="command">--recurse-submodules=no</span> option).</label></div>
-			<div class="form_item"><input type="checkbox" id="git_fetch_has_recurse_submodules_default" name="git_fetch_has_recurse_submodules_default"><label for="git_fetch_has_recurse_submodules_default"><span class="command">--recurse-submodules-default<input type="checkbox" id="git_fetch_recurse_submodules_default_has_argument" name="git_fetch_recurse_submodules_default_has_argument"><label for="git_fetch_recurse_submodules_default_has_argument">[=(<input type="radio" id="git_fetch_recurse_submodules_default_mode_yes" name="git_fetch_recurse_submodules_default_mode" value="yes" checked><label for="git_fetch_recurse_submodules_default_mode_yes">yes</label>|<input type="radio" id="git_fetch_recurse_submodules_default_mode_on_demand" name="git_fetch_recurse_submodules_default_mode" value="on_demand"><label for="git_fetch_recurse_submodules_default_mode_on_demand">on-demand</label>)]</label></span> Is used internally to temporarily provide a non-negative default value for the <span class="command">--recurse-submodules</span> option.</label></div>
+			<div class="form_item"><input type="checkbox" id="git_fetch_has_recurse_submodules_default" name="git_fetch_has_recurse_submodules_default"><label for="git_fetch_has_recurse_submodules_default"><span class="command">--recurse-submodules-default=(<input type="radio" id="git_fetch_recurse_submodules_default_mode_yes" name="git_fetch_recurse_submodules_default_mode" value="yes" checked><label for="git_fetch_recurse_submodules_default_mode_yes">yes</label>|<input type="radio" id="git_fetch_recurse_submodules_default_mode_on_demand" name="git_fetch_recurse_submodules_default_mode" value="on_demand"><label for="git_fetch_recurse_submodules_default_mode_on_demand">on-demand</label>)</span> Is used internally to temporarily provide a non-negative default value for the <span class="command">--recurse-submodules</span> option.</label></div>
 		</fieldset>
 
 		<fieldset>
@@ -254,7 +254,7 @@
 			</fieldset>
 
 			<fieldset>
-				<legend><p><span class="command">--negotiation-tip=&lt;commit|glob&gt;</span> By default, Git will report, to the server, commits reachable from all local refs to find common commits in an attempt to reduce the size of the to-be-received packfile. Only report commits reachable from the given tips. If specified more than once, report commits reachable from any of the given commits.</p></legend>
+				<legend><p><span class="command">--negotiation-tip=(&lt;commit&gt;|&lt;glob&gt;)</span> By default, Git will report, to the server, commits reachable from all local refs to find common commits in an attempt to reduce the size of the to-be-received packfile. Only report commits reachable from the given tips. If specified more than once, report commits reachable from any of the given commits.</p></legend>
 				<input id="git_fetch_negotiation_tip_list_add" type="button" value="Add">
 				<div id="git_fetch_negotiation_tip_list" class="subform"></div>
 				<script>
@@ -271,7 +271,7 @@
 					})
 				</script>
 			</fieldset>
-			<div class="form_item"><input type="checkbox" id="git_fetch_has_negotiation_only" name="git_fetch_has_negotiation_only"><label for="git_fetch_has_negotiation_only"><span class="command">--negotiation-only</span> Do not fetch anything from the server, and instead print the ancestors of the provided <span class="command">--negotiation-tip=*</span> arguments, which we have in common with the server. <span id="git_fetch_negotiation_only_recurse_submodules_yes_on_demand_warning">(Incompatible with <span class="command">--recurse-submodules[=(yes|on-demand)]</span>.)</span></label></div>
+			<div class="form_item"><input type="checkbox" id="git_fetch_has_negotiation_only" name="git_fetch_has_negotiation_only"><label for="git_fetch_has_negotiation_only"><span class="command">--negotiation-only</span> Do not fetch anything from the server, and instead print the ancestors of the provided <span class="command">--negotiation-tip=</span> arguments, which we have in common with the server. <span id="git_fetch_negotiation_only_recurse_submodules_yes_on_demand_warning">(Incompatible with <span class="command">--recurse-submodules=(yes|on-demand)</span>.)</span></label></div>
 		</fieldset>
 
 		<fieldset>
@@ -295,7 +295,7 @@
 		<fieldset>
 			<legend><p>output:</p></legend>
 			<div class="form_item"><input type="radio" id="git_fetch_output_no_option" name="git_fetch_output" value="no_option" checked><label for="git_fetch_output_no_option"></label></div>
-			<div class="form_item"><input type="radio" id="git_fetch_output_porcelain" name="git_fetch_output" value="porcelain"><label for="git_fetch_output_porcelain"><span class="command">--porcelain</span> Print the output to standard output in an easy-to-parse format for scripts. <span id="git_fetch_porcelain_recurse_submodules_yes_on_demand_warning">(Incompatible with <span class="command">--recurse-submodules[=(yes|on-demand)]</span>.)</span></label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_output_porcelain" name="git_fetch_output" value="porcelain"><label for="git_fetch_output_porcelain"><span class="command">--porcelain</span> Print the output to standard output in an easy-to-parse format for scripts. <span id="git_fetch_porcelain_recurse_submodules_yes_on_demand_warning">(Incompatible with <span class="command">--recurse-submodules=(yes|on-demand)</span>.)</span></label></div>
 
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 			<div class="form_item"><input type="radio" id="git_fetch_show_forced_updates_no_option" name="git_fetch_show_forced_updates" value="" checked><label for="git_fetch_show_forced_updates_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchshowForcedUpdates"><span class="inline_code">fetch.showForcedUpdates</span></a> which defaults to <span class="inline_code">true</span>.)</label></div>
@@ -327,9 +327,8 @@
 			document.getElementById("git_fetch_recurse_submodules_mode_on_demand").disabled = !(document.getElementById("git_fetch_recurse_submodules_recurse_submodules").checked && document.getElementById("git_fetch_recurse_submodules_recurse_submodules_has_argument").checked);
 			document.getElementById("git_fetch_recurse_submodules_mode_no").disabled = !(document.getElementById("git_fetch_recurse_submodules_recurse_submodules").checked && document.getElementById("git_fetch_recurse_submodules_recurse_submodules_has_argument").checked);
 
-			document.getElementById("git_fetch_recurse_submodules_default_has_argument").disabled = !document.getElementById("git_fetch_has_recurse_submodules_default").checked;
-			document.getElementById("git_fetch_recurse_submodules_default_mode_yes").disabled = !(document.getElementById("git_fetch_has_recurse_submodules_default").checked && document.getElementById("git_fetch_recurse_submodules_default_has_argument").checked);
-			document.getElementById("git_fetch_recurse_submodules_default_mode_on_demand").disabled = !(document.getElementById("git_fetch_has_recurse_submodules_default").checked && document.getElementById("git_fetch_recurse_submodules_default_has_argument").checked);
+			document.getElementById("git_fetch_recurse_submodules_default_mode_yes").disabled = !document.getElementById("git_fetch_has_recurse_submodules_default").checked;
+			document.getElementById("git_fetch_recurse_submodules_default_mode_on_demand").disabled = !document.getElementById("git_fetch_has_recurse_submodules_default").checked;
 
 			document.getElementById("git_fetch_depth_depth").disabled = !document.getElementById("git_fetch_has_depth").checked;
 			document.getElementById("git_fetch_deepen_depth").disabled = !document.getElementById("git_fetch_has_deepen").checked;
@@ -450,18 +449,13 @@
 					break;
 			}
 			if(form_data.get("git_fetch_has_recurse_submodules_default")){
-				if(form_data.get("git_fetch_recurse_submodules_default_has_argument")){
-					switch(form_data.get("git_fetch_recurse_submodules_default_mode")){
-						case "yes":
-							command_components.push("--recurse-submodules-default=yes");
-							break;
-						case "on_demand":
-							command_components.push("--recurse-submodules-default=on-demand");
-							break;
-					}
-				}
-				else{
-					command_components.push("--recurse-submodules-default");
+				switch(form_data.get("git_fetch_recurse_submodules_default_mode")){
+					case "yes":
+						command_components.push("--recurse-submodules-default=yes");
+						break;
+					case "on_demand":
+						command_components.push("--recurse-submodules-default=on-demand");
+						break;
 				}
 			}
 			if(form_data.get("git_fetch_has_update_head_ok"))

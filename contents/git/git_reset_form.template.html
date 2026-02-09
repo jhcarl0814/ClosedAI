@@ -1,15 +1,15 @@
 <div class="hidden [#reference\_desk\_dispatcher\_form.git\_reset~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
 	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_reset~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_reset')">git reset</span></h1>
 	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-reset">https://git-scm.com/docs/git-reset</a></p>
-	<p class="paragraph">Reset current <span class="inline_code">HEAD</span> to the specified state.</p>
+	<p class="paragraph">Set <span class="inline_code">HEAD</span> or the index to a known state.</p>
 	<form id="git_reset_form">
 		<p>Choose an action to perform:</p>
 		<fieldset>
 			<legend>
-				<p>Copy entries from <span class="command">&lt;tree-ish&gt;</span> to the index.</p>
-				<div class="form_item"><input type="radio" id="git_reset_action_pathspec_list" name="git_reset_action" value="pathspec_list"><label for="git_reset_action_pathspec_list"><span class="command">[&lt;tree-ish&gt;] [--] &lt;pathspec&gt;...</span> Resets the index entries for all paths that match the <span class="command">&lt;pathspec&gt;</span> to their state at <span class="command">&lt;tree-ish&gt;</span>. (Does not affect the working tree or the current branch.)</label></div>
-				<div class="form_item"><input type="radio" id="git_reset_action_pathspec_from_file" name="git_reset_action" value="pathspec_from_file"><label for="git_reset_action_pathspec_from_file"><span class="command">--pathspec-from-file=&lt;file&gt; [--pathspec-file-nul] [&lt;tree-ish&gt;]</span> Resets the index entries for all paths that match the <span class="command">&lt;pathspec&gt;</span> to their state at <span class="command">&lt;tree-ish&gt;</span>. (Does not affect the working tree or the current branch.)</label></div>
-				<div class="form_item"><input type="radio" id="git_reset_action_patch" name="git_reset_action" value="patch"><label for="git_reset_action_patch"><span class="command">--patch [&lt;tree-ish&gt;] [--] [&lt;pathspec&gt;...]</span> Interactively selects hunks in the difference between the index and <span class="command">&lt;tree-ish&gt;</span>. The chosen hunks are applied in reverse to the index.</label></div>
+				<p>Copy entries from <span class="command">&lt;tree-ish&gt;</span> to the index. (Does not affect the working tree or the current branch head (<span class="inline_code">HEAD</span>).)</p>
+				<div class="form_item"><input type="radio" id="git_reset_action_pathspec_list" name="git_reset_action" value="pathspec_list"><label for="git_reset_action_pathspec_list"><span class="command">[&lt;tree-ish&gt;] [--] &lt;pathspec&gt;...</span> For all specified files or directories, set the staged version to the version from the given <span class="command">&lt;tree-ish&gt;</span>.</label></div>
+				<div class="form_item"><input type="radio" id="git_reset_action_pathspec_from_file" name="git_reset_action" value="pathspec_from_file"><label for="git_reset_action_pathspec_from_file"><span class="command">--pathspec-from-file=&lt;file&gt; [--pathspec-file-nul] [&lt;tree-ish&gt;]</span> For all specified files or directories, set the staged version to the version from the given <span class="command">&lt;tree-ish&gt;</span>.</label></div>
+				<div class="form_item"><input type="radio" id="git_reset_action_patch" name="git_reset_action" value="patch"><label for="git_reset_action_patch"><span class="command">--patch [&lt;tree-ish&gt;] [--] [&lt;pathspec&gt;...]</span> Interactively select changes from the difference between the index and the specified <span class="command">&lt;tree-ish&gt;</span>. The index is modified using the chosen changes.</label></div>
 			</legend>
 			<div id="git_reset_pathspec_from_file" class="subform">
 				<p><span class="command">--pathspec-from-file=&lt;file&gt;</span> Pathspec is passed in <span class="command">&lt;file&gt;</span> instead of commandline args.</p>
@@ -57,7 +57,7 @@
 		</fieldset>
 		<fieldset>
 			<legend>
-				<div class="form_item"><input type="radio" id="git_reset_action_mode_commit" name="git_reset_action" value="mode_commit" checked><label for="git_reset_action_mode_commit"><span class="command">&lt;mode&gt; [&lt;commit&gt;]</span> Resets the current branch head to <span class="command">&lt;commit&gt;</span> and possibly updates the index (resetting it to the tree of <span class="command">&lt;commit&gt;</span>) and the working tree depending on <span class="command">&lt;mode&gt;</span>.</label></div>
+				<div class="form_item"><input type="radio" id="git_reset_action_mode_commit" name="git_reset_action" value="mode_commit" checked><label for="git_reset_action_mode_commit"><span class="command">&lt;mode&gt; [&lt;commit&gt;]</span> Set the current branch head (<span class="inline_code">HEAD</span>) to point at <span class="command">&lt;commit&gt;</span>. Depending on <span class="command">&lt;mode&gt;</span>, also update the working directory and/or index to match the contents of <span class="command">&lt;commit&gt;</span>.</label></div>
 			</legend>
 			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_reset\_soft~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_reset_soft')"><input type="radio" id="git_reset_mode_soft" name="git_reset_mode" value="soft"><label for="git_reset_mode_soft"><span class="command">--soft</span> Does not touch the index file or the working tree at all (but resets the head to <span class="command">&lt;commit&gt;</span>, just like all modes do).</label></div>
 			<fieldset>
