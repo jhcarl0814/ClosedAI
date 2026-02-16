@@ -1,0 +1,617 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_fetch~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_fetch~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_fetch')">git fetch</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-fetch">https://git-scm.com/docs/git-fetch</a></p>
+	<p class="paragraph">Download objects and refs from another repository.</p>
+	<form id="git_fetch_form">
+		<p>Choose an action to perform:</p>
+		<fieldset>
+			<legend>
+				<div class="form_item"><input type="radio" id="git_fetch_action_no_option" name="git_fetch_action" value="no_option" checked><label for="git_fetch_action_no_option"></label></div>
+			</legend>
+			<div class="form_item"><input type="radio" id="git_fetch_write_fetch_head_no_option" name="git_fetch_write_fetch_head" value="" checked><label for="git_fetch_write_fetch_head_no_option"></label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_write_fetch_head_has_write_fetch_head" name="git_fetch_write_fetch_head" value="true"><label for="git_fetch_write_fetch_head_has_write_fetch_head"><span class="command">--write-fetch-head</span> Write the list of remote refs fetched in the <span class="inline_code">FETCH_HEAD</span> file directly under <span class="inline_code"><span class="command">$GIT_DIR</span></span>.</label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_write_fetch_head_has_no_write_fetch_head" name="git_fetch_write_fetch_head" value="false"><label for="git_fetch_write_fetch_head_has_no_write_fetch_head"><span class="command">--no-write-fetch-head</span> Not to write the file.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_fetch_write_fetch_head_mode_no_option" name="git_fetch_write_fetch_head_mode" value="no_option" checked><label for="git_fetch_write_fetch_head_mode_no_option">Old data in <span class="inline_code">.git/FETCH_HEAD</span> will be overwritten.</label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_write_fetch_head_mode_append" name="git_fetch_write_fetch_head_mode" value="append"><label for="git_fetch_write_fetch_head_mode_append"><span class="command">--append</span> Append ref names and object names of fetched refs to the existing contents of <span class="inline_code">.git/FETCH_HEAD</span>.</label></div>
+		</fieldset>
+		<div class="form_item"><input type="radio" id="git_fetch_action_dry_run" name="git_fetch_action" value="dry_run"><label for="git_fetch_action_dry_run"><span class="command">--dry-run</span> Show what would be done, without making any changes.</label></div>
+
+		<fieldset>
+			<legend><p>what to fetch:</p></legend>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_fetch_what_no_option" name="git_fetch_what" value="no_option" checked><label for="git_fetch_what_no_option"></label></div>
+				</legend>
+				<div class="form_item"><input type="radio" id="git_fetch_what_no_option_all_no_option" name="git_fetch_what_no_option_all" value="" checked><label for="git_fetch_what_no_option_all_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchall"><span class="inline_code">fetch.all</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_fetch_what_no_option_all_has_no_all" name="git_fetch_what_no_option_all" value="false"><label for="git_fetch_what_no_option_all_has_no_all"><span class="command">--no-all</span></label></div>
+				<div class="form_item"><input type="radio" id="git_fetch_what_no_option_all_has_all" name="git_fetch_what_no_option_all" value="true"><label for="git_fetch_what_no_option_all_has_all"><span class="command">--all</span> Fetch all remotes, except for the ones that has the <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameskipFetchAll"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.skipFetchAll</span></a> configuration variable set.</label></div>
+			</fieldset>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_fetch_what_repository_refspecs" name="git_fetch_what" value="repository_refspecs"><label for="git_fetch_what_repository_refspecs"><span class="command">&lt;repository&gt; [&lt;refspec&gt;…]</span></label></div>
+				</legend>
+				<p><span class="command">&lt;repository&gt;</span> The "remote" repository that is the source of a fetch operation.</p>
+				<div class="form_item"><label for="git_fetch_what_repository_refspecs_repository" class="hidden"><span class="command">&lt;repository&gt;</span>:</label><textarea wrap="off" id="git_fetch_what_repository_refspecs_repository" name="git_fetch_what_repository_refspecs_repository" class="basis-0 grow command_input"></textarea></div>
+				<fieldset>
+					<legend><p><span class="command">&lt;refspec&gt;…</span> Specifies which refs to fetch and which local refs to update.</p></legend>
+					<input id="git_fetch_what_repository_refspecs_repository_refspec_list_add" type="button" value="Add">
+					<div id="git_fetch_what_repository_refspecs_repository_refspec_list" class="subform"></div>
+					<script>
+						document.getElementById("git_fetch_what_repository_refspecs_repository_refspec_list_add").addEventListener("click",function(e){
+							document.getElementById("git_fetch_what_repository_refspecs_repository_refspec_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_fetch_refresh);
+								checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_fetch_refresh(); });
+								div.append(checkbox, textarea);
+								return div;
+							})());
+							git_fetch_refresh();
+						})
+					</script>
+				</fieldset>
+
+				<p>modifying <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.fetch</span></a>:</p>
+				<fieldset>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_fetch\_refmap~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_fetch_refmap')"><p><span class="command">--refmap=&lt;refspec&gt;</span> When fetching refs listed on the command line, use the specified refspec (can be given more than once) to map the refs to remote-tracking branches, instead of the values of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.fetch</span></a> configuration variables for the remote repository.</p></legend>
+					<input id="git_fetch_what_repository_refspecs_repository_refmap_list_add" type="button" value="Add">
+					<div id="git_fetch_what_repository_refspecs_repository_refmap_list" class="subform"></div>
+					<script>
+						document.getElementById("git_fetch_what_repository_refspecs_repository_refmap_list_add").addEventListener("click",function(e){
+							document.getElementById("git_fetch_what_repository_refspecs_repository_refmap_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_fetch_refresh);
+								checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_fetch_refresh(); });
+								div.append(checkbox, textarea);
+								return div;
+							})());
+							git_fetch_refresh();
+						})
+					</script>
+				</fieldset>
+			</fieldset>
+			<div class="form_item">
+				<input type="radio" id="git_fetch_what_group" name="git_fetch_what" value="group">
+				<div class="subform basis-0 grow">
+					<label for="git_fetch_what_group"><span class="command">&lt;group&gt;</span> A name referring to a list of repositories as the value of <span class="inline_code">remotes.<span class="command">&lt;group&gt;</span></span> in the configuration file.</label>
+					<div class="form_item"><label for="git_fetch_what_group_group" class="hidden"><span class="command">&lt;group&gt;</span>:</label><textarea wrap="off" id="git_fetch_what_group_group" name="git_fetch_what_group_group" class="basis-0 grow command_input"></textarea></div>
+				</div>
+			</div>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_fetch_what_multiple" name="git_fetch_what" value="multiple"><label for="git_fetch_what_multiple"><span class="command">--multiple [(&lt;repository&gt; | &lt;group&gt;)…]</span> Allow several <span class="command">&lt;repository&gt;</span> and <span class="command">&lt;group&gt;</span> arguments to be specified.</label></div>
+				</legend>
+				<fieldset>
+					<legend><p><span class="command">(&lt;repository&gt; | &lt;group&gt;)…</span></p></legend>
+					<input id="git_fetch_what_multiple_repository_or_group_list_add" type="button" value="Add">
+					<div id="git_fetch_what_multiple_repository_or_group_list" class="subform"></div>
+					<script>
+						document.getElementById("git_fetch_what_multiple_repository_or_group_list_add").addEventListener("click",function(e){
+							document.getElementById("git_fetch_what_multiple_repository_or_group_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_fetch_refresh);
+								checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_fetch_refresh(); });
+								div.append(checkbox, textarea);
+								return div;
+							})());
+							git_fetch_refresh();
+						})
+					</script>
+				</fieldset>
+			</fieldset>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>modifying <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameurl"><span class="inline_code">remote.<span class="command">&lt;remote&gt;</span>.url</span></a>:</p></legend>
+			<div class="form_item"><input type="radio" id="git_fetch_modifying_url_no_option" name="git_fetch_modifying_url" value="no_option" checked><label for="git_fetch_modifying_url_no_option"></label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_modifying_url_ipv4" name="git_fetch_modifying_url" value="ipv4"><label for="git_fetch_modifying_url_ipv4"><span class="command">--ipv4</span> Use IPv4 addresses only, ignoring IPv6 addresses.</label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_modifying_url_ipv6" name="git_fetch_modifying_url" value="ipv6"><label for="git_fetch_modifying_url_ipv6"><span class="command">--ipv6</span> Use IPv6 addresses only, ignoring IPv4 addresses.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>modifying refspecs:</p></legend>
+			<div class="form_item"><input type="checkbox" id="git_fetch_has_force" name="git_fetch_has_force"><label for="git_fetch_has_force"><span class="command">--force</span> When <span class="command">git fetch</span> is used with <span class="command">&lt;src&gt;:&lt;dst&gt;</span> refspec, it may refuse to update the local branch. Overrides that check.</label></div>
+			<div class="form_item"><input type="checkbox" id="git_fetch_has_prefetch" name="git_fetch_has_prefetch"><label for="git_fetch_has_prefetch"><span class="command">--prefetch</span> Modify the configured refspec to place all refs into the <span class="inline_code">refs/prefetch/</span> namespace.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_fetch\_prune\_tags~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_fetch_prune_tags')"><input type="checkbox" id="git_fetch_has_prune_tags" name="git_fetch_has_prune_tags"><label for="git_fetch_has_prune_tags"><span class="command">--prune-tags</span> Is a shorthand for providing an explicit tag refspec (<span class="command">refs/tags/*:refs/tags/*</span>). (Before fetching, remove any local tags that no longer exist on the remote if <span class="command">--prune</span> is enabled.) (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamepruneTags"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.pruneTags</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchpruneTags"><span class="inline_code">fetch.pruneTags</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+			<div class="form_item"><input type="checkbox" id="git_fetch_has_stdin" name="git_fetch_has_stdin"><label for="git_fetch_has_stdin"><span class="command">--stdin</span> Read refspecs, one per line, from stdin in addition to those provided as arguments.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>progress reporting:</p></legend>
+			<div class="form_item"><input type="radio" id="git_fetch_progress_reporting_quiet" name="git_fetch_progress_reporting" value="quiet"><label for="git_fetch_progress_reporting_quiet"><span class="command">--quiet</span> Pass <span class="command">--quiet</span> to <span class="command">git-fetch-pack</span> and silence any other internally used git commands. Progress is not reported to the standard error stream.</label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_progress_reporting_no_option" name="git_fetch_progress_reporting" value="no_option" checked><label for="git_fetch_progress_reporting_no_option">Progress status is reported on the standard error stream when it is attached to a terminal.</label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_progress_reporting_progress" name="git_fetch_progress_reporting" value="progress"><label for="git_fetch_progress_reporting_progress"><span class="command">--progress</span> Forces progress status even if the standard error stream is not directed to a terminal.</label></div>
+			<div><input type="checkbox" id="git_fetch_has_verbose" name="git_fetch_has_verbose"><label for="git_fetch_has_verbose"><span class="command">--verbose</span> Be verbose.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>progress control:</p></legend>
+			<div class="form_item"><input type="radio" id="git_fetch_atomic_no_option" name="git_fetch_atomic" value="" checked><label for="git_fetch_atomic_no_option"></label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_atomic_has_no_atomic" name="git_fetch_atomic" value="false"><label for="git_fetch_atomic_has_no_atomic"><span class="command">--no-atomic</span></label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_atomic_has_atomic" name="git_fetch_atomic" value="true"><label for="git_fetch_atomic_has_atomic"><span class="command">--atomic</span> Use an atomic transaction to update local refs.</label></div>
+			<div class="form_item">
+				<input type="checkbox" id="git_fetch_has_jobs" name="git_fetch_has_jobs">
+				<div class="subform basis-0 grow">
+					<label for="git_fetch_has_jobs"><span class="command">--jobs=&lt;n&gt;</span> Parallelize all forms of fetching up to <span class="command">&lt;n&gt;</span> jobs at a time. (For <span class="command">--multiple</span>, defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchparallel"><span class="inline_code">fetch.parallel</span></a> which defaults to <span class="inline_code">1</span>.) (For multiple submodules, defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulefetchJobs"><span class="inline_code">submodule.fetchJobs</span></a> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchparallel"><span class="inline_code">fetch.parallel</span></a> which defaults to <span class="inline_code">1</span>.)</label>
+					<div class="form_item"><label for="git_fetch_jobs_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_fetch_jobs_n" name="git_fetch_jobs_n" class="basis-0 grow command_input" value="1"></div>
+				</div>
+			</div>
+			<div class="form_item"><input type="radio" id="git_fetch_recurse_submodules_no_option" name="git_fetch_recurse_submodules" value="no_option" checked><label for="git_fetch_recurse_submodules_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulenamefetchRecurseSubmodules"><span class="inline_code">submodule.<span class="command">&lt;name&gt;</span>.fetchRecurseSubmodules</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchrecurseSubmodules"><span class="inline_code">fetch.recurseSubmodules</span></a> (which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulerecurse"><span class="inline_code">submodule.recurse</span></a>) / <span class="inline_code">on-demand</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_recurse_submodules_recurse_submodules" name="git_fetch_recurse_submodules" value="recurse_submodules"><label for="git_fetch_recurse_submodules_recurse_submodules"><span class="command">--recurse-submodules<input type="checkbox" id="git_fetch_recurse_submodules_recurse_submodules_has_argument" name="git_fetch_recurse_submodules_recurse_submodules_has_argument"><label for="git_fetch_recurse_submodules_recurse_submodules_has_argument">[=(<input type="radio" id="git_fetch_recurse_submodules_mode_yes" name="git_fetch_recurse_submodules_mode" value="yes" checked><label for="git_fetch_recurse_submodules_mode_yes">yes</label>|<input type="radio" id="git_fetch_recurse_submodules_mode_on_demand" name="git_fetch_recurse_submodules_mode" value="on_demand"><label for="git_fetch_recurse_submodules_mode_on_demand">on-demand</label>|<input type="radio" id="git_fetch_recurse_submodules_mode_no" name="git_fetch_recurse_submodules_mode" value="no"><label for="git_fetch_recurse_submodules_mode_no">no</label>)]</label></span> Control if and under what conditions new commits of submodules should be fetched too.<br>
+				<div class="ml-[1em]">
+					<span class="command">on-demand</span> Only populated (is cloned e.g. by <span class="command">git submodule update</span> so is present locally e.g. in <span class="inline_code">$GIT_DIR/modules/</span>) and changed (a submodule that has commits that are referenced by a newly fetched superproject commit but are missing in the local submodule clone) submodules are fetched.<br>
+					<span class="command">yes</span> All populated submodules are fetched and submodules that are both unpopulated and changed are fetched.<br>
+					<span class="command">no</span> Submodules are never fetched.<br>
+				</div></label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_recurse_submodules_no_recurse_submodules" name="git_fetch_recurse_submodules" value="no_recurse_submodules"><label for="git_fetch_recurse_submodules_no_recurse_submodules"><span class="command">--no-recurse-submodules</span> Disable recursive fetching of submodules (has the same effect as using the <span class="command">--recurse-submodules=no</span> option).</label></div>
+			<div class="form_item"><input type="checkbox" id="git_fetch_has_recurse_submodules_default" name="git_fetch_has_recurse_submodules_default"><label for="git_fetch_has_recurse_submodules_default"><span class="command">--recurse-submodules-default=(<input type="radio" id="git_fetch_recurse_submodules_default_mode_yes" name="git_fetch_recurse_submodules_default_mode" value="yes" checked><label for="git_fetch_recurse_submodules_default_mode_yes">yes</label>|<input type="radio" id="git_fetch_recurse_submodules_default_mode_on_demand" name="git_fetch_recurse_submodules_default_mode" value="on_demand"><label for="git_fetch_recurse_submodules_default_mode_on_demand">on-demand</label>)</span> Is used internally to temporarily provide a non-negative default value for the <span class="command">--recurse-submodules</span> option.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>preconditions:</p></legend>
+			<div class="form_item"><input type="checkbox" id="git_fetch_has_update_head_ok" name="git_fetch_has_update_head_ok"><label for="git_fetch_has_update_head_ok"><span class="command">--update-head-ok</span> By default <span class="command">git fetch</span> refuses to update the head which corresponds to the current branch. Disables the check.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>before fetching:</p></legend>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_fetch\_prune~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_fetch_prune')"><input type="checkbox" id="git_fetch_has_prune" name="git_fetch_has_prune"><label for="git_fetch_has_prune"><span class="command">--prune</span> Before fetching, remove any remote-tracking references that no longer exist on the remote. Tags are not subject to pruning if they are fetched only because of the default tag auto-following or due to a <span class="command">--tags</span> option. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameprune"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.prune</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchprune"><span class="inline_code">fetch.prune</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>(limit the set of requested commits:)</p></legend>
+			<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_fetch\_tags~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_fetch_tags')">
+				<div class="form_item"><input type="radio" id="git_fetch_tags_no_option" name="git_fetch_tags" value="no_option" checked><label for="git_fetch_tags_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenametagOpt"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.tagOpt</span></a> / "tags that point at objects that are downloaded from the remote repository are fetched and stored locally".)</label></div>
+				<div class="form_item"><input type="radio" id="git_fetch_tags_has_no_tags" name="git_fetch_tags" value="false"><label for="git_fetch_tags_has_no_tags"><span class="command">--no-tags</span> Disables the automatic tag following.</label></div>
+				<div class="form_item"><input type="radio" id="git_fetch_tags_has_tags" name="git_fetch_tags" value="true"><label for="git_fetch_tags_has_tags"><span class="command">--tags</span> Fetch all tags from the remote (i.e., fetch remote tags <span class="inline_code">refs/tags/*</span> into local tags with the same name), in addition to whatever else would otherwise be fetched.</label></div>
+			</div>
+			<fieldset>
+				<legend><p>shallow fetch:</p></legend>
+				<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_fetch\_depth\_deepen~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_fetch_depth_deepen')">
+					<div class="form_item">
+						<input type="checkbox" id="git_fetch_has_depth" name="git_fetch_has_depth">
+						<div class="subform basis-0 grow">
+							<label for="git_fetch_has_depth"><span class="command">--depth=&lt;depth&gt;</span> Limit fetching to the specified number of commits from the tip of each remote branch history.</label>
+							<div class="form_item"><label for="git_fetch_depth_depth"><span class="command">&lt;depth&gt;</span>:</label><input type="text" id="git_fetch_depth_depth" name="git_fetch_depth_depth" class="basis-0 grow command_input" placeholder="1"></div>
+						</div>
+					</div>
+					<div class="form_item">
+						<input type="checkbox" id="git_fetch_has_deepen" name="git_fetch_has_deepen">
+						<div class="subform basis-0 grow">
+							<label for="git_fetch_has_deepen"><span class="command">--deepen=&lt;depth&gt;</span> Similar to <span class="command">&lt;depth&gt;</span>, except it specifies the number of commits from the current shallow boundary instead of from the tip of each remote branch history.</label>
+							<div class="form_item"><label for="git_fetch_deepen_depth"><span class="command">&lt;depth&gt;</span>:</label><input type="text" id="git_fetch_deepen_depth" name="git_fetch_deepen_depth" class="basis-0 grow command_input" placeholder="1"></div>
+						</div>
+					</div>
+				</div>
+				<div class="form_item">
+					<input type="checkbox" id="git_fetch_has_shallow_since" name="git_fetch_has_shallow_since">
+					<div class="subform basis-0 grow">
+						<label for="git_fetch_has_shallow_since"><span class="command">--shallow-since=&lt;date&gt;</span> Deepen or shorten the history of a shallow repository to include all reachable commits after <span class="command">&lt;date&gt;</span>.</label>
+						<div class="form_item"><label for="git_fetch_shallow_since_date"><span class="command">&lt;date&gt;</span>:</label><input type="text" id="git_fetch_shallow_since_date" name="git_fetch_shallow_since_date" class="basis-0 grow command_input" value=""></div>
+					</div>
+				</div>
+				<fieldset>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_fetch\_shallow\_exclude~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_fetch_shallow_exclude')"><p><span class="command">--shallow-exclude=&lt;ref&gt;</span> Deepen or shorten the history of a shallow repository to exclude commits reachable from a specified remote branch or tag.</p></legend>
+					<input id="git_fetch_shallow_exclude_list_add" type="button" value="Add">
+					<div id="git_fetch_shallow_exclude_list" class="subform"></div>
+					<script>
+						document.getElementById("git_fetch_shallow_exclude_list_add").addEventListener("click",function(e){
+							document.getElementById("git_fetch_shallow_exclude_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_fetch_refresh);
+								checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_fetch_refresh(); });
+								div.append(checkbox, textarea);
+								return div;
+							})());
+							git_fetch_refresh();
+						})
+					</script>
+				</fieldset>
+				<div class="form_item"><input type="checkbox" id="git_fetch_has_unshallow" name="git_fetch_has_unshallow"><label for="git_fetch_has_unshallow"><span class="command">--unshallow</span> If the source repository is complete, convert a shallow repository to a complete one, removing all the limitations imposed by shallow repositories. If the source repository is shallow, fetch as much as possible so that the current repository has the same history as the source repository.</label></div>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend><p>when fetching from shallow repository:</p></legend>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_fetch\_update\_shallow~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_fetch_update_shallow')"><input type="checkbox" id="git_fetch_has_update_shallow" name="git_fetch_has_update_shallow"><label for="git_fetch_has_update_shallow"><span class="command">--update-shallow</span> By default when fetching from a shallow repository, <span class="command">git fetch</span> refuses refs that require updating <span class="inline_code">.git/shallow</span>. Updates <span class="inline_code">.git/shallow</span> and accepts such refs.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>partial fetch (limit the number of blobs and trees downloaded within a given range of commits):</p></legend>
+			<div><input type="checkbox" id="git_fetch_has_refetch" name="git_fetch_has_refetch"><label for="git_fetch_has_refetch"><span class="command">--refetch</span> Instead of negotiating with the server to avoid transferring commits and associated objects that are already present locally, fetches all objects as a fresh clone would.</label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>server options:</p></legend>
+			<div class="form_item">
+				<input type="checkbox" id="git_fetch_has_upload_pack" name="git_fetch_has_upload_pack">
+				<div class="subform basis-0 grow">
+					<label for="git_fetch_has_upload_pack"><span class="command">--upload-pack=&lt;upload-pack&gt;</span> When given, and the repository to fetch from is handled by <span class="command">git fetch-pack</span>, <span class="command">--exec=&lt;upload-pack&gt;</span> is passed to the command to specify non-default path for the command run on the other end. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameuploadpack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.uploadpack</span></a>.)</label>
+					<div class="form_item"><label for="git_fetch_upload_pack"><span class="command">&lt;upload-pack&gt;</span>:</label><textarea wrap="off" id="git_fetch_upload_pack" name="git_fetch_upload_pack" class="basis-0 grow command_input"></textarea></div>
+				</div>
+			</div>
+
+			<fieldset>
+				<legend><p><span class="command">--server-option=&lt;option&gt;</span> Transmit the given string to the server when communicating using protocol version 2. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameserverOption"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.serverOption</span></a>.)</p></legend>
+				<input id="git_fetch_server_option_list_add" type="button" value="Add">
+				<div id="git_fetch_server_option_list" class="subform"></div>
+				<script>
+					document.getElementById("git_fetch_server_option_list_add").addEventListener("click",function(e){
+						document.getElementById("git_fetch_server_option_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_fetch_refresh);
+							checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_fetch_refresh(); });
+							div.append(checkbox, input);
+							return div;
+						})());
+						git_fetch_refresh();
+					})
+				</script>
+			</fieldset>
+
+			<fieldset>
+				<legend><p><span class="command">--negotiation-tip=(&lt;commit&gt;|&lt;glob&gt;)</span> By default, Git will report, to the server, commits reachable from all local refs to find common commits in an attempt to reduce the size of the to-be-received packfile. Only report commits reachable from the given tips. If specified more than once, report commits reachable from any of the given commits.</p></legend>
+				<input id="git_fetch_negotiation_tip_list_add" type="button" value="Add">
+				<div id="git_fetch_negotiation_tip_list" class="subform"></div>
+				<script>
+					document.getElementById("git_fetch_negotiation_tip_list_add").addEventListener("click",function(e){
+						document.getElementById("git_fetch_negotiation_tip_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_fetch_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_fetch_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_fetch_refresh();
+					})
+				</script>
+			</fieldset>
+			<div class="form_item"><input type="checkbox" id="git_fetch_has_negotiation_only" name="git_fetch_has_negotiation_only"><label for="git_fetch_has_negotiation_only"><span class="command">--negotiation-only</span> Do not fetch anything from the server, and instead print the ancestors of the provided <span class="command">--negotiation-tip=</span> arguments, which we have in common with the server. <span id="git_fetch_negotiation_only_recurse_submodules_yes_on_demand_warning">(Incompatible with <span class="command">--recurse-submodules=(yes|on-demand)</span>.)</span></label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>after fetching:</p></legend>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_fetch\_set\_upstream~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_fetch_set_upstream')"><input type="checkbox" id="git_fetch_has_set_upstream" name="git_fetch_has_set_upstream"><label for="git_fetch_has_set_upstream"><span class="command">--set-upstream</span> If the remote is fetched successfully, add upstream (tracking) reference, used by argument-less <span class="command">git-pull</span> and other commands.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_fetch_write_commit_graph_no_option" name="git_fetch_write_commit_graph" value="" checked><label for="git_fetch_write_commit_graph_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchwriteCommitGraph"><span class="inline_code">fetch.writeCommitGraph</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_write_commit_graph_has_write_commit_graph" name="git_fetch_write_commit_graph" value="true"><label for="git_fetch_write_commit_graph_has_write_commit_graph"><span class="command">--write-commit-graph</span> Write a commit-graph after fetching.</label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_write_commit_graph_has_no_write_commit_graph" name="git_fetch_write_commit_graph" value="false"><label for="git_fetch_write_commit_graph_has_no_write_commit_graph"><span class="command">--no-write-commit-graph</span></label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="checkbox" id="git_fetch_has_keep" name="git_fetch_has_keep"><label for="git_fetch_has_keep"><span class="command">--keep</span> Keep downloaded pack.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_fetch_auto_maintenance_no_option" name="git_fetch_auto_maintenance" value="" checked><label for="git_fetch_auto_maintenance_no_option">(Defaults to <span class="command">--auto-maintenance</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_auto_maintenance_has_auto_maintenance" name="git_fetch_auto_maintenance" value="true"><label for="git_fetch_auto_maintenance_has_auto_maintenance"><span class="command">--auto-maintenance</span> Run <span class="command">git maintenance run --auto</span> at the end to perform automatic repository maintenance if needed.</label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_auto_maintenance_has_no_auto_maintenance" name="git_fetch_auto_maintenance" value="false"><label for="git_fetch_auto_maintenance_has_no_auto_maintenance"><span class="command">--no-auto-maintenance</span></label></div>
+		</fieldset>
+
+		<fieldset>
+			<legend><p>output:</p></legend>
+			<div class="form_item"><input type="radio" id="git_fetch_output_no_option" name="git_fetch_output" value="no_option" checked><label for="git_fetch_output_no_option"></label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_output_porcelain" name="git_fetch_output" value="porcelain"><label for="git_fetch_output_porcelain"><span class="command">--porcelain</span> Print the output to standard output in an easy-to-parse format for scripts. <span id="git_fetch_porcelain_recurse_submodules_yes_on_demand_warning">(Incompatible with <span class="command">--recurse-submodules=(yes|on-demand)</span>.)</span></label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_fetch_show_forced_updates_no_option" name="git_fetch_show_forced_updates" value="" checked><label for="git_fetch_show_forced_updates_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-fetchshowForcedUpdates"><span class="inline_code">fetch.showForcedUpdates</span></a> which defaults to <span class="inline_code">true</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_show_forced_updates_has_show_forced_updates" name="git_fetch_show_forced_updates" value="true"><label for="git_fetch_show_forced_updates_has_show_forced_updates"><span class="command">--show-forced-updates</span> Checks if a branch is force-updated during fetch.</label></div>
+			<div class="form_item"><input type="radio" id="git_fetch_show_forced_updates_has_no_show_forced_updates" name="git_fetch_show_forced_updates" value="false"><label for="git_fetch_show_forced_updates_has_no_show_forced_updates"><span class="command">--no-show-forced-updates</span> Skip the check for performance reasons.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item">
+				<input type="checkbox" id="git_fetch_has_submodule_prefix" name="git_fetch_has_submodule_prefix">
+				<div class="subform basis-0 grow">
+					<label for="git_fetch_has_submodule_prefix"><span class="command">--submodule-prefix=&lt;path&gt;</span> Prepend <span class="command">&lt;path&gt;</span> to paths printed in informative messages such as "Fetching submodule foo". Is used internally when recursing over submodules.</label>
+					<div class="form_item"><label for="git_fetch_submodule_prefix_path"><span class="command">&lt;path&gt;</span>:</label><textarea wrap="off" id="git_fetch_submodule_prefix_path" name="git_fetch_submodule_prefix_path" class="basis-0 grow command_input"></textarea></div>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+	<textarea readonly wrap="off" id="git_fetch_command" name="git_fetch_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_fetch_refresh(){
+			document.getElementById("git_fetch_action_no_option").closest("fieldset").disabled = !document.getElementById("git_fetch_action_no_option").checked;
+			document.getElementById("git_fetch_what_no_option").closest("fieldset").disabled = !document.getElementById("git_fetch_what_no_option").checked;
+			document.getElementById("git_fetch_what_repository_refspecs").closest("fieldset").disabled = !document.getElementById("git_fetch_what_repository_refspecs").checked;
+			document.getElementById("git_fetch_what_group_group").disabled = !document.getElementById("git_fetch_what_group").checked;
+			document.getElementById("git_fetch_what_multiple").closest("fieldset").disabled = !document.getElementById("git_fetch_what_multiple").checked;
+
+			document.getElementById("git_fetch_jobs_n").disabled = !document.getElementById("git_fetch_has_jobs").checked;
+			document.getElementById("git_fetch_recurse_submodules_recurse_submodules_has_argument").disabled = !document.getElementById("git_fetch_recurse_submodules_recurse_submodules").checked;
+			document.getElementById("git_fetch_recurse_submodules_mode_yes").disabled = !(document.getElementById("git_fetch_recurse_submodules_recurse_submodules").checked && document.getElementById("git_fetch_recurse_submodules_recurse_submodules_has_argument").checked);
+			document.getElementById("git_fetch_recurse_submodules_mode_on_demand").disabled = !(document.getElementById("git_fetch_recurse_submodules_recurse_submodules").checked && document.getElementById("git_fetch_recurse_submodules_recurse_submodules_has_argument").checked);
+			document.getElementById("git_fetch_recurse_submodules_mode_no").disabled = !(document.getElementById("git_fetch_recurse_submodules_recurse_submodules").checked && document.getElementById("git_fetch_recurse_submodules_recurse_submodules_has_argument").checked);
+
+			document.getElementById("git_fetch_recurse_submodules_default_mode_yes").disabled = !document.getElementById("git_fetch_has_recurse_submodules_default").checked;
+			document.getElementById("git_fetch_recurse_submodules_default_mode_on_demand").disabled = !document.getElementById("git_fetch_has_recurse_submodules_default").checked;
+
+			document.getElementById("git_fetch_depth_depth").disabled = !document.getElementById("git_fetch_has_depth").checked;
+			document.getElementById("git_fetch_deepen_depth").disabled = !document.getElementById("git_fetch_has_deepen").checked;
+			document.getElementById("git_fetch_shallow_since_date").disabled = !document.getElementById("git_fetch_has_shallow_since").checked;
+
+			document.getElementById("git_fetch_upload_pack").disabled = !document.getElementById("git_fetch_has_upload_pack").checked;
+
+			document.getElementById("git_fetch_submodule_prefix_path").disabled = !document.getElementById("git_fetch_has_submodule_prefix").checked;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("fetch");
+
+			let form_data = new FormData(document.getElementById("git_fetch_form"));
+			switch(form_data.get("git_fetch_action")){
+				case "no_option":
+					switch(form_data.get("git_fetch_write_fetch_head")){
+						case "false":
+							command_components.push("--no-write-fetch-head");
+							break;
+						case "true":
+							command_components.push("--write-fetch-head");
+							break;
+					}
+					switch(form_data.get("git_fetch_write_fetch_head_mode")){
+						case "append":
+							command_components.push("--append");
+							break;
+					}
+					break;
+				case "dry_run":
+					command_components.push("--dry-run");
+					break;
+			}
+			switch(form_data.get("git_fetch_what")){
+				case "no_option":
+					switch(form_data.get("git_fetch_what_no_option_all")){
+						case "false":
+							command_components.push("--no-all");
+							break;
+						case "true":
+							command_components.push("--all");
+							break;
+					}
+					break;
+				case "repository_refspecs":
+					Array.from(document.getElementById("git_fetch_what_repository_refspecs_repository_refmap_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push("--refmap=" + shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "multiple":
+					command_components.push("--multiple");
+					break;
+			}
+			switch(form_data.get("git_fetch_modifying_url")){
+				case "ipv4":
+					command_components.push("--ipv4");
+					break;
+				case "ipv6":
+					command_components.push("--ipv6");
+					break;
+			}
+			if(form_data.get("git_fetch_has_force"))
+				command_components.push("--force");
+			if(form_data.get("git_fetch_has_prefetch"))
+				command_components.push("--prefetch");
+			if(form_data.get("git_fetch_has_prune_tags"))
+				command_components.push("--prune-tags");
+			if(form_data.get("git_fetch_has_stdin"))
+				command_components.push("--stdin");
+			switch(form_data.get("git_fetch_progress_reporting")){
+				case "quiet":
+					command_components.push("--quiet");
+					break;
+				case "progress":
+					command_components.push("--progress");
+					break;
+			}
+			if(form_data.get("git_fetch_has_verbose"))
+				command_components.push("--verbose");
+			switch(form_data.get("git_fetch_atomic")){
+				case "false":
+					command_components.push("--no-atomic");
+					break;
+				case "true":
+					command_components.push("--atomic");
+					break;
+			}
+			if(form_data.get("git_fetch_has_jobs")){
+				let element_value = form_data.get("git_fetch_jobs_n"), element_has_error = element_value.length == 0;
+				command_components.push("--jobs=" + shell_quote(element_value));
+				document.getElementById("git_fetch_jobs_n").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			switch(form_data.get("git_fetch_recurse_submodules")){
+				case "recurse_submodules":
+					if(form_data.get("git_fetch_recurse_submodules_recurse_submodules_has_argument")){
+						switch(form_data.get("git_fetch_recurse_submodules_mode")){
+							case "yes":
+								command_components.push("--recurse-submodules=yes");
+								break;
+							case "on_demand":
+								command_components.push("--recurse-submodules=on-demand");
+								break;
+							case "no":
+								command_components.push("--recurse-submodules=no");
+								break;
+						}
+					}
+					else{
+						command_components.push("--recurse-submodules");
+					}
+					break;
+				case "no_recurse_submodules":
+					command_components.push("--no-recurse-submodules");
+					break;
+			}
+			if(form_data.get("git_fetch_has_recurse_submodules_default")){
+				switch(form_data.get("git_fetch_recurse_submodules_default_mode")){
+					case "yes":
+						command_components.push("--recurse-submodules-default=yes");
+						break;
+					case "on_demand":
+						command_components.push("--recurse-submodules-default=on-demand");
+						break;
+				}
+			}
+			if(form_data.get("git_fetch_has_update_head_ok"))
+				command_components.push("--update-head-ok");
+			if(form_data.get("git_fetch_has_prune"))
+				command_components.push("--prune");
+			switch(form_data.get("git_fetch_tags")){
+				case "false":
+					command_components.push("--no-tags");
+					break;
+				case "true":
+					command_components.push("--tags");
+					break;
+			}
+			if(form_data.get("git_fetch_has_depth")){
+				let element_value = form_data.get("git_fetch_depth_depth"), element_has_error = element_value.length == 0;
+				command_components.push("--depth=" + shell_quote(element_value));
+				document.getElementById("git_fetch_depth_depth").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(form_data.get("git_fetch_has_deepen")){
+				let element_value = form_data.get("git_fetch_deepen_depth"), element_has_error = element_value.length == 0;
+				command_components.push("--deepen=" + shell_quote(element_value));
+				document.getElementById("git_fetch_deepen_depth").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(form_data.get("git_fetch_has_shallow_since")){
+				let element_value = form_data.get("git_fetch_shallow_since_date"), element_has_error = element_value.length == 0;
+				command_components.push("--shallow-since=" + shell_quote(element_value));
+				document.getElementById("git_fetch_shallow_since_date").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			Array.from(document.getElementById("git_fetch_shallow_exclude_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				let element_value = textarea.value, element_has_error = element_value.length == 0;
+				command_components.push("--shallow-exclude=" + shell_quote(element_value));
+				textarea.classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			});
+			if(form_data.get("git_fetch_has_unshallow"))
+				command_components.push("--unshallow");
+			if(form_data.get("git_fetch_has_update_shallow"))
+				command_components.push("--update-shallow");
+			if(form_data.get("git_fetch_has_refetch"))
+				command_components.push("--refetch");
+			if(form_data.get("git_fetch_has_upload_pack")){
+				let element_value = form_data.get("git_fetch_upload_pack"), element_has_error = element_value.length == 0;
+				command_components.push("--upload-pack=" + shell_quote(element_value));
+				document.getElementById("git_fetch_upload_pack").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			Array.from(document.getElementById("git_fetch_server_option_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+				command_components.push("--server-option=" + shell_quote(input.value));
+			});
+			Array.from(document.getElementById("git_fetch_negotiation_tip_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				let element_value = textarea.value, element_has_error = element_value.length == 0;
+				command_components.push("--negotiation-tip=" + shell_quote(element_value));
+				textarea.classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			});
+			if(form_data.get("git_fetch_has_negotiation_only"))
+				command_components.push("--negotiation-only");
+			{
+				let elements_has_error = document.getElementById("git_fetch_recurse_submodules_recurse_submodules").checked && (!document.getElementById("git_fetch_recurse_submodules_recurse_submodules_has_argument").checked || (document.getElementById("git_fetch_recurse_submodules_recurse_submodules_has_argument").checked && (document.getElementById("git_fetch_recurse_submodules_mode_yes").checked || document.getElementById("git_fetch_recurse_submodules_mode_on_demand").checked))) && document.getElementById("git_fetch_has_negotiation_only").checked;
+				document.getElementById("git_fetch_negotiation_only_recurse_submodules_yes_on_demand_warning").classList.toggle("bg-[#FF8888]", elements_has_error);
+				has_error ||= elements_has_error;
+			}
+			if(form_data.get("git_fetch_has_set_upstream"))
+				command_components.push("--set-upstream");
+			switch(form_data.get("git_fetch_write_commit_graph")){
+				case "false":
+					command_components.push("--no-write-commit-graph");
+					break;
+				case "true":
+					command_components.push("--write-commit-graph");
+					break;
+			}
+			if(form_data.get("git_fetch_has_keep"))
+				command_components.push("--keep");
+			switch(form_data.get("git_fetch_auto_maintenance")){
+				case "false":
+					command_components.push("--no-auto-maintenance");
+					break;
+				case "true":
+					command_components.push("--auto-maintenance");
+					break;
+			}
+			switch(form_data.get("git_fetch_output")){
+				case "porcelain":
+					command_components.push("--porcelain");
+					break;
+			}
+			{
+				let elements_has_error = document.getElementById("git_fetch_recurse_submodules_recurse_submodules").checked && (!document.getElementById("git_fetch_recurse_submodules_recurse_submodules_has_argument").checked || (document.getElementById("git_fetch_recurse_submodules_recurse_submodules_has_argument").checked && (document.getElementById("git_fetch_recurse_submodules_mode_yes").checked || document.getElementById("git_fetch_recurse_submodules_mode_on_demand").checked))) && document.getElementById("git_fetch_output_porcelain").checked;
+				document.getElementById("git_fetch_porcelain_recurse_submodules_yes_on_demand_warning").classList.toggle("bg-[#FF8888]", elements_has_error);
+				has_error ||= elements_has_error;
+			}
+			switch(form_data.get("git_fetch_show_forced_updates")){
+				case "false":
+					command_components.push("--no-show-forced-updates");
+					break;
+				case "true":
+					command_components.push("--show-forced-updates");
+					break;
+			}
+			if(form_data.get("git_fetch_has_submodule_prefix")){
+				let element_value = form_data.get("git_fetch_submodule_prefix_path"), element_has_error = element_value.length == 0;
+				command_components.push("--submodule-prefix=" + shell_quote(element_value));
+				document.getElementById("git_fetch_submodule_prefix_path").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+
+			switch(form_data.get("git_fetch_what")){
+				case "repository_refspecs":
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_fetch_what_repository_refspecs_repository"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_fetch_what_repository_refspecs_repository").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					Array.from(document.getElementById("git_fetch_what_repository_refspecs_repository_refspec_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+				case "group":
+					command_components.push("--end-of-options");
+					{
+						let element_value = form_data.get("git_fetch_what_group_group"), element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						document.getElementById("git_fetch_what_group_group").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "multiple":
+					command_components.push("--end-of-options");
+					Array.from(document.getElementById("git_fetch_what_multiple_repository_or_group_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+			}
+
+			let git_fetch_command = document.getElementById("git_fetch_command");
+			git_fetch_command.classList.toggle("error_output", has_error);
+			git_fetch_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_fetch_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_fetch_refresh);
+		});
+		Array.from(document.getElementById("git_fetch_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_fetch_refresh);
+		});
+	</script>
+</div>

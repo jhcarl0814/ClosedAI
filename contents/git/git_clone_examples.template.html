@@ -1,0 +1,943 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch; git -C './server/repo.git' tag tag
+			git -C './server/repo.git' lg
+
+			mkdir --parents -- './client/repo'
+			touch './client/repo/file'
+			git -C './client' clone '../server/repo.git'
+			rm --force --recursive -- './client/repo'
+
+			mkdir --parents -- './client/repo/dir'
+			git -C './client' clone '../server/repo.git'
+			rm --force --recursive -- './client/repo'
+
+			git -C './client' clone '../server/repo.git'
+			git -C './client/repo' config list --local --show-origin --show-scope
+			git -C './client/repo' lg
+			tree '.'
+
+			git -C './client' clone "$(realpath './server/repo.git')" './repo1'
+			git -C './client' clone 'file://../server/repo.git' './repo2'
+			git -C './client' clone 'file://'"$(realpath './server/repo.git')" './repo3'
+
+			git init --bare './-repo.git'
+			git --git-dir='./-repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './-repo.git' lg
+
+			git clone './-repo.git' './client/repo4.git'
+			git clone '-repo.git' './client/repo5.git'
+			git clone -- '-repo.git' './client/repo6.git'
+			git clone --end-of-options '-repo.git' './client/repo7.git'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_progress~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --quiet</span><br><span class="command">git clone --progress</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+"$SHELL" -i 0<<'EOF0' 2>&1 | ansi2html_pre
+git -C './server' init --bare './repo.git'
+git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+
+git -C './client' clone --quiet '../server/repo.git' './repo1'
+git -C './client' clone '../server/repo.git' './repo2'
+git -C './client' clone --progress '../server/repo.git' './repo3'
+"$SHELL" 0<<-'EOF' 2> >(cat)
+    git -C './client' clone --quiet '../server/repo.git' './repo4'
+    git -C './client' clone '../server/repo.git' './repo5'
+    git -C './client' clone --progress '../server/repo.git' './repo6'
+EOF
+
+git -C './client' clone --quiet 'file://'"$(realpath './server/repo.git')" './repo7'
+git -C './client' clone 'file://'"$(realpath './server/repo.git')" './repo8'
+git -C './client' clone --progress 'file://'"$(realpath './server/repo.git')" './repo9'
+"$SHELL" 0<<-'EOF' 2> >(cat)
+    git -C './client' clone --quiet 'file://'"$(realpath './server/repo.git')" './repo10'
+    git -C './client' clone 'file://'"$(realpath './server/repo.git')" './repo11'
+    git -C './client' clone --progress 'file://'"$(realpath './server/repo.git')" './repo12'
+EOF
+EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<'EOF0' 2>&1 | ansi2html_pre
+git -C './server' init --bare './repo.git'
+git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+
+git -C './client' clone --quiet '../server/repo.git' './repo1'
+git -C './client' clone '../server/repo.git' './repo2'
+git -C './client' clone --progress '../server/repo.git' './repo3'
+"$SHELL" 0<<-'EOF' 2>&1 | cat
+    git -C './client' clone --quiet '../server/repo.git' './repo4'
+    git -C './client' clone '../server/repo.git' './repo5'
+    git -C './client' clone --progress '../server/repo.git' './repo6'
+EOF
+
+git -C './client' clone --quiet 'file://'"$(realpath './server/repo.git')" './repo7'
+git -C './client' clone 'file://'"$(realpath './server/repo.git')" './repo8'
+git -C './client' clone --progress 'file://'"$(realpath './server/repo.git')" './repo9'
+"$SHELL" 0<<-'EOF' 2>&1 | cat
+    git -C './client' clone --quiet 'file://'"$(realpath './server/repo.git')" './repo10'
+    git -C './client' clone 'file://'"$(realpath './server/repo.git')" './repo11'
+    git -C './client' clone --progress 'file://'"$(realpath './server/repo.git')" './repo12'
+EOF
+EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_verbose~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --verbose</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+
+			git -C './client' clone '../server/repo.git' './repo1'
+			git -C './client' clone --verbose '../server/repo.git' './repo2'
+			git -C './client' clone --verbose --verbose '../server/repo.git' './repo3'
+
+			git -C './client' clone 'file://'"$(realpath './server/repo.git')"  './repo4'
+			git -C './client' clone --verbose 'file://'"$(realpath './server/repo.git')"  './repo5'
+			git -C './client' clone --verbose --verbose 'file://'"$(realpath './server/repo.git')"  './repo6'
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_resulting\_type~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_no\_checkout~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --no-checkout</span><br><span class="command">git clone --bare</span><br><span class="command">git clone --mirror</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		git config set --system --all 'color.push' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			touch './file'
+			git --git-dir='./server/repo.git' --work-tree='.' add './file'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
+
+			git -C './client' clone '../server/repo.git' './repo1'
+			git -C './client' clone --no-checkout '../server/repo.git' './repo2'
+			git -C './client' clone --bare '../server/repo.git' './repo31'
+			git -C './client' clone --bare '../server/repo.git' './repo32'
+			git -C './client' clone --mirror '../server/repo.git' './repo4'
+			ls './client/repo1'
+			ls './client/repo2'
+			git -C './client/repo1' status
+			git -C './client/repo2' status
+			git -C './server/repo.git' config list --local --show-origin --show-scope
+			git -C './client/repo1' config list --local --show-origin --show-scope
+			git -C './client/repo2' config list --local --show-origin --show-scope
+			git -C './client/repo31' config list --local --show-origin --show-scope
+			git -C './client/repo32' config list --local --show-origin --show-scope
+			git -C './client/repo4' config list --local --show-origin --show-scope
+			git ls-remote --symref './server/repo.git'
+			git ls-remote --symref './client/repo1'
+			git ls-remote --symref './client/repo2'
+			git ls-remote --symref './client/repo31'
+			git ls-remote --symref './client/repo32'
+			git ls-remote --symref './client/repo4'
+
+			git -C './server/repo.git' branch --show-current
+			git -C './server/repo.git' branch --move "$(git -C './server/repo.git' branch --show-current)"2
+			git -C './client/repo1' remote update --prune
+			git -C './client/repo2' remote update --prune
+			git -C './client/repo31' remote update --prune
+			git -C './client/repo32' remote update --prune
+			git -C './client/repo4' remote update --prune
+			git ls-remote --symref './server/repo.git'
+			git ls-remote --symref './client/repo1'
+			git ls-remote --symref './client/repo2'
+			git ls-remote --symref './client/repo31'
+			git ls-remote --symref './client/repo32'
+			git ls-remote --symref './client/repo4'
+
+			branch_remote_default_path="$(git -C './client/repo1' symbolic-ref 'refs/remotes/origin/HEAD')"; echo "$branch_remote_default_path"
+			branch_remote_default_name="${branch_remote_default_path#'refs/remotes/origin/'}"; echo "$branch_remote_default_name"
+			git -C './client/repo1' checkout "$branch_remote_default_name"
+			branch_remote_default_path="$(git -C './client/repo2' symbolic-ref 'refs/remotes/origin/HEAD')"; echo "$branch_remote_default_path"
+			branch_remote_default_name="${branch_remote_default_path#'refs/remotes/origin/'}"; echo "$branch_remote_default_name"
+			git -C './client/repo2' checkout "$branch_remote_default_name"
+			git ls-remote --symref './client/repo1'
+			git ls-remote --symref './client/repo2'
+
+			git -C './client/repo31' fetch --prune 'origin' '+refs/*:refs/*'
+			git ls-remote --symref './client/repo31'
+			branch_default_output="$(git ls-remote --symref './server/repo.git' | head --lines=1)"; echo "$branch_default_output"
+			branch_default_output="${branch_default_output%$'\t'*}"; echo "$branch_default_output"
+			branch_default_path="${branch_default_output#'ref: '*}"; echo "$branch_default_path"
+			git -C './client/repo31' symbolic-ref HEAD "$branch_default_path"
+			git -C './client/repo31' symbolic-ref HEAD
+			git ls-remote --symref './client/repo31'
+
+			git -C './server/repo.git' push --mirror '../../client/repo32'
+			git -C './client/repo32' config set 'receive.denyDeleteCurrent' 'false'
+			git -C './server/repo.git' push --mirror '../../client/repo32'
+			git ls-remote --symref './client/repo32'
+			branch_default_output="$(git ls-remote --symref './server/repo.git' | head --lines=1)"; echo "$branch_default_output"
+			branch_default_output="${branch_default_output%$'\t'*}"; echo "$branch_default_output"
+			branch_default_path="${branch_default_output#'ref: '*}"; echo "$branch_default_path"
+			git -C './client/repo32' symbolic-ref HEAD "$branch_default_path"
+			git -C './client/repo32' symbolic-ref HEAD
+			git ls-remote --symref './client/repo32'
+		EOF0
+		git config unset --system --all 'color.push';
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_template~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --template=&lt;template-directory&gt;</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<'EOF0' 2>&1 | ansi2html_pre
+git -C './server' init --bare './repo.git'
+git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+
+which --all 'git' | sort | uniq | while IFS= read -r path_of_git; do
+    echo "$path_of_git"
+    tree "$(realpath "$(dirname "$path_of_git")"'/../share/git-core/templates')"
+done
+tree "$(git -c 'a.b=%(prefix)/' config get --type=path 'a.b')"'share/git-core/templates'
+
+git -C './client' clone '../server/repo.git' './repo1'
+git -C './client' clone --template="$(git -c 'a.b=%(prefix)/' config get --type=path 'a.b')"'share/git-core/templates' '../server/repo.git' './repo2'
+tree '.'
+EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_separate\_git\_dir~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --separate-git-dir=&lt;git-dir&gt;</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+
+			git -C './client' clone --separate-git-dir='./repo.git' '../server/repo.git' './worktree1'
+			tree '.'
+			treex './client/worktree1'
+			git -C './client/repo.git' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir
+			git -C './client/repo.git' rev-parse --path-format=absolute --show-toplevel
+			git -C './client/worktree1' rev-parse --path-format=absolute --absolute-git-dir --git-common-dir --show-toplevel
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_config~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --config=&lt;key&gt;=&lt;value&gt;</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+
+			git -C './client' clone --config='section.key1' --config='section.key2=' --config='section.key3=""' '../server/repo.git' './repo'
+			git -C './client/repo' config list --local --show-origin --show-scope
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_origin~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --origin=&lt;name&gt;</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+
+			git -C './client' clone '../server/repo.git' './repo1'
+			git -C './client/repo1' config list --local --show-origin --show-scope
+			git -C './client/repo1' remote --verbose show
+			git -C './client' clone --origin='orig' '../server/repo.git' './repo2'
+			git -C './client/repo2' config list --local --show-origin --show-scope
+			git -C './client/repo2' remote --verbose show
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_HEAD~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --branch=&lt;name&gt;</span><br><span class="command">git clone --revision=&lt;rev&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		git config set --system --all 'color.advice' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' branch branch; git -C './server/repo.git' tag tag
+
+			git -C './client' clone '../server/repo.git' './repo1'
+			git -C './client/repo1' config list --local --show-origin --show-scope
+			git -C './client/repo1' branch --list --all --verbose --verbose
+			git -C './client/repo1' status --verbose --verbose
+			git -C './client' clone --branch='branch' '../server/repo.git' './repo21'
+			git -C './client/repo21' config list --local --show-origin --show-scope
+			git -C './client/repo21' branch --list --all --verbose --verbose
+			git -C './client/repo21' status --verbose --verbose
+			git -C './client' clone --branch='tag' '../server/repo.git' './repo22'
+			git -C './client/repo22' config list --local --show-origin --show-scope
+			git -C './client/repo22' branch --list --all --verbose --verbose
+			git -C './client/repo22' status --verbose --verbose
+			git -C './client' clone --branch='HEAD' '../server/repo.git' './repo23'
+			git -C './client' clone --revision='branch' '../server/repo.git' './repo31'
+			git -C './client/repo31' config list --local --show-origin --show-scope
+			git -C './client/repo31' branch --list --all --verbose --verbose
+			git -C './client/repo31' status --verbose --verbose
+			git -C './client' clone --revision='tag' '../server/repo.git' './repo32'
+			git -C './client/repo32' config list --local --show-origin --show-scope
+			git -C './client/repo32' branch --list --all --verbose --verbose
+			git -C './client/repo32' status --verbose --verbose
+			git -C './client' clone --revision='HEAD' '../server/repo.git' './repo33'
+			git -C './client/repo33' config list --local --show-origin --show-scope
+			git -C './client/repo33' branch --list --all --verbose --verbose
+			git -C './client/repo33' status --verbose --verbose
+		EOF0
+		git config unset --system --all 'color.advice';
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_local\_local\_no\_hardlinks\_no\_local~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --no-local</span><br><span class="command">git clone --local</span><br><span class="command">git clone --no-hardlinks</span></h2>
+	{{
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			tree './server'
+			find './server/repo.git/objects' -printf '%p %n\n'
+			touch './server/repo.git/objects/file'
+			touch './server/repo.git/refs/file'
+
+			git -C './client' clone '../server/repo.git' './repo1'
+			tree './client/repo1'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --no-local '../server/repo.git' './repo2'
+			tree './client/repo2'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone 'file://'"$(realpath './server/repo.git')" './repo3'
+			tree './client/repo3'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --local 'file://'"$(realpath './server/repo.git')" './repo4'
+			tree './client/repo4'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --no-hardlinks '../server/repo.git' './repo5'
+			tree './client/repo5'
+			find './server/repo.git/objects' -printf '%p %n\n'
+		EOF0
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_shared~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --shared</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --shared '../server/repo.git' './repo1'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --shared --local '../server/repo.git' './repo2'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --shared --no-local '../server/repo.git' './repo3'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --shared 'file://'"$(realpath './server/repo.git')" './repo4'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			treex './client/repo1/.git/objects'
+			treex './client/repo2/.git/objects'
+			treex './client/repo3/.git/objects'
+			treex './client/repo4/.git/objects'
+
+			git -C './client/repo1' lg
+			git -C './client/repo2' lg
+			git -C './client/repo3' lg
+			git -C './client/repo4' lg
+
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+			git --git-dir='./server/repo.git' --work-tree='.' commit --amend --message="$((++number))" --allow-empty
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+			git -C './server/repo.git' -c 'gc.pruneExpire=now' -c 'gc.reflogExpireUnreachable=now' gc
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+			git -C './client/repo1' lg
+			git -C './client/repo2' lg
+			git -C './client/repo3' lg
+			git -C './client/repo4' lg
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_reference~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --reference=&lt;repository&gt;</span> keep up to date when the referenced repository is updated (e.g. amend/rebase)</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			cp --recursive --no-target-directory -- './server/repo.git' './client/mirror.git/'
+
+			git -C './client' clone --reference='./mirror.git' '../server/repo.git' './repo1'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --reference='./mirror.git' --local '../server/repo.git' './repo2'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --reference='./mirror.git' --no-local '../server/repo.git' './repo3'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --reference='./mirror.git' 'file://'"$(realpath './server/repo.git')" './repo4'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			treex './client/repo1/.git/objects'
+			treex './client/repo2/.git/objects'
+			treex './client/repo3/.git/objects'
+			treex './client/repo4/.git/objects'
+
+			git -C './client/repo1' lg
+			git -C './client/repo2' lg
+			git -C './client/repo3' lg
+			git -C './client/repo4' lg
+
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+			git --git-dir='./server/repo.git' --work-tree='.' commit --amend --message="$((++number))" --allow-empty
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+			git -C './server/repo.git' -c 'gc.pruneExpire=now' -c 'gc.reflogExpireUnreachable=now' gc
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+			git -C './client/repo1' lg
+			git -C './client/repo2' lg
+			git -C './client/repo3' lg
+			git -C './client/repo4' lg
+
+			rm --force --recursive -- './client/mirror.git/'
+			cp --recursive --no-target-directory -- './server/repo.git' './client/mirror.git/'
+			git -C './client/repo1' lg
+			git -C './client/repo2' lg
+			git -C './client/repo3' lg
+			git -C './client/repo4' lg
+
+			git -C './client/repo3' pull
+			git ls-remote --symref './client/repo3'
+			git -C './client/repo3' branch --show-current
+			git -C './client/repo3' update-ref -d 'refs/remotes/origin/'"$(git -C './client/repo3' branch --show-current)"
+			git -C './client/repo3' update-ref -d 'refs/heads/'"$(git -C './client/repo3' branch --show-current)"
+			git -C './client/repo3' pull
+			git ls-remote --symref './client/repo3'
+			treex './client/repo3/.git/objects'
+			git -C './client/repo3' lg
+
+			git -C './client/repo4' pull
+			git ls-remote --symref './client/repo4'
+			git -C './client/repo4' branch --show-current
+			git -C './client/repo4' update-ref -d 'refs/remotes/origin/'"$(git -C './client/repo4' branch --show-current)"
+			git -C './client/repo4' update-ref -d 'refs/heads/'"$(git -C './client/repo4' branch --show-current)"
+			git -C './client/repo4' pull
+			git ls-remote --symref './client/repo4'
+			treex './client/repo4/.git/objects'
+			git -C './client/repo4' lg
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_reference~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --reference=&lt;repository&gt;</span> switch back to not-referencing-the-repository mode when the referenced repository is removed</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			cp --recursive --no-target-directory -- './server/repo.git' './client/mirror.git/'
+
+			git -C './client' clone --reference='./mirror.git' '../server/repo.git' './repo1'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --reference='./mirror.git' --local '../server/repo.git' './repo2'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --reference='./mirror.git' --no-local '../server/repo.git' './repo3'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --reference='./mirror.git' 'file://'"$(realpath './server/repo.git')" './repo4'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			treex './client/repo1/.git/objects'
+			treex './client/repo2/.git/objects'
+			treex './client/repo3/.git/objects'
+			treex './client/repo4/.git/objects'
+
+			git -C './client/repo1' lg
+			git -C './client/repo2' lg
+			git -C './client/repo3' lg
+			git -C './client/repo4' lg
+
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+			git --git-dir='./server/repo.git' --work-tree='.' commit --amend --message="$((++number))" --allow-empty
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+			git -C './server/repo.git' -c 'gc.pruneExpire=now' -c 'gc.reflogExpireUnreachable=now' gc
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+			git -C './client/repo1' lg
+			git -C './client/repo2' lg
+			git -C './client/repo3' lg
+			git -C './client/repo4' lg
+
+			rm --force --recursive -- './client/mirror.git/'
+			git -C './client/repo1' lg
+			git -C './client/repo2' lg
+			git -C './client/repo3' lg
+			git -C './client/repo4' lg
+
+			rm './client/repo1/.git/objects/info/alternates'
+			git -C './client/repo1' lg
+
+			rm './client/repo2/.git/objects/info/alternates'
+			git -C './client/repo2' lg
+
+			git -C './client/repo3' pull
+			rm './client/repo3/.git/objects/info/alternates'
+			git -C './client/repo3' pull
+			git ls-remote --symref './client/repo3'
+			git -C './client/repo3' branch --show-current
+			git -C './client/repo3' update-ref -d 'refs/remotes/origin/'"$(git -C './client/repo3' branch --show-current)"
+			git -C './client/repo3' update-ref -d 'refs/heads/'"$(git -C './client/repo3' branch --show-current)"
+			git -C './client/repo3' pull
+			git ls-remote --symref './client/repo3'
+			treex './client/repo3/.git/objects'
+			git -C './client/repo3' lg
+
+			git -C './client/repo4' pull
+			rm './client/repo4/.git/objects/info/alternates'
+			git -C './client/repo4' pull
+			git ls-remote --symref './client/repo4'
+			git -C './client/repo4' branch --show-current
+			git -C './client/repo4' update-ref -d 'refs/remotes/origin/'"$(git -C './client/repo4' branch --show-current)"
+			git -C './client/repo4' update-ref -d 'refs/heads/'"$(git -C './client/repo4' branch --show-current)"
+			git -C './client/repo4' pull
+			git ls-remote --symref './client/repo4'
+			treex './client/repo4/.git/objects'
+			git -C './client/repo4' lg
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_reference~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_dissociate~*_&]:block">
+	<h2 class="heading2"><span class="command">git clone --reference=&lt;repository&gt; --dissociate</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			cp --recursive --no-target-directory -- './server/repo.git' './client/mirror.git/'
+
+			git -C './client' clone --reference='./mirror.git' --dissociate '../server/repo.git' './repo1'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --reference='./mirror.git' --dissociate --local '../server/repo.git' './repo2'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --reference='./mirror.git' --dissociate --no-local '../server/repo.git' './repo3'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			git -C './client' clone --reference='./mirror.git' --dissociate 'file://'"$(realpath './server/repo.git')" './repo4'
+			find './server/repo.git/objects' -printf '%p %n\n'
+
+			treex './client/repo1/.git/objects'
+			treex './client/repo2/.git/objects'
+			treex './client/repo3/.git/objects'
+			treex './client/repo4/.git/objects'
+
+			git -C './client/repo1' lg
+			git -C './client/repo2' lg
+			git -C './client/repo3' lg
+			git -C './client/repo4' lg
+
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+			git --git-dir='./server/repo.git' --work-tree='.' commit --amend --message="$((++number))" --allow-empty
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+			git -C './server/repo.git' -c 'gc.pruneExpire=now' -c 'gc.reflogExpireUnreachable=now' gc
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+			git -C './client/repo1' lg
+			git -C './client/repo2' lg
+			git -C './client/repo3' lg
+			git -C './client/repo4' lg
+
+			rm --force --recursive -- './client/mirror.git/'
+			cp --recursive --no-target-directory -- './server/repo.git' './client/mirror.git/'
+			git -C './client/repo1' lg
+			git -C './client/repo2' lg
+			git -C './client/repo3' lg
+			git -C './client/repo4' lg
+
+			rm --force --recursive -- './client/mirror.git/'
+			git -C './client/repo1' lg
+			git -C './client/repo2' lg
+			git -C './client/repo3' lg
+			git -C './client/repo4' lg
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_config~*_&]:block">
+	<h2 class="heading2">fetch &lt;refspec&gt; (limit the set of requested commits)<br><span class="command">git clone --config='remote.origin.fetch=&lt;refspec&gt;'</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			branch_default_path="$(git -C './server/repo.git' symbolic-ref HEAD)"; echo "$branch_default_path"
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git -C './server/repo.git' update-ref 'refs/heads2/branch' HEAD~1
+			git -C './server/repo.git' show-ref 'refs/heads2/branch'
+			git -C './server/repo.git' symbolic-ref HEAD 'refs/heads2/branch'
+			git -C './server/repo.git' symbolic-ref HEAD
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git -C './server/repo.git' symbolic-ref HEAD "$branch_default_path"
+			git -C './server/repo.git' symbolic-ref HEAD
+			git -C './server/repo.git' lg --all --clear-decorations
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone '../server/repo.git' './repo1'
+			git -C './client/repo1' config list --local --show-origin --show-scope
+			git -C './client/repo1' lg --all --clear-decorations
+			git -C './client/repo1' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --config='remote.origin.fetch=+refs/heads2/*:refs/remotes/origin/heads2/*' '../server/repo.git' './repo2'
+			git -C './client/repo2' config list --local --show-origin --show-scope
+			git -C './client/repo2' lg --all --clear-decorations
+			git -C './client/repo2' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --no-local '../server/repo.git' './repo3'
+			git -C './client/repo3' config list --local --show-origin --show-scope
+			git -C './client/repo3' lg --all --clear-decorations
+			git -C './client/repo3' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --no-local --config='remote.origin.fetch=+refs/heads2/*:refs/remotes/origin/heads2/*' '../server/repo.git' './repo4'
+			git -C './client/repo4' config list --local --show-origin --show-scope
+			git -C './client/repo4' lg --all --clear-decorations
+			git -C './client/repo4' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone 'file://'"$(realpath './server/repo.git')" './repo5'
+			git -C './client/repo5' config list --local --show-origin --show-scope
+			git -C './client/repo5' lg --all --clear-decorations
+			git -C './client/repo5' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --config='remote.origin.fetch=+refs/heads2/*:refs/remotes/origin/heads2/*' 'file://'"$(realpath './server/repo.git')" './repo6'
+			git -C './client/repo6' config list --local --show-origin --show-scope
+			git -C './client/repo6' lg --all --clear-decorations
+			git -C './client/repo6' cat-file --batch-check --batch-all-objects
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_no\_tags~*_&]:block">
+	<h2 class="heading2">(limit the set of requested commits)<br><span class="command">git clone --no-tags</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' tag tag
+			git --git-dir='./server/repo.git' --work-tree='.' reset --hard  HEAD~1
+
+			git -C './client' clone '../server/repo.git' './repo1'
+			git -C './client/repo1' config list --local --show-origin --show-scope
+			git -C './client/repo1' lg --all
+			git -C './client/repo1' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --no-tags '../server/repo.git' './repo2'
+			git -C './client/repo2' config list --local --show-origin --show-scope
+			git -C './client/repo2' lg --all
+			git -C './client/repo2' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --no-local '../server/repo.git' './repo3'
+			git -C './client/repo3' config list --local --show-origin --show-scope
+			git -C './client/repo3' lg --all
+			git -C './client/repo3' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --no-tags --no-local '../server/repo.git' './repo4'
+			git -C './client/repo4' config list --local --show-origin --show-scope
+			git -C './client/repo4' lg --all
+			git -C './client/repo4' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone 'file://'"$(realpath './server/repo.git')" './repo5'
+			git -C './client/repo5' config list --local --show-origin --show-scope
+			git -C './client/repo5' lg --all
+			git -C './client/repo5' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --no-tags 'file://'"$(realpath './server/repo.git')" './repo6'
+			git -C './client/repo6' config list --local --show-origin --show-scope
+			git -C './client/repo6' lg --all
+			git -C './client/repo6' cat-file --batch-check --batch-all-objects
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_single\_branch~*_&]:block">
+	<h2 class="heading2">single branch (limit the set of requested commits)<br><span class="command">git clone --single-branch</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git -C './server/repo.git' branch branch; git -C './server/repo.git' tag tag
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git --git-dir='./server/repo.git' --work-tree='.' checkout branch
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git -C './server/repo.git' lg --all
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone '../server/repo.git' './repo1'
+			git -C './client/repo1' config list --local --show-origin --show-scope
+			git -C './client/repo1' lg --all
+			git -C './client/repo1' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --single-branch '../server/repo.git' './repo2'
+			git -C './client/repo2' config list --local --show-origin --show-scope
+			git -C './client/repo2' lg --all
+			git -C './client/repo2' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --no-local '../server/repo.git' './repo3'
+			git -C './client/repo3' config list --local --show-origin --show-scope
+			git -C './client/repo3' lg --all
+			git -C './client/repo3' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --single-branch --no-local '../server/repo.git' './repo4'
+			git -C './client/repo4' config list --local --show-origin --show-scope
+			git -C './client/repo4' lg --all
+			git -C './client/repo4' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone 'file://'"$(realpath './server/repo.git')" './repo5'
+			git -C './client/repo5' config list --local --show-origin --show-scope
+			git -C './client/repo5' lg --all
+			git -C './client/repo5' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --single-branch 'file://'"$(realpath './server/repo.git')" './repo6'
+			git -C './client/repo6' config list --local --show-origin --show-scope
+			git -C './client/repo6' lg --all
+			git -C './client/repo6' cat-file --batch-check --batch-all-objects
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_depth~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_no\_single\_branch~*_&]:block">
+	<h2 class="heading2">shallow clone (limit the set of requested commits)<br><span class="command">git clone --depth=&lt;depth&gt;</span><br><span class="command">git clone --depth=&lt;depth&gt; --no-single-branch</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git -C './server/repo.git' branch branch; git -C './server/repo.git' tag tag
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git --git-dir='./server/repo.git' --work-tree='.' checkout branch
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git -C './server/repo.git' lg --all
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone '../server/repo.git' './repo1'
+			git -C './client/repo1' config list --local --show-origin --show-scope
+			git -C './client/repo1' lg --all
+			git -C './client/repo1' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --depth=1 '../server/repo.git' './repo2'
+			git -C './client/repo2' config list --local --show-origin --show-scope
+			git -C './client/repo2' lg --all
+			git -C './client/repo2' cat-file --batch-check --batch-all-objects
+			treex './client/repo2/.git/shallow'
+
+			git -C './client' clone --no-local '../server/repo.git' './repo3'
+			git -C './client/repo3' config list --local --show-origin --show-scope
+			git -C './client/repo3' lg --all
+			git -C './client/repo3' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --depth=1 --no-local '../server/repo.git' './repo41'
+			git -C './client/repo41' config list --local --show-origin --show-scope
+			git -C './client/repo41' lg --all
+			git -C './client/repo41' cat-file --batch-check --batch-all-objects
+			treex './client/repo41/.git/shallow'
+
+			git -C './client' clone --depth=1 --no-local --no-single-branch '../server/repo.git' './repo42'
+			git -C './client/repo42' config list --local --show-origin --show-scope
+			git -C './client/repo42' lg --all
+			git -C './client/repo42' cat-file --batch-check --batch-all-objects
+			treex './client/repo42/.git/shallow'
+
+			git -C './client' clone --depth=1 --no-local --no-single-branch --no-tags '../server/repo.git' './repo43'
+			git -C './client/repo43' config list --local --show-origin --show-scope
+			git -C './client/repo43' lg --all
+			git -C './client/repo43' cat-file --batch-check --batch-all-objects
+			treex './client/repo43/.git/shallow'
+
+			git -C './client' clone 'file://'"$(realpath './server/repo.git')" './repo5'
+			git -C './client/repo5' config list --local --show-origin --show-scope
+			git -C './client/repo5' lg --all
+			git -C './client/repo5' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --depth=1 'file://'"$(realpath './server/repo.git')" './repo61'
+			git -C './client/repo61' config list --local --show-origin --show-scope
+			git -C './client/repo61' lg --all
+			git -C './client/repo61' cat-file --batch-check --batch-all-objects
+			treex './client/repo61/.git/shallow'
+
+			git -C './client' clone --depth=1 --no-single-branch 'file://'"$(realpath './server/repo.git')" './repo62'
+			git -C './client/repo62' config list --local --show-origin --show-scope
+			git -C './client/repo62' lg --all
+			git -C './client/repo62' cat-file --batch-check --batch-all-objects
+			treex './client/repo62/.git/shallow'
+
+			git -C './client' clone --depth=1 --no-single-branch --no-tags 'file://'"$(realpath './server/repo.git')" './repo63'
+			git -C './client/repo63' config list --local --show-origin --show-scope
+			git -C './client/repo63' lg --all
+			git -C './client/repo63' cat-file --batch-check --batch-all-objects
+			treex './client/repo63/.git/shallow'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_shallow\_exclude~*_&]:block">
+	<h2 class="heading2">shallow clone (limit the set of requested commits)<br><span class="command">git clone --shallow-exclude=&lt;ref&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			branch_default_path="$(git -C './server/repo.git' symbolic-ref HEAD)"; echo "$branch_default_path"
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git -C './server/repo.git' branch branch; git -C './server/repo.git' tag tag
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git --git-dir='./server/repo.git' --work-tree='.' checkout branch
+			echo "$((++number))" >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$(<'./file')"
+			git -C './server/repo.git' lg --all
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone '../server/repo.git' './repo1'
+			git -C './client/repo1' config list --local --show-origin --show-scope
+			git -C './client/repo1' lg --all
+			git -C './client/repo1' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --shallow-exclude="$branch_default_path" '../server/repo.git' './repo2'
+			git -C './client/repo2' config list --local --show-origin --show-scope
+			git -C './client/repo2' lg --all
+			git -C './client/repo2' cat-file --batch-check --batch-all-objects
+			treex './client/repo2/.git/shallow'
+
+			git -C './client' clone --no-local '../server/repo.git' './repo3'
+			git -C './client/repo3' config list --local --show-origin --show-scope
+			git -C './client/repo3' lg --all
+			git -C './client/repo3' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --shallow-exclude="$branch_default_path" --no-local '../server/repo.git' './repo4'
+			git -C './client/repo4' config list --local --show-origin --show-scope
+			git -C './client/repo4' lg --all
+			git -C './client/repo4' cat-file --batch-check --batch-all-objects
+			treex './client/repo4/.git/shallow'
+
+			git -C './client' clone 'file://'"$(realpath './server/repo.git')" './repo5'
+			git -C './client/repo5' config list --local --show-origin --show-scope
+			git -C './client/repo5' lg --all
+			git -C './client/repo5' cat-file --batch-check --batch-all-objects
+
+			git -C './client' clone --shallow-exclude="$branch_default_path" 'file://'"$(realpath './server/repo.git')" './repo6'
+			git -C './client/repo6' config list --local --show-origin --show-scope
+			git -C './client/repo6' lg --all
+			git -C './client/repo6' cat-file --batch-check --batch-all-objects
+			treex './client/repo6/.git/shallow'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_clone~*_&]:block [#reference\_desk\_dispatcher\_example.git\_clone\_filter~*_&]:block">
+	<h2 class="heading2">partial clone (limit the number of blobs and trees downloaded within a given range of commits)<br><span class="command">git clone --filter&lt;filter-spec&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		git config set --system --all 'color.advice' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			touch './file'
+			git --git-dir='./server/repo.git' --work-tree='.' add './file'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git --git-dir='./server/repo.git' --work-tree='.' rm './file'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' lg --all
+
+			git -C './client' clone --filter='object:type=tag' '../server/repo.git' './repo1'
+			git -C './client' clone --filter='object:type=tag' --no-local '../server/repo.git' './repo2'
+			git -C './server/repo.git' config set 'uploadpack.allowFilter' 'true'
+			git -C './client' clone --filter='object:type=tag' --no-local '../server/repo.git' './repo3'
+			git -C './client/repo3' config list --local --show-origin --show-scope
+			git -C './server/repo.git' cat-file --batch-check --batch-all-objects
+			git -C './client/repo3' cat-file --batch-check --batch-all-objects
+			git -C './client/repo3' lg --all
+			git -C './client/repo3' checkout HEAD~1
+			git -C './client/repo3' cat-file --batch-check --batch-all-objects
+			git -C './client/repo3' lg --all
+		EOF0
+		git config unset --system --all 'color.advice';
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

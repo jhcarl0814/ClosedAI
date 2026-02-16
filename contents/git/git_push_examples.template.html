@@ -1,0 +1,547 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_push~*_&]:block [#reference\_desk\_dispatcher\_example.git\_push\_what~*_&]:block [#reference\_desk\_dispatcher\_example.git\_push\_tags~*_&]:block">
+	<h2 class="heading2"><span class="command">git push [--tags]</span><br><span class="command">git push --branches</span><br><span class="command">git push --mirror</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server11' './server12' './server13' './server14' './server2' './server3' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server11' init --bare './repo.git'
+			git -C './server12' init --bare './repo.git'
+			git -C './server13' init --bare './repo.git'
+			git -C './server14' init --bare './repo.git'
+			git -C './server2' init --bare './repo.git'
+			git -C './server3' init --bare './repo.git'
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote add server11 'file://'"$(realpath './server11/repo.git')"
+			git -C './client/repo' remote add server12 'file://'"$(realpath './server12/repo.git')"
+			git -C './client/repo' remote add server13 'file://'"$(realpath './server13/repo.git')"
+			git -C './client/repo' remote add server14 'file://'"$(realpath './server14/repo.git')"
+			git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' remote add server3 'file://'"$(realpath './server3/repo.git')"
+			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch branch1; git -C './client/repo' tag tag11; git -C './client/repo' tag --annotate --message="$((++number))" tag12
+			git -C './client/repo' checkout --orphan=branch2; git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' tag tag21; git -C './client/repo' tag --annotate --message="$((++number))" tag22
+			git -C './client/repo' checkout --orphan=branch3; git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch --delete --force branch2
+			git -C './client/repo' lg --all
+
+			git -C './client/repo' push server11
+			git -C './server11/repo.git' lg --all
+
+			git -C './client/repo' push server12 branch1
+			git -C './server12/repo.git' lg --all
+
+			git -C './client/repo' push --tags server13
+			git -C './server13/repo.git' lg --all
+
+			git -C './client/repo' push --tags server14 branch1
+			git -C './server14/repo.git' lg --all
+
+			git -C './client/repo' push --branches server2
+			git -C './server2/repo.git' lg --all
+
+			git -C './client/repo' push --mirror server3
+			git -C './server3/repo.git' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_push~*_&]:block [#reference\_desk\_dispatcher\_example.git\_push\_force\_with\_lease~*_&]:block [#reference\_desk\_dispatcher\_example.git\_push\_force\_if\_includes~*_&]:block">
+	<h2 class="heading2"><span class="command">git push --force-with-lease --force-if-includes/--no-force-if-includes</span></h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client1' './client2';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server/repo.git' lg --all
+
+					git -C './client1' clone 'file://'"$(realpath './server/repo.git')" './repo'
+					git -C './client1/repo' lg --all
+					git -C './client1/repo' commit --message="$((++number))" --allow-empty
+					git -C './client1/repo' lg --all
+					git -C './client1/repo' push --force-with-lease
+					git -C './client1/repo' lg --all
+					git -C './server/repo.git' lg --all
+
+					git -C './client2' clone 'file://'"$(realpath './server/repo.git')" './repo'
+					git -C './client2/repo' lg --all
+					git -C './client2/repo' commit --message="$((++number))" --allow-empty
+					git -C './client2/repo' lg --all
+					git -C './client2/repo' push --force-with-lease
+					git -C './client2/repo' lg --all
+					git -C './server/repo.git' lg --all
+
+					git -C './client1/repo' commit --message="$((++number))" --allow-empty --amend
+					git -C './client1/repo' lg --all
+					git -C './client1/repo' push --force-with-lease
+					git -C './client1/repo' fetch
+					git -C './client1/repo' lg --all
+					git -C './client1/repo' push --force-with-lease
+					git -C './client1/repo' lg --all
+					git -C './server/repo.git' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client1' './client2';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+					git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+					git -C './server/repo.git' lg --all
+
+					git -C './client1' clone 'file://'"$(realpath './server/repo.git')" './repo'
+					branch_default_name="$(git -C './client1/repo' branch --show-current)"; echo "$branch_default_name"
+					git -C './client1/repo' lg --all
+					git -C './client1/repo' commit --message="$((++number))" --allow-empty
+					git -C './client1/repo' lg --all
+					git -C './client1/repo' push --force-with-lease --force-if-includes
+					git -C './client1/repo' lg --all
+					git -C './server/repo.git' lg --all
+
+					git -C './client2' clone 'file://'"$(realpath './server/repo.git')" './repo'
+					git -C './client2/repo' lg --all
+					git -C './client2/repo' commit --message="$((++number))" --allow-empty
+					git -C './client2/repo' lg --all
+					git -C './client2/repo' push --force-with-lease --force-if-includes
+					git -C './client2/repo' lg --all
+					git -C './server/repo.git' lg --all
+
+					git -C './client1/repo' commit --message="$((++number))" --allow-empty --amend
+					git -C './client1/repo' lg --all
+					git -C './client1/repo' fetch
+					git -C './client1/repo' lg --all
+					git -C './client1/repo' push --force-with-lease --force-if-includes
+					git -C './client1/repo' reflog show --format=tformat:'%gD' HEAD
+					git -C './client1/repo' lg --not $(git -C './client1/repo' reflog show --format=tformat:'%gD' HEAD) --not 'HEAD@{upstream}'
+					git -C './server/repo.git' lg --all
+
+					git -C './client1/repo' rebase --onto=HEAD 'HEAD@{upstream}@{1}' 'HEAD@{upstream}'
+					git -C './client1/repo' lg --all
+					git -C './client1/repo' checkout -B "$branch_default_name"
+					git -C './client1/repo' lg --all
+					git -C './client1/repo' push --force-with-lease --force-if-includes
+					git -C './client1/repo' push --force-with-lease
+					git -C './client1/repo' lg --all
+					git -C './server/repo.git' lg --all
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_push~*_&]:block [#reference\_desk\_dispatcher\_example.git\_push\_force\_with\_lease~*_&]:block">
+	<h2 class="heading2"><span class="command">git push --force-with-lease=&lt;refname&gt;:&lt;expect&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client1' './client2';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
+			git -C './server/repo.git' lg --all
+
+			git -C './client1' clone 'file://'"$(realpath './server/repo.git')" './repo'
+			branch_default_name="$(git -C './client1/repo' branch --show-current)"; echo "$branch_default_name"
+			git -C './client1/repo' lg --all
+			git -C './client1/repo' commit --message="$((++number))" --allow-empty
+			git -C './client1/repo' lg --all
+			git -C './client1/repo' push
+			git -C './client1/repo' lg --all
+			git -C './server/repo.git' lg --all
+
+			git -C './client2' clone 'file://'"$(realpath './server/repo.git')" './repo'
+			git -C './client2/repo' lg --all
+			git -C './client2/repo' commit --message="$((++number))" --allow-empty
+			git -C './client2/repo' lg --all
+			git -C './client2/repo' push
+			git -C './client2/repo' lg --all
+			git -C './server/repo.git' lg --all
+
+			git -C './client1/repo' commit --message="$((++number))" --allow-empty --amend
+			git -C './client1/repo' lg --all
+			git -C './client1/repo' push
+			git -C './client1/repo' fetch
+			git -C './client1/repo' lg --all
+			git -C './server/repo.git' lg --all
+
+			git -C './client1/repo' rebase --onto=HEAD 'HEAD@{upstream}@{1}' 'HEAD@{upstream}'
+			git -C './client1/repo' lg --all
+			git -C './client1/repo' checkout -B "$branch_default_name"
+			git -C './client1/repo' lg --all
+			git -C './client1/repo' push --force-with-lease="$branch_default_name"':HEAD@{upstream}'
+			git -C './client1/repo' lg --all
+			git -C './server/repo.git' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_push~*_&]:block [#reference\_desk\_dispatcher\_example.git\_push\_prune~*_&]:block">
+	<h2 class="heading2"><span class="command">git push --prune</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch branch1; git -C './client/repo' tag tag11; git -C './client/repo' tag --annotate --message="$((++number))" tag12
+
+			git -C './client/repo' push server 'refs/heads/*:refs/heads/*' 'refs/tags/*:refs/tags/*'
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' branch --delete branch1; git -C './client/repo' tag --delete tag11; git -C './client/repo' tag --delete tag12
+			git -C './client/repo' branch branch2; git -C './client/repo' tag tag21; git -C './client/repo' tag --annotate --message="$((++number))" tag22
+
+			git -C './client/repo' push server 'refs/heads/*:refs/heads/*' 'refs/tags/*:refs/tags/*'
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' push --prune server 'refs/heads/*:refs/heads/*' 'refs/tags/*:refs/tags/*'
+			git -C './client/repo' branch --list --all --verbose --verbose
+			git -C './client/repo' tag --list
+			git -C './server/repo.git' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_push~*_&]:block [#reference\_desk\_dispatcher\_example.git\_push\_follow\_tags~*_&]:block">
+	<h2 class="heading2"><span class="command">git push --follow-tags/--no-follow-tags</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './server3' './server4' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server1' init --bare './repo.git'
+			git -C './server2' init --bare './repo.git'
+			git -C './server3' init --bare './repo.git'
+			git -C './server4' init --bare './repo.git'
+
+			git -C './client' init './repo'
+			git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' remote add server3 'file://'"$(realpath './server3/repo.git')"
+			git -C './client/repo' remote add server4 'file://'"$(realpath './server4/repo.git')"
+			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch branch1; git -C './client/repo' tag tag11; git -C './client/repo' tag --annotate --message="$((++number))" tag12
+			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch branch2; git -C './client/repo' tag tag21; git -C './client/repo' tag --annotate --message="$((++number))" tag22
+
+			git -C './client/repo' push --follow-tags server1 branch1
+			git -C './client/repo' push --follow-tags server1 branch2
+			git -C './server1/repo.git' lg --all
+
+			git -C './client/repo' push --follow-tags server2 branch1
+			git -C './client/repo' push --no-follow-tags server2 branch2
+			git -C './server2/repo.git' lg --all
+
+			git -C './client/repo' push --no-follow-tags server3 branch1
+			git -C './client/repo' push --follow-tags server3 branch2
+			git -C './server3/repo.git' lg --all
+
+			git -C './client/repo' push --no-follow-tags server4 branch1
+			git -C './client/repo' push --no-follow-tags server4 branch2
+			git -C './server4/repo.git' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_push~*_&]:block [#reference\_desk\_dispatcher\_example.git\_push\_set\_upstream~*_&]:block">
+	<h2 class="heading2"><span class="command">git push --set-upstream</span></h2>
+	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
+		<div>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+
+					git -C './client' init './repo'
+					git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch branch1; git -C './client/repo' branch branch2; git -C './client/repo' branch branch3
+					git -C './client/repo' branch --list --all --verbose --verbose
+
+					git -C './client/repo' push 'file://'"$(realpath './server/repo.git')" 'refs/heads/branch*:refs/heads/branch*' branch1 branch2
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">"refs to push to remote" are set to track "remote refs to update"</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+
+					git -C './client' init './repo'
+					git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch branch1; git -C './client/repo' branch branch2; git -C './client/repo' branch branch3
+					git -C './client/repo' branch --list --all --verbose --verbose
+
+					git -C './client/repo' push --set-upstream 'file://'"$(realpath './server/repo.git')" 'refs/heads/branch*:refs/heads/branch*' branch1 branch2
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">remote tracking branches are created according to <span class="command">git fetch</span>'s "local refs to update"</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+
+					git -C './client' init './repo'
+					git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch branch1; git -C './client/repo' branch branch2; git -C './client/repo' branch branch3
+					git -C './client/repo' branch --list --all --verbose --verbose
+
+					git -C './client/repo' push server 'refs/heads/branch*:refs/heads/branch*' branch1 branch2
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+		<div>
+			<h3 class="heading3">remote tracking branches are created according to <span class="command">git fetch</span>'s "local refs to update"<br>"refs to push to remote" are set to track "remote refs to update"</h3>
+			{{
+				git config set --system --all 'color.ui' 'always';
+				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+				mkdir --parents -- './server' './client';
+				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+					git -C './server' init --bare './repo.git'
+
+					git -C './client' init './repo'
+					git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch branch1; git -C './client/repo' branch branch2; git -C './client/repo' branch branch3
+					git -C './client/repo' branch --list --all --verbose --verbose
+
+					git -C './client/repo' push --set-upstream server 'refs/heads/branch*:refs/heads/branch*' branch1 branch2
+					git -C './client/repo' config list --local --show-scope --show-origin
+					git -C './client/repo' branch --list --all --verbose --verbose
+				EOF0
+				git config unset --system --all 'color.ui';
+			}}
+		</div>
+	</div>
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_push~*_&]:block">
+	<h2 class="heading2"><span class="command">git push</span> remote to push to</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server1' './server2' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server1' init --bare './repo.git'
+			git -C './server2' init --bare './repo.git'
+
+			git -C './client' init './repo'
+			branch_default_name="$(git -C './client/repo' branch --show-current)"; echo "$branch_default_name"
+			git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' remote add server2 'file://'"$(realpath './server2/repo.git')"
+			git -C './client/repo' config unset --local 'remote.server1.fetch'
+			git -C './client/repo' config unset --local 'remote.server2.fetch'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' push
+			git -C './client/repo' remote remove server1
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' push
+			git -C './client/repo' config set --local 'push.default' 'current'
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' push
+			git -C './client/repo' config unset --local 'push.default'
+			git -C './client/repo' remote add server1 'file://'"$(realpath './server1/repo.git')"
+			git -C './client/repo' config unset --local 'remote.server1.fetch'
+			git -C './client/repo' config set --local 'branch.'"$branch_default_name"'.remote' 'server2'
+			git -C './client/repo' config set --local 'branch.'"$branch_default_name"'.merge' 'refs/heads/'"$branch_default_name"
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' push
+			git -C './server2/repo.git' lg --all
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' config set --local 'remote.pushDefault' 'server1'
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' push
+			git -C './server1/repo.git' lg --all
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' config set --local 'branch.'"$branch_default_name"'.pushRemote' 'server2'
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' push
+			git -C './server2/repo.git' lg --all
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' push server1
+			git -C './server1/repo.git' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_push~*_&]:block">
+	<h2 class="heading2"><span class="command">git push</span> refs to push to remote</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+
+			git -C './client' init './repo'
+			branch_default_name="$(git -C './client/repo' branch --show-current)"; echo "$branch_default_name"
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' config unset --local 'remote.server.fetch'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' remote --verbose show server
+			git -C './client/repo' push
+			git -C './client/repo' config set --local 'branch.'"$branch_default_name"'.remote' 'server'
+			git -C './client/repo' config set --local 'branch.'"$branch_default_name"'.merge' 'refs/heads/'"$branch_default_name"
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote --verbose show server
+			git -C './client/repo' push
+			git -C './client/repo' remote --verbose show server
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' config set --local 'branch.'"$branch_default_name"'.merge' 'refs/heads/'"$branch_default_name"'1'
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote --verbose show server
+			git -C './client/repo' push
+			git -C './client/repo' branch --move "$branch_default_name" "$branch_default_name"'1'
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote --verbose show server
+			git -C './client/repo' push
+			git -C './client/repo' remote --verbose show server
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' config set --local 'push.default' 'nothing'
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote --verbose show server
+			git -C './client/repo' push
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' config set --local 'push.default' 'current'
+			git -C './client/repo' config unset --local 'branch.'"$branch_default_name"'1.remote'
+			git -C './client/repo' config unset --local 'branch.'"$branch_default_name"'1.merge'
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote --verbose show server
+			git -C './client/repo' push
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' config set --local 'push.default' 'upstream'
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote --verbose show server
+			git -C './client/repo' push
+			git -C './client/repo' config set --local 'branch.'"$branch_default_name"'1.remote' 'server'
+			git -C './client/repo' config set --local 'branch.'"$branch_default_name"'1.merge' 'refs/heads/'"$branch_default_name"'2'
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote --verbose show server
+			git -C './client/repo' push
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' config set --local 'remote.server.push' 'refs/heads/'"$branch_default_name"'1:refs/heads/'"$branch_default_name"'1'
+			git -C './client/repo' config set --local --append 'remote.server.push' 'refs/heads/'"$branch_default_name"'1:refs/heads/'"$branch_default_name"''
+			git -C './client/repo' config list --local --show-scope --show-origin
+			git -C './client/repo' remote --verbose show server
+			git -C './client/repo' push
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty
+			git -C './client/repo' push server "$branch_default_name"'1' 'refs/heads/'"$branch_default_name"'1:refs/heads/'"$branch_default_name"'3'
+			git -C './server/repo.git' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_push~*_&]:block">
+	<h2 class="heading2"><span class="command">git push</span> remote refs to update</h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './server' './client';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git -C './server' init --bare './repo.git'
+
+			git -C './client' init './repo'
+			branch_default_name="$(git -C './client/repo' branch --show-current)"; echo "$branch_default_name"
+			git -C './client/repo' remote add server 'file://'"$(realpath './server/repo.git')"
+			git -C './client/repo' config unset --local 'remote.server.fetch'
+			git -C './client/repo' remote --verbose
+			git -C './client/repo' config list --local --show-scope --show-origin
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch --force branch1; git -C './client/repo' branch --force branch2
+			git -C './client/repo' push server branch1
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch --force branch1; git -C './client/repo' branch --force branch2
+			git -C './client/repo' push server 'refs/heads/branch*:refs/heads/branch*3' 'refs/heads/branch*:refs/heads/branch*4'
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch --force branch1; git -C './client/repo' branch --force branch2
+			git -C './client/repo' push server 'refs/heads/branch*:refs/heads/branch*4' 'refs/heads/branch*:refs/heads/branch*3'
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch --force branch1; git -C './client/repo' branch --force branch2
+			git -C './client/repo' push server 'refs/heads/branch*:refs/heads/branch*3' 'refs/heads/branch*:refs/heads/branch*4' branch1
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' config set --local --append 'remote.server.push' '+refs/heads/branch*:refs/remotes/server/branch*2'
+			git -C './client/repo' config list --local --show-scope --show-origin
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch --force branch1; git -C './client/repo' branch --force branch2
+			git -C './client/repo' push server branch1
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch --force branch1; git -C './client/repo' branch --force branch2
+			git -C './client/repo' push server 'refs/heads/branch*:refs/heads/branch*3' 'refs/heads/branch*:refs/heads/branch*4'
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch --force branch1; git -C './client/repo' branch --force branch2
+			git -C './client/repo' push server 'refs/heads/branch*:refs/heads/branch*4' 'refs/heads/branch*:refs/heads/branch*3'
+			git -C './server/repo.git' lg --all
+
+			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch --force branch1; git -C './client/repo' branch --force branch2
+			git -C './client/repo' push server 'refs/heads/branch*:refs/heads/branch*3' 'refs/heads/branch*:refs/heads/branch*4' branch1
+			git -C './server/repo.git' lg --all
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

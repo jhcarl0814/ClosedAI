@@ -1,0 +1,225 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_add~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_add~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_add')">git add</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-add">https://git-scm.com/docs/git-add</a></p>
+	<p class="paragraph">Add file contents to the index.</p>
+	<form id="git_add_form">
+		<p>Choose an action to perform:</p>
+		<div class="form_item"><input type="radio" id="git_add_action_no_option" name="git_add_action" value="no_option" checked><label for="git_add_action_no_option"></label></div>
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_add\_action\_intent\_to\_add~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_add_action_intent_to_add')"><input type="radio" id="git_add_action_intent_to_add" name="git_add_action" value="intent_to_add"><label for="git_add_action_intent_to_add"><span class="command">--intent-to-add</span> Record only the fact that the path will be added later.</label></div>
+		<fieldset>
+			<legend class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_add\_action\_dry\_run~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_add_action_dry_run')">
+				<div class="form_item"><input type="radio" id="git_add_action_dry_run" name="git_add_action" value="dry_run"><label for="git_add_action_dry_run"><span class="command">--dry-run</span> Don’t actually add the file(s), just show if they exist and/or will be ignored.</label></div>
+			</legend>
+			<div class="form_item"><input type="checkbox" id="git_add_action_dry_run_has_ignore_missing" name="git_add_action_dry_run_has_ignore_missing"><label for="git_add_action_dry_run_has_ignore_missing"><span class="command">--ignore-missing</span> Check if any of the given files would be ignored, no matter if they are already present in the work tree or not.</label></div>
+		</fieldset>
+		<div class="form_item"><input type="radio" id="git_add_action_refresh" name="git_add_action" value="refresh"><label for="git_add_action_refresh"><span class="command">--refresh</span> Don’t add the file(s), but only refresh their stat() information in the index.</label></div>
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_add\_action\_renormalize~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_add_action_renormalize')"><input type="radio" id="git_add_action_renormalize" name="git_add_action" value="renormalize"><label for="git_add_action_renormalize"><span class="command">--renormalize</span> Apply the "clean" process freshly to all tracked files to forcibly add them again to the index. (Implies <span class="command">--update</span>.)</label></div>
+
+		<fieldset>
+			<legend><p>filtering:</p></legend>
+			<fieldset>
+				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_add\_filter\_by\_existence~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_add_filter_by_existence')"><p>by existence:</p></legend>
+				<div class="form_item"><input type="radio" id="git_add_filter_by_existence_no_option" name="git_add_filter_by_existence" value="no_option" checked><label for="git_add_filter_by_existence_no_option"></label></div>
+				<div class="form_item"><input type="radio" id="git_add_filter_by_existence_all" name="git_add_filter_by_existence" value="all"><label for="git_add_filter_by_existence_all"><span class="command">--all</span> Adds, modifies, and removes index entries to match the working tree. If no <span class="command">&lt;pathspec&gt;</span> is given, all files in the entire working tree are updated.</label></div>
+				<div class="form_item"><input type="radio" id="git_add_filter_by_existence_update" name="git_add_filter_by_existence" value="update"><label for="git_add_filter_by_existence_update"><span class="command">--update</span> Removes as well as modifies index entries to match the working tree, but adds no new files. If no <span class="command">&lt;pathspec&gt;</span> is given, all tracked files in the entire working tree are updated.</label></div>
+				<div class="form_item"><input type="radio" id="git_add_filter_by_existence_ignore_removal" name="git_add_filter_by_existence" value="ignore_removal"><label for="git_add_filter_by_existence_ignore_removal"><span class="command">--ignore-removal</span> Update the index by adding new files that are unknown to the index and files modified in the working tree, but ignore files that have been removed from the working tree. Is a no-op when no <span class="command">&lt;pathspec&gt;</span> is used.</label></div>
+			</fieldset>
+
+			<fieldset>
+				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_add\_filter\_by\_gitignore\_patterns~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_add_filter_by_gitignore_patterns')"><p>by <span class="inline_code">gitignore</span> patterns:</p></legend>
+				<div class="form_item"><input type="checkbox" id="git_add_has_force" name="git_add_has_force"><label for="git_add_has_force"><span class="command">--force</span> Allow adding otherwise ignored files.</label></div>
+			</fieldset>
+
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_add_filter_by_path_pathspec_list" name="git_add_filter_by_path" value="pathspec_list" checked><label for="git_add_filter_by_path_pathspec_list"><span class="command">[&lt;pathspec&gt;...]</span></label></div>
+					<div class="form_item"><input type="radio" id="git_add_filter_by_path_pathspec_from_file" name="git_add_filter_by_path" value="pathspec_from_file"><label for="git_add_filter_by_path_pathspec_from_file"><span class="command">--pathspec-from-file=&lt;file&gt; [--pathspec-file-nul]</span></label></div>
+					<div class="form_item"><input type="radio" id="git_add_filter_by_path_interactive" name="git_add_filter_by_path" value="interactive"><label for="git_add_filter_by_path_interactive"><span class="command">--interactive [--] [&lt;pathspec&gt;...]</span> Add modified contents in the working tree interactively to the index.</label></div>
+					<div class="form_item"><input type="radio" id="git_add_filter_by_path_patch" name="git_add_filter_by_path" value="patch"><label for="git_add_filter_by_path_patch"><span class="command">--patch [--] [&lt;pathspec&gt;...]</span> Interactively choose hunks of patch between the index and the work tree and add them to the index. (Effectively runs <span class="command">add --interactive</span>, but bypasses the initial command menu and directly jumps to the <span class="command">patch</span> subcommand.)</label></div>
+					<div class="form_item"><input type="radio" id="git_add_filter_by_path_edit" name="git_add_filter_by_path" value="edit"><label for="git_add_filter_by_path_edit"><span class="command">--edit [--] [&lt;pathspec&gt;...]</span> Open the diff vs. the index in an editor and let the user edit it. After the editor was closed, adjust the hunk headers and apply the patch to the index.</label></div>
+				</legend>
+				<div id="git_add_pathspec_from_file" class="subform">
+					<p><span class="command">--pathspec-from-file=&lt;file&gt;</span> Pathspec is passed in <span class="command">&lt;file&gt;</span> instead of commandline args.</p>
+					<div class="form_item"><label for="git_add_pathspec_from_file_file"><span class="command">&lt;file&gt;</span>:</label><textarea wrap="off" id="git_add_pathspec_from_file_file" name="git_add_pathspec_from_file_file" class="basis-0 grow command_input"></textarea></div>
+					<div class="form_item"><input type="checkbox" id="git_add_has_pathspec_file_nul" name="git_add_has_pathspec_file_nul"><label for="git_add_has_pathspec_file_nul"><span class="command">--pathspec-file-nul</span> Pathspec elements are separated with NUL character and all other characters are taken literally (including newlines and quotes).</label></div>
+				</div>
+				<fieldset id="git_add_pathspec_list_">
+					<legend><p><span class="command">&lt;pathspec&gt;...</span> Files to add content from.</p></legend>
+					<input id="git_add_pathspec_list_add" type="button" value="Add">
+					<div id="git_add_pathspec_list" class="subform"></div>
+					<script>
+						document.getElementById("git_add_pathspec_list_add").addEventListener("click",function(e){
+							document.getElementById("git_add_pathspec_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_add_refresh);
+								checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_add_refresh(); });
+								div.append(checkbox, textarea);
+								return div;
+							})());
+							git_add_refresh();
+						})
+					</script>
+				</fieldset>
+
+				<p>(when <span class="command">--interactive</span>/<span class="command">--patch</span>/<span class="command">--edit</span>:)</p>
+				<fieldset>
+					<legend><p>context lines and hunks:</p></legend>
+					<div class="form_item">
+						<input type="checkbox" id="git_add_has_unified" name="git_add_has_unified">
+						<div class="subform basis-0 grow">
+							<label for="git_add_has_unified"><span class="command">--unified=&lt;n&gt;</span> Generate diffs with <span class="command">&lt;n&gt;</span> lines of context. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffcontext"><span class="inline_code">diff.context</span></a> which defaults to <span class="inline_code">3</span>.)</label>
+							<div class="form_item"><label for="git_add_unified_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_add_unified_n" name="git_add_unified_n" class="basis-0 grow command_input" value="3"></div>
+						</div>
+					</div>
+					<div class="form_item">
+						<input type="checkbox" id="git_add_has_inter_hunk_context" name="git_add_has_inter_hunk_context">
+						<div class="subform basis-0 grow">
+							<label for="git_add_has_inter_hunk_context"><span class="command">--inter-hunk-context=&lt;number&gt;</span> Show the context between diff hunks, up to the specified <span class="command">&lt;number&gt;</span> of lines, thereby fusing hunks that are close to each other. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffinterHunkContext"><span class="inline_code">diff.interHunkContext</span></a> which defaults to <span class="inline_code">0</span>.)</label>
+							<div class="form_item"><label for="git_add_inter_hunk_context_number"><span class="command">&lt;number&gt;</span>:</label><input type="text" id="git_add_inter_hunk_context_number" name="git_add_inter_hunk_context_number" class="basis-0 grow command_input" value="0"></div>
+						</div>
+					</div>
+				</fieldset>
+			</fieldset>
+		</fieldset>
+
+		<div class="form_item"><input type="checkbox" id="git_add_has_ignore_errors" name="git_add_has_ignore_errors"><label for="git_add_has_ignore_errors"><span class="command">--ignore-errors</span> If some files could not be added because of errors indexing them, do not abort the operation, but continue adding the others. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-addignoreErrors"><span class="inline_code">add.ignoreErrors</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+		<div class="form_item"><input type="checkbox" id="git_add_has_chmod" name="git_add_has_chmod"><label for="git_add_has_chmod"><span class="command">--chmod=(<input type="radio" id="git_add_chmod_add" name="git_add_chmod" value="add" checked><label for="git_add_chmod_add"><span class="command">+</span></label>|<input type="radio" id="git_add_chmod_remove" name="git_add_chmod" value="remove"><label for="git_add_chmod_remove"><span class="command">-</span></label>)x</span> Override the executable bit of the added files. The executable bit is only changed in the index, the files on disk are left unchanged.</label></div>
+		<div class="form_item"><input type="checkbox" id="git_add_has_no_warn_embedded_repo" name="git_add_has_no_warn_embedded_repo"><label for="git_add_has_no_warn_embedded_repo"><span class="command">--no-warn-embedded-repo</span> By default, warn when adding an embedded repository to the index without using <span class="command">git submodule add</span> to create an entry in <span class="inline_code">.gitmodules</span>. Suppress the warning (e.g., if you are manually performing operations on submodules).</label></div>
+		<div class="form_item"><input type="checkbox" id="git_add_has_sparse" name="git_add_has_sparse"><label for="git_add_has_sparse"><span class="command">--sparse</span> Allow updating index entries outside of the sparse-checkout cone. Normally, refuses to update index entries whose paths do not fit within the sparse-checkout cone, since those files might be removed from the working tree without warning.</label></div>
+		<div class="form_item"><input type="checkbox" id="git_add_has_verbose" name="git_add_has_verbose"><label for="git_add_has_verbose"><span class="command">--verbose</span> Be verbose.</label></div>
+	</form>
+	<textarea readonly wrap="off" id="git_add_command" name="git_add_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_add_refresh(){
+			document.getElementById("git_add_action_dry_run").closest("fieldset").disabled = !document.getElementById("git_add_action_dry_run").checked;
+			document.getElementById("git_add_filter_by_existence_no_option").closest("fieldset").disabled = document.getElementById("git_add_action_renormalize").checked;
+			document.getElementById("git_add_has_force").closest("fieldset").disabled = document.getElementById("git_add_action_renormalize").checked;
+			document.getElementById("git_add_pathspec_list_").classList.toggle("hidden", !(document.getElementById("git_add_filter_by_path_pathspec_list").checked || document.getElementById("git_add_filter_by_path_interactive").checked || document.getElementById("git_add_filter_by_path_patch").checked || document.getElementById("git_add_filter_by_path_edit").checked));
+			document.getElementById("git_add_pathspec_from_file").classList.toggle("hidden", !document.getElementById("git_add_filter_by_path_pathspec_from_file").checked);
+			document.getElementById("git_add_has_unified").closest("fieldset").disabled = !(document.getElementById("git_add_filter_by_path_interactive").checked || document.getElementById("git_add_filter_by_path_patch").checked || document.getElementById("git_add_filter_by_path_edit").checked);
+			document.getElementById("git_add_unified_n").disabled = !document.getElementById("git_add_has_unified").checked;
+			document.getElementById("git_add_inter_hunk_context_number").disabled = !document.getElementById("git_add_has_inter_hunk_context").checked;
+			document.getElementById("git_add_chmod_add").disabled = !document.getElementById("git_add_has_chmod").checked;
+			document.getElementById("git_add_chmod_remove").disabled = !document.getElementById("git_add_has_chmod").checked;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("add");
+
+			let form_data = new FormData(document.getElementById("git_add_form"));
+			switch(form_data.get("git_add_action")){
+				case "intent_to_add":
+					command_components.push("--intent-to-add");
+					break;
+				case "dry_run":
+					command_components.push("--dry-run");
+					if(form_data.get("git_add_action_dry_run_has_ignore_missing"))
+						command_components.push("--ignore-missing");
+					break;
+				case "refresh":
+					command_components.push("--refresh");
+					break;
+				case "renormalize":
+					command_components.push("--renormalize");
+					break;
+			}
+			if(form_data.get("git_add_action") != "renormalize"){
+				switch(form_data.get("git_add_filter_by_existence")){
+					case "all":
+						command_components.push("--all");
+						break;
+					case "update":
+						command_components.push("--update");
+						break;
+					case "ignore_removal":
+						command_components.push("--ignore-removal");
+						break;
+				}
+			}
+			if(form_data.get("git_add_action") != "renormalize"){
+				if(form_data.get("git_add_has_force"))
+					command_components.push("--force");
+			}
+			switch(form_data.get("git_add_filter_by_path")){
+				case "pathspec_from_file":
+					let element_value = form_data.get("git_add_pathspec_from_file_file"), element_has_error = element_value.length == 0;
+					command_components.push("--pathspec-from-file=" + shell_quote(element_value));
+					document.getElementById("git_add_pathspec_from_file_file").classList.toggle("error_input", element_has_error);
+					has_error ||= element_has_error;
+					if(form_data.get("git_add_has_pathspec_file_nul"))
+						command_components.push("--pathspec-file-nul");
+					break;
+				case "interactive":
+				case "patch":
+				case "edit":
+					switch(form_data.get("git_add_filter_by_path")){
+						case "interactive":
+							command_components.push("--interactive");
+							break;
+						case "patch":
+							command_components.push("--patch");
+							break;
+						case "edit":
+							command_components.push("--edit");
+							break;
+					}
+					if(form_data.get("git_add_has_unified")){
+						let element_value = form_data.get("git_add_unified_n"), element_has_error = element_value.length == 0;
+						command_components.push("--unified=" + shell_quote(element_value));
+						document.getElementById("git_add_unified_n").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					if(form_data.get("git_add_has_inter_hunk_context")){
+						let element_value = form_data.get("git_add_inter_hunk_context_number"), element_has_error = element_value.length == 0;
+						command_components.push("--inter-hunk-context=" + shell_quote(element_value));
+						document.getElementById("git_add_inter_hunk_context_number").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+			}
+			if(form_data.get("git_add_has_ignore_errors"))
+				command_components.push("--ignore-errors");
+			if(form_data.get("git_add_has_chmod")){
+				switch(form_data.get("git_add_chmod")){
+					case "add":
+						command_components.push("--chmod=+x");
+						break;
+					case "remove":
+						command_components.push("--chmod=-x");
+						break;
+				}
+			}
+			if(form_data.get("git_add_has_no_warn_embedded_repo"))
+				command_components.push("--no-warn-embedded-repo");
+			if(form_data.get("git_add_has_sparse"))
+				command_components.push("--sparse");
+			if(form_data.get("git_add_has_verbose"))
+				command_components.push("--verbose");
+			switch(form_data.get("git_add_filter_by_path")){
+				case "pathspec_list":
+				case "interactive":
+				case "patch":
+				case "edit":
+					if(Array.from(document.getElementById("git_add_pathspec_list").querySelectorAll("textarea:enabled")).length != 0)
+						command_components.push("--end-of-options");
+					Array.from(document.getElementById("git_add_pathspec_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+			}
+
+			let git_add_command = document.getElementById("git_add_command");
+			git_add_command.classList.toggle("error_output", has_error);
+			git_add_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_add_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_add_refresh);
+		});
+		Array.from(document.getElementById("git_add_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_add_refresh);
+		});
+	</script>
+</div>

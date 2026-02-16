@@ -1,0 +1,173 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_init~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_init~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_init')">git init [&lt;directory&gt;]</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-init">https://git-scm.com/docs/git-init</a></p>
+	<p class="paragraph">Create an empty Git repository or reinitialize an existing one.</p>
+	<form id="git_init_form">
+		<div class="form_item">
+			<input type="checkbox" id="git_init_has_directory" name="git_init_has_directory">
+			<div class="subform basis-0 grow">
+				<label for="git_init_has_directory"><span class="command">&lt;directory&gt;</span> If you provide a <span class="command">&lt;directory&gt;</span>, the command is run inside it. If this directory does not exist, it will be created.</label>
+				<div class="form_item"><label for="git_init_directory"><span class="command">&lt;directory&gt;</span>:</label><textarea wrap="off" id="git_init_directory" name="git_init_directory" class="basis-0 grow command_input" placeholder="./repo"></textarea></div>
+			</div>
+		</div>
+
+		<div class="form_item"><input type="checkbox" id="git_init_has_quiet" name="git_init_has_quiet"><label for="git_init_has_quiet"><span class="command">--quiet</span> Only print error and warning messages; all other output will be suppressed.</label></div>
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_init\_bare~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_init_bare')"><input type="checkbox" id="git_init_has_bare" name="git_init_has_bare"><label for="git_init_has_bare"><span class="command">--bare</span> Create a bare repository.</label></div>
+
+		<div class="form_item">
+			<input type="checkbox" id="git_init_has_object_format" name="git_init_has_object_format">
+			<div class="subform basis-0 grow">
+				<label for="git_init_has_object_format"><span class="command">--object-format=(<input type="radio" id="git_init_object_format_format_sha1" name="git_init_object_format_format" value="sha1" checked><label for="git_init_object_format_format_sha1">sha1</label>|<input type="radio" id="git_init_object_format_format_sha256" name="git_init_object_format_format" value="sha256"><label for="git_init_object_format_format_sha256">sha256</label>)</span> Specify the given object <span class="command">&lt;format&gt;</span> (hash algorithm) for the repository. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultObjectFormat"><span class="inline_code">init.defaultObjectFormat</span></a> which defaults to <span class="inline_code">sha1</span>.)</label>
+			</div>
+		</div>
+
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_init\_template~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_init_template')">
+			<input type="checkbox" id="git_init_has_template" name="git_init_has_template">
+			<div class="subform basis-0 grow">
+				<label for="git_init_has_template"><span class="command">--template=&lt;template-directory&gt;</span> Specify the directory from which templates will be used. (Defaults to <span class="command">$GIT_TEMPLATE_DIR</span> / <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-inittemplateDir"><span class="inline_code">init.templateDir</span></a> / <span class="command">/usr/share/git-core/templates</span>.)</label>
+				<div class="form_item"><label for="git_init_template"><span class="command">&lt;template-directory&gt;</span>:</label><textarea wrap="off" id="git_init_template" name="git_init_template" class="basis-0 grow command_input"></textarea></div>
+			</div>
+		</div>
+
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_init\_separate\_git\_dir~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_init_separate_git_dir')">
+			<input type="checkbox" id="git_init_has_separate_git_dir" name="git_init_has_separate_git_dir">
+			<div class="subform basis-0 grow">
+				<label for="git_init_has_separate_git_dir"><span class="command">--separate-git-dir=&lt;git-dir&gt;</span> Instead of initializing the repository as a directory to either <span class="inline_code"><span class="command">$GIT_DIR</span></span> or <span class="inline_code">./.git/</span>, create a text file there containing the path to the actual repository. If this is a reinitialization, the repository will be moved to the specified path.</label>
+				<div class="form_item"><label for="git_init_separate_git_dir"><span class="command">&lt;git-dir&gt;</span>:</label><textarea wrap="off" id="git_init_separate_git_dir" name="git_init_separate_git_dir" class="basis-0 grow command_input"></textarea></div>
+			</div>
+		</div>
+
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_init\_initial\_branch~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_init_initial_branch')">
+			<input type="checkbox" id="git_init_has_initial_branch" name="git_init_has_initial_branch">
+			<div class="subform basis-0 grow">
+				<label for="git_init_has_initial_branch"><span class="command">--initial-branch=&lt;branch-name&gt;</span> Use <span class="command">&lt;branch-name&gt;</span> for the initial branch in the newly created repository. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch"><span class="inline_code">init.defaultBranch</span></a> which defaults to <span class="inline_code">master</span>.)</label>
+				<div class="form_item"><label for="git_init_initial_branch"><span class="command">&lt;branch-name&gt;</span>:</label><input type="text" id="git_init_initial_branch" name="git_init_initial_branch" class="basis-0 grow command_input" value="master"></div>
+			</div>
+		</div>
+
+		<div class="form_item">
+			<input type="checkbox" id="git_init_has_shared" name="git_init_has_shared">
+			<div class="subform basis-0 grow">
+				<label for="git_init_has_shared"><span class="command">--shared<input type="checkbox" id="git_init_shared_has_argument" name="git_init_shared_has_argument"><label for="git_init_shared_has_argument">[=(<input type="radio" id="git_init_shared_mode_umask" name="git_init_shared_mode" value="umask"><label for="git_init_shared_mode_umask">umask</label>|<input type="radio" id="git_init_shared_mode_false" name="git_init_shared_mode" value="false"><label for="git_init_shared_mode_false">false</label>|<input type="radio" id="git_init_shared_mode_group" name="git_init_shared_mode" value="group" checked><label for="git_init_shared_mode_group">group</label>|<input type="radio" id="git_init_shared_mode_true" name="git_init_shared_mode" value="true"><label for="git_init_shared_mode_true">true</label>|<input type="radio" id="git_init_shared_mode_all" name="git_init_shared_mode" value="all"><label for="git_init_shared_mode_all">all</label>|<input type="radio" id="git_init_shared_mode_world" name="git_init_shared_mode" value="world"><label for="git_init_shared_mode_world">world</label>|<input type="radio" id="git_init_shared_mode_everybody" name="git_init_shared_mode" value="everybody"><label for="git_init_shared_mode_everybody">everybody</label>|<input type="radio" id="git_init_shared_mode_perm" name="git_init_shared_mode" value="perm"><label for="git_init_shared_mode_perm">&lt;perm&gt;</label>)]</label></span> Specify that the Git repository is to be shared amongst several users. When not specified, use permissions reported by <span class="command">umask</span>.<br>
+					<div class="ml-[1em]">
+						<span class="command">umask</span> <span class="command">false</span> Use permissions reported by <span class="command">umask</span>.<br>
+						<span class="command">group</span> <span class="command">true</span> Make the repository group-writable, (and <span class="command">g+sx</span>, since the git group may not be the primary group of all users).<br>
+						<span class="command">all</span> <span class="command">world</span> <span class="command">everybody</span> Same as <span class="command">group</span>, but make the repository readable by all users.<br>
+						<span class="command">&lt;perm&gt;</span> Is a 3-digit octal number prefixed with 0 and each file will have mode <span class="command">&lt;perm&gt;</span>. Directories and executable files get their <span class="command">x</span> bit from the <span class="command">r</span> bit for corresponding classes of users.<br>
+					</div></label>
+				<div class="form_item"><label for="git_init_shared_perm"><span class="command">&lt;perm&gt;</span>:</label><input type="text" id="git_init_shared_perm" name="git_init_shared_perm" class="basis-0 grow command_input" placeholder="0640"></div>
+			</div>
+		</div>
+	</form>
+	<textarea readonly wrap="off" id="git_init_command" name="git_init_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_init_refresh(){
+			document.getElementById("git_init_directory").disabled = !document.getElementById("git_init_has_directory").checked;
+			document.getElementById("git_init_object_format_format_sha1").disabled = !document.getElementById("git_init_has_object_format").checked;
+			document.getElementById("git_init_object_format_format_sha256").disabled = !document.getElementById("git_init_has_object_format").checked;
+			document.getElementById("git_init_template").disabled = !document.getElementById("git_init_has_template").checked;
+			document.getElementById("git_init_separate_git_dir").disabled = !document.getElementById("git_init_has_separate_git_dir").checked;
+			document.getElementById("git_init_initial_branch").disabled = !document.getElementById("git_init_has_initial_branch").checked;
+			document.getElementById("git_init_shared_has_argument").disabled = !document.getElementById("git_init_has_shared").checked;
+			document.getElementById("git_init_shared_mode_false").disabled = !(document.getElementById("git_init_has_shared").checked && document.getElementById("git_init_shared_has_argument").checked);
+			document.getElementById("git_init_shared_mode_true").disabled = !(document.getElementById("git_init_has_shared").checked && document.getElementById("git_init_shared_has_argument").checked);
+			document.getElementById("git_init_shared_mode_umask").disabled = !(document.getElementById("git_init_has_shared").checked && document.getElementById("git_init_shared_has_argument").checked);
+			document.getElementById("git_init_shared_mode_group").disabled = !(document.getElementById("git_init_has_shared").checked && document.getElementById("git_init_shared_has_argument").checked);
+			document.getElementById("git_init_shared_mode_all").disabled = !(document.getElementById("git_init_has_shared").checked && document.getElementById("git_init_shared_has_argument").checked);
+			document.getElementById("git_init_shared_mode_world").disabled = !(document.getElementById("git_init_has_shared").checked && document.getElementById("git_init_shared_has_argument").checked);
+			document.getElementById("git_init_shared_mode_everybody").disabled = !(document.getElementById("git_init_has_shared").checked && document.getElementById("git_init_shared_has_argument").checked);
+			document.getElementById("git_init_shared_mode_perm").disabled = !(document.getElementById("git_init_has_shared").checked && document.getElementById("git_init_shared_has_argument").checked);
+			document.getElementById("git_init_shared_perm").disabled = !(document.getElementById("git_init_has_shared").checked && document.getElementById("git_init_shared_has_argument").checked && document.getElementById("git_init_shared_mode_perm").checked);
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("init");
+
+			let form_data = new FormData(document.getElementById("git_init_form"));
+			if(form_data.get("git_init_has_quiet"))
+				command_components.push("--quiet");
+			if(form_data.get("git_init_has_bare"))
+				command_components.push("--bare");
+			if(form_data.get("git_init_has_object_format")){
+				switch(form_data.get("git_init_object_format_format")){
+					case "sha1":
+						command_components.push("--object-format=sha1");
+						break;
+					case "sha256":
+						command_components.push("--object-format=sha256");
+						break;
+				}
+			}
+			if(form_data.get("git_init_has_template")){
+				let element_value = form_data.get("git_init_template"), element_has_error = element_value.length == 0;
+				command_components.push("--template=" + shell_quote(element_value));
+				document.getElementById("git_init_template").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(form_data.get("git_init_has_separate_git_dir")){
+				let element_value = form_data.get("git_init_separate_git_dir"), element_has_error = element_value.length == 0;
+				command_components.push("--separate-git-dir=" + shell_quote(element_value));
+				document.getElementById("git_init_separate_git_dir").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(form_data.get("git_init_has_initial_branch")){
+				let element_value = form_data.get("git_init_initial_branch"), element_has_error = element_value.length == 0;
+				command_components.push("--initial-branch=" + shell_quote(element_value));
+				document.getElementById("git_init_initial_branch").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(form_data.get("git_init_has_shared")){
+				if(form_data.get("git_init_shared_has_argument")){
+					switch(form_data.get("git_init_shared_mode")){
+						case "false":
+							command_components.push("--shared=false");
+							break;
+						case "true":
+							command_components.push("--shared=true");
+							break;
+						case "umask":
+							command_components.push("--shared=umask");
+							break;
+						case "group":
+							command_components.push("--shared=group");
+							break;
+						case "all":
+							command_components.push("--shared=all");
+							break;
+						case "world":
+							command_components.push("--shared=world");
+							break;
+						case "everybody":
+							command_components.push("--shared=everybody");
+							break;
+						case "perm":
+							let element_value = form_data.get("git_init_shared_perm"), element_has_error = element_value.length == 0;
+							command_components.push("--shared=" + shell_quote(element_value));
+							document.getElementById("git_init_shared_perm").classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+							break;
+					}
+				}
+				else{
+					command_components.push("--shared");
+				}
+			}
+			if(form_data.get("git_init_has_directory")){
+				command_components.push("--end-of-options");
+				let element_value = form_data.get("git_init_directory"), element_has_error = element_value.length == 0;
+				command_components.push(shell_quote(element_value));
+				document.getElementById("git_init_directory").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+
+			let git_init_command = document.getElementById("git_init_command");
+			git_init_command.classList.toggle("error_output", has_error);
+			git_init_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_init_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_init_refresh);
+		});
+		Array.from(document.getElementById("git_init_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_init_refresh);
+		});
+	</script>
+</div>

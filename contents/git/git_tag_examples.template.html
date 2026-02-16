@@ -1,0 +1,212 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_tag~*_&]:block [#reference\_desk\_dispatcher\_example.git\_tag\_action\_list~*_&]:block [#reference\_desk\_dispatcher\_example.git\_tag\_action\_list\_filter\_by\_reachability~*_&]:block">
+	<h2 class="heading2"><span class="command">git tag --list --contains</span><br><span class="command">git tag --list --no-contains</span><br><span class="command">git tag --list --merged</span><br><span class="command">git tag --list --no-merged</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag1
+			git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag2
+			git -C './repo' reset --hard HEAD~1; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag3
+			git -C './repo' merge --message="$((++number))" tag2; git -C './repo' tag tag4
+			git -C './repo' lg --all
+			git -C './repo' tag --list --contains=tag2
+			git -C './repo' tag --list --contains=tag3
+			git -C './repo' tag --list --contains=tag2 --contains=tag3
+			git -C './repo' tag --list --no-contains=tag2
+			git -C './repo' tag --list --no-contains=tag3
+			git -C './repo' tag --list --no-contains=tag2 --no-contains=tag3
+			git -C './repo' tag --list --merged=tag2
+			git -C './repo' tag --list --merged=tag3
+			git -C './repo' tag --list --merged=tag2 --merged=tag3
+			git -C './repo' tag --list --no-merged=tag2
+			git -C './repo' tag --list --no-merged=tag3
+			git -C './repo' tag --list --no-merged=tag2 --no-merged=tag3
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_tag~*_&]:block [#reference\_desk\_dispatcher\_example.git\_tag\_action\_list~*_&]:block [#reference\_desk\_dispatcher\_example.git\_tag\_action\_list\_format\_no\_option~*_&]:block">
+	<h2 class="heading2"><span class="command">git tag --list -n&lt;num&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' commit --message=$'1\n2\n3\n4' --allow-empty
+			git -C './repo' tag tag1
+			git -C './repo' tag --annotate --message=$'5\n6\n7\n8' tag2
+			git -C './repo' tag --list
+			git -C './repo' tag --list -n
+			git -C './repo' tag --list -n99
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_tag~*_&]:block [#reference\_desk\_dispatcher\_example.git\_tag\_action\_list~*_&]:block [#reference\_desk\_dispatcher\_example.git\_tag\_action\_list\_format\_format~*_&]:block">
+	<h2 class="heading2"><span class="command">git tag --list --format=&lt;format&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			export GNUPGHOME="$(realpath '.')"'/.gnupg'
+			mkdir --parents -- "$GNUPGHOME"
+			touch -- "$GNUPGHOME"'/common.conf'
+			gpg --list-public-keys --with-colons --with-keygrip
+			gpg --list-secret-keys --with-colons
+			gpg --quick-generate-key --yes --pinentry-mode=loopback --passphrase='' 'Han Jiang <jhcarl0814@gmail.com>'
+			gpg --list-public-keys --with-colons --with-keygrip
+			gpg --list-secret-keys --with-colons
+
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' tag tag1
+			git -C './repo' tag --annotate --message="$((++number))" tag2
+			git -C './repo' tag --sign --message="$((++number))" tag3
+			git -C './repo' lg --all
+			git -C './repo' for-each-ref refs/tags
+			git -C './repo' show --tags
+			git -C './repo' tag --list --format='%(HEAD) %(refname) %(objectname) %(objecttype)%(if:equals=commit)%(objecttype)%(then) author="%(authorname) %(authoremail) %(authordate:iso8601-strict)" committer="%(committername) %(committeremail) %(committerdate:iso8601-strict)"%(else) tagger="%(taggername) %(taggeremail) %(taggerdate:iso8601-strict)" *author="%(*authorname) %(*authoremail) %(*authordate:iso8601-strict)" *committer="%(*committername) %(*committeremail) %(*committerdate:iso8601-strict)"%(if)%(contents:signature)%(then)'$'\n''%(contents:signature)%(end)%(end)'
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_tag~*_&]:block [#reference\_desk\_dispatcher\_example.git\_tag\_action\_create~*_&]:block [#reference\_desk\_dispatcher\_example.git\_tag\_action\_create\_type~*_&]:block">
+	<h2 class="heading2"><span class="command">git tag [--no-sign]</span><br><span class="command">git tag --annotate [--no-sign]</span><br><span class="command">git tag --sign</span><br><span class="command">git tag --local-user=&lt;key-id&gt;</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			export GNUPGHOME="$(realpath '.')"'/.gnupg'
+			mkdir --parents -- "$GNUPGHOME"
+			touch -- "$GNUPGHOME"'/common.conf'
+			gpg --list-public-keys --with-colons --with-keygrip
+			gpg --list-secret-keys --with-colons
+			gpg --quick-generate-key --yes --pinentry-mode=loopback --passphrase='' 'Han Jiang <jhcarl0814@gmail.com>'
+			gpg --list-public-keys --with-colons --with-keygrip
+			gpg --list-secret-keys --with-colons
+
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' tag tag11
+			git -C './repo' -c 'tag.gpgSign=false' tag tag12
+			git -C './repo' -c 'tag.gpgSign=true' tag --message="$((++number))" tag13
+			git -C './repo' -c 'tag.gpgSign=true' tag --no-sign tag131
+			git -C './repo' tag --annotate --message="$((++number))" tag21
+			git -C './repo' -c 'tag.gpgSign=false' tag --annotate --message="$((++number))" tag22
+			git -C './repo' -c 'tag.gpgSign=true' tag --annotate --message="$((++number))" tag23
+			git -C './repo' -c 'tag.gpgSign=true' tag --annotate --message="$((++number))" --no-sign tag231
+			git -C './repo' tag --sign --message="$((++number))" tag3
+			gpg --list-public-keys --with-colons --with-keygrip # https://www.gnupg.org/documentation/manuals/gnupg24/gpg.1.html # https://github.com/gpg/gnupg/blob/master/doc/DETAILS
+			git -C './repo' tag --local-user=0x"$(gpg --list-public-keys --with-colons --with-keygrip | awk 'BEGIN { FS = ":"; } $1 == "fpr" { print($10); exit; }')" --message="$((++number))" tag41
+			git -C './repo' tag --local-user="$(gpg --list-public-keys --with-colons --with-keygrip | awk 'BEGIN { FS = ":"; } $1 == "fpr" { print($10); exit; }')" --message="$((++number))" tag411
+			git -C './repo' tag --local-user=0x"$(gpg --list-public-keys --with-colons --with-keygrip | awk 'BEGIN { FS = ":"; } $1 == "pub" { print($5); exit; }')" --message="$((++number))" tag42
+			git -C './repo' tag --local-user="$(gpg --list-public-keys --with-colons --with-keygrip | awk 'BEGIN { FS = ":"; } $1 == "pub" { print($5); exit; }')" --message="$((++number))" tag421
+			git -C './repo' tag --local-user=="$(gpg --list-public-keys --with-colons --with-keygrip | awk 'BEGIN { FS = ":"; } $1 == "uid" { print($10); exit; }')" --message="$((++number))" tag43
+			git -C './repo' tag --local-user="$(gpg --list-public-keys --with-colons --with-keygrip | awk 'BEGIN { FS = ":"; } $1 == "uid" { print($10); exit; }')" --message="$((++number))" tag431
+			git -C './repo' tag --local-user='=Han Jiang <jhcarl0814@gmail.com>' --message="$((++number))" tag44
+			git -C './repo' tag --local-user='Han Jiang <jhcarl0814@gmail.com>' --message="$((++number))" tag441
+			git -C './repo' tag --local-user='*Han Jiang' --message="$((++number))" tag45
+			git -C './repo' tag --local-user='Han Jiang' --message="$((++number))" tag451
+			git -C './repo' tag --local-user='<jhcarl0814@gmail.com>' --message="$((++number))" tag46
+			git -C './repo' tag --local-user='jhcarl0814@gmail.com' --message="$((++number))" tag461
+			git -C './repo' tag --local-user='&'"$(gpg --list-public-keys --with-colons --with-keygrip | awk 'BEGIN { FS = ":"; } $1 == "grp" { print($10); exit; }')" --message="$((++number))" tag47
+			git -C './repo' lg --all
+			git -C './repo' for-each-ref refs/tags
+			git -C './repo' show --tags
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_tag~*_&]:block [#reference\_desk\_dispatcher\_example.git\_tag\_action\_create~*_&]:block [#reference\_desk\_dispatcher\_example.git\_tag\_action\_create\_create\_reflog~*_&]:block">
+	<h2 class="heading2"><span class="command">git tag --create-reflog/--no-create-reflog</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' config list --local --show-origin --show-scope
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' tag tag1
+			git -C './repo' tag --create-reflog tag11
+			git -C './repo' tag --no-create-reflog tag12
+			git -C './repo' -c 'core.logAllRefUpdates=false' tag tag2
+			git -C './repo' -c 'core.logAllRefUpdates=false' tag --create-reflog tag21
+			git -C './repo' -c 'core.logAllRefUpdates=true' tag tag3
+			git -C './repo' -c 'core.logAllRefUpdates=true' tag --no-create-reflog tag31
+			git -C './repo' -c 'core.logAllRefUpdates=always' tag tag4
+			git -C './repo' -c 'core.logAllRefUpdates=always' tag --no-create-reflog tag41
+			git -C './repo' lg --all
+			git -C './repo' for-each-ref refs/tags
+			git -C './repo' show --tags
+			git -C './repo' reflog list
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_tag~*_&]:block [#reference\_desk\_dispatcher\_example.git\_tag\_action\_delete~*_&]:block">
+	<h2 class="heading2"><span class="command">git tag --delete</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			git init './repo'
+			git -C './repo' commit --message=$'1\n2\n3\n4' --allow-empty
+			git -C './repo' tag tag1; git -C './repo' tag tag2
+			git -C './repo' lg --all
+			git -C './repo' for-each-ref refs/tags
+			git -C './repo' show --tags
+			git -C './repo' tag --delete 'tag*'
+			git -C './repo' tag --delete tag1 tag2
+			git -C './repo' lg --all
+			git -C './repo' for-each-ref refs/tags
+			git -C './repo' show --tags
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_tag~*_&]:block [#reference\_desk\_dispatcher\_example.git\_tag\_action\_verify~*_&]:block">
+	<h2 class="heading2"><span class="command">git tag --verify</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+		mkdir --parents -- './repo';
+		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+			export GNUPGHOME="$(realpath '.')"'/.gnupg'
+			mkdir --parents -- "$GNUPGHOME"
+			touch -- "$GNUPGHOME"'/common.conf'
+			gpg --list-public-keys --with-colons --with-keygrip
+			gpg --list-secret-keys --with-colons
+			gpg --quick-generate-key --yes --pinentry-mode=loopback --passphrase='' 'Han Jiang <jhcarl0814@gmail.com>'
+			gpg --list-public-keys --with-colons --with-keygrip
+			gpg --list-secret-keys --with-colons
+
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty
+			git -C './repo' tag tag1
+			git -C './repo' tag --annotate --message="$((++number))" tag2
+			git -C './repo' tag --sign --message="$((++number))" tag3
+			git -C './repo' lg --all
+			git -C './repo' for-each-ref refs/tags
+			git -C './repo' show --tags
+			git -C './repo' tag --verify tag1
+			git -C './repo' tag --verify tag2
+			git -C './repo' tag --verify tag3
+			git -C './repo' tag --verify tag1 tag2 tag3
+		EOF0
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

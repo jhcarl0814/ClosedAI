@@ -1,0 +1,1379 @@
+<!doctype html>
+<html lang="en-US" class="overflow-y-hidden h-[100%]">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="The ultimate help center for Git users, introducing concepts/terminologies in a pedagogically sound order and illustrating command options and their combinations/interactions with examples.">
+	<title>Git Help Desk</title>
+	<link rel="icon" href="data:image/bmp;base64,{{base64 --wrap=0 <'../favicon.bmp'}}">
+	<link rel="stylesheet" href="data:text/css;base64,{{ '../../tools/tailwindcss/tailwindcss-windows-x64.exe' --input='./git.css' --minify 2>/dev/null | base64 --wrap=0 }}">
+	<link rel="stylesheet" href="data:text/css;base64,{{base64 --wrap=0 <<'EOF'
+		/* pre { white-space: pre-wrap; } */
+		.ef0,.f0 { color: #000000; } .eb0,.b0 { background-color: #000000; }
+		.ef1,.f1 { color: #CD0000; } .eb1,.b1 { background-color: #CD0000; }
+		.ef2,.f2 { color: #00CD00; } .eb2,.b2 { background-color: #00CD00; }
+		.ef3,.f3 { color: #CDCD00; } .eb3,.b3 { background-color: #CDCD00; }
+		.ef4,.f4 { color: #0000EE; } .eb4,.b4 { background-color: #0000EE; }
+		.ef5,.f5 { color: #CD00CD; } .eb5,.b5 { background-color: #CD00CD; }
+		.ef6,.f6 { color: #00CDCD; } .eb6,.b6 { background-color: #00CDCD; }
+		.ef7,.f7 { color: #E5E5E5; } .eb7,.b7 { background-color: #E5E5E5; }
+		.ef8, .f0 > .bold,.bold > .f0 { color: #7F7F7F; font-weight: normal; }
+		.ef9, .f1 > .bold,.bold > .f1 { color: #FF0000; font-weight: normal; }
+		.ef10,.f2 > .bold,.bold > .f2 { color: #00FF00; font-weight: normal; }
+		.ef11,.f3 > .bold,.bold > .f3 { color: #FFFF00; font-weight: normal; }
+		.ef12,.f4 > .bold,.bold > .f4 { color: #5C5CFF; font-weight: normal; }
+		.ef13,.f5 > .bold,.bold > .f5 { color: #FF00FF; font-weight: normal; }
+		.ef14,.f6 > .bold,.bold > .f6 { color: #00FFFF; font-weight: normal; }
+		.ef15,.f7 > .bold,.bold > .f7 { color: #FFFFFF; font-weight: normal; }
+		.eb8  { background-color: #7F7F7F; }
+		.eb9  { background-color: #FF0000; }
+		.eb10 { background-color: #00FF00; }
+		.eb11 { background-color: #FFFF00; }
+		.eb12 { background-color: #5C5CFF; }
+		.eb13 { background-color: #FF00FF; }
+		.eb14 { background-color: #00FFFF; }
+		.eb15 { background-color: #FFFFFF; }
+		.ef16 { color: #000000; } .eb16 { background-color: #000000; }
+		.ef17 { color: #00005f; } .eb17 { background-color: #00005f; }
+		.ef18 { color: #000087; } .eb18 { background-color: #000087; }
+		.ef19 { color: #0000af; } .eb19 { background-color: #0000af; }
+		.ef20 { color: #0000d7; } .eb20 { background-color: #0000d7; }
+		.ef21 { color: #0000ff; } .eb21 { background-color: #0000ff; }
+		.ef22 { color: #005f00; } .eb22 { background-color: #005f00; }
+		.ef23 { color: #005f5f; } .eb23 { background-color: #005f5f; }
+		.ef24 { color: #005f87; } .eb24 { background-color: #005f87; }
+		.ef25 { color: #005faf; } .eb25 { background-color: #005faf; }
+		.ef26 { color: #005fd7; } .eb26 { background-color: #005fd7; }
+		.ef27 { color: #005fff; } .eb27 { background-color: #005fff; }
+		.ef28 { color: #008700; } .eb28 { background-color: #008700; }
+		.ef29 { color: #00875f; } .eb29 { background-color: #00875f; }
+		.ef30 { color: #008787; } .eb30 { background-color: #008787; }
+		.ef31 { color: #0087af; } .eb31 { background-color: #0087af; }
+		.ef32 { color: #0087d7; } .eb32 { background-color: #0087d7; }
+		.ef33 { color: #0087ff; } .eb33 { background-color: #0087ff; }
+		.ef34 { color: #00af00; } .eb34 { background-color: #00af00; }
+		.ef35 { color: #00af5f; } .eb35 { background-color: #00af5f; }
+		.ef36 { color: #00af87; } .eb36 { background-color: #00af87; }
+		.ef37 { color: #00afaf; } .eb37 { background-color: #00afaf; }
+		.ef38 { color: #00afd7; } .eb38 { background-color: #00afd7; }
+		.ef39 { color: #00afff; } .eb39 { background-color: #00afff; }
+		.ef40 { color: #00d700; } .eb40 { background-color: #00d700; }
+		.ef41 { color: #00d75f; } .eb41 { background-color: #00d75f; }
+		.ef42 { color: #00d787; } .eb42 { background-color: #00d787; }
+		.ef43 { color: #00d7af; } .eb43 { background-color: #00d7af; }
+		.ef44 { color: #00d7d7; } .eb44 { background-color: #00d7d7; }
+		.ef45 { color: #00d7ff; } .eb45 { background-color: #00d7ff; }
+		.ef46 { color: #00ff00; } .eb46 { background-color: #00ff00; }
+		.ef47 { color: #00ff5f; } .eb47 { background-color: #00ff5f; }
+		.ef48 { color: #00ff87; } .eb48 { background-color: #00ff87; }
+		.ef49 { color: #00ffaf; } .eb49 { background-color: #00ffaf; }
+		.ef50 { color: #00ffd7; } .eb50 { background-color: #00ffd7; }
+		.ef51 { color: #00ffff; } .eb51 { background-color: #00ffff; }
+		.ef52 { color: #5f0000; } .eb52 { background-color: #5f0000; }
+		.ef53 { color: #5f005f; } .eb53 { background-color: #5f005f; }
+		.ef54 { color: #5f0087; } .eb54 { background-color: #5f0087; }
+		.ef55 { color: #5f00af; } .eb55 { background-color: #5f00af; }
+		.ef56 { color: #5f00d7; } .eb56 { background-color: #5f00d7; }
+		.ef57 { color: #5f00ff; } .eb57 { background-color: #5f00ff; }
+		.ef58 { color: #5f5f00; } .eb58 { background-color: #5f5f00; }
+		.ef59 { color: #5f5f5f; } .eb59 { background-color: #5f5f5f; }
+		.ef60 { color: #5f5f87; } .eb60 { background-color: #5f5f87; }
+		.ef61 { color: #5f5faf; } .eb61 { background-color: #5f5faf; }
+		.ef62 { color: #5f5fd7; } .eb62 { background-color: #5f5fd7; }
+		.ef63 { color: #5f5fff; } .eb63 { background-color: #5f5fff; }
+		.ef64 { color: #5f8700; } .eb64 { background-color: #5f8700; }
+		.ef65 { color: #5f875f; } .eb65 { background-color: #5f875f; }
+		.ef66 { color: #5f8787; } .eb66 { background-color: #5f8787; }
+		.ef67 { color: #5f87af; } .eb67 { background-color: #5f87af; }
+		.ef68 { color: #5f87d7; } .eb68 { background-color: #5f87d7; }
+		.ef69 { color: #5f87ff; } .eb69 { background-color: #5f87ff; }
+		.ef70 { color: #5faf00; } .eb70 { background-color: #5faf00; }
+		.ef71 { color: #5faf5f; } .eb71 { background-color: #5faf5f; }
+		.ef72 { color: #5faf87; } .eb72 { background-color: #5faf87; }
+		.ef73 { color: #5fafaf; } .eb73 { background-color: #5fafaf; }
+		.ef74 { color: #5fafd7; } .eb74 { background-color: #5fafd7; }
+		.ef75 { color: #5fafff; } .eb75 { background-color: #5fafff; }
+		.ef76 { color: #5fd700; } .eb76 { background-color: #5fd700; }
+		.ef77 { color: #5fd75f; } .eb77 { background-color: #5fd75f; }
+		.ef78 { color: #5fd787; } .eb78 { background-color: #5fd787; }
+		.ef79 { color: #5fd7af; } .eb79 { background-color: #5fd7af; }
+		.ef80 { color: #5fd7d7; } .eb80 { background-color: #5fd7d7; }
+		.ef81 { color: #5fd7ff; } .eb81 { background-color: #5fd7ff; }
+		.ef82 { color: #5fff00; } .eb82 { background-color: #5fff00; }
+		.ef83 { color: #5fff5f; } .eb83 { background-color: #5fff5f; }
+		.ef84 { color: #5fff87; } .eb84 { background-color: #5fff87; }
+		.ef85 { color: #5fffaf; } .eb85 { background-color: #5fffaf; }
+		.ef86 { color: #5fffd7; } .eb86 { background-color: #5fffd7; }
+		.ef87 { color: #5fffff; } .eb87 { background-color: #5fffff; }
+		.ef88 { color: #870000; } .eb88 { background-color: #870000; }
+		.ef89 { color: #87005f; } .eb89 { background-color: #87005f; }
+		.ef90 { color: #870087; } .eb90 { background-color: #870087; }
+		.ef91 { color: #8700af; } .eb91 { background-color: #8700af; }
+		.ef92 { color: #8700d7; } .eb92 { background-color: #8700d7; }
+		.ef93 { color: #8700ff; } .eb93 { background-color: #8700ff; }
+		.ef94 { color: #875f00; } .eb94 { background-color: #875f00; }
+		.ef95 { color: #875f5f; } .eb95 { background-color: #875f5f; }
+		.ef96 { color: #875f87; } .eb96 { background-color: #875f87; }
+		.ef97 { color: #875faf; } .eb97 { background-color: #875faf; }
+		.ef98 { color: #875fd7; } .eb98 { background-color: #875fd7; }
+		.ef99 { color: #875fff; } .eb99 { background-color: #875fff; }
+		.ef100 { color: #878700; } .eb100 { background-color: #878700; }
+		.ef101 { color: #87875f; } .eb101 { background-color: #87875f; }
+		.ef102 { color: #878787; } .eb102 { background-color: #878787; }
+		.ef103 { color: #8787af; } .eb103 { background-color: #8787af; }
+		.ef104 { color: #8787d7; } .eb104 { background-color: #8787d7; }
+		.ef105 { color: #8787ff; } .eb105 { background-color: #8787ff; }
+		.ef106 { color: #87af00; } .eb106 { background-color: #87af00; }
+		.ef107 { color: #87af5f; } .eb107 { background-color: #87af5f; }
+		.ef108 { color: #87af87; } .eb108 { background-color: #87af87; }
+		.ef109 { color: #87afaf; } .eb109 { background-color: #87afaf; }
+		.ef110 { color: #87afd7; } .eb110 { background-color: #87afd7; }
+		.ef111 { color: #87afff; } .eb111 { background-color: #87afff; }
+		.ef112 { color: #87d700; } .eb112 { background-color: #87d700; }
+		.ef113 { color: #87d75f; } .eb113 { background-color: #87d75f; }
+		.ef114 { color: #87d787; } .eb114 { background-color: #87d787; }
+		.ef115 { color: #87d7af; } .eb115 { background-color: #87d7af; }
+		.ef116 { color: #87d7d7; } .eb116 { background-color: #87d7d7; }
+		.ef117 { color: #87d7ff; } .eb117 { background-color: #87d7ff; }
+		.ef118 { color: #87ff00; } .eb118 { background-color: #87ff00; }
+		.ef119 { color: #87ff5f; } .eb119 { background-color: #87ff5f; }
+		.ef120 { color: #87ff87; } .eb120 { background-color: #87ff87; }
+		.ef121 { color: #87ffaf; } .eb121 { background-color: #87ffaf; }
+		.ef122 { color: #87ffd7; } .eb122 { background-color: #87ffd7; }
+		.ef123 { color: #87ffff; } .eb123 { background-color: #87ffff; }
+		.ef124 { color: #af0000; } .eb124 { background-color: #af0000; }
+		.ef125 { color: #af005f; } .eb125 { background-color: #af005f; }
+		.ef126 { color: #af0087; } .eb126 { background-color: #af0087; }
+		.ef127 { color: #af00af; } .eb127 { background-color: #af00af; }
+		.ef128 { color: #af00d7; } .eb128 { background-color: #af00d7; }
+		.ef129 { color: #af00ff; } .eb129 { background-color: #af00ff; }
+		.ef130 { color: #af5f00; } .eb130 { background-color: #af5f00; }
+		.ef131 { color: #af5f5f; } .eb131 { background-color: #af5f5f; }
+		.ef132 { color: #af5f87; } .eb132 { background-color: #af5f87; }
+		.ef133 { color: #af5faf; } .eb133 { background-color: #af5faf; }
+		.ef134 { color: #af5fd7; } .eb134 { background-color: #af5fd7; }
+		.ef135 { color: #af5fff; } .eb135 { background-color: #af5fff; }
+		.ef136 { color: #af8700; } .eb136 { background-color: #af8700; }
+		.ef137 { color: #af875f; } .eb137 { background-color: #af875f; }
+		.ef138 { color: #af8787; } .eb138 { background-color: #af8787; }
+		.ef139 { color: #af87af; } .eb139 { background-color: #af87af; }
+		.ef140 { color: #af87d7; } .eb140 { background-color: #af87d7; }
+		.ef141 { color: #af87ff; } .eb141 { background-color: #af87ff; }
+		.ef142 { color: #afaf00; } .eb142 { background-color: #afaf00; }
+		.ef143 { color: #afaf5f; } .eb143 { background-color: #afaf5f; }
+		.ef144 { color: #afaf87; } .eb144 { background-color: #afaf87; }
+		.ef145 { color: #afafaf; } .eb145 { background-color: #afafaf; }
+		.ef146 { color: #afafd7; } .eb146 { background-color: #afafd7; }
+		.ef147 { color: #afafff; } .eb147 { background-color: #afafff; }
+		.ef148 { color: #afd700; } .eb148 { background-color: #afd700; }
+		.ef149 { color: #afd75f; } .eb149 { background-color: #afd75f; }
+		.ef150 { color: #afd787; } .eb150 { background-color: #afd787; }
+		.ef151 { color: #afd7af; } .eb151 { background-color: #afd7af; }
+		.ef152 { color: #afd7d7; } .eb152 { background-color: #afd7d7; }
+		.ef153 { color: #afd7ff; } .eb153 { background-color: #afd7ff; }
+		.ef154 { color: #afff00; } .eb154 { background-color: #afff00; }
+		.ef155 { color: #afff5f; } .eb155 { background-color: #afff5f; }
+		.ef156 { color: #afff87; } .eb156 { background-color: #afff87; }
+		.ef157 { color: #afffaf; } .eb157 { background-color: #afffaf; }
+		.ef158 { color: #afffd7; } .eb158 { background-color: #afffd7; }
+		.ef159 { color: #afffff; } .eb159 { background-color: #afffff; }
+		.ef160 { color: #d70000; } .eb160 { background-color: #d70000; }
+		.ef161 { color: #d7005f; } .eb161 { background-color: #d7005f; }
+		.ef162 { color: #d70087; } .eb162 { background-color: #d70087; }
+		.ef163 { color: #d700af; } .eb163 { background-color: #d700af; }
+		.ef164 { color: #d700d7; } .eb164 { background-color: #d700d7; }
+		.ef165 { color: #d700ff; } .eb165 { background-color: #d700ff; }
+		.ef166 { color: #d75f00; } .eb166 { background-color: #d75f00; }
+		.ef167 { color: #d75f5f; } .eb167 { background-color: #d75f5f; }
+		.ef168 { color: #d75f87; } .eb168 { background-color: #d75f87; }
+		.ef169 { color: #d75faf; } .eb169 { background-color: #d75faf; }
+		.ef170 { color: #d75fd7; } .eb170 { background-color: #d75fd7; }
+		.ef171 { color: #d75fff; } .eb171 { background-color: #d75fff; }
+		.ef172 { color: #d78700; } .eb172 { background-color: #d78700; }
+		.ef173 { color: #d7875f; } .eb173 { background-color: #d7875f; }
+		.ef174 { color: #d78787; } .eb174 { background-color: #d78787; }
+		.ef175 { color: #d787af; } .eb175 { background-color: #d787af; }
+		.ef176 { color: #d787d7; } .eb176 { background-color: #d787d7; }
+		.ef177 { color: #d787ff; } .eb177 { background-color: #d787ff; }
+		.ef178 { color: #d7af00; } .eb178 { background-color: #d7af00; }
+		.ef179 { color: #d7af5f; } .eb179 { background-color: #d7af5f; }
+		.ef180 { color: #d7af87; } .eb180 { background-color: #d7af87; }
+		.ef181 { color: #d7afaf; } .eb181 { background-color: #d7afaf; }
+		.ef182 { color: #d7afd7; } .eb182 { background-color: #d7afd7; }
+		.ef183 { color: #d7afff; } .eb183 { background-color: #d7afff; }
+		.ef184 { color: #d7d700; } .eb184 { background-color: #d7d700; }
+		.ef185 { color: #d7d75f; } .eb185 { background-color: #d7d75f; }
+		.ef186 { color: #d7d787; } .eb186 { background-color: #d7d787; }
+		.ef187 { color: #d7d7af; } .eb187 { background-color: #d7d7af; }
+		.ef188 { color: #d7d7d7; } .eb188 { background-color: #d7d7d7; }
+		.ef189 { color: #d7d7ff; } .eb189 { background-color: #d7d7ff; }
+		.ef190 { color: #d7ff00; } .eb190 { background-color: #d7ff00; }
+		.ef191 { color: #d7ff5f; } .eb191 { background-color: #d7ff5f; }
+		.ef192 { color: #d7ff87; } .eb192 { background-color: #d7ff87; }
+		.ef193 { color: #d7ffaf; } .eb193 { background-color: #d7ffaf; }
+		.ef194 { color: #d7ffd7; } .eb194 { background-color: #d7ffd7; }
+		.ef195 { color: #d7ffff; } .eb195 { background-color: #d7ffff; }
+		.ef196 { color: #ff0000; } .eb196 { background-color: #ff0000; }
+		.ef197 { color: #ff005f; } .eb197 { background-color: #ff005f; }
+		.ef198 { color: #ff0087; } .eb198 { background-color: #ff0087; }
+		.ef199 { color: #ff00af; } .eb199 { background-color: #ff00af; }
+		.ef200 { color: #ff00d7; } .eb200 { background-color: #ff00d7; }
+		.ef201 { color: #ff00ff; } .eb201 { background-color: #ff00ff; }
+		.ef202 { color: #ff5f00; } .eb202 { background-color: #ff5f00; }
+		.ef203 { color: #ff5f5f; } .eb203 { background-color: #ff5f5f; }
+		.ef204 { color: #ff5f87; } .eb204 { background-color: #ff5f87; }
+		.ef205 { color: #ff5faf; } .eb205 { background-color: #ff5faf; }
+		.ef206 { color: #ff5fd7; } .eb206 { background-color: #ff5fd7; }
+		.ef207 { color: #ff5fff; } .eb207 { background-color: #ff5fff; }
+		.ef208 { color: #ff8700; } .eb208 { background-color: #ff8700; }
+		.ef209 { color: #ff875f; } .eb209 { background-color: #ff875f; }
+		.ef210 { color: #ff8787; } .eb210 { background-color: #ff8787; }
+		.ef211 { color: #ff87af; } .eb211 { background-color: #ff87af; }
+		.ef212 { color: #ff87d7; } .eb212 { background-color: #ff87d7; }
+		.ef213 { color: #ff87ff; } .eb213 { background-color: #ff87ff; }
+		.ef214 { color: #ffaf00; } .eb214 { background-color: #ffaf00; }
+		.ef215 { color: #ffaf5f; } .eb215 { background-color: #ffaf5f; }
+		.ef216 { color: #ffaf87; } .eb216 { background-color: #ffaf87; }
+		.ef217 { color: #ffafaf; } .eb217 { background-color: #ffafaf; }
+		.ef218 { color: #ffafd7; } .eb218 { background-color: #ffafd7; }
+		.ef219 { color: #ffafff; } .eb219 { background-color: #ffafff; }
+		.ef220 { color: #ffd700; } .eb220 { background-color: #ffd700; }
+		.ef221 { color: #ffd75f; } .eb221 { background-color: #ffd75f; }
+		.ef222 { color: #ffd787; } .eb222 { background-color: #ffd787; }
+		.ef223 { color: #ffd7af; } .eb223 { background-color: #ffd7af; }
+		.ef224 { color: #ffd7d7; } .eb224 { background-color: #ffd7d7; }
+		.ef225 { color: #ffd7ff; } .eb225 { background-color: #ffd7ff; }
+		.ef226 { color: #ffff00; } .eb226 { background-color: #ffff00; }
+		.ef227 { color: #ffff5f; } .eb227 { background-color: #ffff5f; }
+		.ef228 { color: #ffff87; } .eb228 { background-color: #ffff87; }
+		.ef229 { color: #ffffaf; } .eb229 { background-color: #ffffaf; }
+		.ef230 { color: #ffffd7; } .eb230 { background-color: #ffffd7; }
+		.ef231 { color: #ffffff; } .eb231 { background-color: #ffffff; }
+		.ef232 { color: #080808; } .eb232 { background-color: #080808; }
+		.ef233 { color: #121212; } .eb233 { background-color: #121212; }
+		.ef234 { color: #1c1c1c; } .eb234 { background-color: #1c1c1c; }
+		.ef235 { color: #262626; } .eb235 { background-color: #262626; }
+		.ef236 { color: #303030; } .eb236 { background-color: #303030; }
+		.ef237 { color: #3a3a3a; } .eb237 { background-color: #3a3a3a; }
+		.ef238 { color: #444444; } .eb238 { background-color: #444444; }
+		.ef239 { color: #4e4e4e; } .eb239 { background-color: #4e4e4e; }
+		.ef240 { color: #585858; } .eb240 { background-color: #585858; }
+		.ef241 { color: #626262; } .eb241 { background-color: #626262; }
+		.ef242 { color: #6c6c6c; } .eb242 { background-color: #6c6c6c; }
+		.ef243 { color: #767676; } .eb243 { background-color: #767676; }
+		.ef244 { color: #808080; } .eb244 { background-color: #808080; }
+		.ef245 { color: #8a8a8a; } .eb245 { background-color: #8a8a8a; }
+		.ef246 { color: #949494; } .eb246 { background-color: #949494; }
+		.ef247 { color: #9e9e9e; } .eb247 { background-color: #9e9e9e; }
+		.ef248 { color: #a8a8a8; } .eb248 { background-color: #a8a8a8; }
+		.ef249 { color: #b2b2b2; } .eb249 { background-color: #b2b2b2; }
+		.ef250 { color: #bcbcbc; } .eb250 { background-color: #bcbcbc; }
+		.ef251 { color: #c6c6c6; } .eb251 { background-color: #c6c6c6; }
+		.ef252 { color: #d0d0d0; } .eb252 { background-color: #d0d0d0; }
+		.ef253 { color: #dadada; } .eb253 { background-color: #dadada; }
+		.ef254 { color: #e4e4e4; } .eb254 { background-color: #e4e4e4; }
+		.ef255 { color: #eeeeee; } .eb255 { background-color: #eeeeee; }
+
+		.f9 { color: #E5E5E5; }
+		.b9 { background-color: #000000; }
+		.f9 > .bold,.bold > .f9, body.f9 > pre > .bold {
+		  /* Bold is heavy black on white, or bright white
+			 depending on the default background */
+		  color: #FFFFFF;
+		  font-weight: normal;
+		}
+		.reverse {
+		  /* CSS does not support swapping fg and bg colours unfortunately,
+			 so just hardcode something that will look OK on all backgrounds. */
+		  color: #000000; background-color: #E5E5E5;
+		}
+		.underline { text-decoration: underline; }
+		.line-through { text-decoration: line-through; }
+		.blink { text-decoration: blink; }
+
+		/* Avoid pixels between adjacent span elements.
+		   Note this only works for lines less than 80 chars
+		   where we close span elements on the same line.
+		span { display: inline-block; }
+		*/
+EOF}}">
+	<script src="data:text/javascript;base64,{{base64 --wrap=0 <<'EOF'
+		function create_element(tagName, properties = {}, attributes = {}, children = [], callback = function(e){}){ // https://stackoverflow.com/questions/7006253/javascript-dom-how-to-handle-special-properties-as-versus-attributes
+			let e = document.createElement(tagName);
+			Object.assign(e, properties);
+			Object.entries(attributes).forEach(Function.prototype.apply.bind(Element.prototype.setAttribute.bind(e), null));
+			e.replaceChildren(...children);
+			callback(e);
+			return e;
+		}
+EOF}}"></script>
+	<script src="data:text/javascript;base64,{{base64 --wrap=0 <<'EOF'
+		try{
+			if(window.location.protocol == "https:" && window.location.hostname == "jhcarl0814.github.io" && window.location.port == "" && window.location.pathname == "/ClosedAI/git/git.html"){
+				document.head.insertBefore(create_element("script", {}, { async: "", src: "https://www.googletagmanager.com/gtag/js?id=G-ZHJ8ZJK2B8", }), document.head.childNodes.item(0));
+				document.head.insertBefore(create_element("script", {}, {}, [ document.createTextNode(`
+					window.dataLayer = window.dataLayer || [];
+					function gtag(){dataLayer.push(arguments);}
+					gtag('js', new Date());
+
+					gtag('config', 'G-ZHJ8ZJK2B8');
+				`), ]), document.head.childNodes.item(1));
+			}
+		}
+		finally{
+			document.currentScript.remove();
+		}
+EOF}}"></script>
+	<script src="data:text/javascript;base64,{{base64 --wrap=0 <<'EOF'
+		try{
+			if(window.location.protocol == "https:" && window.location.hostname == "jhcarl0814.github.io" && window.location.port == "" && window.location.pathname == "/ClosedAI/git/git.html"){
+				document.head.appendChild(create_element("script", {}, { async: "", src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1967583300420291", crossorigin: "anonymous", }));
+			}
+		}
+		finally{
+			document.currentScript.remove();
+		}
+EOF}}"></script>
+	<base target="_blank">
+</head>
+<body class="overflow-x-auto h-[100%] [--font-size-paragraph:0.8] [--line-height-paragraph:1.2] [--font-size-code:1] [--line-height-code:1.2] font-sans_serif text-restore">
+	<!-- screen width <= 1200px: 0                           , 1200px            + 0                           -->
+	<!-- screen width >= 1200px: (100vw-max(1200px, 82vw))/2 , max(1200px, 82vw) + (100vw-max(1200px, 82vw))/2 -->
+	<div class="relative w-[calc(max(1200px,(100vw_+_max(1200px,82vw))/2))] ml-[calc(max(0px,(100vw_-_max(1200px,82vw))/2))] mr-0 h-[100%] flex">
+		<div id="reference_desk_dispatcher_form" class="git_reference_desk"></div>
+		<script>
+			function reference_desk_link_clicked0(reference_desk_dispatcher_form_class, reference_desk_dispatcher_example_class)
+			{
+				window.event.preventDefault();
+				document.getElementById("reference_desk_dispatcher_form").className = reference_desk_dispatcher_form_class;
+				document.getElementById("reference_desk_dispatcher_example").className = reference_desk_dispatcher_example_class;
+			}
+			function reference_desk_link_clicked(reference_desk_dispatcher_form_class, reference_desk_dispatcher_example_class)
+			{
+				window.event.preventDefault();
+				document.getElementById("reference_desk_dispatcher_form").className = reference_desk_dispatcher_form_class;
+				document.getElementById("reference_desk_dispatcher_example").className = reference_desk_dispatcher_example_class;
+				document.getElementById("reference_desk_scroll_target").scrollIntoView();
+			}
+		</script>
+
+		<div id="reference_desk_dispatcher_example" class="git_reference_desk"></div>
+		<script>
+			function reference_desk_widget_mousepressed(reference_desk_dispatcher_example_class)
+			{
+				document.getElementById("reference_desk_dispatcher_example").className = reference_desk_dispatcher_example_class;
+			}
+		</script>
+
+		<div class="basis-[590px] grow-0 relative [contain:strict]">
+			<div class="absolute overflow-x-hidden overflow-y-auto inset-[8px] border-[1px] border-solid border-[#000000] rounded-[5px] px-[1em] py-[0.5em] [&>details]:[contain:content] [&>div]:[contain:content]">
+
+				<details id="reference_desk_details" class="border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em]" open>
+					<summary class="cursor-pointer marker:text-[180%]">
+						<h1 class="heading1 inline"><a class="[#reference\_desk\_dispatcher\_form.git\_reference\_desk~*_&]:[outline:dashed_2.5px_#0000FF] cursor-text" onmousedown="reference_desk_link_clicked0('git_reference_desk','git_reference_desk')" onclick="window.event.preventDefault()">Git Help Desk</a></h1>
+					</summary>
+
+					<div class="hidden [#reference\_desk\_dispatcher\_form.git\_reference\_desk~*_&]:block">
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold">Using this page to learn Git</h2>
+						<p class="paragraph">The page introduces concepts/terminologies in a pedagogically sound order, so if you read through the links to all the concepts in order, the likelihood of needing concepts you have never encountered before is minimized.</p>
+						<p class="paragraph">The page illustrates command options and their combinations/interactions with examples so that you can get a better feel for what each option does.</p>
+						<div class="ml-[1em]">
+							<p class="paragraph">When you click <a class="porcelain_link"><span class="command">a command</span></a>'s link, options appear on the left panel and examples appear on the right panel.</p>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold">Using this page to look up command options</h2>
+						<p class="paragraph">The page groups command options into intuitive categories for easy discovery, rather than arranging everything in a simple list in alphabetical order.</p>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<div class="flex">
+							<div class="basis-0 grow">
+								<p class="paragraph">If the command you want to know is not illustrated here, please refer to the official documentation.</p>
+								<p class="paragraph">Documentation:</p>
+								<div class="ml-[1em]">
+									<p class="paragraph"><a class="" href="https://git-scm.com/doc">https://git-scm.com/doc</a></p>
+								</div>
+								<p class="paragraph">Reference:</p>
+								<div class="ml-[1em]">
+									<p class="paragraph"><a class="" href="https://git-scm.com/docs">https://git-scm.com/docs</a></p>
+									<p class="paragraph"><a class="" href="https://git.github.io/htmldocs/git.html">https://git.github.io/htmldocs/git.html</a></p>
+									<p class="paragraph"><a class="" href="https://mirrors.edge.kernel.org/pub/software/scm/git/docs/">https://mirrors.edge.kernel.org/pub/software/scm/git/docs/</a></p>
+								</div>
+							</div>
+
+							<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
+							<div class="basis-0 grow">
+								<h2 class="highlight_bold">Legend</h2>
+
+								<p class="paragraph">types of links:</p>
+								<div class="ml-[1em]">
+									<p class="paragraph"><a class="concept_link">concept</a></p>
+									<p class="paragraph"><a class="porcelain_link"><span class="command">high level command</span></a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-porcelain">porcelain</a>)</p>
+									<p class="paragraph"><a class="plumbing_link"><span class="command">low level command</span></a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-plumbing">plumbing</a>)</p>
+									<p class="paragraph"><a class="git_scm_link">link to https://git-scm.com</a></p>
+									<p class="paragraph"><a class="github_link">link to https://github.com</a></p>
+									<p class="paragraph"><a class="external_link concept_link">external link (other interface)</a></p>
+									<p class="paragraph"><a class="external_link porcelain_link"><span class="command">external link (porcelain)</span></a></p>
+									<p class="paragraph"><a class="external_link plumbing_link"><span class="command">external link (plumbing)</span></a></p>
+								</div>
+
+								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+								<p class="paragraph">progress of features:</p>
+								<div class="ml-[1em]">
+									<p class="paragraph"><a class="">stable</a></p>
+									<p class="paragraph"><a class="">🧪experimental</a></p>
+								</div>
+							</div>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+					</div>
+
+					<div>
+						<h2 class="highlight_bold text-[160%] leading-[1.5em]">Object Database Layer <a class="[#reference\_desk\_dispatcher\_form.git\_reference\_desk\_object\_database\_layer~*_&]:[outline:dashed_2.5px_#0000FF] cursor-text" onmousedown="reference_desk_link_clicked0('git_reference_desk_object_database_layer','git_reference_desk_object_database_layer')" onclick="window.event.preventDefault()">🎯</a></h2>
+						<div class="hidden [#reference\_desk\_dispatcher\_form.git\_reference\_desk\_object\_database\_layer~*_&]:block">
+							<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+							<p class="paragraph">These concepts help you understand Git internals: how to configure Git, Git's object model, how to manage working trees and files within them. These are the basis of the source code management layer. (In theory, you can use those underlying commands to implement a revision control system yourself.)</p>
+							<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						</div>
+
+						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-objectdatabase">object database, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/objects/</span></a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-filesystem">file system</a>)<br>
+						<div class="ml-[1em]">
+							<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-alternateobjectdatabase">alternate object database</a><br>
+						</div>
+						<span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-pathspec">pathspec</a>&gt;</span><br>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<div class="flex">
+							<div class="basis-0 grow">
+								<h2 class="highlight_bold">Parameters</h2>
+								Configuration<br>
+								<div class="ml-[1em]">
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_version~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_version git_with_command','git_version');git_version_refresh();"><span class="command">git version</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_config~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_config git_with_command','git_config');git_config_refresh();"><span class="command">git config</span>, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/config</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/config.worktree</span></a><br>
+									<div class="ml-[1em]">
+										<a href="https://git-scm.com/docs/git-config#FILES">{configuration files}</a><br>
+										<div class="ml-[1em]">
+											<a class="concept_link" href="https://git-scm.com/docs/git-config#_syntax">section, subsection, value</a><br>
+											<a class="concept_link" href="https://git-scm.com/docs/git-config#_values">types, runtime prefix</a><br>
+											<a class="concept_link" href="https://git-scm.com/docs/git-config#_includes">include</a><br>
+										</div>
+										<a href="https://git-scm.com/docs/git-config#SCOPES">{configuration scopes}</a><br>
+										<div class="ml-[1em]">
+											<a class="concept_link" href="https://git-scm.com/docs/git-config#_protected_configuration">protected configuration</a><br>
+										</div>
+										<a href="https://git-scm.com/docs/git-config#FILES">multiple values</a><br>
+										<a href="https://git-scm.com/docs/git-config#ENVIRONMENT">options＞env_vars＞config_vars</a><br>
+										<a href="https://git-scm.com/docs/git-config#_variables">{configuration variables}</a><br>
+									</div>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_var~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_var git_with_command','git_var');git_var_refresh();"><span class="command">git var</span></a><br>
+									<div class="ml-[1em]">
+										<a href="https://git-scm.com/docs/git-var#_variables">{logical variables}</a><br>
+									</div>
+								</div>
+								CLI<br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-plumbing">plumbing</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-coregit">core Git</a>)<br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-porcelain">porcelain</a><br>
+									<a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-corequotePath">path syntax in output</a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_standalone~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_standalone git_with_command','git_standalone');git_standalone_refresh();"><span class="command">git</span></a><br>
+									<div class="ml-[1em]">
+										<a href="https://git-scm.com/docs/git#_environment_variables">{environment variables}</a><br>
+									</div>
+									<a class="git_scm_link" href="https://git-scm.com/docs/gitcli">conventions (options and args)</a><br>
+									<div class="ml-[1em]">
+										<a href="https://git-scm.com/docs/gitcli#_options_trump_configuration_and_environment">options＞env_vars＞config_vars</a><br>
+										<a href="https://git-scm.com/docs/gitcli#_notes_on_frequently_confused_options"><span class="command">--index</span>⊇<span class="command">--cached</span>＝<span class="command">--staged</span>^<span class="command">--worktree</span></a><br>
+									</div>
+								</div>
+							</div>
+
+							<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
+							<div class="basis-0 grow">
+								<h2 class="highlight_bold">Managing Objects</h2>
+								<a href="https://eagain.net/articles/git-for-computer-scientists/">Git for Computer Scientists</a><br>
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-object">object</a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-objectname">object name</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-objectidentifierobjectIDoid">object identifier, object ID, oid</a>) (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefSHA1aSHA-1">SHA-1</a>)<br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-objecttype">object type</a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-reachable">reachable</a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-unreachableobject">unreachable object</a><br>
+									<div class="ml-[1em]">
+										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-danglingobject">dangling object</a><br>
+									</div>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-cat-file"><span class="command">git cat-file</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-show"><span class="command">git show</span></a><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-hash-object"><span class="command">git hash-object</span></a><br>
+								</div>
+
+								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-blobobject">blob object</a><br>
+								<div class="ml-[1em]">
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-grep"><span class="command">git grep</span></a><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-unpack-file"><span class="command">git unpack-file</span></a><br>
+									<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/recover-corrupted-blob-object.adoc">recover-corrupted-blob-object</a><br>
+									<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/recover-corrupted-object-harder.adoc">recover-corrupted-object-harder</a><br>
+								</div>
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-treeobject">tree object</a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-tree">tree</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-directory">directory</a>)<br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-tree-ishalsotreeish">tree-ish (treeish)</a><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-ls-tree"><span class="command">git ls-tree</span></a><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-mktree"><span class="command">git mktree</span></a><br>
+								</div>
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-commitobject">commit object</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-commit">commit</a>)<br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-commit-ishalsocommittish">commit-ish (committish)</a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-parent">parent</a><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-commit-tree"><span class="command">git commit-tree</span></a><br>
+								</div>
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-tagobject">tag object</a><br>
+								<div class="ml-[1em]">
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-mktag"><span class="command">git mktag</span></a><br>
+								</div>
+							</div>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<a class="external_link git_scm_link" href="https://git-scm.com/docs/gitrepository-layout"><span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/</span>(repository layout)</a>, <a class="external_link git_scm_link" href="https://git-scm.com/docs/repository-version">repository format version</a><br>
+						<div class="ml-[1em]">
+							<a class="external_link git_scm_link" href="https://git-scm.com/docs/gitformat-index"><span class="inline_code"><span class="command">$GIT_DIR</span>/index</span>(index format)</a>, <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-index">index</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-cache">cache</a>), <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-indexentry">index entry</a><br>
+							<div class="ml-[1em]">
+								<a class="external_link git_scm_link plumbing_link" href="https://git-scm.com/docs/racy-git">racy Git problem, racily clean</a><br>
+							</div>
+							<a class="external_link git_scm_link" href="https://git-scm.com/docs/githooks"><span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/hooks/</span></a>, <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-hook">hook</a>, <a class="external_link plumbing_link" href="https://git-scm.com/docs/git-hook"><span class="command">git hook</span></a><br>
+							<div class="ml-[1em]">
+								<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/update-hook-example.adoc">update-hook-example</a><br>
+							</div>
+						</div>
+						<h2 class="highlight_bold">Managing Working Trees</h2>
+						.git directory <a class="concept_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-gitdir"><span class="inline_code">gitdir</span></a>: <a class="external_link" href="https://git-scm.com/docs/git#Documentation/git.txt---git-dirpath"><span class="command">--git-dir</span></a>/<a class="external_link" href="https://git-scm.com/docs/git#Documentation/git.txt-GITDIR"><span class="command">$GIT_DIR</span></a>/automatically discovered<br>
+						<div class="ml-[1em]">
+							root of working tree: <a class="external_link" href="https://git-scm.com/docs/git#Documentation/git.txt---work-treepath"><span class="command">--work-tree</span> (<span class="command">git</span>)</a>/<a class="external_link" href="https://git-scm.com/docs/git#Documentation/git.txt-GITWORKTREE"><span class="command">$GIT_WORK_TREE</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreworktree"><span class="inline_code">core.worktree</span></a>/...<br>
+							<div class="ml-[1em]">
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-gitfile">gitfile <span class="inline_code">.git</span></a><br>
+							</div>
+							non-worktree files directory: <a class="external_link" href="https://git-scm.com/docs/git#Documentation/git.txt-GITCOMMONDIR"><span class="command">$GIT_COMMON_DIR</span></a><br>
+							<div class="ml-[1em]">
+								<span class="command">$GIT_DIR</span> vs <span class="command">$GIT_COMMON_DIR</span>: <a class="concept_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt---worktree"><span class="command">--work-tree</span> (<span class="command">git config</span>)</a>, <a class="concept_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-worktreeConfig"><span class="inline_code">extensions.worktreeConfig</span></a>, <a class="concept_link" href="https://git-scm.com/docs/git-worktree#_details"><span class="command">git worktree</span></a><br>
+							</div>
+							<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-worktree">worktree</a> = <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-workingtree">working tree</a> + per-worktree metadata (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefperworktreerefaper-worktreeref">per-worktree ref</a> + ...)<br>
+							<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_worktree~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_worktree git_with_command','git_worktree');git_worktree_refresh();"><span class="command">git worktree</span>, <span class="command">$GIT_DIR</span>: <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/worktrees/&lt;id&gt;/</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/refs/worktree/</span></a><br>
+							<div class="ml-[1em]">
+								<a class="concept_link" href="https://git-scm.com/docs/git-worktree#_description">main worktree, linked worktree</a><br>
+							</div>
+							<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-clean">clean</a> (<a class="concept_link" href="https://git-scm.com/docs/git-read-tree#_two_tree_merge">git read-tree</a>); <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-dirty">dirty</a>, <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-stashentry">stash entry</a><br>
+							<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-stash"><span class="command">git stash</span></a><br>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<div class="flex">
+							<div class="basis-0 grow-[1.1]">
+								<h2 class="highlight_bold">Attributes per Path</h2>
+								<a class="git_scm_link" href="https://git-scm.com/docs/gitattributes"><span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/**/.gitattributes</span></a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/gitattributes#_description">pattern</a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitattributes#_description">overriding, {configuration files}</a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitattributes#_defining_macro_attributes">macro attribute</a><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-check-attr"><span class="command">git check-attr</span></a><br>
+								</div>
+								<h2 class="highlight_bold">Classifying Paths</h2>
+								<a class="git_scm_link" href="https://git-scm.com/docs/gitignore"><span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/**/.gitignore</span></a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/gitignore#_pattern_format">pattern</a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitignore#_description">overriding, {configuration files}</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/gitignore#_notes">how to stop tracking tracked and ignored files</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/git-add#_description">how to force tracking not-tracked and ignored files</a><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-check-ignore"><span class="command">git check-ignore</span></a><br>
+								</div>
+							</div>
+							<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
+							<div class="basis-0 grow">
+								<a class="stackoverflow_link" href="https://stackoverflow.com/questions/7229885/what-are-the-differences-between-gitignore-and-gitkeep"><span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/**/.gitkeep</span></a><br>
+
+								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+								<a class="external_link blur-[1px]" href="https://lore.kernel.org/git/pull.1627.git.1703643931314.gitgitgadget@gmail.com/#Z31Documentation:technical:precious-files.txt">Precious Files Design Document</a><br>
+								tracked<br>
+								<div class="ml-[1em]">
+									present (part of sparse checkout)<br>
+									not present (not part of sparse checkout)<br>
+								</div>
+								not tracked<br>
+								<div class="ml-[1em]">
+									ignored (expendable)<br>
+									<div class="ml-[1em] blur-[1px]">
+										trashable (ignored-and-expendable)<br>
+										precious (ignored-and-not-expendable)<br>
+									</div>
+									untracked (not tracked and not ignored) (not expendable)<br>
+								</div>
+							</div>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold text-[160%] leading-[1.5em]">Source Code Management Layer <a class="[#reference\_desk\_dispatcher\_form.git\_reference\_desk\_source\_code\_management\_layer~*_&]:[outline:dashed_2.5px_#0000FF] cursor-text" onmousedown="reference_desk_link_clicked0('git_reference_desk_source_code_management_layer','git_reference_desk_source_code_management_layer')" onclick="window.event.preventDefault()">🎯</a></h2>
+						<div class="hidden [#reference\_desk\_dispatcher\_form.git\_reference\_desk\_source\_code\_management\_layer~*_&]:block">
+							<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+							<p class="paragraph">These concepts help you understand Git interface.</p>
+							<div class="ml-[1em]">
+								<p class="paragraph">refs: lightweight named pointers to an object or another ref.</p>
+								<p class="paragraph">Specify objects (especially commits) more easily in the presence of refs.</p>
+								<p class="paragraph">Init and sync repos.</p>
+								<p class="paragraph">Bundle files in the working tree into commits, move refs between commits.</p>
+								<p class="paragraph">View commit history and differences between commits.</p>
+								<p class="paragraph">Merge history and rewrite history.</p>
+							</div>
+							<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						</div>
+
+						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-SCM">SCM</a><br>
+						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-pseudoref">pseudoref</a><br>
+						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-ref">ref, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/refs/</span></a>: name pointing to an object name/another ref, has <a class="concept_link" href="https://git-scm.com/docs/git-for-each-ref#Documentation/git-for-each-ref.txt-refname">refname</a> and <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-reflog">reflog</a><br>
+						<div class="ml-[1em]">
+							name pointing to another ref: <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-symref">symref (symbolic reference)</a><br>
+							name pointing to an object name <a class="concept_link" href="https://git-scm.com/docs/git-fetch#_description">(git fetch)</a>:<br>
+							<div class="ml-[1em]">
+								branch's <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-head">head, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/refs/heads/</span></a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-headref">head ref</a>): name pointing to tip of branch<br>
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-tag">tag, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/refs/tags/</span></a>, <span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/git#Documentation/git.txt-tag">tag</a>&gt;</span><br>
+								...<br>
+							</div>
+							name pointing to either an object name/another ref:<br>
+							<div class="ml-[1em]">
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-HEAD">HEAD, <span class="inline_code"><span class="command">$GIT_DIR</span>/HEAD</span></a>, <a class="concept_link" href="https://git-scm.com/docs/git#Documentation/git.txt-HEAD"><span class="command">HEAD</span></a>: name pointing to current branch or an arbitrary commit<br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-detachedHEAD">detached HEAD</a> <a class="concept_link" href="https://git-scm.com/docs/git-checkout#_detached_head">(git checkout)</a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-unborn">unborn branch</a>: caused by <span class="command">git init</span> or <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-orphan">orphan</a> operation<br>
+								</div>
+								...<br>
+							</div>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<div class="flex">
+							<div class="basis-0 grow">
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-branch">branch</a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/git-checkout#Documentation/git-checkout.txt-branch">(local) branch</a>, <span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/git#Documentation/git.txt-head">head</a>&gt;</span><br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefremotetrackingbrancharemote-trackingbranch">remote-tracking branch, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/refs/remotes/</span></a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-upstreambranch">upstream branch</a> <a class="concept_link" href="https://git-scm.com/docs/git-fetch#UPSTREAM-BRANCHES">(git fetch)</a><br>
+								</div>
+
+								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+								<h2 class="highlight_bold">Revision Specification</h2>
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-commit">commit</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-revision">revision</a>)<br>
+								<a class="git_scm_link" href="https://git-scm.com/docs/gitrevisions">Revision Notation (extended SHA-1 syntax)</a>, <a class="external_link git_scm_link" href="https://git-scm.com/docs/hash-function-transition"><span class="command">&lt;hash&gt;^{&lt;algo&gt;}</span></a><br>
+								<div class="my-[0.25em] grid grid-cols-[auto_1fr_auto] gap-[0.25em] leading-[1em]" style="grid-template-areas:&quot;evaluate_plumbing evaluate_plumbing evaluate_plumbing&quot;
+									&quot;label_expression evaluate_arrow label_denotation&quot;
+									&quot;label_expression unevaluate_arrow label_denotation&quot;
+									&quot;unevaluate_plumbing unevaluate_plumbing unevaluate_plumbing&quot;;">
+									<div class="[grid-area:evaluate\_plumbing] justify-self-center text-restore">
+										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-dereference">dereference</a><br>
+										<div class="ml-[1em]">
+											<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-peel">peel</a><br>
+										</div>
+										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-rev-parse"><span class="command">git rev-parse</span></a><br>
+									</div>
+									<div class="[grid-area:evaluate\_arrow] select-none flex">
+										<div class="h-[1px] bg-[#000000] grow self-center"></div><div class="font-[Arial,sans-serif] self-center">▶</div>
+									</div>
+									<div class="[grid-area:unevaluate\_arrow] select-none flex">
+										<div class="font-[Arial,sans-serif] self-center">◀</div><div class="h-[1px] bg-[#000000] grow self-center"></div>
+									</div>
+									<div class="[grid-area:unevaluate\_plumbing] justify-self-center text-restore">
+										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-name-rev"><span class="command">git name-rev</span></a><br>
+										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-describe"><span class="command">git describe</span></a><br>
+									</div>
+									<div class="self-center [grid-area:label\_expression] text-restore">expression</div>
+									<div class="self-center [grid-area:label\_denotation] text-restore">denotation</div>
+								</div>
+							</div>
+
+							<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
+							<div class="basis-0 grow-[1.08]">
+								<h2 class="highlight_bold">Managing References</h2>
+								<div class="ml-[1em]">
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-check-ref-format"><span class="command">git check-ref-format</span></a> <a class="concept_link" href="https://git-scm.com/docs/git-check-ref-format#Documentation/git-check-ref-format.txt---refspec-pattern">pattern</a><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-update-ref"><span class="command">git update-ref</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/logs/</span></a><br>
+									<a class="plumbing_link [#reference\_desk\_dispatcher\_form.git\_show\_ref~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_show_ref git_with_command','git_show_ref');git_show_ref_refresh();"><span class="command">git show-ref</span></a> <a class="concept_link" href="https://git-scm.com/docs/git-show-ref#Documentation/git-show-ref.txt-pattern">pattern</a><br>
+									<a class="plumbing_link [#reference\_desk\_dispatcher\_form.git\_ls\_remote~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_ls_remote git_with_command','git_ls_remote');git_ls_remote_refresh();"><span class="command">git ls-remote</span></a> <a class="concept_link" href="https://git-scm.com/docs/git-ls-remote#Documentation/git-ls-remote.txt-patterns">pattern</a><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-for-each-ref"><span class="command">git for-each-ref</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-reflog"><span class="command">git reflog</span></a><br>
+
+									<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-symbolic-ref"><span class="command">git symbolic-ref</span></a><br>
+
+									<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_branch~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_branch git_with_command','git_branch');git_branch_refresh();"><span class="command">git branch</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_tag~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_tag git_with_command','git_tag');git_tag_refresh();"><span class="command">git tag</span></a><br>
+									<div class="ml-[1em]">
+										<a class="concept_link" href="https://git-scm.com/docs/git-tag#_description">annotated tag, lightweight tag</a><br>
+									</div>
+
+									<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+									<h3 class="highlight_bold"><a class="external_link git_scm_link" href="https://git-scm.com/docs/gitnamespaces"><span class="command">Namespaces</span></a></h3>
+									<div class="ml-[1em]">
+										<a class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_namespace~*_&]:[outline:dashed_2px_#0000FF]" onclick="reference_desk_link_clicked0('git_standalone git_with_command','git_standalone');git_standalone_refresh();Array.from(document.querySelectorAll(&quot;details:has([for=\&quot;git_with_command_has_namespace\&quot;])&quot;)).forEach(function(details){details.open=true;});document.getElementById('git_with_command_has_namespace').scrollIntoView();reference_desk_widget_mousepressed('git_with_command_namespace');">(examples)</a><br>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold">Repository Creation and Synchronization</h2>
+						<div class="flex">
+							<div class="basis-0 grow-[1.4]">
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_init~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_init git_with_command','git_init');git_init_refresh();"><span class="command">git init</span></a><br>
+								<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-repo"><span class="command">🧪git repo</span></a><br>
+
+								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+								<a class="external_link github_link" href="https://github.com/git/git/blob/master/contrib/subtree/git-subtree.adoc"><span class="command">git subtree</span></a><br>
+								<h2 class="highlight_bold">Submodules <a class="external_link git_scm_link" href="https://git-scm.com/docs/gitsubmodules"><span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/modules/</span></a></h2>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-submodule">submodule</a>, <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-superproject">superproject</a><br>
+									<a class="external_link git_scm_link" href="https://git-scm.com/docs/gitmodules"><span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/.gitmodules</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-submodule"><span class="command">git submodule</span></a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/git-submodule#Documentation/git-submodule.txt---force">how to force adding a submodule whose path-derived name is occupied</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/gitsubmodules#_forms">how to completely remove a submodule</a><br>
+								</div>
+								<a class="external_link github_link" href="https://github.com/ingydotnet/git-subrepo"><span class="command">git subrepo</span></a><br>
+							</div>
+
+							<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
+							<div class="basis-0 grow">
+								<h2 class="highlight_bold">Tracked Repositories</h2>
+								<div class="ml-[1em]">
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_remote~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_remote git_with_command','git_remote');git_remote_refresh();"><span class="command">git remote</span></a><br>
+									<a class="external_link git_scm_link" href="https://git-scm.com/docs/gitremote-helpers"><span class="command">Remote Helpers</span></a><br>
+									<div class="ml-[1em]">
+										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-remote-ext"><span class="command">git remote-ext</span></a><br>
+										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-remote-fd"><span class="command">git remote-fd</span></a><br>
+										...<br>
+									</div>
+								</div>
+								<h2 class="highlight_bold"><a class="external_link git_scm_link" href="https://git-scm.com/docs/gitcredentials">Credentials</a></h2>
+								<div class="ml-[1em]">
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-credential"><span class="command">git credential</span></a><br>
+									<a class="external_link git_scm_link" href="https://git-scm.com/doc/credential-helpers">Credential Helpers</a><br>
+									<div class="ml-[1em]">
+										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-credential-cache"><span class="command">git credential-cache</span></a><br>
+										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-credential-store"><span class="command">git credential-store</span></a><br>
+										...<br>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-repository">repository</a>: object database + refs + meta data<br>
+						<span class="command">&lt;repository&gt;</span>: <a class="concept_link" href="https://git-scm.com/docs/git-fetch#_git_urls">URL</a> or name of <a class="concept_link" href="https://git-scm.com/docs/git-fetch#_remotes">remote</a> , tracks <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-remoterepository">remote repository</a><br>
+						<div class="ml-[1em]">
+							<a class="concept_link" href="https://git-scm.com/docs/git-log#Documentation/git-log.txt---alternate-refs">alternate repository</a><br>
+							<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-barerepository">bare repository</a> <a class="concept_link" href="https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---bare">(git clone)</a><br>
+							<div class="ml-[1em]">
+								<a class="concept_link" href="https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---mirror">mirror</a><br>
+							</div>
+							<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-shallowrepository">shallow repository</a> (<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-shallowclone">shallow clone</a>), <a class="external_link git_scm_link" href="https://git-scm.com/docs/shallow"><span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/shallow</span></a><br>
+							<a class="git_scm_link" href="https://git-scm.com/docs/partial-clone">partial clone</a>, <a class="concept_link" href="https://git-scm.com/docs/partial-clone#_using_many_promisor_remotes">promisor remote</a><br>
+						</div>
+						<span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-refspec">refspec</a>&gt;</span> <a class="concept_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt-refspec">(git fetch)</a> <a class="concept_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-refspec">(git push)</a><br>
+						<div class="my-[0.25em] grid grid-cols-[auto_auto_1fr_auto_auto] gap-[0.25em] leading-[1em]" style="grid-template-areas:&quot;. fetch_porcelain fetch_porcelain fetch_porcelain .&quot;
+							&quot;label_local fetch_plumbing_local fetch_arrow fetch_plumbing_remote label_remote&quot;
+							&quot;label_local push_plumbing_local push_arrow push_plumbing_remote label_remote&quot;
+							&quot;. push_porcelain push_porcelain push_porcelain .&quot;;">
+							<div class="[grid-area:fetch\_porcelain] justify-self-center text-restore">
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_clone~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_clone git_with_command','git_clone');git_clone_refresh();"><span class="command">git clone</span></a>, <a class="external_link porcelain_link" href="https://git-scm.com/docs/git-backfill"><span class="command">🧪git backfill</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_fetch~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_fetch git_with_command','git_fetch');git_fetch_refresh();"><span class="command">git fetch</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/FETCH_HEAD</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_pull~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_pull git_with_command','git_pull');git_pull_refresh();"><span class="command">git pull</span></a><br>
+							</div>
+							<div class="[grid-area:fetch\_plumbing\_local] text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-fetch-pack">
+								<span class="command">git fetch-pack</span></a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/git-fetch-pack#Documentation/git-fetch-pack.txt---thin">"thin" pack</a><br>
+								</div>
+							</div>
+							<div class="[grid-area:fetch\_arrow] select-none self-start flex">
+								<div class="font-[Arial,sans-serif] self-center">◀</div><div class="h-[1px] bg-[#000000] grow self-center"></div>
+							</div>
+							<div class="[grid-area:fetch\_plumbing\_remote] text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-upload-pack"><span class="command">git upload-pack</span></a><br></div>
+							<div class="[grid-area:push\_plumbing\_local] text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-send-pack">
+								<span class="command">git send-pack</span></a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/git-send-pack#Documentation/git-send-pack.txt---thin">"thin" pack</a><br>
+								</div>
+							</div>
+							<div class="[grid-area:push\_arrow] select-none self-start flex">
+								<div class="h-[1px] bg-[#000000] grow self-center"></div><div class="font-[Arial,sans-serif] self-center">▶</div>
+							</div>
+							<div class="[grid-area:push\_plumbing\_remote] text-restore">
+								<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-receive-pack"><span class="command">git receive-pack</span></a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/git-receive-pack#_quarantine_environment">quarantine environment</a><br>
+								</div>
+							</div>
+							<div class="self-center [grid-area:label\_local]">🖳</div>
+							<div class="self-center [grid-area:label\_remote] text-[2em]">🖧</div>
+							<div class="[grid-area:push\_porcelain] justify-self-center">
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_push~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_push git_with_command','git_push');git_push_refresh();"><span class="command">git push</span></a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-flag">status flag</a><br>
+								</div>
+								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-request-pull"><span class="command">git request-pull</span></a><br>
+								<div class="ml-[1em]">
+									<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/using-signed-tag-in-pull-request.adoc">using-signed-tag-in-pull-request</a><br>
+								</div>
+							</div>
+						</div>
+
+						<ul class="ml-[1em] list-outside list-['•_']">
+							<li>branch's remote: <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnameremote"><span class="inline_code">branch.&lt;branch&gt;.remote</span></a></li>
+							<li>branch's upstream branch(es): &lt;branch's remote, <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamemerge"><span class="inline_code">branch.&lt;branch&gt;.merge</span></a>&gt;</li>
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergedefaultToUpstream">branch's remote tracking branch(es)</a>: <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamemerge"><span class="inline_code">branch.&lt;branch&gt;.merge</span></a> mapped via <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.&lt;branch's remote&gt;.fetch</span></a></li>
+						</ul>
+						<span class="command">git merge</span><br>
+						<ul class="ml-[1em] list-outside list-['•_']">
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-merge#Documentation/git-merge.txt-commit">default branch(es) to merge into current branch</a>: (if <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergedefaultToUpstream"><span class="inline_code">merge.defaultToUpstream</span></a>:) current branch's remote tracking branch(es)</li>
+						</ul>
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<span class="command">git fetch</span><br>
+						<ul class="ml-[1em] list-outside list-['•_']">
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-fetch#_description">remote to fetch from</a>: <a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt-repository"><span class="command">&lt;repository&gt;</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnameremote"><span class="inline_code">branch.&lt;current branch&gt;.remote</span></a>/(if only one remote:) the only remote</li>
+							<li>remote's url to fetch from: first of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameurl"><span class="inline_code">remote.&lt;remote&gt;.url</span></a></li>
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-fetch#_configured_remote_tracking_branches">refs to fetch from remote</a> (recorded in <a class="external_link" href="https://git-scm.com/docs/git-fetch#_description"><span class="inline_code">FETCH_HEAD</span></a>): ((<span class="command">&lt;refspec&gt;</span>s present:) <a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt-refspec"><span class="command">&lt;refspec&gt;</span></a>s^(<span class="command">&lt;refspec&gt;</span>s absent:) <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.&lt;remote&gt;.fetch</span></a>)/<span class="inline_code">HEAD</span></li>
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-fetch#_configured_remote_tracking_branches">local refs to update</a>: refs to fetch from remote mapped via (<a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt-refspec"><span class="command">&lt;refspec with dst&gt;</span></a>s&amp;((<span class="command">--refmap=&lt;refspec&gt;</span>s present:) <a class="external_link" href="https://git-scm.com/docs/git-fetch#Documentation/git-fetch.txt---refmaprefspec"><span class="command">--refmap=&lt;refspec&gt;</span></a>s^(<span class="command">--refmap=&lt;refspec&gt;</span>s absent:) <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.&lt;remote&gt;.fetch</span></a>))</li>
+						</ul>
+						<span class="command">git pull</span><br>
+						<ul class="ml-[1em] list-outside list-['•_']">
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-pull#DEFAULT-BEHAVIOUR">default branch(es) to merge into current branch</a>: <a class="external_link" href="https://git-scm.com/docs/git-pull#Documentation/git-pull.txt-refspec"><span class="command">&lt;refspec&gt;</span></a>s' src/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamemerge"><span class="inline_code">branch.&lt;current branch&gt;.merge</span></a>/(first of <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamefetch"><span class="inline_code">remote.&lt;remote&gt;.fetch</span></a> if not globbing)'s src</li>
+						</ul>
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<span class="command">git push</span><br>
+						<ul class="ml-[1em] list-outside list-['•_']">
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-push#_description">remote to push to</a>: <a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-repository"><span class="command">&lt;repository&gt;</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamepushRemote"><span class="inline_code">branch.&lt;current branch&gt;.pushRemote</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotepushDefault"><span class="inline_code">remote.pushDefault</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnameremote"><span class="inline_code">branch.&lt;current branch&gt;.remote</span></a>/(if only one remote:) the only remote</li>
+							<li>remote's url(s) to push to: <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamepushurl"><span class="inline_code">remote.&lt;remote&gt;.pushurl</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameurl"><span class="inline_code">remote.&lt;remote&gt;.url</span></a></li>
+							<li>refs to push to remote: (<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-refspec"><span class="command">&lt;refspec&gt;</span></a>s[&amp;<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt---tags"><span class="command">--tags</span></a>]^<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt---branches"><span class="command">--branches</span></a>^<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt---mirror"><span class="command">--mirror</span></a>)/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamepush"><span class="inline_code">remote.&lt;remote&gt;.push</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault"><span class="inline_code">push.default</span></a>/<span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault">push.default</a>=simple</span></li>
+							<li><a class="git_scm_link" href="https://git-scm.com/docs/git-push#_description">remote refs to update</a>: <a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-refspec"><span class="command">&lt;refspec with dst&gt;</span></a>s&amp;((<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-refspec"><span class="command">&lt;refspec without dst&gt;</span></a>s' src mapped via <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenamepush"><span class="inline_code">remote.&lt;remote&gt;.push</span></a>)/<a class="external_link" href="https://git-scm.com/docs/git-push#Documentation/git-push.txt-refspec"><span class="command">&lt;refspec without dst&gt;</span></a>s' src)/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault"><span class="inline_code">push.default</span></a>/<span class="inline_code"><a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault">push.default</a>=simple</span></li>
+						</ul>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold">Snapshotting</h2>
+						<div class="my-[0.25em] grid grid-cols-[auto_auto_1fr_auto_0.5fr_auto_auto_auto_0.5fr_auto_1fr_auto_auto] leading-[1em]" style="grid-template-areas:&quot;. read_tree_porcelain read_tree_porcelain read_tree_porcelain read_tree_porcelain read_tree_porcelain . checkout_index_porcelain checkout_index_porcelain checkout_index_porcelain checkout_index_porcelain checkout_index_porcelain .&quot;
+							&quot;. read_tree_plumbing read_tree_plumbing read_tree_plumbing read_tree_plumbing read_tree_plumbing . checkout_index_plumbing checkout_index_plumbing checkout_index_plumbing checkout_index_plumbing checkout_index_plumbing .&quot;
+							&quot;. read_tree_arrow2 read_tree_arrow3 read_tree_arrow3 read_tree_arrow3 read_tree_arrow4 . checkout_index_arrow2 checkout_index_arrow3 checkout_index_arrow3 checkout_index_arrow3 checkout_index_arrow4 .&quot;
+							&quot;. read_tree_arrow1 . . . read_tree_arrow5 . checkout_index_arrow1 . . . checkout_index_arrow5 .&quot;
+							&quot;label_db label_db label_db spacing_db_index label_index label_index label_index label_index label_index spacing_index_working_tree label_working_tree label_working_tree label_working_tree&quot;
+							&quot;. write_tree_arrow5 . . . write_tree_arrow1 . update_index_arrow5 . . . update_index_arrow1 .&quot;
+							&quot;. write_tree_arrow4 write_tree_arrow3 write_tree_arrow3 write_tree_arrow3 write_tree_arrow2 . update_index_arrow4 update_index_arrow3 update_index_arrow3 update_index_arrow3 update_index_arrow2 .&quot;
+							&quot;. write_tree_plumbing write_tree_plumbing write_tree_plumbing write_tree_plumbing write_tree_plumbing . update_index_plumbing update_index_plumbing update_index_plumbing update_index_plumbing update_index_plumbing .&quot;
+							&quot;. write_tree_porcelain write_tree_porcelain write_tree_porcelain write_tree_porcelain write_tree_porcelain . update_index_porcelain update_index_porcelain update_index_porcelain update_index_porcelain update_index_porcelain .&quot;;">
+							<div class="[grid-area:read\_tree\_plumbing] justify-self-center text-restore">
+								<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-read-tree"><span class="command">git read-tree</span></a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/git-read-tree#_sparse_checkout">sparse checkout</a>, <a class="git_scm_link" href="https://git-scm.com/docs/git-read-tree#_sparse_checkout">how to repopulate the working directory</a><br>
+								</div>
+							</div>
+							<div class="[grid-area:checkout\_index\_plumbing] justify-self-center text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-checkout-index"><span class="command">git checkout-index</span></a><br></div>
+							<div class="[grid-area:update\_index\_plumbing] justify-self-center text-restore">
+								<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-update-index"><span class="command">git update-index</span></a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/git-update-index#_using_refresh">refresh</a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/git-update-index#_using_assume_unchanged_bit">assume unchanged bit</a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/git-update-index#_skip_worktree_bit">skip-worktree bit, sparse checkout</a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/git-update-index#_split_index">split index <span class="inline_code"><span class="command">$GIT_DIR</span>/index</span>, shared index file <span class="inline_code"><span class="command">$GIT_DIR</span>/sharedindex</span></a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/git-update-index#_untracked_cache">untracked cache</a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/git-update-index#_file_system_monitor">file system monitor</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/git-update-index#_notes">how to ignore tracked files</a><br>
+								</div>
+							</div>
+							<div class="[grid-area:write\_tree\_plumbing] justify-self-center text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-write-tree"><span class="command">git write-tree</span></a><br></div>
+							<div class="[grid-area:read\_tree\_porcelain] justify-self-center self-end mb-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] text-restore">
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_checkout git_with_command','git_checkout');git_checkout_refresh();"><span class="command">git checkout</span></a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-checkout">checkout</a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-switch"><span class="command">git switch</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-restore"><span class="command">git restore</span></a><br>
+								</div>
+								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-sparse-checkout"><span class="command">git sparse-checkout</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span></a><br>
+							</div>
+							<div class="[grid-area:checkout\_index\_porcelain] justify-self-center self-end mb-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] text-restore">
+								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-clean"><span class="command">git clean</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_checkout git_with_command','git_checkout');git_checkout_refresh();"><span class="command">git checkout</span></a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-checkout">checkout</a><br>
+									<div class="ml-[1em]">
+										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-overlay">overlay/no-overlay</a><br>
+										<a class="git_scm_link" href="https://git-scm.com/docs/parallel-checkout">parallel checkout</a><br>
+									</div>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-switch"><span class="command">git switch</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-restore"><span class="command">git restore</span></a><br>
+								</div>
+								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-sparse-checkout"><span class="command">git sparse-checkout</span></a><br>
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span></a><br>
+							</div>
+							<div class="[grid-area:update\_index\_porcelain] justify-self-center self-start mt-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] text-restore">
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_add~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_add git_with_command','git_add');git_add_refresh();"><span class="command">git add</span></a><br>
+								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-rm"><span class="command">git rm</span></a><br>
+								<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-mv"><span class="command">git mv</span></a><br>
+							</div>
+							<div class="[grid-area:write\_tree\_porcelain] justify-self-center self-start mt-[0.5em] border-solid border-[1px] border-[#C0C0C0] p-[1px] text-restore">
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_commit~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_commit git_with_command','git_commit');git_commit_refresh();"><span class="command">git commit</span></a><br>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-commit">commit</a><br>
+									<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-trailer">trailer</a><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-interpret-trailers"><span class="command">git interpret-trailers</span></a><br>
+								</div>
+							</div>
+							<div class="[grid-area:label\_db] flex flex-col justify-center items-center border-solid border-[1px] border-[#000000] text-restore">
+								<div>
+									DB<br>
+								</div>
+								<div>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_checkout~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_checkout git_with_command','git_checkout');git_checkout_refresh();"><span class="command">git checkout</span></a><br>
+									<div class="ml-[1em]">
+										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-switch"><span class="command">git switch</span></a><br>
+									</div>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_reset~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_reset git_with_command','git_reset');git_reset_refresh();"><span class="command">git reset</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/ORIG_HEAD</span></a><br>
+									<div class="ml-[1em]">
+										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-rewind">rewind</a><br>
+									</div>
+								</div>
+							</div>
+							<div class="[grid-area:spacing\_db\_index] min-w-[0.5em]"></div>
+							<div class="[grid-area:label\_index] flex justify-center items-center border-solid border-[1px] border-[#000000] text-restore">index</div>
+							<div class="[grid-area:spacing\_index\_working\_tree] min-w-[0.5em]"></div>
+							<div class="[grid-area:label\_working\_tree] flex justify-center items-center text-center border-solid border-[1px] border-[#000000] text-restore">working tree</div>
+							<div class="[grid-area:read\_tree\_arrow1] select-none">│</div>
+							<div class="[grid-area:read\_tree\_arrow2] select-none font-[Arial,sans-serif] self-center">┌</div>
+							<div class="[grid-area:read\_tree\_arrow3] select-none flex"><div class="h-[1px] bg-[#000000] grow self-center"></div></div>
+							<div class="[grid-area:read\_tree\_arrow4] select-none font-[Arial,sans-serif] self-center">┐</div>
+							<div class="[grid-area:read\_tree\_arrow5] select-none">▼</div>
+							<div class="[grid-area:checkout\_index\_arrow1] select-none">│</div>
+							<div class="[grid-area:checkout\_index\_arrow2] select-none font-[Arial,sans-serif] self-center">┌</div>
+							<div class="[grid-area:checkout\_index\_arrow3] select-none flex"><div class="h-[1px] bg-[#000000] grow self-center"></div><a class="external_link" href="https://git-scm.com/docs/gitattributes#_text"><span class="inline_code">text</span></a><div class="h-[1px] bg-[#000000] grow self-center"></div><a class="external_link" href="https://git-scm.com/docs/gitattributes#_ident"><span class="inline_code">ident</span></a><div class="h-[1px] bg-[#000000] grow self-center"></div><a class="external_link" href="https://git-scm.com/docs/gitattributes#_filter"><span class="inline_code">filter</span></a><div class="h-[1px] bg-[#000000] grow self-center"></div></div>
+							<div class="[grid-area:checkout\_index\_arrow4] select-none font-[Arial,sans-serif] self-center">┐</div>
+							<div class="[grid-area:checkout\_index\_arrow5] select-none">▼</div>
+							<div class="[grid-area:update\_index\_arrow1] select-none">│</div>
+							<div class="[grid-area:update\_index\_arrow2] select-none font-[Arial,sans-serif] self-center">┘</div>
+							<div class="[grid-area:update\_index\_arrow3] select-none flex"><div class="h-[1px] bg-[#000000] grow self-center"></div><a class="external_link" href="https://git-scm.com/docs/gitattributes#_text"><span class="inline_code">text</span></a><div class="h-[1px] bg-[#000000] grow self-center"></div><a class="external_link" href="https://git-scm.com/docs/gitattributes#_ident"><span class="inline_code">ident</span></a><div class="h-[1px] bg-[#000000] grow self-center"></div><a class="external_link" href="https://git-scm.com/docs/gitattributes#_filter"><span class="inline_code">filter</span></a><div class="h-[1px] bg-[#000000] grow self-center"></div></div>
+							<div class="[grid-area:update\_index\_arrow4] select-none font-[Arial,sans-serif] self-center">└</div>
+							<div class="[grid-area:update\_index\_arrow5] select-none">▲</div>
+							<div class="[grid-area:write\_tree\_arrow1] select-none">│</div>
+							<div class="[grid-area:write\_tree\_arrow2] select-none font-[Arial,sans-serif] self-center">┘</div>
+							<div class="[grid-area:write\_tree\_arrow3] select-none flex"><div class="h-[1px] bg-[#000000] grow self-center"></div></div>
+							<div class="[grid-area:write\_tree\_arrow4] select-none font-[Arial,sans-serif] self-center">└</div>
+							<div class="[grid-area:write\_tree\_arrow5] select-none">▲</div>
+						</div>
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<a class="git_scm_link" href="https://git-scm.com/docs/git-checkout#Documentation/git-checkout.txt---orphanltnew-branchgt">how to publish the tree from a commit without exposing its full history, how to start a disconnected history</a><br>
+						<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-notes"><span class="command">git notes</span>, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/refs/notes/</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/{NOTES_MERGE_PARTIAL,NOTES_MERGE_WORKTREE,NOTES_MERGE_REF}</span></a><br>
+						<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-replace"><span class="command">git replace</span>, <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/refs/replace/</span></a><br>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold">Checkin/Checkout Filters</h2>
+						<div class="ml-[1em]">
+							text/binary per file: <a class="external_link" href="https://git-scm.com/docs/gitattributes#_text"><span class="inline_code">text</span></a>/<a class="external_link" href="https://git-scm.com/docs/gitattributes#_eol"><span class="inline_code">eol</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreautocrlf"><span class="inline_code">core.autocrlf</span></a><br>
+							<div class="ml-[1em]">
+								line-ending style per text file: <a class="external_link" href="https://git-scm.com/docs/gitattributes#_eol"><span class="inline_code">eol</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreautocrlf"><span class="inline_code">core.autocrlf</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreeol"><span class="inline_code">core.eol</span></a><br>
+								<div class="ml-[1em]">
+									<a class="git_scm_link" href="https://git-scm.com/docs/gitattributes#_end_of_line_conversion">safety net</a>: <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresafecrlf"><span class="inline_code">core.safecrlf</span></a><br>
+								</div>
+							</div>
+							<a class="external_link" href="https://git-scm.com/docs/gitattributes#_ident"><span class="inline_code">ident</span></a><br>
+							filter driver, <span class="inline_code">clean</span> filter, <span class="inline_code">smudge</span> filter, <span class="inline_code">process</span> filter: <a class="external_link" href="https://git-scm.com/docs/gitattributes#_filter"><span class="inline_code">filter</span></a><br>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<a class="plumbing_link" href="https://git-scm.com/docs/gitdiffcore">diffcore transformation</a><br>
+						<div class="ml-[1em]">
+							<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-pickaxe">pickaxe</a><br>
+						</div>
+						<div class="my-[0.25em] grid grid-cols-[0.5fr_auto_0.5fr_auto_0.5fr_auto_0.5fr_auto_1fr_auto_1fr_auto_1fr_auto_1fr] leading-[1em]" style="grid-template-areas:&quot;tree_plumbing tree_plumbing tree_plumbing tree_plumbing tree_plumbing tree_plumbing tree_plumbing . files_plumbing files_plumbing files_plumbing files_plumbing files_plumbing files_plumbing files_plumbing&quot;
+							&quot;. tree_arrow2 tree_arrow3 tree_arrow3 tree_arrow3 tree_arrow4 . . . files_arrow2 files_arrow3 files_arrow3 files_arrow3 files_arrow4 .&quot;
+							&quot;. tree_arrow1 . . . tree_arrow5 . . . files_arrow1 . . . files_arrow5 .&quot;
+							&quot;label_db label_db label_db label_db label_db label_db label_db spacing_db_index label_index label_index label_index spacing_index_working_tree label_working_tree label_working_tree label_working_tree&quot;
+							&quot;. . . index_arrow1 . . . . . index_arrow5 index_arrow6 index_arrow7 index_arrow8 index_arrow9 .&quot;
+							&quot;. . . index_arrow2 index_arrow3 index_arrow3 index_arrow3 index_arrow3 index_arrow3 index_arrow3 index_arrow3 index_arrow4 . . .&quot;
+							&quot;. . . index_plumbing index_plumbing index_plumbing index_plumbing index_plumbing index_plumbing index_plumbing index_plumbing . . . .&quot;;">
+							<div class="[grid-area:tree\_plumbing] justify-self-center text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-diff-tree"><span class="command">git diff-tree</span></a><br></div>
+							<div class="[grid-area:files\_plumbing] justify-self-center text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-diff-files"><span class="command">git diff-files</span></a><br></div>
+							<div class="[grid-area:index\_plumbing] justify-self-center text-restore"><a class="external_link plumbing_link" href="https://git-scm.com/docs/git-diff-index"><span class="command">git diff-index</span></a><br></div>
+							<div class="[grid-area:label\_db] flex justify-center items-center border-solid border-[1px] border-[#000000] text-restore">DB</div>
+							<div class="[grid-area:spacing\_db\_index] min-w-[0.5em]"></div>
+							<div class="[grid-area:label\_index] flex justify-center items-center border-solid border-[1px] border-[#000000] text-restore">index</div>
+							<div class="[grid-area:spacing\_index\_working\_tree] min-w-[0.5em]"></div>
+							<div class="[grid-area:label\_working\_tree] flex justify-center items-center text-center border-solid border-[1px] border-[#000000] text-restore">working<br>tree</div>
+							<div class="[grid-area:tree\_arrow1] select-none">▼</div>
+							<div class="[grid-area:tree\_arrow2] select-none font-[Arial,sans-serif] self-center">┌</div>
+							<div class="[grid-area:tree\_arrow3] select-none flex"><div class="h-[1px] bg-[#000000] grow self-center"></div></div>
+							<div class="[grid-area:tree\_arrow4] select-none font-[Arial,sans-serif] self-center">┐</div>
+							<div class="[grid-area:tree\_arrow5] select-none">▼</div>
+							<div class="[grid-area:files\_arrow1] select-none">▼</div>
+							<div class="[grid-area:files\_arrow2] select-none font-[Arial,sans-serif] self-center">┌</div>
+							<div class="[grid-area:files\_arrow3] select-none flex"><div class="h-[1px] bg-[#000000] grow self-center"></div></div>
+							<div class="[grid-area:files\_arrow4] select-none font-[Arial,sans-serif] self-center">┐</div>
+							<div class="[grid-area:files\_arrow5] select-none">▼</div>
+							<div class="[grid-area:index\_arrow1] select-none">▲</div>
+							<div class="[grid-area:index\_arrow2] select-none font-[Arial,sans-serif]">└</div>
+							<div class="[grid-area:index\_arrow3] select-none flex">
+								<div class="h-[1px] bg-[#000000] grow self-center"></div><div class=" select-none font-[Arial,sans-serif] self-center">▶</div>
+							</div>
+							<div class="[grid-area:index\_arrow4] select-none font-[Arial,sans-serif]">┘</div>
+							<div class="[grid-area:index\_arrow5] select-none font-[Arial,sans-serif]">└</div>
+							<div class="[grid-area:index\_arrow6] select-none flex"><div class="h-[1px] bg-[#000000] grow self-center"></div></div>
+							<div class="[grid-area:index\_arrow7] select-none font-[Arial,sans-serif]">⌵</div>
+							<div class="[grid-area:index\_arrow8] select-none flex"><div class="h-[1px] bg-[#000000] grow self-center"></div></div>
+							<div class="[grid-area:index\_arrow9] select-none font-[Arial,sans-serif]">┘</div>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<div class="flex">
+							<div class="basis-0 grow-[1]">
+								<h2 class="highlight_bold">Diffing</h2>
+								<div class="ml-[1em]">
+									<a class="plumbing_link [#reference\_desk\_dispatcher\_form.git\_ls\_files~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_ls_files git_with_command','git_ls_files');git_ls_files_refresh();"><span class="command">git ls-files</span></a><br>
+									<div class="ml-[1em]">
+										<a class="concept_link" href="https://git-scm.com/docs/git-ls-files#Documentation/git-ls-files.txt---resolve-undo">resolve-undo information</a><br>
+										<a class="concept_link" href="https://git-scm.com/docs/git-ls-files#Documentation/git-ls-files.txt--t">status tag</a><br>
+										<span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/git-ls-files#Documentation/git-ls-files.txt---eol">eolinfo</a>&gt;</span>, <span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/git-ls-files#Documentation/git-ls-files.txt---eol">eolattr</a>&gt;</span><br>
+									</div>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_status~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_status git_with_command','git_status');git_status_refresh();"><span class="command">git status</span></a><br>
+									<div class="ml-[1em]">
+										<a class="concept_link" href="https://git-scm.com/docs/git-status#_short_format">path syntax in output (git status)</a><br>
+										<a class="concept_link" href="https://git-scm.com/docs/git-status#_short_format">status code</a><br>
+									</div>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-show"><span class="command">git show</span></a><br>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_diff~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_diff git_with_command','git_diff');git_diff_refresh();"><span class="command">git diff</span></a><br>
+									<div class="ml-[1em]">
+										<a class="concept_link" href="https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---diff-filterACDMRTUXB">status letter</a><br>
+									</div>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-difftool"><span class="command">git difftool</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-range-diff"><span class="command">git range-diff</span></a><br>
+								</div>
+							</div>
+
+							<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
+							<div class="basis-0 grow-[1]">
+								<h2 class="highlight_bold">Listing History</h2>
+								<div class="ml-[1em]">
+									<span class="command">&lt;<a class="concept_link" href="https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt">filter-spec</a>&gt;</span><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-rev-list"><span class="command">git rev-list</span></a><br>
+									<div class="ml-[1em]">
+										<a class="concept_link" href="https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---missingmissing-action">path syntax in output (git rev-list)</a><br>
+									</div>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_log~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_log git_with_command','git_log');git_log_refresh();"><span class="command">git log</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-shortlog"><span class="command">git shortlog</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-show-branch"><span class="command">git show-branch</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-blame"><span class="command">git blame</span></a><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-last-modified"><span class="command">🧪git last-modified</span></a><br>
+								</div>
+
+								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+								<h2 class="highlight_bold">Debugging History</h2>
+								<div class="ml-[1em]">
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-bisect"><span class="command">git bisect</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/{refs/bisect/,BISECT_HEAD,BISECT_EXPECTED_REV}</span></a><br>
+								</div>
+							</div>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						checking whitespace errors per file: <a class="external_link" href="https://git-scm.com/docs/gitattributes#_checking_whitespace_errors"><span class="inline_code">whitespace</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-corewhitespace"><span class="inline_code">core.whitespace</span></a><br>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold">Diff Driver (for user facing diff output)</h2>
+						<div class="ml-[1em]">
+							diff driver per file: <a class="external_link" href="https://git-scm.com/docs/gitattributes#_diff"><span class="inline_code">diff</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-corebigFileThreshold"><span class="inline_code">core.bigFileThreshold</span></a><br>
+							<div class="ml-[1em]">
+								<a class="git_scm_link" href="https://git-scm.com/docs/gitattributes#_marking_files_as_binary">how to mark files as binary to generate binary patch but still use diff drivers (to generate human-readable text diff)</a><br>
+							</div>
+							customizing internal diff driver (the builtin diff machinery)<br>
+							<div class="ml-[1em]">
+								diff algorithm per file: <a class="external_link" href="https://git-scm.com/docs/gitattributes#_setting_the_internal_diff_algorithm"><span class="inline_code">diff.&lt;driver&gt;.algorithm</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffalgorithm"><span class="inline_code">diff.algorithm</span></a><br>
+								<a class="git_scm_link" href="https://git-scm.com/docs/gitattributes#_defining_a_custom_hunk_header">how to define hunk header, built-in patterns</a>: <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffdriverxfuncname"><span class="inline_code">diff.&lt;driver&gt;.xfuncname</span></a><br>
+								<a class="git_scm_link" href="https://git-scm.com/docs/gitattributes#_customizing_word_diff">how to customize word diff</a>: <a class="external_link" href="https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---word-diff-regexregex"><span class="command">--word-diff-regex</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffdriverwordRegex"><span class="inline_code">diff.&lt;driver&gt;.wordRegex</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffwordRegex"><span class="inline_code">diff.wordRegex</span></a><br>
+								<a class="git_scm_link" href="https://git-scm.com/docs/gitattributes#_performing_text_diffs_of_binary_files">how to perform text diffs of binary files, how to invalidate cache</a>: <a class="external_link" href="https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---textconv"><span class="command">--[no-]textconv</span></a>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffdrivertextconv"><span class="inline_code">diff.&lt;driver&gt;.textconv</span></a>,<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffdrivercachetextconv"><span class="inline_code">diff.&lt;driver&gt;.cachetextconv</span></a><br>
+							</div>
+							<a class="git_scm_link" href="https://git-scm.com/docs/gitattributes#_defining_an_external_diff_driver">how to define external diff driver</a><br>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold">Diff Filter (mark up the diff further for human consumption)</h2>
+						<div class="ml-[1em]">
+							<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-interactivediffFilter"><span class="inline_code">interactive.diffFilter</span></a><br>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold">Combining Diffs</h2>
+						1-way merge (single tree merge) <a class="external_link concept_link" href="https://git-scm.com/docs/git-read-tree#_single_tree_merge">(git read-tree)</a> <a class="external_link concept_link" href="https://git-scm.com/docs/trivial-merge#_one_way_merge">(trivial merge)</a><br>
+						2-way merge (two tree merge) <a class="external_link concept_link" href="https://git-scm.com/docs/git-read-tree#_two_tree_merge">(git read-tree)</a> <a class="external_link concept_link" href="https://git-scm.com/docs/trivial-merge#_two_way_merge">(trivial merge)</a><br>
+						<div class="ml-[1em]">
+							<a class="concept_link" href="https://git-scm.com/docs/git-read-tree#_two_tree_merge">initial checkout</a><br>
+							<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddeffastforwardafast-forward">fast-forward (merge)</a> <a class="concept_link" href="https://git-scm.com/docs/git-merge#_fast_forward_merge">(git merge)</a><br>
+							fast-forward (update) <a class="concept_link" href="https://git-scm.com/docs/git-push#_note_about_fast_forwards">(git push)</a><br>
+						</div>
+						3-way merge <a class="external_link concept_link" href="https://git-scm.com/docs/git-read-tree#_3_way_merge">(git read-tree)</a> <a class="external_link concept_link" href="https://git-scm.com/docs/trivial-merge#_three_way_merge">(trivial merge)</a><br>
+						<div class="ml-[1em]">
+							<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-merge">(true) merge</a> <a class="concept_link" href="https://git-scm.com/docs/git-merge#_true_merge">(git merge)</a><br>
+							<div class="ml-[1em]">
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-indexentry">unmerged index entry</a> <a class="concept_link" href="https://git-scm.com/docs/git-read-tree#_3_way_merge">(git read-tree)</a>, <a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-unmergedindex">unmerged index</a><br>
+								<div class="ml-[1em]">
+									stage <a class="concept_link" href="https://git-scm.com/docs/git-read-tree#_3_way_merge">(git read-tree)</a> <a class="concept_link" href="https://git-scm.com/docs/git-ls-files#_output">(git ls-files)</a> <a class="concept_link" href="https://git-scm.com/docs/git-merge#_true_merge">(git merge)</a><br>
+								</div>
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-evilmerge">evil merge</a><br>
+								<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-merge">merge (merge commit)</a><br>
+							</div>
+						</div>
+						non-fast-forward (update) <a class="concept_link" href="https://git-scm.com/docs/git-push#_note_about_fast_forwards">(git push)</a><br>
+						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-octopus">octopus (n-way merge)</a><br>
+						<div class="ml-[1em]">
+							<a class="concept_link" href="https://git-scm.com/docs/git-merge#Documentation/git-merge.txt-commit">octopus merge</a><br>
+						</div>
+						<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-topicbranch">topic branch</a><br>
+						<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/keep-canonical-history-correct.adoc">keep-canonical-history-correct</a><br>
+						<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/separating-topic-branches.adoc">separating-topic-branches</a><br>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-cherry"><span class="command">git cherry</span></a><br>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<div class="flex">
+							<div class="basis-0 grow-[1.23]">
+								<h2 class="highlight_bold"><a class="git_scm_link" href="https://git-scm.com/docs/gitworkflows#_merge_workflow">Merge Workflow</a></h2>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/git-rebase#_behavioral_differences">merge backend</a> <a class="concept_link" href="https://git-scm.com/docs/git-status#_short_format">(git status)</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/git-merge#_merge_strategies">merge strategies</a><br>
+									<div class="ml-[1em]">
+										<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/using-merge-subtree.adoc">using-merge-subtree</a><br>
+									</div>
+									<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_merge~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_merge git_with_command','git_merge');git_merge_refresh();"><span class="command">git merge</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/{ORIG_HEAD,MERGE_MSG,MERGE_HEAD,MERGE_AUTOSTASH,AUTO_MERGE}</span></a><br>
+									<div class="ml-[1em]">
+										<a class="git_scm_link" href="https://git-scm.com/docs/git-merge#_merging_tag">how to merge annotated tag</a><br>
+										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-merge-base"><span class="command">git merge-base</span></a><br>
+										<div class="ml-[1em]">
+											<a class="concept_link" href="https://git-scm.com/docs/git-merge-base#_description">merge base</a><br>
+											<a class="concept_link" href="https://git-scm.com/docs/git-merge-base#_discussion">criss-cross merge</a><br>
+										</div>
+										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-merge-tree"><span class="command">git merge-tree</span></a><br>
+										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-fmt-merge-msg"><span class="command">git fmt-merge-msg</span></a><br>
+									</div>
+									<h3 class="highlight_bold"><a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-cherry-picking">Cherry-Picking</a></h3>
+									<div class="ml-[1em]">
+										<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-changeset">changeset</a><br>
+										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-cherry-pick"><span class="command">git cherry-pick</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/CHERRY_PICK_HEAD</span></a><br>
+										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-revert"><span class="command">git revert</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/REVERT_HEAD</span></a><br>
+										<div class="ml-[1em]">
+											<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/revert-a-faulty-merge.adoc">revert-a-faulty-merge</a><br>
+										</div>
+									</div>
+									<a href="https://devblogs.microsoft.com/oldnewthing/20180323-01/?p=98325">partial merge (Stop cherry-picking, start merging)</a><br>
+									<h3 class="highlight_bold"><a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-resolve">Resolving</a> Conflicts</h3>
+									<div class="ml-[1em]">
+										<a class="git_scm_link" href="https://git-scm.com/docs/git-merge#_how_to_resolve_conflicts">how to resolve conflicts</a><br>
+										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-rerere"><span class="command">git rerere</span></a><br>
+										<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-mergetool"><span class="command">git mergetool</span></a><br>
+										<div class="ml-[1em]">
+											<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-merge-index"><span class="command">git merge-index</span></a><br>
+											<div class="ml-[1em]">
+												<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-merge-one-file"><span class="command">git merge-one-file</span></a><br>
+												<div class="ml-[1em]">
+													<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-merge-file"><span class="command">git merge-file</span></a><br>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
+							<div class="basis-0 grow-[1]">
+								<h2 class="highlight_bold"><a class="git_scm_link" href="https://git-scm.com/docs/gitworkflows#_patch_workflow">Patch Workflow</a></h2>
+								<div class="ml-[1em]">
+									<a class="concept_link" href="https://git-scm.com/docs/git-rebase#_behavioral_differences">apply backend</a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-format-patch"><span class="command">git format-patch</span></a><br>
+									<div class="ml-[1em]">
+										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-patch-id"><span class="command">git patch-id</span></a><br>
+									</div>
+									<a class="external_link git_scm_link" href="https://git-scm.com/docs/gitmailmap"><span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/.mailmap</span></a><br>
+									<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-check-mailmap"><span class="command">git check-mailmap</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-imap-send"><span class="command">git imap-send</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-send-email"><span class="command">git send-email</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-am"><span class="command">git am</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/ORIG_HEAD</span></a><br>
+									<div class="ml-[1em]">
+										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-mailsplit"><span class="command">git mailsplit</span></a><br>
+										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-mailinfo"><span class="command">git mailinfo</span></a><br>
+										<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-apply"><span class="command">git apply</span></a><br>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold">Merge Driver</h2>
+						<div class="ml-[1em]">
+							merge driver per file: <a class="external_link" href="https://git-scm.com/docs/gitattributes#_merge"><span class="inline_code">merge</span></a>/<span class="inline_code">merge.default</span><br>
+							<a class="git_scm_link" href="https://git-scm.com/docs/gitattributes#_built_in_merge_drivers">built-in merge drivers</a>, <a class="git_scm_link" href="https://git-scm.com/docs/gitattributes#_defining_a_custom_merge_driver">how to define merge driver</a><br>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold">Rewriting History</h2>
+						<div class="ml-[1em]">
+							<a class="concept_link" href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-rebase">Rebase</a><br>
+							<div class="ml-[1em]">
+								<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_rebase~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_rebase git_with_command','git_rebase');git_rebase_refresh();"><span class="command">git rebase</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/{ORIG_HEAD,REBASE_HEAD,rebase-apply}</span></a><br>
+								<div class="ml-[1em]">
+									<a class="git_scm_link" href="https://git-scm.com/docs/git-rebase#_splitting_commits">how to split commits</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/git-rebase#_recovering_from_upstream_rebase">how to recover from upstream rebase</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/git-rebase#_rebasing_merges">rebasing merges, <span class="inline_code"><span class="command">$GIT_DIR</span>/refs/rewritten/</span></a><br>
+								</div>
+								<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-replay"><span class="command">🧪git replay</span></a><br>
+								<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/revert-branch-rebase.adoc">revert-branch-rebase</a><br>
+								<a class="github_link" href="https://github.com/git/git/blob/master/Documentation/howto/rebase-from-internal-branch.adoc">rebase-from-internal-branch</a><br>
+							</div>
+							<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-filter-branch"><span class="command">git filter-branch</span>, <span class="inline_code"><span class="command">$GIT_DIR</span>/refs/original/</span></a><br>
+							<a class="external_link github_link" href="https://github.com/newren/git-filter-repo"><span class="command">git filter-repo</span></a><br>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<h2 class="highlight_bold text-[160%] leading-[1.5em]">Miscellaneous</h2>
+						<div class="flex">
+							<div class="basis-auto grow">
+								<h2 class="highlight_bold">Tutorials</h2>
+								<div class="ml-[1em]">
+									<a class="git_scm_link" href="https://git-scm.com/docs/git#_discussion">(Introduction)</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/gitglossary">Glossary</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/gitfaq">FAQ</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/giteveryday">Everyday</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/gittutorial">Tutorial 1</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/gittutorial-2">Tutorial 2</a><br>
+									<a class="git_scm_link plumbing_link" href="https://git-scm.com/docs/gitcore-tutorial">Core Tutorial</a><br>
+									<a class="git_scm_link" href="https://git-scm.com/docs/user-manual">User Manual</a><br>
+									<div class="ml-[1em]">
+										<a class="git_scm_link" href="https://git-scm.com/docs/user-manual#git-concepts">Concepts</a><br>
+									</div>
+									<a class="git_scm_link" href="https://git-scm.com/docs/gitworkflows">Workflows</a><br>
+								</div>
+							</div>
+
+							<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
+							<div class="basis-auto grow">
+								<div class="flex">
+									<div class="basis-auto grow">
+										<h2 class="highlight_bold">Support/Feedback</h2>
+										<div class="ml-[1em]">
+											<a class="porcelain_link [#reference\_desk\_dispatcher\_form.git\_help~*_&]:[outline:dashed_2.5px_#0000FF]" onclick="reference_desk_link_clicked('git_help git_with_command','git_help');git_help_refresh();"><span class="command">git help</span></a><br>
+											<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-diagnose"><span class="command">git diagnose</span></a><br>
+											<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-bugreport"><span class="command">git bugreport</span></a><br>
+										</div>
+									</div>
+
+									<div class="w-[1px] bg-[#C0C0C0] mx-[0.5em]"></div>
+									<div class="basis-auto grow">
+										<h2 class="highlight_bold">Formatting</h2>
+										<div class="ml-[1em]">
+											<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-stripspace"><span class="command">git stripspace</span></a><br>
+											<a class="external_link plumbing_link" href="https://git-scm.com/docs/git-column"><span class="command">git column</span></a><br>
+										</div>
+									</div>
+								</div>
+
+								<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+								<h2 class="highlight_bold">Security</h2>
+								<div class="ml-[1em]">
+									<a class="git_scm_link" href="https://git-scm.com/docs/git#_security">(Security)</a> <a class="git_scm_link" href="https://git-scm.com/docs/git-upload-pack#_security">(git upload-pack)</a><br>
+									<a class="git_scm_link plumbing_link" href="https://git-scm.com/docs/gitformat-signature">cryptographic signature formats,<br>mergetag, multi-line object header</a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-verify-tag"><span class="command">git verify-tag</span></a><br>
+									<a class="external_link porcelain_link" href="https://git-scm.com/docs/git-verify-commit"><span class="command">git verify-commit</span></a><br>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</details>
+
+				<div id="reference_desk_scroll_target" class=""></div>
+
+				<script src="data:text/javascript;base64,{{base64 --wrap=0 <<'EOF'
+					function shell_quote(s){
+						s = s.replaceAll("'", "'\\''");
+						s = s.replaceAll("\r", "'$'\\r''");
+						s = "'" + s + "'";
+						return s;
+					}
+EOF}}"></script>
+
+				{{ awk_expand_commands './git_version_form.template.html' }}
+				{{ awk_expand_commands './git_config_form.template.html' }}
+				{{ awk_expand_commands './git_var_form.template.html' }}
+				{{ awk_expand_commands './git_standalone_form.template.html' }}
+				{{ awk_expand_commands './git_worktree_form.template.html' }}
+				{{ awk_expand_commands './git_show_ref_form.template.html' }}
+				{{ awk_expand_commands './git_ls_remote_form.template.html' }}
+				{{ awk_expand_commands './git_branch_form.template.html' }}
+				{{ awk_expand_commands './git_tag_form.template.html' }}
+				{{ awk_expand_commands './git_init_form.template.html' }}
+				{{ awk_expand_commands './git_remote_form.template.html' }}
+				{{ awk_expand_commands './git_clone_form.template.html' }}
+				{{ awk_expand_commands './git_fetch_form.template.html' }}
+				{{ awk_expand_commands './git_pull_form.template.html' }}
+				{{ awk_expand_commands './git_push_form.template.html' }}
+				{{ awk_expand_commands './git_add_form.template.html' }}
+				{{ awk_expand_commands './git_commit_form.template.html' }}
+				{{ awk_expand_commands './git_reset_form.template.html' }}
+				{{ awk_expand_commands './git_checkout_form.template.html' }}
+				{{ awk_expand_commands './git_ls_files_form.template.html' }}
+				{{ awk_expand_commands './git_status_form.template.html' }}
+				{{ awk_expand_commands './git_diff_form.template.html' }}
+				{{ awk_expand_commands './git_log_form.template.html' }}
+				{{ awk_expand_commands './git_merge_form.template.html' }}
+				{{ awk_expand_commands './git_rebase_form.template.html' }}
+				{{ awk_expand_commands './git_help_form.template.html' }}
+				{{ awk_expand_commands './git_with_command_form.template.html' }}
+			</div>
+		</div>
+
+		<div class="basis-0 grow relative [contain:strict]">
+			<div class="absolute overflow-x-hidden overflow-y-auto left-[8px] right-0 inset-y-[8px] border-l-[1px] border-r-0 border-y-[1px] border-solid border-[#000000] rounded-[5px] px-[1em] py-[0.5em] [&>div]:[contain:content]">
+				<script src="data:text/javascript;base64,{{base64 --wrap=0 <<'EOF'
+					try{
+						if(false && window.location.protocol == "https:" && window.location.hostname == "jhcarl0814.github.io" && window.location.port == "" && window.location.pathname == "/ClosedAI/git/git.html"){
+							document.currentScript.parentNode.insertBefore(create_element("ins", {}, { "class": "adsbygoogle", style: "position:sticky;display:block;top:0px;z-index:1;", "data-ad-client": "ca-pub-1967583300420291", "data-ad-slot": "5784950074", "data-ad-format": "horizontal", "data-full-width-responsive": "true", }, []), document.currentScript);
+							document.currentScript.parentNode.insertBefore(create_element("script", {}, {}, [ document.createTextNode(`(adsbygoogle = window.adsbygoogle || []).push({});`), ]), document.currentScript);
+						}
+					}
+					finally{
+						document.currentScript.remove();
+					}
+EOF}}"></script>
+				<h1 class="heading1">Examples</h1>
+				{{ awk_expand_commands './git_version_examples.template.html' }}
+				{{ awk_expand_commands './git_config_examples.template.html' }}
+				{{ awk_expand_commands './git_var_examples.template.html' }}
+				{{ awk_expand_commands './git_standalone_examples.template.html' }}
+				{{ awk_expand_commands './git_worktree_examples.template.html' }}
+				{{ awk_expand_commands './git_show_ref_examples.template.html' }}
+				{{ awk_expand_commands './git_ls_remote_examples.template.html' }}
+				{{ awk_expand_commands './git_branch_examples.template.html' }}
+				{{ awk_expand_commands './git_tag_examples.template.html' }}
+				{{ awk_expand_commands './git_init_examples.template.html' }}
+				{{ awk_expand_commands './git_remote_examples.template.html' }}
+				{{ awk_expand_commands './git_clone_examples.template.html' }}
+				{{ awk_expand_commands './git_fetch_examples.template.html' }}
+				{{ awk_expand_commands './git_pull_examples.template.html' }}
+				{{ awk_expand_commands './git_push_examples.template.html' }}
+				{{ awk_expand_commands './git_add_examples.template.html' }}
+				{{ awk_expand_commands './git_commit_examples.template.html' }}
+				{{ awk_expand_commands './git_reset_examples.template.html' }}
+				{{ awk_expand_commands './git_checkout_examples.template.html' }}
+				{{ awk_expand_commands './git_ls_files_examples.template.html' }}
+				{{ awk_expand_commands './git_status_examples.template.html' }}
+				{{ awk_expand_commands './git_diff_examples.template.html' }}
+				{{ awk_expand_commands './git_log_examples.template.html' }}
+				{{ awk_expand_commands './git_merge_examples.template.html' }}
+				{{ awk_expand_commands './git_rebase_examples.template.html' }}
+				{{ awk_expand_commands './git_help_examples.template.html' }}
+				{{ awk_expand_commands './git_with_command_examples.template.html' }}
+			</div>
+		</div>
+	</div>
+</body>
+</html>
