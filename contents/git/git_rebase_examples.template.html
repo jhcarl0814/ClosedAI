@@ -3,9 +3,11 @@
 	{{
 		git config set --system --all 'color.ui' 'always';
 		git config set --system --all 'color.advice' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
 			git -C './repo' checkout -b branch1; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -36,7 +38,8 @@
 			git -C './repo' diff --theirs
 			git -C './repo' diff REBASE_HEAD
 			git -C './repo' diff AUTO_MERGE
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.advice';
 		git config unset --system --all 'color.ui';
 	}}
@@ -50,9 +53,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './server' './client';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './server' './client';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './server' init --bare './repo.git'
 					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
 					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
@@ -73,7 +78,8 @@
 					git -C './client/repo' rebase --skip
 					echo '5' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' -c 'core.editor=:' rebase --continue
 					git -C './client/repo' lg --all --patch
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -83,9 +89,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './server' './client';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './server' './client';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './server' init --bare './repo.git'
 					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
 					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
@@ -108,7 +116,8 @@
 					git -C './client/repo' lg --all --patch
 					git -C './client/repo' checkout -B "$branch_default_name"
 					git -C './client/repo' lg --all --patch
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -116,9 +125,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './server' './client';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './server' './client';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './server' init --bare './repo.git'
 					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
 					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
@@ -138,7 +149,8 @@
 					git -C './client/repo' lg --all --patch
 					echo '5' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' -c 'core.editor=:' rebase --continue
 					git -C './client/repo' lg --all --patch
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -148,9 +160,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './server' './client';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './server' './client';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './server' init --bare './repo.git'
 					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
 					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
@@ -170,7 +184,8 @@
 					git -C './client/repo' lg --all --patch
 					echo '5' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' -c 'core.editor=:' rebase --continue
 					git -C './client/repo' lg --all --patch
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -180,9 +195,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './server' './client';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './server' './client';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './server' init --bare './repo.git'
 					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
 					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
@@ -202,7 +219,8 @@
 					git -C './client/repo' lg --all --patch
 					echo '5' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' -c 'core.editor=:' rebase --continue
 					git -C './client/repo' lg --all --patch
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -212,9 +230,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always'
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './server' './client';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './server' './client';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './server' init --bare './repo.git'
 					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
 					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
@@ -235,7 +255,8 @@
 					git -C './client/repo' lg --all --patch
 					echo '5' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' -c 'core.editor=:' rebase --continue
 					git -C './client/repo' lg --all --patch
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -245,9 +266,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './server' './client';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './server' './client';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './server' init --bare './repo.git'
 					echo '1' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
 					echo '2' >'./file'; git --git-dir='./server/repo.git' --work-tree='.' add './file'; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))"
@@ -267,7 +290,8 @@
 					git -C './client/repo' lg --all --patch
 					echo '5' >'./client/repo/file'; git -C './client/repo' add './file'; git -C './client/repo' -c 'core.editor=:' rebase --continue
 					git -C './client/repo' lg --all --patch
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -277,9 +301,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
 					git -C './repo' checkout -b branch1; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -292,16 +318,19 @@
 					git -C './repo' lg --all --patch --diff-merges=separate
 					echo '5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					git -C './repo' lg --all --patch --diff-merges=separate
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
 					git -C './repo' checkout -b branch1; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -312,16 +341,19 @@
 					git -C './repo' lg --all --patch --diff-merges=separate
 					git -C './repo' -c 'core.editor=cat' rebase --root --rebase-merges --interactive
 					git -C './repo' lg --all --patch --diff-merges=separate
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
 					git -C './repo' checkout --orphan branch2; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -333,16 +365,19 @@
 					git -C './repo' lg --all --patch --diff-merges=separate
 					echo '4' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					git -C './repo' lg --all --patch --diff-merges=separate
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
 			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
 					git -C './repo' checkout --orphan branch2; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -352,7 +387,8 @@
 					git -C './repo' lg --all --patch --diff-merges=separate
 					git -C './repo' -c 'core.editor=cat' rebase --root --rebase-merges --interactive
 					git -C './repo' lg --all --patch --diff-merges=separate
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -361,9 +397,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
 					git -C './repo' checkout -b branch1; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -380,7 +418,8 @@
 					echo '7' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '8' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					git -C './repo' lg --all --patch --diff-merges=separate
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -388,9 +427,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch2
 					git -C './repo' checkout -b branch1; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -408,7 +449,8 @@
 					echo '7' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '9' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					git -C './repo' lg --all --patch --diff-merges=separate
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -416,9 +458,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
 					git -C './repo' checkout --orphan branch2; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -433,7 +477,8 @@
 					echo '5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '6' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					git -C './repo' lg --all --patch --diff-merges=separate
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -441,9 +486,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
 					git -C './repo' checkout --orphan branch2; echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -459,7 +506,8 @@
 					echo '5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '7' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					git -C './repo' lg --all --patch --diff-merges=separate
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -475,9 +523,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
@@ -499,7 +549,8 @@
 					echo '10' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '11' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					git -C './repo' lg --all --patch --diff-merges=separate
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -509,9 +560,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
@@ -532,7 +585,8 @@
 					echo '10' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '11' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					git -C './repo' lg --all --patch --diff-merges=separate
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -542,9 +596,11 @@
 			{{
 				git config set --system --all 'color.ui' 'always';
 				git config set --system --all 'color.advice' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"; git -C './repo' branch branch1
@@ -567,7 +623,8 @@
 					echo '11' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					echo '13' >'./repo/file'; git -C './repo' add './file'; git -C './repo' -c 'core.editor=:' rebase --continue
 					git -C './repo' lg --all --patch --diff-merges=separate
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.advice';
 				git config unset --system --all 'color.ui';
 			}}
@@ -582,9 +639,11 @@
 			<h3 class="heading3"><span class="command">--no-update-refs</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch3; git -C './repo' tag tag1; git -C './repo' branch branch2
 					git -C './repo' checkout -b branch1; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch4; git -C './repo' tag tag2
@@ -593,7 +652,8 @@
 					git -C './repo' lg --all --patch
 					git -C './repo' rebase branch2 branch1
 					git -C './repo' lg --all --patch
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -601,9 +661,11 @@
 			<h3 class="heading3"><span class="command">--update-refs</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch3; git -C './repo' tag tag1; git -C './repo' branch branch2
 					git -C './repo' checkout -b branch1; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch41; git -C './repo' branch branch42; git -C './repo' tag tag2
@@ -613,7 +675,8 @@
 					git -C './repo' lg --all --patch
 					git -C './repo' rebase --update-refs branch2 branch1
 					git -C './repo' lg --all --patch
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>

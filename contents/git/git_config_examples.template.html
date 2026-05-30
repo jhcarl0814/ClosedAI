@@ -1,160 +1,171 @@
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block">
 	<h2 class="heading2"><span class="command">git config</span> allowed characters in section name<br><span class="command">git config</span> allowed characters in subsection name</h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		"$SHELL" -i 0<<'EOF0' 2>&1 | ansi2html_pre
-git config set --file='./config.txt' 'section1.ke_y1' 'value1'
-git config set --file='./config.txt' 'section2.ke-y2' 'value2'
-git config set --file='./config.txt' 'section3.3key' 'value3'
-git config set --file='./config.txt' 'section4.-key4' 'value4'
-git config set --file='./config.txt' 's_ection5.key5' 'value5'
-git config set --file='./config.txt' 's-ection6.key6' 'value6'
-git config set --file='./config.txt' '7section.key7' 'value7'
-git config set --file='./config.txt' -- '-section81.key81' 'value81'
-git config set --file='./config.txt' --end-of-options '-section82.key82' 'value82'
-git config set --file='./config.txt' 'section.'$'\x01\x02\x03\x04\x05\x06\x07\x08\x09''.key' 'value'
-git config set --file='./config.txt' 'section.'$'\x0B\x0C\x0D\x0E\x0F\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1A\x1B\x1C\x1D\x1E\x1F\x20"\\\x7F''.key' 'value'
-git config set --file='./config.txt' 'section.subse.ction.key' 'value'
-treex '.'
-git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
-
-echo -n -e '[section "a\0b\0c"]
-    key = value
-' >>'./config.txt'
-treex '.'
-git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
-
-echo -n -e '[section "a\\nb\\nc"]
-    key = value
-' >>'./config.txt'
-treex '.'
-git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
-
-echo -n -e '[section "a\nb\nc"]
-    key = value
-' >>'./config.txt'
-treex '.'
-git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
 EOF0
+		) <(cat <<'EOF0'
+			git config set --file='./config.txt' 'section1.ke_y1' 'value1'
+			git config set --file='./config.txt' 'section2.ke-y2' 'value2'
+			git config set --file='./config.txt' 'section3.3key' 'value3'
+			git config set --file='./config.txt' 'section4.-key4' 'value4'
+			git config set --file='./config.txt' 's_ection5.key5' 'value5'
+			git config set --file='./config.txt' 's-ection6.key6' 'value6'
+			git config set --file='./config.txt' '7section.key7' 'value7'
+			git config set --file='./config.txt' -- '-section81.key81' 'value81'
+			git config set --file='./config.txt' --end-of-options '-section82.key82' 'value82'
+			git config set --file='./config.txt' 'section.'$'\x01\x02\x03\x04\x05\x06\x07\x08\x09''.key' 'value'
+			git config set --file='./config.txt' 'section.'$'\x0B\x0C\x0D\x0E\x0F\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1A\x1B\x1C\x1D\x1E\x1F\x20"\\\x7F''.key' 'value'
+			git config set --file='./config.txt' 'section.subse.ction.key' 'value'
+			treex '.'
+			git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+
+			echo -n -e '[section "a\0b\0c"]
+				key = value
+			' >>'./config.txt'
+			treex '.'
+			git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+
+			echo -n -e '[section "a\\nb\\nc"]
+				key = value
+			' >>'./config.txt'
+			treex '.'
+			git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+
+			echo -n -e '[section "a\nb\nc"]
+				key = value
+			' >>'./config.txt'
+			treex '.'
+			git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block">
 	<h2 class="heading2"><span class="command">git config</span> allowed characters in value</h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		"$SHELL" -i 0<<'EOF0' 2>&1 | ansi2html_pre
-git config set --file='./config.txt' 'section.key'
-git config set --file='./config.txt' 'section.key0' ''
-git config set --file='./config.txt' 'section.key1' 'value'
-git config set --file='./config.txt' 'section.key2' ' val
-ue '
-git config set --file='./config.txt' 'section.key3' $'\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0A\x0B\x0C\x0D\x0E\x0F\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1A\x1B\x1C\x1D\x1E\x1F\x20"\\\x7F'
-treex '.'
-git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
-
-echo -n -e '[section]
-    key = v\0al\0ue
-' >>'./config.txt'
-treex '.'
-git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
-
-echo -n -e '[section]
-    key = v\\0al\\0ue
-' >>'./config.txt'
-treex '.'
-git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
 EOF0
+		) <(cat <<'EOF0'
+			git config set --file='./config.txt' 'section.key'
+			git config set --file='./config.txt' 'section.key0' ''
+			git config set --file='./config.txt' 'section.key1' 'value'
+			git config set --file='./config.txt' 'section.key2' ' val
+			ue '
+			git config set --file='./config.txt' 'section.key3' $'\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0A\x0B\x0C\x0D\x0E\x0F\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1A\x1B\x1C\x1D\x1E\x1F\x20"\\\x7F'
+			treex '.'
+			git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+
+			echo -n -e '[section]
+				key = v\0al\0ue
+			' >>'./config.txt'
+			treex '.'
+			git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+
+			echo -n -e '[section]
+				key = v\\0al\\0ue
+			' >>'./config.txt'
+			treex '.'
+			git config list --file='./config.txt' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_list~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_get~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_scope~*_&]:block">
 	<h2 class="heading2"><span class="command">git config list/get</span><br><span class="command">git config list/get --system/--global/--file=&lt;config-file&gt;</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		git config set --system --all 'section.key' 'value1'
-		git config set --system --append 'section.key' 'value2'
-		git config set --global --all 'section.key' 'value3'
-		git config set --global --append 'section.key' 'value4'
-		cat >'./config.txt' <<'EOF'
-[section]
-    key = value52
-    key = value62
-EOF
-		"$SHELL" -i 0<<'EOF0' 2>&1 | ansi2html_pre
-treex '.'
-git -c section.key=value7 -c section.key=value8 config list --show-origin --show-scope
-git -c section.key=value7 -c section.key=value8 config get --show-origin --show-scope --all 'section.key'
-git config list --system --show-origin --show-scope
-git config get --system --show-origin --show-scope --all 'section.key'
-git config list --global --show-origin --show-scope
-git config get --global --show-origin --show-scope --all 'section.key'
-git config list --file='./config.txt' --show-origin --show-scope
-git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
-git -c section.key=value7 -c section.key=value8 config list --show-origin --show-scope <<'EOF'
-[section]
-    key = value51
-    key = value61
-EOF
-git -c section.key=value7 -c section.key=value8 config get --show-origin --show-scope --all 'section.key' <<'EOF'
-[section]
-    key = value51
-    key = value61
-EOF
-git config list --file='-' --show-origin --show-scope <<'EOF'
-[section]
-    key = value51
-    key = value61
-EOF
-git config get --file='-' --show-origin --show-scope --all 'section.key' <<'EOF'
-[section]
-    key = value51
-    key = value61
-EOF
-git config list --file='./config.txt' --file='-' --show-origin --show-scope <<'EOF'
-[section]
-    key = value51
-    key = value61
-EOF
-git config get --file='./config.txt' --file='-' --show-origin --show-scope --all 'section.key' <<'EOF'
-[section]
-    key = value51
-    key = value61
-EOF
-git config list --file='-' --file='./config.txt' --show-origin --show-scope <<'EOF'
-[section]
-    key = value51
-    key = value61
-EOF
-git config get --file='-' --file='./config.txt' --show-origin --show-scope --all 'section.key' <<'EOF'
-[section]
-    key = value51
-    key = value61
-EOF
-git -c section.key=value7 -c section.key=value8 config list --system --global --file='-' --show-origin --show-scope <<'EOF'
-[section]
-    key = value51
-    key = value61
-EOF
-git -c section.key=value7 -c section.key=value8 config get --system --global --file='-' --show-origin --show-scope --all 'section.key' <<'EOF'
-[section]
-    key = value51
-    key = value61
-EOF
-git -c section.key=value7 -c section.key=value8 config list --system --global --file='./config.txt' --show-origin --show-scope
-git -c section.key=value7 -c section.key=value8 config get --system --global --file='./config.txt' --show-origin --show-scope --all 'section.key'
+		git config set --system --all 'section.key' 'value1';
+		git config set --system --append 'section.key' 'value2';
+		git config set --global --all 'section.key' 'value3';
+		git config set --global --append 'section.key' 'value4';
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			cat >'./config.txt' <<'EOF'
+			[section]
+				key = value52
+				key = value62
+			EOF
 EOF0
-		git config unset --system --all 'section.key'
-		git config unset --global --all 'section.key'
+		) <(cat <<'EOF0'
+			treex '.'
+			git -c section.key=value7 -c section.key=value8 config list --show-origin --show-scope
+			git -c section.key=value7 -c section.key=value8 config get --show-origin --show-scope --all 'section.key'
+			git config list --system --show-origin --show-scope
+			git config get --system --show-origin --show-scope --all 'section.key'
+			git config list --global --show-origin --show-scope
+			git config get --global --show-origin --show-scope --all 'section.key'
+			git config list --file='./config.txt' --show-origin --show-scope
+			git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
+			git -c section.key=value7 -c section.key=value8 config list --show-origin --show-scope <<'EOF'
+			[section]
+				key = value51
+				key = value61
+			EOF
+			git -c section.key=value7 -c section.key=value8 config get --show-origin --show-scope --all 'section.key' <<'EOF'
+			[section]
+				key = value51
+				key = value61
+			EOF
+			git config list --file='-' --show-origin --show-scope <<'EOF'
+			[section]
+				key = value51
+				key = value61
+			EOF
+			git config get --file='-' --show-origin --show-scope --all 'section.key' <<'EOF'
+			[section]
+				key = value51
+				key = value61
+			EOF
+			git config list --file='./config.txt' --file='-' --show-origin --show-scope <<'EOF'
+			[section]
+				key = value51
+				key = value61
+			EOF
+			git config get --file='./config.txt' --file='-' --show-origin --show-scope --all 'section.key' <<'EOF'
+			[section]
+				key = value51
+				key = value61
+			EOF
+			git config list --file='-' --file='./config.txt' --show-origin --show-scope <<'EOF'
+			[section]
+				key = value51
+				key = value61
+			EOF
+			git config get --file='-' --file='./config.txt' --show-origin --show-scope --all 'section.key' <<'EOF'
+			[section]
+				key = value51
+				key = value61
+			EOF
+			git -c section.key=value7 -c section.key=value8 config list --system --global --file='-' --show-origin --show-scope <<'EOF'
+			[section]
+				key = value51
+				key = value61
+			EOF
+			git -c section.key=value7 -c section.key=value8 config get --system --global --file='-' --show-origin --show-scope --all 'section.key' <<'EOF'
+			[section]
+				key = value51
+				key = value61
+			EOF
+			git -c section.key=value7 -c section.key=value8 config list --system --global --file='./config.txt' --show-origin --show-scope
+			git -c section.key=value7 -c section.key=value8 config get --system --global --file='./config.txt' --show-origin --show-scope --all 'section.key'
+EOF0
+		) '/dev/null';
+		git config unset --system --all 'section.key';
+		git config unset --global --all 'section.key';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_list~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_get~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_scope~*_&]:block">
 	<h2 class="heading2"><span class="command">git config list/get --local/--worktree</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 			git -C './repo' config set --local --all 'section.key' 'value5'
 			git -C './repo' config set --local --append 'section.key' 'value6'
@@ -190,19 +201,22 @@ EOF0
 			git -C './repo' config get --worktree --show-origin --show-scope --all 'section.key'
 			git -C './worktree1' config list --worktree --show-origin --show-scope
 			git -C './worktree1' config get --worktree --show-origin --show-scope --all 'section.key'
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_list~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_get~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_formatting~*_&]:block">
 	<h2 class="heading2"><span class="command">git config list/get --null</span><br><span class="command">git config get --show-names/--no-show-names</span><br><span class="command">git config list/get --name-only</span></h2>
 	{{
-		cd '/'; cd '/';
-		git config set --system --all 'section.key' 'value1'
-		git config set --system --append 'section.key' 'value2'
-		git config set --global --all 'section.key' 'value3'
-		git config set --global --append 'section.key' 'value4'
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		git config set --system --all 'section.key' 'value1';
+		git config set --system --append 'section.key' 'value2';
+		git config set --global --all 'section.key' 'value3';
+		git config set --global --append 'section.key' 'value4';
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/';
+EOF0
+		) <(cat <<'EOF0'
 			git config list --show-origin --show-scope | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 			git config list --show-origin --show-scope --null | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 			git config list --show-origin --show-scope --name-only | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
@@ -215,21 +229,24 @@ EOF0
 			git config get --show-origin --show-scope --show-names --null --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 			git config get --show-origin --show-scope --show-names --name-only --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 			git config get --show-origin --show-scope --show-names --null --name-only --all 'section.key' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
-		EOF0
-		git config unset --system --all 'section.key'
-		git config unset --global --all 'section.key'
+EOF0
+		) '/dev/null';
+		git config unset --system --all 'section.key';
+		git config unset --global --all 'section.key';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_get~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_filtering\_and\_precedence~*_&]:block">
 	<h2 class="heading2"><span class="command">git config get --regexp</span><br><span class="command">git config get --value=&lt;pattern&gt;</span><br><span class="command">git config get --value=&lt;pattern&gt; --fixed-value</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		git config set --system --all 'section.key' 'value1'
-		git config set --system --append 'section.key' 'value2'
-		git config set --global --all 'section.key' 'value1'
-		git config set --global --append 'section.key' 'value3'
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		git config set --system --all 'section.key' 'value1';
+		git config set --system --append 'section.key' 'value2';
+		git config set --global --all 'section.key' 'value1';
+		git config set --global --append 'section.key' 'value3';
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+EOF0
+		) <(cat <<'EOF0'
 			git -c section.key=value1 -c section.key=value4 config get --show-origin --show-scope --all 'section.key'
 			git -c section.key=value1 -c section.key=value4 config get --show-origin --show-scope 'section.key'
 			git -c section.key=value1 -c section.key=value4 config get --show-origin --show-scope --all --regexp 'section.k[aeiou]y'
@@ -242,24 +259,27 @@ EOF0
 			git -c section.key=value1 -c section.key=value4 config get --show-origin --show-scope --value='[13579]' --fixed-value 'section.key'
 			git -c section.key=value1 -c section.key=value4 config get --show-origin --show-scope --value='1' --fixed-value 'section.key'
 			git -c section.key=value1 -c section.key=value4 config get --show-origin --show-scope --value='value1' --fixed-value 'section.key'
-		EOF0
-		git config unset --system --all 'section.key'
-		git config unset --global --all 'section.key'
+EOF0
+		) '/dev/null';
+		git config unset --system --all 'section.key';
+		git config unset --global --all 'section.key';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_get~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_filtering\_and\_precedence~*_&]:block">
 	<h2 class="heading2"><span class="command">git config get --default=&lt;default&gt;</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		cat >'./config.txt' <<'EOF'
-[section]
-    key1 = value1
-    key2
-    key3 =
-    key4 = ""
-EOF
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			cat >'./config.txt' <<'EOF'
+			[section]
+				key1 = value1
+				key2
+				key3 =
+				key4 = ""
+			EOF
+EOF0
+		) <(cat <<'EOF0'
 			treex '.'
 			git config get --file='./config.txt' --show-origin --show-scope --default='default_value' 'section.key'
 			git config get --file='./config.txt' --show-origin --show-scope --default='default_value' 'section.key1'
@@ -331,56 +351,59 @@ EOF
 			git -c section.key5=value5 -c section.key6 -c section.key7= config get --show-origin --show-scope --default='tRuE' --value='^$' --type=bool 'section.key7'
 			git -c section.key5=value5 -c section.key6 -c section.key7= config get --show-origin --show-scope --default='tRuE' --value='' --fixed-value --type=bool 'section.key7'
 			git -c section.key5=value5 -c section.key6 -c section.key7= config get --show-origin --show-scope --default='tRuE' --value='^$' --fixed-value --type=bool 'section.key7'
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_get~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_filtering\_and\_precedence~*_&]:block">
 	<h2 class="heading2"><span class="command">git config get --url=&lt;URL&gt;</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		cat >'./config.txt' <<'EOF'
-[section]
-    key1 = value1
-    key2 = value2
-[section "scheme://authority/path1"]
-    key1 = value3
-    key2 = value4
-[section "scheme://authority/path1/"]
-    key1 = value5
-    key2 = value6
-[section "scheme://authority/path1?query#fragment"]
-    key1 = value7
-    key2 = value8
-[section "scheme://authority/path1/?query#fragment"]
-    key1 = value9
-    key2 = value10
-[section "scheme://authority/path1/path2"]
-    key1 = value11
-    key2 = value12
-[section "scheme://authority/path1/path2/"]
-    key1 = value13
-    key2 = value14
-[section "scheme://authority/path1/path2?query#fragment"]
-    key1 = value15
-    key2 = value16
-[section "scheme://authority/path1/path2/?query#fragment"]
-    key1 = value17
-    key2 = value18
-[section "scheme://authority/path1/path2/path3"]
-    key1 = value19
-    key2 = value20
-[section "scheme://authority/path1/path2/path3/"]
-    key1 = value21
-    key2 = value22
-[section "scheme://authority/path1/path2/path3?query#fragment"]
-    key1 = value23
-    key2 = value24
-[section "scheme://authority/path1/path2/path3/?query#fragment"]
-    key1 = value25
-    key2 = value26
-EOF
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			cat >'./config.txt' <<'EOF'
+			[section]
+				key1 = value1
+				key2 = value2
+			[section "scheme://authority/path1"]
+				key1 = value3
+				key2 = value4
+			[section "scheme://authority/path1/"]
+				key1 = value5
+				key2 = value6
+			[section "scheme://authority/path1?query#fragment"]
+				key1 = value7
+				key2 = value8
+			[section "scheme://authority/path1/?query#fragment"]
+				key1 = value9
+				key2 = value10
+			[section "scheme://authority/path1/path2"]
+				key1 = value11
+				key2 = value12
+			[section "scheme://authority/path1/path2/"]
+				key1 = value13
+				key2 = value14
+			[section "scheme://authority/path1/path2?query#fragment"]
+				key1 = value15
+				key2 = value16
+			[section "scheme://authority/path1/path2/?query#fragment"]
+				key1 = value17
+				key2 = value18
+			[section "scheme://authority/path1/path2/path3"]
+				key1 = value19
+				key2 = value20
+			[section "scheme://authority/path1/path2/path3/"]
+				key1 = value21
+				key2 = value22
+			[section "scheme://authority/path1/path2/path3?query#fragment"]
+				key1 = value23
+				key2 = value24
+			[section "scheme://authority/path1/path2/path3/?query#fragment"]
+				key1 = value25
+				key2 = value26
+			EOF
+EOF0
+		) <(cat <<'EOF0'
 			treex '.'
 			git config get --file='./config.txt' --all 'section'
 			git config get --file='./config.txt' --all 'section.key2'
@@ -408,79 +431,87 @@ EOF
 			git config get --file='./config.txt' --url='scheme://authority/path1/path2?query#fragment' 'section.key2'
 			git config get --file='./config.txt' --url='scheme://authority/path1/path2/?query#fragment' 'section'
 			git config get --file='./config.txt' --url='scheme://authority/path1/path2/?query#fragment' 'section.key2'
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_get~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_type~*_&]:block">
 	<h2 class="heading2"><span class="command">git config get --type=&lt;type&gt;</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		cat >'./config.txt' <<'EOF'
-[section]
-    key-bool
-    key-bool = yEs
-    key-bool = oN
-    key-bool = tRuE
-    key-bool = 1
-    key-bool = nO
-    key-bool = oFf
-    key-bool = fAlSe
-    key-bool = 0
-    key-bool =
-    key-bool = ""
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			cat >'./config.txt' <<'EOF'
+			[section]
+				key-bool
+				key-bool = yEs
+				key-bool = oN
+				key-bool = tRuE
+				key-bool = 1
+				key-bool = nO
+				key-bool = oFf
+				key-bool = fAlSe
+				key-bool = 0
+				key-bool =
+				key-bool = ""
 
-    key-int = 1
-    key-int = 2k
-    key-int = 3K
-    key-int = 4m
-    key-int = 5M
-    key-int = 6g
-    key-int = 7G
-    #key-int = 8t
-    #key-int = 9T
+				key-int = 1
+				key-int = 2k
+				key-int = 3K
+				key-int = 4m
+				key-int = 5M
+				key-int = 6g
+				key-int = 7G
+				#key-int = 8t
+				#key-int = 9T
 
-    key-bool-or-int
-    key-bool-or-int = yEs
-    key-bool-or-int = oN
-    key-bool-or-int = tRuE
-    key-bool-or-int = 1
-    key-bool-or-int = nO
-    key-bool-or-int = oFf
-    key-bool-or-int = fAlSe
-    key-bool-or-int = 0
-    key-bool-or-int =
-    key-bool-or-int = ""
-    key-bool-or-int = 1
-    key-bool-or-int = 2k
-    key-bool-or-int = 3K
-    key-bool-or-int = 4m
-    key-bool-or-int = 5M
-    #key-bool-or-int = 6g
-    #key-bool-or-int = 7G
-    #key-bool-or-int = 8t
-    #key-bool-or-int = 9T
+				key-bool-or-int
+				key-bool-or-int = yEs
+				key-bool-or-int = oN
+				key-bool-or-int = tRuE
+				key-bool-or-int = 1
+				key-bool-or-int = nO
+				key-bool-or-int = oFf
+				key-bool-or-int = fAlSe
+				key-bool-or-int = 0
+				key-bool-or-int =
+				key-bool-or-int = ""
+				key-bool-or-int = 1
+				key-bool-or-int = 2k
+				key-bool-or-int = 3K
+				key-bool-or-int = 4m
+				key-bool-or-int = 5M
+				#key-bool-or-int = 6g
+				#key-bool-or-int = 7G
+				#key-bool-or-int = 8t
+				#key-bool-or-int = 9T
 
-    #key-path
-    key-path =
-    key-path = ""
-    key-path = "/"
-    key-path = "//"
-    key-path = "///"
-    key-path = "////"
-    key-path = "~"
-    key-path = "~/"
-    key-path = "~//"
-    key-path = "~///"
-    key-path = "~////"
+				#key-path
+				key-path =
+				key-path = ""
+				key-path = "/"
+				key-path = "//"
+				key-path = "///"
+				key-path = "////"
+				key-path = "~"
+				key-path = "~/"
+				key-path = "~//"
+				key-path = "~///"
+				key-path = "~////"
+				key-path = "%(prefix)"
+				key-path = "%(prefix)/"
+				key-path = "%(prefix)//"
+				key-path = "%(prefix)///"
+				key-path = "%(prefix)////"
 
-    #key-color
-    key-color =
-    key-color = ""
-    key-color = "reset"
-    key-color = "blue reverse"
-EOF
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				#key-color
+				key-color =
+				key-color = ""
+				key-color = "reset"
+				key-color = "blue reverse"
+			EOF
+EOF0
+		) <(cat <<'EOF0'
 			treex '.'
 
 			git config get --file='./config.txt' --show-origin --show-scope --all 'section.key-bool'
@@ -506,14 +537,28 @@ EOF
 			git -c 'section.key-path='"~$USERNAME" -c 'section.key-path='"~$USERNAME/" -c 'section.key-path='"~$USERNAME//" -c 'section.key-path='"~$USERNAME///" -c 'section.key-path='"~$USERNAME////" config get --show-origin --show-scope --all 'section.key-path'
 			git -c 'section.key-path='"~$USERNAME" -c 'section.key-path='"~$USERNAME/" -c 'section.key-path='"~$USERNAME//" -c 'section.key-path='"~$USERNAME///" -c 'section.key-path='"~$USERNAME////" config get --show-origin --show-scope --all --type=path 'section.key-path'
 
+			git -c 'section.key-path='"~$(basename "$HOME")" -c 'section.key-path='"~$(basename "$HOME")/" -c 'section.key-path='"~$(basename "$HOME")//" -c 'section.key-path='"~$(basename "$HOME")///" -c 'section.key-path='"~$(basename "$HOME")////" config get --show-origin --show-scope --all 'section.key-path'
+			git -c 'section.key-path='"~$(basename "$HOME")" -c 'section.key-path='"~$(basename "$HOME")/" -c 'section.key-path='"~$(basename "$HOME")//" -c 'section.key-path='"~$(basename "$HOME")///" -c 'section.key-path='"~$(basename "$HOME")////" config get --show-origin --show-scope --all --type=path 'section.key-path'
+
+			git -c 'section.key-path='":(optional)" -c 'section.key-path='":(optional)/" -c 'section.key-path='":(optional)//" -c 'section.key-path='":(optional)///" -c 'section.key-path='":(optional)////" config get --show-origin --show-scope --all 'section.key-path'
+			git -c 'section.key-path='":(optional)" -c 'section.key-path='":(optional)/" -c 'section.key-path='":(optional)//" -c 'section.key-path='":(optional)///" -c 'section.key-path='":(optional)////" config get --show-origin --show-scope --all --type=path 'section.key-path'
+			git -c 'section.key-path='":(optional)" -c 'section.key-path='":(optional)/" config get --show-origin --show-scope --all --type=path 'section.key-path'
+			git -c 'section.key-path='":(optional)//" config get --show-origin --show-scope --all --type=path 'section.key-path'
+
+			git -c 'section.key-path='":(optional)nonexistent" -c 'section.key-path='":(optional)/nonexistent" -c 'section.key-path='":(optional)//nonexistent" -c 'section.key-path='":(optional)///nonexistent" -c 'section.key-path='":(optional)////nonexistent" config get --show-origin --show-scope --all 'section.key-path'
+			git -c 'section.key-path='":(optional)nonexistent" -c 'section.key-path='":(optional)/nonexistent" -c 'section.key-path='":(optional)//nonexistent" -c 'section.key-path='":(optional)///nonexistent" -c 'section.key-path='":(optional)////nonexistent" config get --show-origin --show-scope --all --type=path 'section.key-path'
+
 			git config get --file='./config.txt' --show-origin --show-scope --all 'section.key-color'
 			git config get --file='./config.txt' --show-origin --show-scope --all --type=color 'section.key-color' | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 	{{
-		cd '/'; cd '/';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/';
+EOF0
+		) <(cat <<'EOF0'
 			echo "$(git -c 'a.b=brightblue normal' config get --type=color 'a.b')fg_brightblue\
 			$(git -c 'a.b=blue normal' config get --type=color 'a.b')fg_blue\
 			$(git -c 'a.b=normal cyan' config get --type=color 'a.b')bg_cyan\
@@ -531,16 +576,19 @@ EOF
 			$(git -c 'a.b=normal no-dim reverse normal' config get --type=color 'a.b')no-dim reverse\
 			$(git -c 'a.b=normal blink normal' config get --type=color 'a.b')blink\
 			$(git -c 'a.b=reset' config get --type=color 'a.b')reset"
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_set~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_unset~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_scope~*_&]:block">
 	<h2 class="heading2"><span class="command">git config set</span><br><span class="command">git config unset</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 			git -C './repo' worktree add '../worktree1'
 			git -C './repo' config --local extensions.worktreeConfig true
@@ -655,24 +703,27 @@ EOF
 			git config unset --file='./config.txt' --all 'section.key'
 			git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
 			git config get --file='./config.txt' --show-origin --show-scope 'section.key'
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_set~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_filtering\_and\_precedence~*_&]:block">
 	<h2 class="heading2"><span class="command">git config set --value=&lt;pattern&gt;</span><br><span class="command">git config set --value=&lt;pattern&gt; --fixed-value</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		cat >'./config.txt' <<'EOF'
-[section]
-    key
-    key =
-    key = value1
-    key = value2
-    key = value3
-    key = value4
-EOF
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			cat >'./config.txt' <<'EOF'
+			[section]
+				key
+				key =
+				key = value1
+				key = value2
+				key = value3
+				key = value4
+			EOF
+EOF0
+		) <(cat <<'EOF0'
 			treex .
 			git config set --file='./config.txt' --value='[13579]' 'section.key' 'value5'
 			git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
@@ -697,86 +748,92 @@ EOF
 			git config set --file='./config.txt' --value='abcdefg' 'section.key' 'value9'
 			git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
 			git config get --file='./config.txt' --show-origin --show-scope 'section.key'
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		"$SHELL" -i 0<<'EOF0' 2>&1 | ansi2html_pre
-cat >'./config.txt' <<'EOF'
-[section]
-    key
-    key =
-    key = value1
-    key = value2
-EOF
-git config set --file='./config.txt' --value='^$' 'section.key' 'value3'
-git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
-git config get --file='./config.txt' --show-origin --show-scope 'section.key'
-
-cat >'./config.txt' <<'EOF'
-[section]
-    key
-    key =
-    key = value1
-    key = value2
-EOF
-git config set --file='./config.txt' --value='^$' --fixed-value 'section.key' 'value4'
-git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
-git config get --file='./config.txt' --show-origin --show-scope 'section.key'
-
-cat >'./config.txt' <<'EOF'
-[section]
-    key
-    key =
-    key = value1
-    key = value2
-EOF
-git config set --file='./config.txt' --value='' 'section.key' 'value5'
-git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
-git config get --file='./config.txt' --show-origin --show-scope 'section.key'
-
-cat >'./config.txt' <<'EOF'
-[section]
-    key
-    key =
-    key = value1
-    key = value2
-EOF
-git config set --file='./config.txt' --value='' --fixed-value 'section.key' 'value6'
-git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
-git config get --file='./config.txt' --show-origin --show-scope 'section.key'
-
-cat >'./config.txt' <<'EOF'
-[section]
-    key
-    key =
-    key = value1
-    key = value2
-EOF
-git config set --file='./config.txt' --value='!' 'section.key' 'value7'
-git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
-git config get --file='./config.txt' --show-origin --show-scope 'section.key'
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
 EOF0
+		) <(cat <<'EOF0'
+			cat >'./config.txt' <<'EOF'
+			[section]
+				key
+				key =
+				key = value1
+				key = value2
+			EOF
+			git config set --file='./config.txt' --value='^$' 'section.key' 'value3'
+			git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
+			git config get --file='./config.txt' --show-origin --show-scope 'section.key'
+
+			cat >'./config.txt' <<'EOF'
+			[section]
+				key
+				key =
+				key = value1
+				key = value2
+			EOF
+			git config set --file='./config.txt' --value='^$' --fixed-value 'section.key' 'value4'
+			git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
+			git config get --file='./config.txt' --show-origin --show-scope 'section.key'
+
+			cat >'./config.txt' <<'EOF'
+			[section]
+				key
+				key =
+				key = value1
+				key = value2
+			EOF
+			git config set --file='./config.txt' --value='' 'section.key' 'value5'
+			git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
+			git config get --file='./config.txt' --show-origin --show-scope 'section.key'
+
+			cat >'./config.txt' <<'EOF'
+			[section]
+				key
+				key =
+				key = value1
+				key = value2
+			EOF
+			git config set --file='./config.txt' --value='' --fixed-value 'section.key' 'value6'
+			git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
+			git config get --file='./config.txt' --show-origin --show-scope 'section.key'
+
+			cat >'./config.txt' <<'EOF'
+			[section]
+				key
+				key =
+				key = value1
+				key = value2
+			EOF
+			git config set --file='./config.txt' --value='!' 'section.key' 'value7'
+			git config get --file='./config.txt' --show-origin --show-scope --all 'section.key'
+			git config get --file='./config.txt' --show-origin --show-scope 'section.key'
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_rename\_section~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_remove\_section~*_&]:block">
 	<h2 class="heading2"><span class="command">git config rename-section</span><br><span class="command">git config remove-section</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		cat >'./config.txt' <<'EOF'
-[section1]
-    key1 = value1
-    key2 = value2
-[section2]
-    key1 = value1
-    key3 = value3
-[section3]
-    key1 = value1
-    key4 = value4
-EOF
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			cat >'./config.txt' <<'EOF'
+			[section1]
+				key1 = value1
+				key2 = value2
+			[section2]
+				key1 = value1
+				key3 = value3
+			[section3]
+				key1 = value1
+				key4 = value4
+			EOF
+EOF0
+		) <(cat <<'EOF0'
 			treex .
 			git config rename-section --file='./config.txt' 'section4' 'section5'
 			git config rename-section --file='./config.txt' 'section4' 'section3'
@@ -790,25 +847,28 @@ EOF
 			treex .
 			git config remove-section --file='./config.txt' 'section5'
 			treex .
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_config~*_&]:block [#reference\_desk\_dispatcher\_example.git\_config\_action\_get\_colorbool~*_&]:block">
 	<h2 class="heading2"><span class="command">git config --get-colorbool</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		cat >'./config.txt' <<'EOF'
-[section]
-    key1
-    key2 =
-    key3 = false
-    key4 = never
-    key5 = true
-    key6 = auto
-    key7 = always
-EOF
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			cat >'./config.txt' <<'EOF'
+			[section]
+				key1
+				key2 =
+				key3 = false
+				key4 = never
+				key5 = true
+				key6 = auto
+				key7 = always
+			EOF
+EOF0
+		) <(cat <<'EOF0'
 			treex .
 			test -t 0
 			git config --file='./config.txt' --get-colorbool 'section.key1'; echo "$?"
@@ -839,7 +899,8 @@ EOF
 			git config --file='./config.txt' --get-colorbool 'section.key'; echo "$?"
 			git config set --file='./config.txt' 'color.ui' 'always'
 			git config --file='./config.txt' --get-colorbool 'section.key'; echo "$?"
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>

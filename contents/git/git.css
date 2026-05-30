@@ -147,7 +147,7 @@
 
 	pre
 	{
-		@apply overflow-auto max-h-[60vh];
+		@apply font-monospace overflow-auto max-h-[60vh];
 	}
 }
 

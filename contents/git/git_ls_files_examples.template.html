@@ -1,9 +1,11 @@
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_cached\_stage~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_others~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_directory~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_filtering~*_&]:block">
 	<h2 class="heading2"><span class="command">git ls-files --cached</span><br><span class="command">git ls-files --stage</span><br><span class="command">git ls-files --others</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 
 			echo -e '1\n5' >'./repo/conflicted'; echo -e '1\n5' >'./repo/conflicted_excluded'; git -C './repo' add './conflicted' './conflicted_excluded'; git -C './repo' commit --message="$((++number))"
@@ -38,16 +40,19 @@
 			git -C './repo' ls-files -t --others --directory --no-empty-directory
 			git -C './repo' ls-files -t --others --directory --no-empty-directory --exclude="*_excluded"
 			git -C './repo' ls-files -t --others --directory --no-empty-directory --exclude="*_excluded" --ignored
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_deleted\_modified~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_filtering~*_&]:block">
 	<h2 class="heading2"><span class="command">git ls-files --deleted</span><br><span class="command">git ls-files --modified</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir_empty_excluded' './repo/untracked_dir' './repo/untracked_dir_excluded'; touch -- './repo/untracked' './repo/untracked_excluded' './repo/untracked_dir/untracked' './repo/untracked_dir/untracked_excluded' './repo/untracked_dir_excluded/untracked' './repo/untracked_dir_excluded/untracked_excluded'
 			touch -- './repo/unstaged_deletion' './repo/unstaged_deletion_excluded'; git -C './repo' add './unstaged_deletion' './unstaged_deletion_excluded'; rm -- './repo/unstaged_deletion' './repo/unstaged_deletion_excluded'
@@ -64,16 +69,19 @@
 			git -C './repo' ls-files -t --modified --exclude="*_excluded" --ignored
 			git -C './repo' ls-files -t --others --modified --exclude="*_excluded" --ignored
 			git -C './repo' ls-files -t --others --modified --exclude="*_excluded" --ignored | tail --lines='+'"$(("$(git -C './repo' ls-files -t --others --exclude="*_excluded" --ignored | wc --lines)"+1))"
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_killed~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_directory~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_filtering~*_&]:block">
 	<h2 class="heading2"><span class="command">git ls-files --killed</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 			mkdir --parents -- './repo/dir_to_file' './repo/dir_to_file_excluded'; touch -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded' './repo/dir_to_file/.gitkeep' './repo/dir_to_file_excluded/.gitkeep'; git -C './repo' add './file_to_dir' './file_to_dir_excluded' './file_to_dir_empty' './file_to_dir_empty_excluded' './dir_to_file' './dir_to_file_excluded'; rm --recursive -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded' './repo/dir_to_file' './repo/dir_to_file_excluded'; mkdir --parents -- './repo/file_to_dir' './repo/file_to_dir_excluded' './repo/file_to_dir_empty' './repo/file_to_dir_empty_excluded'; touch -- './repo/dir_to_file' './repo/dir_to_file_excluded' './repo/file_to_dir/.gitkeep' './repo/file_to_dir_excluded/.gitkeep'
 
@@ -93,16 +101,19 @@
 			git -C './repo' ls-files -t --killed --directory --no-empty-directory --exclude="*_excluded" --ignored
 			git -C './repo' ls-files -t --others --killed --directory --no-empty-directory --exclude="*_excluded" --ignored
 			git -C './repo' ls-files -t --others --killed --directory --no-empty-directory --exclude="*_excluded" --ignored | tail --lines='+'"$(("$(git -C './repo' ls-files -t --others --directory --no-empty-directory --exclude="*_excluded" --ignored | wc --lines)"+1))"
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_unmerged~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_resolve\_undo~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_filtering~*_&]:block">
 	<h2 class="heading2"><span class="command">git ls-files --unmerged</span><br><span class="command">git ls-files --resolve-undo</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 
 			echo -e '1\n5' >'./repo/conflicted'; echo -e '1\n5' >'./repo/conflicted_excluded'; git -C './repo' add './conflicted' './conflicted_excluded'; git -C './repo' commit --message="$((++number))"
@@ -131,16 +142,19 @@
 			treex './repo/conflicted'
 			git -C './repo' ls-files -t --unmerged
 			git -C './repo' ls-files -t --resolve-undo
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_z~*_&]:block">
 	<h2 class="heading2"><span class="command">git ls-files -z</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 
 			echo -e '1\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'; git -C './repo' commit --message="$((++number))"
@@ -185,16 +199,19 @@
 			git -C './repo' ls-files -t --unmerged -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 			git -C './repo' ls-files -t --resolve-undo | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 			git -C './repo' ls-files -t --resolve-undo -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_eol~*_&]:block">
 	<h2 class="heading2"><span class="command">git ls-files --eol</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 
 			echo -e '1\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'; git -C './repo' commit --message="$((++number))"
@@ -233,16 +250,19 @@
 			git -C './repo' checkout --merge './conflicted'
 			git -C './repo' ls-files -t --unmerged
 			git -C './repo' ls-files -t --unmerged --eol
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_ls\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_ls\_files\_format~*_&]:block">
 	<h2 class="heading2"><span class="command">git ls-files --format=&lt;format&gt;</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 
 			echo -e '1\n5' >'./repo/conflicted'; git -C './repo' add './conflicted'; git -C './repo' commit --message="$((++number))"
@@ -268,7 +288,8 @@
 			git -C './repo' ls-files --modified --format='%(objecttype) %(objectmode) %(objectname) %(stage) ii="%(eolinfo:index)" iw="%(eolinfo:worktree)" a="%(eolattr)" %(objectsize) %(path)'
 			git -C './repo' ls-files -t --unmerged
 			git -C './repo' ls-files --unmerged --format='%(objecttype) %(objectmode) %(objectname) %(stage) ii="%(eolinfo:index)" iw="%(eolinfo:worktree)" a="%(eolattr)" %(objectsize) %(path)'
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>

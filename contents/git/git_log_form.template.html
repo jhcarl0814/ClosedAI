@@ -54,6 +54,7 @@
 			</fieldset>
 
 			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_log\_boundary~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_log_boundary')"><input type="checkbox" id="git_log_has_boundary" name="git_log_has_boundary"><label for="git_log_has_boundary"><span class="command">--boundary</span> Output excluded boundary commits.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_log\_maximal\_only~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_log_maximal_only')"><input type="checkbox" id="git_log_has_maximal_only" name="git_log_has_maximal_only"><label for="git_log_has_maximal_only"><span class="command">--maximal-only</span> Restrict the output commits to be those that are not reachable from any other commits in the revision range.</label></div>
 			<div class="form_item"><input type="checkbox" id="git_log_has_single_worktree" name="git_log_has_single_worktree"><label for="git_log_has_single_worktree"><span class="command">--single-worktree</span> By default, all working trees will be examined by the following options when there are more than one: <span class="command">--all</span> and <span class="command">--reflog</span>. Forces them to examine the current working tree only.</label></div>
 
 			<fieldset>
@@ -1224,6 +1225,8 @@
 			}
 			if(form_data.get("git_log_has_boundary"))
 				command_components.push("--boundary");
+			if(form_data.get("git_log_has_maximal_only"))
+				command_components.push("--maximal-only");
 			if(form_data.get("git_log_has_single_worktree"))
 				command_components.push("--single-worktree");
 			{

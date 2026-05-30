@@ -222,6 +222,24 @@
 		<fieldset>
 			<legend><p>partial fetch (limit the number of blobs and trees downloaded within a given range of commits):</p></legend>
 			<div><input type="checkbox" id="git_fetch_has_refetch" name="git_fetch_has_refetch"><label for="git_fetch_has_refetch"><span class="command">--refetch</span> Instead of negotiating with the server to avoid transferring commits and associated objects that are already present locally, fetches all objects as a fresh clone would.</label></div>
+			<fieldset>
+				<legend><p><span class="command">--filter=&lt;filter-spec&gt;</span> Use the partial clone feature and request that the server sends a subset of reachable objects according to a given object filter.</p></legend>
+				<input id="git_fetch_filter_list_add" type="button" value="Add">
+				<div id="git_fetch_filter_list" class="subform"></div>
+				<script>
+					document.getElementById("git_fetch_filter_list_add").addEventListener("click",function(e){
+						document.getElementById("git_fetch_filter_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_fetch_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_fetch_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_fetch_refresh();
+					})
+				</script>
+			</fieldset>
 		</fieldset>
 
 		<fieldset>
@@ -500,6 +518,9 @@
 				command_components.push("--update-shallow");
 			if(form_data.get("git_fetch_has_refetch"))
 				command_components.push("--refetch");
+			Array.from(document.getElementById("git_fetch_filter_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				command_components.push("--filter=" + shell_quote(textarea.value));
+			});
 			if(form_data.get("git_fetch_has_upload_pack")){
 				let element_value = form_data.get("git_fetch_upload_pack"), element_has_error = element_value.length == 0;
 				command_components.push("--upload-pack=" + shell_quote(element_value));

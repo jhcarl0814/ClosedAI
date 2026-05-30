@@ -2,9 +2,11 @@
 	<h2 class="heading2"><span class="command">git log --branches[=&lt;pattern&gt;]</span><br><span class="command">git log --tags[=&lt;pattern&gt;]</span><br><span class="command">git log --remotes[=&lt;pattern&gt;]</span><br><span class="command">git log --all</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git -C './server/repo.git' branch branch1; git -C './server/repo.git' tag tag1
 			git --git-dir='./server/repo.git' --work-tree='.' checkout -b branch2 branch1; git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git -C './server/repo.git' tag tag2
@@ -32,7 +34,8 @@
 			git -C './client/repo' lg --remotes
 			git -C './client/repo' lg --remotes='server/*2'
 			git -C './client/repo' lg --remotes='*r*r/*2'
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -41,9 +44,11 @@
 	<h2 class="heading2"><span class="command">git log --reflog</span><br><span class="command">git log --walk-reflogs</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' branch branch1
 			git -C './repo' checkout -b branch2 branch1; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag1
@@ -56,7 +61,8 @@
 			git -C './repo' log --reflog --graph branch2
 			git -C './repo' log --walk-reflogs branch2
 			git -C './repo' log --walk-reflogs --graph branch2
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -65,9 +71,11 @@
 	<h2 class="heading2"><span class="command">git log --boundary</span><br><span class="command">git log --left-right</span><br><span class="command">git log --left-right --boundary</span><br><span class="command">git log --cherry-pick</span><br><span class="command">git log --cherry-mark</span><br><span class="command">git log --cherry-mark --boundary</span><br><span class="command">git log --left-only</span><br><span class="command">git log --right-only</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
 			echo -e '1\n\n\n\n1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message='0 -> 1'
@@ -107,7 +115,32 @@
 			git -C './repo' log --format=oneline --graph --right-only "$branch_default_name"...branch1
 			git -C './repo' log --format=oneline --right-only --cherry-mark "$branch_default_name"...branch1
 			git -C './repo' log --format=oneline --graph --right-only --cherry-mark "$branch_default_name"...branch1
-		EOF0
+EOF0
+		) '/dev/null';
+		git config unset --system --all 'color.ui';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_log~*_&]:block [#reference\_desk\_dispatcher\_example.git\_log\_maximal\_only~*_&]:block">
+	<h2 class="heading2"><span class="command">git log --maximal-only</span></h2>
+	{{
+		git config set --system --all 'color.ui' 'always';
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
+			git init './repo'
+			git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag1
+			git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag2
+			git -C './repo' reset --hard HEAD~1; git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' tag tag3
+			git -C './repo' merge --message="$((++number))" tag2; git -C './repo' tag tag4
+			git -C './repo' log --format=oneline --graph tag2 tag3
+			git -C './repo' log --format=oneline --graph --maximal-only tag2 tag3
+			git -C './repo' log --format=oneline --graph tag2 tag3 tag4
+			git -C './repo' log --format=oneline --graph --maximal-only tag2 tag3 tag4
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -116,9 +149,11 @@
 	<h2 class="heading2"><span class="command">git log --first-parent</span><br><span class="command">git log --exclude-first-parent-only</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
 			git -C './repo' commit --message="$((++number))" --allow-empty
@@ -150,7 +185,8 @@
 			git -C './repo' lg --first-parent branch1
 			git -C './repo' lg "$branch_default_name"..branch1
 			git -C './repo' lg --exclude-first-parent-only "$branch_default_name"..branch1
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -159,9 +195,11 @@
 	<h2 class="heading2"><span class="command">git log --ancestry-path[=&lt;commit&gt;]</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
 			git -C './repo' commit --message='a' --allow-empty
@@ -193,7 +231,8 @@
 			git -C './repo' lg --ancestry-path=:/'b' --not :/'d' :/'b' --not :/'m'
 			git -C './repo' lg --ancestry-path=:/'d' --ancestry-path=:/'b' --not :/'d' :/'b' --not :/'m'
 			git -C './repo' lg --ancestry-path=:/'h' :/'d'..:/'m'
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -202,9 +241,11 @@
 	<h2 class="heading2"><span class="command">git log --follow</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			echo '1' >'./repo/file1'; git -C './repo' add './file1'; git -C './repo' commit --message="$((++number))"
 			git -C './repo' commit --message="$((++number))" --allow-empty
@@ -219,7 +260,8 @@
 			git -C './repo' log --follow -- 'file2'
 			git -C './repo' log --graph
 			git -C './repo' log --graph --follow 'file2'
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -228,9 +270,11 @@
 	<h2 class="heading2"><span class="command">git log -L&lt;start&gt;,&lt;end&gt;:&lt;file&gt;</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			echo -e 'a\n1' >'./repo/file1'; git -C './repo' add './file1'; git -C './repo' commit --message="$((++number))"
 			git -C './repo' commit --message="$((++number))" --allow-empty
@@ -246,7 +290,8 @@
 			git -C './repo' log -L1,1:'./file2'
 			git -C './repo' log -L2,2:'./file2'
 			git -C './repo' log -L1,2:'./file2'
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -256,9 +301,11 @@
 	{{
 		git config set --system --all 'color.ui' 'always';
 		git config set --system --all 'log.decorate' 'full';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
 			git -C './repo' commit --message='-' --allow-empty
@@ -331,64 +378,83 @@
 			git -C './repo' commit --message='2' --allow-empty
 
 			git -C './repo' log --format=oneline --abbrev-commit --graph --all
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="grid grid-cols-[minmax(0px,1fr)_minmax(0px,1fr)_minmax(0px,1fr)] gap-[1em]">
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch11
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch41
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">(merge keep current branch's change)</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch21
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch52
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">(merge discard current branch's change)</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch22
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch53
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch51
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">(merge pull in other branch's change)</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch31
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch53
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">(merge discard other branch's change)</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch32
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch52
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div class="[grid-column:span_3]">
@@ -398,82 +464,100 @@
 		<div>
 			<p class="paragraph">merge commit is same to both parents, follow one of them</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch41 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch41 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch41 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">merge commit is same to one parent, follow this one</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch52 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">merge commit is same to one parent, follow this one</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch53 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">merge commit isn't same to either of parents, follow both of them</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch51 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch51 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch51 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">merge commit is same to one parent, follow this one</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch53 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">merge commit is same to one parent, follow this one</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --dense branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --graph --sparse branch52 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div class="[grid-column:span_3]">
@@ -484,77 +568,95 @@
 		<div>
 			<p class="paragraph">commits are included if not TREESAME to some parent, so merge commits aren't always included</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history branch41 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch41 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch41 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch52 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch53 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history branch51 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch51 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch51 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch53 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --dense branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --sparse branch52 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div class="[grid-column:span_3]">
@@ -564,77 +666,95 @@
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch41 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch41 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch41 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch52 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch53 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch51 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch51 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch51 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch53 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --dense branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --graph --sparse branch52 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div class="[grid-column:span_3]">
@@ -644,83 +764,101 @@
 		<div>
 			<p class="paragraph">if merge commit's number of !TREESAME out edges drops to 0 and number of TREESAME out edges drops to &lt;= 1 then it is removed</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch41 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch41 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch41 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">TREESAME parent is descendant of !TREESAME parent, so the out edge to !TREESAME parent is removed</p>
 			<p class="paragraph">if merge commit's number of !TREESAME out edges drops to 0 and number of TREESAME out edges drops to &lt;= 1 then it is removed</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch52 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">!TREESAME parent is descendant of TREESAME parent, but TREESAME parent is last one, the out edge to TREESAME parent isn't removed</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch53 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch51 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch51 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch51 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">TREESAME parent is descendant of !TREESAME parent, so the out edge to !TREESAME parent is removed</p>
 			<p class="paragraph">if merge commit's number of !TREESAME out edges drops to 0 and number of TREESAME out edges drops to &lt;= 1 then it is removed</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch53 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">!TREESAME parent is descendant of TREESAME parent, but TREESAME parent is last one, the out edge to TREESAME parent isn't removed</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --dense branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --full-history --simplify-merges --graph --sparse branch52 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div class="[grid-column:span_3]">
@@ -730,84 +868,102 @@
 		<div>
 			<p class="paragraph">merge commit is same to both parents, follow one of them</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch41 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch41 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch41 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">merge commit is same to one parent, follow this one</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch52 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">merge commit is same to one parent, follow this one</p>
 			<p class="paragraph">merge commits are included if not TREESAME to its first parent but TREESAME to a later parent</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch53 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">merge commit isn't same to either of parents, follow both of them</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch51 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch51 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch51 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">merge commit is same to one parent, follow this one</p>
 			<p class="paragraph">merge commits are included if not TREESAME to its first parent but TREESAME to a later parent</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch53 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">merge commit is same to one parent, follow this one</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --dense branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --graph --sparse branch52 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div class="[grid-column:span_3]">
@@ -817,55 +973,67 @@
 		<div>
 			<p class="paragraph">if merge commit's number of !TREESAME out edges drops to 0 and number of TREESAME out edges drops to &lt;= 1 then it is removed</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch41 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch41 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch11 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch41 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">TREESAME parent is descendant of !TREESAME parent, so the out edge to !TREESAME parent is removed</p>
 			<p class="paragraph">if merge commit's number of !TREESAME out edges drops to 0 and number of TREESAME out edges drops to &lt;= 1 then it is removed</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch21 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch52 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">!TREESAME parent is descendant of TREESAME parent, but TREESAME parent is last one, the out edge to TREESAME parent isn't removed</p>
 			<p class="paragraph">merge commits are included if not TREESAME to its first parent but TREESAME to a later parent</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch22 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch53 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch51 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch51 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch51 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
@@ -873,29 +1041,35 @@
 			<p class="paragraph">if merge commit's number of !TREESAME out edges drops to 0 and number of TREESAME out edges drops to &lt;= 1 then it is removed</p>
 			<p class="paragraph">merge commits are included if not TREESAME to its first parent but TREESAME to a later parent</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch53 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch31 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch53 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 		<div>
 			<p class="paragraph">!TREESAME parent is descendant of TREESAME parent, but TREESAME parent is last one, the out edge to TREESAME parent isn't removed</p>
 			{{
-				cd '/'; cd './test_git';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd './test_git';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --dense branch52 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch32 './file'
 					git -C './repo' log --format=oneline --abbrev-commit --show-pulls --simplify-merges --graph --sparse branch52 './file'
-				EOF0
+EOF0
+				) '/dev/null';
 			}}
 		</div>
 	</div>
@@ -910,9 +1084,11 @@
 	{{
 		git config set --system --all 'color.ui' 'always';
 		git config set --system --all 'log.decorate' 'short';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty; git -C './server/repo.git' branch branch1; git -C './server/repo.git' tag tag1
 
@@ -934,7 +1110,8 @@
 			git -C './client/repo' log --decorate=short --clear-decorations
 			git -C './client/repo' log --decorate=full
 			git -C './client/repo' log --decorate=full --clear-decorations
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'log.decorate';
 		git config unset --system --all 'color.ui';
 	}}
@@ -944,9 +1121,11 @@
 	<h2 class="heading2"><span class="command">git log --diff-merges=&lt;format&gt;</span><br><span class="command">git log --diff-merges=combined --combined-all-paths</span><br><span class="command">git log --diff-merges=dense-combined --combined-all-paths</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			echo -e '1\n\n1\n\n1\n\n1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 			git -C './repo' branch branch2
@@ -967,15 +1146,18 @@
 			git -C './repo' lg --patch --diff-merges=dense-combined --unified=1
 			git -C './repo' lg --patch --diff-merges=dense-combined --unified=1 --combined-all-paths
 			git -C './repo' lg --patch --diff-merges=remerge
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 			git -C './repo' branch branch2
@@ -993,15 +1175,18 @@
 			git -C './repo' lg --patch --diff-merges=dense-combined
 			git -C './repo' lg --patch --diff-merges=dense-combined --combined-all-paths
 			git -C './repo' lg --patch --diff-merges=remerge
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 			git -C './repo' branch branch2
@@ -1019,7 +1204,8 @@
 			git -C './repo' lg --patch --diff-merges=dense-combined
 			git -C './repo' lg --patch --diff-merges=dense-combined --combined-all-paths
 			git -C './repo' lg --patch --diff-merges=remerge
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>

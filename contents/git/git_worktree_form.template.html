@@ -160,7 +160,7 @@
 		</fieldset>
 		<fieldset>
 			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_worktree\_action\_prune~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_worktree_action_prune')">
-				<div class="form_item"><input type="radio" id="git_worktree_action_prune" name="git_worktree_action" value="prune"><label for="git_worktree_action_prune"><span class="command">prune</span> Prune linked worktree information in <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/worktrees</span>.</label></div>
+				<div class="form_item"><input type="radio" id="git_worktree_action_prune" name="git_worktree_action" value="prune"><label for="git_worktree_action_prune"><span class="command">prune</span> Prune worktree information in <span class="inline_code"><span class="command">$GIT_COMMON_DIR</span>/worktrees</span> for worktrees whose working trees are missing.</label></div>
 			</legend>
 			<p>Choose an action to perform:</p>
 			<fieldset>
@@ -175,7 +175,7 @@
 			<div class="form_item">
 				<input type="checkbox" id="git_worktree_action_prune_has_expire" name="git_worktree_action_prune_has_expire">
 				<div class="subform basis-0 grow">
-					<label for="git_worktree_action_prune_has_expire"><span class="command">--expire=&lt;time&gt;</span> Only expire unused worktrees older than <span class="command">&lt;time&gt;</span></label>
+					<label for="git_worktree_action_prune_has_expire"><span class="command">--expire=&lt;time&gt;</span> Only prune missing worktrees if older than <span class="command">&lt;time&gt;</span>.</label>
 					<div class="form_item"><label for="git_worktree_action_prune_expire_time"><span class="command">&lt;time&gt;</span>:</label><input type="text" id="git_worktree_action_prune_expire_time" name="git_worktree_action_prune_expire_time" class="basis-0 grow command_input" placeholder="now"></div>
 				</div>
 			</div>

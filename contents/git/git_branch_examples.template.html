@@ -2,9 +2,11 @@
 	<h2 class="heading2"><span class="command">git branch --show-current</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			git -C './repo' branch --show-current
 			git -C './repo' branch --list --all
@@ -15,7 +17,8 @@
 			git -C './repo' branch --list --all
 			git -C './repo' branch --list --all --verbose
 			git -C './repo' branch --list --all --verbose --verbose
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -24,9 +27,11 @@
 	<h2 class="heading2"><span class="command">git branch --list</span><br><span class="command">git branch --list --remotes</span><br><span class="command">git branch --list --all</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client/repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client/repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 			git -C './server/repo.git' branch branch1
@@ -44,7 +49,8 @@
 			git -C './client/repo' branch --list --verbose --verbose
 			git -C './client/repo' branch --list --remotes --verbose --verbose
 			git -C './client/repo' branch --list --all --verbose --verbose
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -53,9 +59,11 @@
 	<h2 class="heading2"><span class="command">git branch --list --contains</span><br><span class="command">git branch --list --no-contains</span><br><span class="command">git branch --list --merged</span><br><span class="command">git branch --list --no-merged</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			git -C './repo' commit --message="$((++number))" --allow-empty; git -C './repo' checkout -b branch1
 			git -C './repo' checkout -b branch2; git -C './repo' commit --message="$((++number))" --allow-empty
@@ -74,7 +82,8 @@
 			git -C './repo' branch --list --all --verbose --verbose --no-merged=branch2
 			git -C './repo' branch --list --all --verbose --verbose --no-merged=branch3
 			git -C './repo' branch --list --all --verbose --verbose --no-merged=branch2 --no-merged=branch3
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -83,9 +92,11 @@
 	<h2 class="heading2"><span class="command">git branch --list &lt;pattern&gt;...</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client/repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client/repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 			git -C './server/repo.git' branch branch1
@@ -103,7 +114,8 @@
 			git -C './client/repo' branch --list --all --verbose --verbose branch1
 			git -C './client/repo' branch --list --all --verbose --verbose '*branch1'
 			git -C './client/repo' branch --list --all --verbose --verbose '*r*n*'
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -112,9 +124,11 @@
 	<h2 class="heading2"><span class="command">git branch --list</span><br><span class="command">git branch --list --verbose</span><br><span class="command">git branch --list --verbose --verbose</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client/repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client/repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 			git -C './server/repo.git' branch branch1
@@ -132,7 +146,8 @@
 			git -C './client/repo' branch --list --all
 			git -C './client/repo' branch --list --all --verbose
 			git -C './client/repo' branch --list --all --verbose --verbose
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -141,9 +156,11 @@
 	<h2 class="heading2"><span class="command">git branch --list --verbose --abbrev/--no-abbrev</span><br><span class="command">git branch --list --verbose --verbose --abbrev/--no-abbrev</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			git -C './repo' commit --message="$((++number))" --allow-empty
 			git -C './repo' branch --list --all --verbose
@@ -152,7 +169,8 @@
 			git -C './repo' branch --list --all --verbose --verbose
 			git -C './repo' branch --list --all --verbose --verbose --abbrev
 			git -C './repo' branch --list --all --verbose --verbose --no-abbrev
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -161,9 +179,11 @@
 	<h2 class="heading2"><span class="command">git branch --list --format=&lt;format&gt;</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client/repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client/repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
@@ -189,7 +209,8 @@
 			git -C './client/repo' worktree add --force '../worktree2' branch1
 			git -C './client/repo' worktree list
 			git -C './client/repo' branch --list --all --format='%(HEAD) %(refname) %(objectname)%(if)%(upstream)%(then) (fetch from %(upstream:remotename) with %(upstream:remoteref):%(upstream) %(upstream:track))%(end)%(if)%(push)%(then) (push to %(if)%(push:remotename)%(then)%(push:remotename)%(else)%(upstream:remotename)%(end) with %(if)%(push:remoteref)%(then)%(push:remoteref):%(refname)%(else)push.default%(end) %(push:track))%(end)%(if)%(worktreepath)%(then) worktreepath="%(worktreepath)"%(end)'
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -198,9 +219,11 @@
 	<h2 class="heading2"><span class="command">git branch --track/--no-track</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client/repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client/repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 			git -C './server/repo.git' branch branch1
@@ -222,7 +245,8 @@
 			git -C './client/repo' -c 'branch.autoSetupMerge=inherit' branch branch33 branch1
 			git -C './client/repo' -c 'branch.autoSetupMerge=inherit' branch --no-track branch331 branch1
 			git -C './client/repo' branch --list --all --verbose --verbose
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -231,9 +255,11 @@
 	<h2 class="heading2"><span class="command">git branch --create-reflog/--no-create-reflog</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			git -C './repo' config list --local --show-origin --show-scope
 			git -C './repo' commit --message="$((++number))" --allow-empty
@@ -246,7 +272,8 @@
 			git -C './repo' -c 'core.logAllRefUpdates=true' branch --no-create-reflog branch31
 			git -C './repo' branch --list --all --verbose --verbose
 			git -C './repo' reflog list
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -255,9 +282,11 @@
 	<h2 class="heading2"><span class="command">git branch --move --force</span> (even with <span class="command">--force</span>, refuses to change an existing branch that is checked out in a worktree linked to the repository)</h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			git -C './repo' commit --message="$((++number))" --allow-empty
 			git -C './repo' branch branch1
@@ -267,15 +296,18 @@
 			git -C './repo' branch --move branch2 branch1
 			git -C './repo' branch --move --force branch2 branch1
 			git -C './repo' lg --all
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			git -C './repo' commit --message="$((++number))" --allow-empty
 			git -C './repo' branch branch1
@@ -285,7 +317,8 @@
 			git -C './repo' lg --all
 			git -C './repo' branch --move branch2 branch1
 			git -C './repo' branch --move --force branch2 branch1
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -294,9 +327,11 @@
 	<h2 class="heading2"><span class="command">git branch --copy --force</span> (even with <span class="command">--force</span>, refuses to change an existing branch that is checked out in a worktree linked to the repository)</h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			git -C './repo' commit --message="$((++number))" --allow-empty
 			git -C './repo' branch branch1
@@ -306,15 +341,18 @@
 			git -C './repo' branch --copy branch2 branch1
 			git -C './repo' branch --copy --force branch2 branch1
 			git -C './repo' lg --all
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			git -C './repo' commit --message="$((++number))" --allow-empty
 			git -C './repo' branch branch1
@@ -324,7 +362,8 @@
 			git -C './repo' lg --all
 			git -C './repo' branch --copy branch2 branch1
 			git -C './repo' branch --copy --force branch2 branch1
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -333,9 +372,11 @@
 	<h2 class="heading2"><span class="command">git branch --delete --force</span> (even with <span class="command">--force</span>, refuses to delete an existing branch that is checked out in a worktree linked to the repository)</h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			git -C './repo' commit --message="$((++number))" --allow-empty
 			git -C './repo' commit --message="$((++number))" --allow-empty
@@ -347,15 +388,18 @@
 			git -C './repo' branch --delete --force branch1
 			git -C './repo' branch --list --all --verbose --verbose
 			git -C './repo' lg --all
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			git -C './repo' commit --message="$((++number))" --allow-empty
 			git -C './repo' checkout -b branch1
@@ -363,7 +407,8 @@
 			git -C './repo' lg --all
 			git -C './repo' branch --delete branch1
 			git -C './repo' branch --delete --force branch1
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -372,9 +417,11 @@
 	<h2 class="heading2"><span class="command">git branch --delete</span><br><span class="command">git branch --delete --remotes</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client/repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client/repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 			git -C './server/repo.git' branch branch1
@@ -392,15 +439,18 @@
 			git -C './client/repo' branch --show-current
 			git -C './client/repo' branch --delete branch1
 			git -C './client/repo' branch --list --all --verbose --verbose
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client/repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client/repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 			git -C './server/repo.git' branch branch1
@@ -414,7 +464,8 @@
 			git -C './client/repo' branch --delete --remotes branch1
 			git -C './client/repo' branch --delete --remotes server/branch1
 			git -C './client/repo' branch --list --all --verbose --verbose
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -423,9 +474,11 @@
 	<h2 class="heading2"><span class="command">git branch --set-upstream-to=&lt;upstream&gt;</span><br><span class="command">git branch --unset-upstream</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client/repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client/repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 			git -C './server/repo.git' branch branch1
@@ -450,7 +503,8 @@
 			git -C './client/repo' config list --local --show-origin --show-scope
 			git -C './client/repo' branch --set-upstream-to='server/branch1' branch1
 			git -C './client/repo' config list --local --show-origin --show-scope
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>

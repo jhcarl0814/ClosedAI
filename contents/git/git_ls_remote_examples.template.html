@@ -2,9 +2,11 @@
 	<h2 class="heading2"><span class="command">git ls-remote</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server1' './server2' './client';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server1' './server2' './client';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server1' init --bare './repo.git'
 			branch_default_path="$(git -C './server1/repo.git' symbolic-ref HEAD)"; echo "$branch_default_path"
 			git -C './server1/repo.git' branch --show-current
@@ -46,7 +48,8 @@
 			git -C './client/repo' ls-remote '.'
 			git -C './client/repo' checkout "$branch_default_name"
 			git -C './client/repo' ls-remote '.'
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -55,9 +58,11 @@
 	<h2 class="heading2"><span class="command">git ls-remote [&lt;pattern&gt;…]</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			branch_default_path="$(git -C './server/repo.git' symbolic-ref HEAD)"; echo "$branch_default_path"
 			git -C './server/repo.git' branch --show-current
@@ -84,7 +89,8 @@
 			git ls-remote './server/repo.git'
 			git ls-remote './server/repo.git' HEAD
 			git ls-remote './server/repo.git' HEAD2
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -93,9 +99,11 @@
 	<h2 class="heading2"><span class="command">git ls-remote [--branches] [--tags]</span><br><span class="command">git ls-remote --refs</span><br><span class="command">git ls-remote --symref</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			branch_default_path="$(git -C './server/repo.git' symbolic-ref HEAD)"; echo "$branch_default_path"
 			git -C './server/repo.git' branch --show-current
@@ -128,7 +136,8 @@
 			git ls-remote --tags --refs './server/repo.git'
 			git ls-remote --branches --tags './server/repo.git'
 			git ls-remote --branches --tags --refs './server/repo.git'
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -137,15 +146,18 @@
 	<h2 class="heading2"><span class="command">git ls-remote --get-url</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+EOF0
+		) <(cat <<'EOF0'
 			git ls-remote --get-url './server/repo.git'
 			git -c 'url.scheme://authority/path/.insteadOf=./' ls-remote --get-url './server/repo.git'
 			git ls-remote --get-url 'file://'"$(realpath './server/repo.git')"
 			git -c 'url.scheme://authority/path/.insteadOf=file:///' ls-remote --get-url 'file://'"$(realpath './server/repo.git')"
 			git ls-remote --get-url 'file://'"$(realpath '.')"'/server/repo.git'
 			git -c 'url.scheme://authority/path/.insteadOf=file:///' ls-remote --get-url 'file://'"$(realpath '.')"'/server/repo.git'
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>

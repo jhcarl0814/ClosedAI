@@ -2,9 +2,11 @@
 	<h2 class="heading2"><span class="command">git push [--tags]</span><br><span class="command">git push --branches</span><br><span class="command">git push --mirror</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server11' './server12' './server13' './server14' './server2' './server3' './client';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server11' './server12' './server13' './server14' './server2' './server3' './client';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server11' init --bare './repo.git'
 			git -C './server12' init --bare './repo.git'
 			git -C './server13' init --bare './repo.git'
@@ -41,7 +43,8 @@
 
 			git -C './client/repo' push --mirror server3
 			git -C './server3/repo.git' lg --all
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -52,9 +55,11 @@
 		<div>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './server' './client1' './client2';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './server' './client1' './client2';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './server' init --bare './repo.git'
 					git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 					git -C './server/repo.git' lg --all
@@ -83,16 +88,19 @@
 					git -C './client1/repo' push --force-with-lease
 					git -C './client1/repo' lg --all
 					git -C './server/repo.git' lg --all
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
 		<div>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './server' './client1' './client2';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './server' './client1' './client2';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './server' init --bare './repo.git'
 					git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 					git -C './server/repo.git' lg --all
@@ -131,7 +139,8 @@
 					git -C './client1/repo' push --force-with-lease
 					git -C './client1/repo' lg --all
 					git -C './server/repo.git' lg --all
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -142,9 +151,11 @@
 	<h2 class="heading2"><span class="command">git push --force-with-lease=&lt;refname&gt;:&lt;expect&gt;</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client1' './client2';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client1' './client2';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 			git -C './server/repo.git' lg --all
@@ -180,7 +191,8 @@
 			git -C './client1/repo' push --force-with-lease="$branch_default_name"':HEAD@{upstream}'
 			git -C './client1/repo' lg --all
 			git -C './server/repo.git' lg --all
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -189,9 +201,11 @@
 	<h2 class="heading2"><span class="command">git push --prune</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 
 			git -C './client' init './repo'
@@ -215,7 +229,8 @@
 			git -C './client/repo' branch --list --all --verbose --verbose
 			git -C './client/repo' tag --list
 			git -C './server/repo.git' lg --all
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -224,9 +239,11 @@
 	<h2 class="heading2"><span class="command">git push --follow-tags/--no-follow-tags</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server1' './server2' './server3' './server4' './client';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server1' './server2' './server3' './server4' './client';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server1' init --bare './repo.git'
 			git -C './server2' init --bare './repo.git'
 			git -C './server3' init --bare './repo.git'
@@ -255,7 +272,8 @@
 			git -C './client/repo' push --no-follow-tags server4 branch1
 			git -C './client/repo' push --no-follow-tags server4 branch2
 			git -C './server4/repo.git' lg --all
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -266,9 +284,11 @@
 		<div>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './server' './client';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './server' './client';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './server' init --bare './repo.git'
 
 					git -C './client' init './repo'
@@ -280,7 +300,8 @@
 					git -C './client/repo' push 'file://'"$(realpath './server/repo.git')" 'refs/heads/branch*:refs/heads/branch*' branch1 branch2
 					git -C './client/repo' config list --local --show-scope --show-origin
 					git -C './client/repo' branch --list --all --verbose --verbose
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -288,9 +309,11 @@
 			<h3 class="heading3">"refs to push to remote" are set to track "remote refs to update"</h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './server' './client';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './server' './client';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './server' init --bare './repo.git'
 
 					git -C './client' init './repo'
@@ -302,7 +325,8 @@
 					git -C './client/repo' push --set-upstream 'file://'"$(realpath './server/repo.git')" 'refs/heads/branch*:refs/heads/branch*' branch1 branch2
 					git -C './client/repo' config list --local --show-scope --show-origin
 					git -C './client/repo' branch --list --all --verbose --verbose
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -310,9 +334,11 @@
 			<h3 class="heading3">remote tracking branches are created according to <span class="command">git fetch</span>'s "local refs to update"</h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './server' './client';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './server' './client';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './server' init --bare './repo.git'
 
 					git -C './client' init './repo'
@@ -324,7 +350,8 @@
 					git -C './client/repo' push server 'refs/heads/branch*:refs/heads/branch*' branch1 branch2
 					git -C './client/repo' config list --local --show-scope --show-origin
 					git -C './client/repo' branch --list --all --verbose --verbose
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -332,9 +359,11 @@
 			<h3 class="heading3">remote tracking branches are created according to <span class="command">git fetch</span>'s "local refs to update"<br>"refs to push to remote" are set to track "remote refs to update"</h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './server' './client';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './server' './client';
+EOF0
+				) <(cat <<'EOF0'
 					git -C './server' init --bare './repo.git'
 
 					git -C './client' init './repo'
@@ -346,7 +375,8 @@
 					git -C './client/repo' push --set-upstream server 'refs/heads/branch*:refs/heads/branch*' branch1 branch2
 					git -C './client/repo' config list --local --show-scope --show-origin
 					git -C './client/repo' branch --list --all --verbose --verbose
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -357,9 +387,11 @@
 	<h2 class="heading2"><span class="command">git push</span> remote to push to</h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server1' './server2' './client';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server1' './server2' './client';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server1' init --bare './repo.git'
 			git -C './server2' init --bare './repo.git'
 
@@ -404,7 +436,8 @@
 			git -C './client/repo' commit --message="$((++number))" --allow-empty
 			git -C './client/repo' push server1
 			git -C './server1/repo.git' lg --all
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -413,9 +446,11 @@
 	<h2 class="heading2"><span class="command">git push</span> refs to push to remote</h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 
 			git -C './client' init './repo'
@@ -485,7 +520,8 @@
 			git -C './client/repo' commit --message="$((++number))" --allow-empty
 			git -C './client/repo' push server "$branch_default_name"'1' 'refs/heads/'"$branch_default_name"'1:refs/heads/'"$branch_default_name"'3'
 			git -C './server/repo.git' lg --all
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -494,9 +530,11 @@
 	<h2 class="heading2"><span class="command">git push</span> remote refs to update</h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 
 			git -C './client' init './repo'
@@ -540,7 +578,8 @@
 			git -C './client/repo' commit --message="$((++number))" --allow-empty; git -C './client/repo' branch --force branch1; git -C './client/repo' branch --force branch2
 			git -C './client/repo' push server 'refs/heads/branch*:refs/heads/branch*3' 'refs/heads/branch*:refs/heads/branch*4' branch1
 			git -C './server/repo.git' lg --all
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>

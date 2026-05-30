@@ -227,6 +227,24 @@
 				<div class="form_item"><input type="radio" id="git_rebase_signoff_no_option" name="git_rebase_signoff" value="" checked><label for="git_rebase_signoff_no_option">(Defaults to <span class="command">--no-signoff</span>.)</label></div>
 				<div class="form_item"><input type="radio" id="git_rebase_signoff_has_signoff" name="git_rebase_signoff" value="true"><label for="git_rebase_signoff_has_signoff"><span class="command">--signoff</span> Add a <span class="inline_code">Signed-off-by</span> trailer to all the rebased commits.</label></div>
 				<div class="form_item"><input type="radio" id="git_rebase_signoff_has_no_signoff" name="git_rebase_signoff" value="false"><label for="git_rebase_signoff_has_no_signoff"><span class="command">--no-signoff</span></label></div>
+				<fieldset>
+					<legend><p><span class="command">--trailer=&lt;trailer&gt;</span> Append the given trailer to every rebased commit message, processed via <span class="command">git-interpret-trailers</span>. Implies <span class="command">--force-rebase</span>.</p></legend>
+					<input id="git_rebase_trailer_list_add" type="button" value="Add">
+					<div id="git_rebase_trailer_list" class="subform"></div>
+					<script>
+						document.getElementById("git_rebase_trailer_list_add").addEventListener("click",function(e){
+							document.getElementById("git_rebase_trailer_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_rebase_refresh);
+								checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_rebase_refresh(); });
+								div.append(checkbox, textarea);
+								return div;
+							})());
+							git_rebase_refresh();
+						})
+					</script>
+				</fieldset>
 			</fieldset>
 
 			<fieldset>
@@ -511,6 +529,12 @@
 							command_components.push("--signoff");
 							break;
 					}
+					Array.from(document.getElementById("git_rebase_trailer_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push("--trailer=" + shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
 					switch(form_data.get("git_rebase_gpg_sign")){
 						case "no_gpg_sign":
 							command_components.push("--no-gpg-sign");

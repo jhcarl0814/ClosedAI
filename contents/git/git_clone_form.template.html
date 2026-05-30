@@ -17,7 +17,7 @@
 		<fieldset>
 			<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_progress~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_progress')"><p>progress reporting:</p></legend>
 			<div class="form_item"><input type="radio" id="git_clone_progress_quiet" name="git_clone_progress" value="quiet"><label for="git_clone_progress_quiet"><span class="command">--quiet</span> Operate quietly. Progress is not reported to the standard error stream.</label></div>
-			<div class="form_item"><input type="radio" id="git_clone_progress_no_option" name="git_clone_progress" value="no_option" checked><label for="git_clone_progress_no_option">Progress status is reported on the standard error stream when it is attached to a terminal.</label></div>
+			<div class="form_item"><input type="radio" id="git_clone_progress_no_option" name="git_clone_progress" value="no_option" checked><label for="git_clone_progress_no_option">Report progress status on the standard error stream when attached to a terminal</label></div>
 			<div class="form_item"><input type="radio" id="git_clone_progress_progress" name="git_clone_progress" value="progress"><label for="git_clone_progress_progress"><span class="command">--progress</span> Forces progress status even if the standard error stream is not directed to a terminal.</label></div>
 		</fieldset>
 		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_verbose~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_verbose')"><input type="checkbox" id="git_clone_has_verbose" name="git_clone_has_verbose"><label for="git_clone_has_verbose"><span class="command">--verbose</span> Run verbosely. Does not affect the reporting of progress status to the standard error stream.</label></div>
@@ -77,7 +77,7 @@
 			<legend><p>initial state:</p></legend>
 			<fieldset>
 				<legend><p>checkout (no <span class="command">--bare</span>/<span class="command">--mirror</span>):</p></legend>
-				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_checkout~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_checkout')"><input type="checkbox" id="git_clone_checkout_has_no_checkout" name="git_clone_checkout_has_no_checkout"><label for="git_clone_checkout_has_no_checkout"><span class="command">--no-checkout</span> No checkout of <span class="inline_code">HEAD</span> is performed after the clone is complete.</label></div>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_clone\_no\_checkout~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_clone_no_checkout')"><input type="checkbox" id="git_clone_checkout_has_no_checkout" name="git_clone_checkout_has_no_checkout"><label for="git_clone_checkout_has_no_checkout"><span class="command">--no-checkout</span> Do not checkout <span class="inline_code">HEAD</span> after the clone is complete.</label></div>
 				<div class="form_item"><input type="checkbox" id="git_clone_checkout_has_sparse" name="git_clone_checkout_has_sparse"><label for="git_clone_checkout_has_sparse"><span class="command">--sparse</span> Employ a sparse-checkout, with only files in the toplevel directory initially being present.</label></div>
 			</fieldset>
 
@@ -130,7 +130,7 @@
 				<div class="form_item">
 					<input type="radio" id="git_clone_HEAD_has_branch" name="git_clone_HEAD" value="has_branch">
 					<div class="subform basis-0 grow">
-						<label for="git_clone_HEAD_has_branch"><span class="command">--branch=&lt;name&gt;</span> Instead of pointing the newly created <span class="inline_code">HEAD</span> to the branch pointed to by the cloned repository’s <span class="inline_code">HEAD</span>, point to <span class="command">&lt;name&gt;</span> branch instead.</label>
+						<label for="git_clone_HEAD_has_branch"><span class="command">--branch=&lt;name&gt;</span> Point the newly created <span class="inline_code">HEAD</span> to <span class="command">&lt;name&gt;</span> branch instead of the branch pointed to by the cloned repository’s <span class="inline_code">HEAD</span>.</label>
 						<div class="form_item"><label for="git_clone_HEAD_branch"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_clone_HEAD_branch" name="git_clone_HEAD_branch" class="basis-0 grow command_input" value="master"></div>
 					</div>
 				</div>
@@ -266,7 +266,7 @@
 			<div class="form_item">
 				<input type="checkbox" id="git_clone_has_upload_pack" name="git_clone_has_upload_pack">
 				<div class="subform basis-0 grow">
-					<label for="git_clone_has_upload_pack"><span class="command">--upload-pack=&lt;upload-pack&gt;</span> When the repository to clone from is accessed via ssh, specifies a non-default path for the command run on the other end. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameuploadpack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.uploadpack</span></a>.)</label>
+					<label for="git_clone_has_upload_pack"><span class="command">--upload-pack=&lt;upload-pack&gt;</span> Specify a non-default path for the command run on the other end when the repository to clone from is accessed via ssh. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-remotenameuploadpack"><span class="inline_code">remote.<span class="command">&lt;name&gt;</span>.uploadpack</span></a>.)</label>
 					<div class="form_item"><label for="git_clone_upload_pack"><span class="command">&lt;upload-pack&gt;</span>:</label><textarea wrap="off" id="git_clone_upload_pack" name="git_clone_upload_pack" class="basis-0 grow command_input"></textarea></div>
 				</div>
 			</div>

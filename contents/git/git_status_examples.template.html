@@ -2,9 +2,11 @@
 	<h2 class="heading2"><span class="command">git status --long</span><br><span class="command">git status --short</span><br><span class="command">git status --short --branch</span><br><span class="command">git status --porcelain=v1</span><br><span class="command">git status --porcelain=v1 --branch</span><br><span class="command">git status --porcelain=v2</span><br><span class="command">git status --porcelain=v2 --branch</span><br></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 			git -C './repo' status
 			git -C './repo' status --long
@@ -63,7 +65,8 @@
 			git -C './repo' status --porcelain=v1 --branch
 			git -C './repo' status --porcelain=v2
 			git -C './repo' status --porcelain=v2 --branch
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -71,9 +74,11 @@
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_status~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_z~*_&]:block">
 	<h2 class="heading2"><span class="command">git status -z</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 
 			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir'; touch -- './repo/untracked' './repo/untracked_dir/untracked'
@@ -98,7 +103,8 @@
 			git -C './repo' status --porcelain=v2 -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 			git -C './repo' status --porcelain=v2 --branch | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
 			git -C './repo' status --porcelain=v2 --branch -z | special_character_to_escape_sequence_preserve_line_ending | cat_with_line_number
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
 </div>
@@ -106,9 +112,11 @@
 	<h2 class="heading2"><span class="command">git status --ahead-behind</span><br><span class="command">git status --no-ahead-behind</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './server' './client';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './server' './client';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './server' init --bare './repo.git'
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
 			git --git-dir='./server/repo.git' --work-tree='.' commit --message="$((++number))" --allow-empty
@@ -132,7 +140,8 @@
 			git -C './client/repo' status --porcelain=v2 --ahead-behind
 			git -C './client/repo' status --porcelain=v2 --branch
 			git -C './client/repo' status --porcelain=v2 --branch --no-ahead-behind
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -141,9 +150,11 @@
 	<h2 class="heading2"><span class="command">git status --untracked-files=&lt;mode&gt;</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 
 			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir'; touch -- './repo/untracked' './repo/untracked_dir/untracked'
@@ -164,7 +175,8 @@
 			git -C './repo' status --porcelain=v2 --untracked-files=all
 			git -C './repo' status --porcelain=v2 --untracked-files=normal
 			git -C './repo' status --porcelain=v2 --untracked-files=no
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -173,9 +185,11 @@
 	<h2 class="heading2"><span class="command">git status --ignored=&lt;mode&gt;</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 
 			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir_empty_excluded' './repo/untracked_dir' './repo/untracked_dir_excluded'; touch -- './repo/untracked' './repo/untracked_excluded' './repo/untracked_dir/untracked' './repo/untracked_dir/untracked_excluded' './repo/untracked_dir_excluded/untracked' './repo/untracked_dir_excluded/untracked_excluded'
@@ -197,7 +211,8 @@
 			git -C './repo' status --porcelain=v2 --ignored=no
 			git -C './repo' status --porcelain=v2 --ignored=matching
 			git -C './repo' status --porcelain=v2 --ignored=traditional
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -205,9 +220,11 @@
 <div class="hidden [#reference\_desk\_dispatcher\_example.git\_status~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_untracked\_files~*_&]:block [#reference\_desk\_dispatcher\_example.git\_status\_ignored~*_&]:block">
 	<h2 class="heading2"><span class="command">git status --untracked-files=&lt;mode&gt;</span><br><span class="command">git status --ignored=&lt;mode&gt;</span></h2>
 	{{
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 
 			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir_empty_excluded' './repo/untracked_dir' './repo/untracked_dir_excluded'; touch -- './repo/untracked' './repo/untracked_excluded' './repo/untracked_dir/untracked' './repo/untracked_dir/untracked_excluded' './repo/untracked_dir_excluded/untracked' './repo/untracked_dir_excluded/untracked_excluded'
@@ -218,7 +235,8 @@
 
 			echo '*_excluded' >'./repo/.gitignore'
 			treex '.' -not -regex './repo/.git/hooks/.*' -regextype 'posix-extended'
-		EOF0
+EOF0
+		) '/dev/null';
 	}}
 	<div><input type="radio" id="git_status_example_untracked_files_ignored_untracked_files" name="git_status_example_untracked_files_ignored" value="untracked_files" checked><label for="git_status_example_untracked_files_ignored_untracked_files"><span class="command">--untracked-files=&lt;mode&gt;</span></label></div>
 	<div><input type="radio" id="git_status_example_untracked_files_ignored_ignored" name="git_status_example_untracked_files_ignored" value="ignored"><label for="git_status_example_untracked_files_ignored_ignored"><span class="command">--ignored=&lt;mode&gt;</span></label></div>
@@ -227,10 +245,13 @@
 			<h3 class="heading3"><span class="command">--untracked-files=no</span><br><span class="command">--ignored=no</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd "./test_git";
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd "./test_git";
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' status --short --untracked-files=no --ignored=no
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -238,10 +259,13 @@
 			<h3 class="heading3"><span class="command">--untracked-files=no</span><br><span class="command">--ignored=matching</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd "./test_git";
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd "./test_git";
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' status --short --untracked-files=no --ignored=matching
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -249,10 +273,13 @@
 			<h3 class="heading3"><span class="command">--untracked-files=no</span><br><span class="command">--ignored=traditional</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd "./test_git";
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd "./test_git";
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' status --short --untracked-files=no --ignored=traditional
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -260,10 +287,13 @@
 			<h3 class="heading3"><span class="command">--untracked-files=normal</span><br><span class="command">--ignored=no</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd "./test_git";
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd "./test_git";
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' status --short --untracked-files=normal --ignored=no
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -271,10 +301,13 @@
 			<h3 class="heading3"><span class="command">--untracked-files=normal</span><br><span class="command">--ignored=matching</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd "./test_git";
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd "./test_git";
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' status --short --untracked-files=normal --ignored=matching
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -282,10 +315,13 @@
 			<h3 class="heading3"><span class="command">--untracked-files=normal</span><br><span class="command">--ignored=traditional</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd "./test_git";
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd "./test_git";
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' status --short --untracked-files=normal --ignored=traditional
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -293,10 +329,13 @@
 			<h3 class="heading3"><span class="command">--untracked-files=all</span><br><span class="command">--ignored=no</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd "./test_git";
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd "./test_git";
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' status --short --untracked-files=all --ignored=no
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -304,10 +343,13 @@
 			<h3 class="heading3"><span class="command">--untracked-files=all</span><br><span class="command">--ignored=matching</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd "./test_git";
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd "./test_git";
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' status --short --untracked-files=all --ignored=matching
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -315,10 +357,13 @@
 			<h3 class="heading3"><span class="command">--untracked-files=all</span><br><span class="command">--ignored=traditional</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd "./test_git";
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd "./test_git";
+EOF0
+				) <(cat <<'EOF0'
 					git -C './repo' status --short --untracked-files=all --ignored=traditional
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -329,9 +374,11 @@
 	<h2 class="heading2"><span class="command">git status --long --show-stash</span><br><span class="command">git status --porcelain=v2 --show-stash</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 			echo -e '1\n2\n5' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 			echo -e '1\n3\n5' >'./repo/file'; git -C './repo' add './file'
@@ -355,7 +402,8 @@
 			git -C './repo' status --short --show-stash
 			git -C './repo' status --porcelain=v1 --show-stash
 			git -C './repo' status --porcelain=v2 --show-stash
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -364,9 +412,11 @@
 	<h2 class="heading2"><span class="command">git status --long --verbose</span><br><span class="command">git status --long --verbose --verbose</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git -C './repo' init
 
 			mkdir --parents -- './repo/untracked_dir_empty' './repo/untracked_dir'; touch -- './repo/untracked' './repo/untracked_dir/untracked'
@@ -378,7 +428,8 @@
 			git -C './repo' status --long
 			git -C './repo' status --long --verbose
 			git -C './repo' status --long --verbose --verbose
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>

@@ -1,0 +1,54 @@
+#!/bin/bash
+
+if [ -z "$mintty_html_dump_temp_dir" ]; then
+    exit 1;
+fi
+
+cd "$mintty_html_dump_temp_dir";
+rm --force --recursive -- "$mintty_html_dump_temp_dir"/{*,.*};
+(
+	echo 'export PATH="$PATH:'"$(printf '%q' "$(dirname -- $(dirname -- "${BASH_SOURCE[0]}"))")"'/awk_expand_commands:'"$(printf '%q' "$(dirname -- $(dirname -- "${BASH_SOURCE[0]}"))")"'/tree:'"$(printf '%q' "$(dirname -- $(dirname -- "${BASH_SOURCE[0]}"))")"'/awk_remove_heredoc_leading_spaces:'"$(printf '%q' "$(dirname -- $(dirname -- "${BASH_SOURCE[0]}"))")"'/mintty_html_dump";';
+
+	echo 'function ls() { command ls --color=always "$@"; }';
+	echo 'export -f ls;';
+
+	echo 'export GIT_PAGER='\''cat'\''';
+
+	cat "$1" | awk_remove_heredoc_leading_spaces;
+	echo '"$SHELL" -i <<'\''EOF_commands'\''';
+	echo 'bind '\''set disable-completion on'\'';';
+	echo 'clear';
+	cat "$2" | awk_remove_heredoc_leading_spaces;
+	echo -e 'EOF_commands';
+	echo 'echo -e '\''\e[10;8i'\'';';
+
+	cat "$3" | awk_remove_heredoc_leading_spaces;
+) >'./1.bash';
+/git-bash.exe './1.bash';
+
+line_before_begin="$(printf '%s\0' "$mintty_html_dump_temp_dir" | find -files0-from - -mindepth 1 -maxdepth 1 -regex '.*/mintty\.[^/]*\.html' -printf '%p\0' | xargs --null -- grep --null --line-number --regexp='^\s*<div class=background id='\''vt100'\''>\s*$' | head --zero-terminated --lines=1 | sed --zero-terminated --expression='s/:.*//g')";
+line_end="$(printf '%s\0' "$mintty_html_dump_temp_dir" | find -files0-from - -mindepth 1 -maxdepth 1 -regex '.*/mintty\.[^/]*\.html' -printf '%p\0' | xargs --null -- grep --null --line-number --regexp='^\s*</div>\s*$' | tail --zero-terminated --lines=1 | sed --zero-terminated --expression='s/:.*//g')";
+printf '%s\0' "$mintty_html_dump_temp_dir" | find -files0-from - -mindepth 1 -maxdepth 1 -regex '.*/mintty\.[^/]*\.html' -printf '%p\0' | xargs --null -- cat | tail --lines=+"$((line_before_begin+1))" | head --lines=+"$((line_end-(line_before_begin+1)))";
+
+# mintty_html_dump <(cat <<'EOF'
+	# cat <<'EOF_file' >1.txt
+		# a	a
+				# b	b
+			# c	c
+	# EOF_file
+# EOF
+# ) <(cat <<'EOF'
+	# cat <<'EOF_file' >2.txt
+		# d	d
+				# e	e
+			# f	f
+	# EOF_file
+# EOF
+# ) <(cat <<'EOF'
+	# cat <<'EOF_file' >3.txt
+		# g	g
+				# h	h
+			# i	i
+	# EOF_file
+# EOF
+# )

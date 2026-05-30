@@ -5,9 +5,11 @@
 			<h3 class="heading3"><span class="command">git reset -- ???</span>: when <span class="command">--patch</span> or <span class="command">&lt;pathspec&gt;…</span> are given, use first action (equivalent to <span class="command">git reset HEAD -- ???</span>)</h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/HEAD~1'; echo '1' >'./repo/file'; git -C './repo' add './HEAD~1' './file'; git -C './repo' commit --message="$((++number))"
 					echo '2' >'./repo/HEAD~1'; echo '2' >'./repo/file'; git -C './repo' add './HEAD~1' './file'; git -C './repo' commit --message="$((++number))"
@@ -20,7 +22,8 @@
 					git -C './repo' ls-files --stage --others
 					git -C './repo' status --verbose --verbose
 					git -C './repo' lg --all --patch
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -28,9 +31,11 @@
 			<h3 class="heading3"><span class="command">git reset ??? --</span>: when no <span class="command">--patch</span> or <span class="command">&lt;pathspec&gt;…</span> are given, use second action (equivalent to <span class="command">git reset --mixed ???</span>, not equivalent to <span class="command">git reset ??? -- (all files)</span>)</h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/HEAD~1'; echo '1' >'./repo/file'; git -C './repo' add './HEAD~1' './file'; git -C './repo' commit --message="$((++number))"
 					echo '2' >'./repo/HEAD~1'; echo '2' >'./repo/file'; git -C './repo' add './HEAD~1' './file'; git -C './repo' commit --message="$((++number))"
@@ -43,7 +48,8 @@
 					git -C './repo' ls-files --stage --others
 					git -C './repo' status --verbose --verbose
 					git -C './repo' lg --all --patch ORIG_HEAD
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -51,9 +57,11 @@
 			<h3 class="heading3"><span class="command">git reset ??? -- (all files)</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/HEAD~1'; echo '1' >'./repo/file'; git -C './repo' add './HEAD~1' './file'; git -C './repo' commit --message="$((++number))"
 					echo '2' >'./repo/HEAD~1'; echo '2' >'./repo/file'; git -C './repo' add './HEAD~1' './file'; git -C './repo' commit --message="$((++number))"
@@ -66,7 +74,8 @@
 					git -C './repo' ls-files --stage --others
 					git -C './repo' status --verbose --verbose
 					git -C './repo' lg --all --patch
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -77,9 +86,11 @@
 	<h2 class="heading2"><span class="command">git reset --soft</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 			echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -92,7 +103,8 @@
 			git -C './repo' ls-files --stage --others
 			git -C './repo' status --verbose --verbose
 			git -C './repo' lg --all --patch ORIG_HEAD
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -101,9 +113,11 @@
 	<h2 class="heading2"><span class="command">git reset --mixed</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 			echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -116,7 +130,8 @@
 			git -C './repo' ls-files --stage --others
 			git -C './repo' status --verbose --verbose
 			git -C './repo' lg --all --patch ORIG_HEAD
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -128,9 +143,11 @@
 			<h3 class="heading3"><span class="command">git reset --mixed</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					git -C './repo' commit --message="$((++number))" --allow-empty
 					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -143,7 +160,8 @@
 					git -C './repo' ls-files --stage --others
 					git -C './repo' status --verbose --verbose
 					git -C './repo' lg --all --patch ORIG_HEAD
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -151,9 +169,11 @@
 			<h3 class="heading3"><span class="command">git reset --mixed --intent-to-add</span></h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					git -C './repo' commit --message="$((++number))" --allow-empty
 					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -166,7 +186,8 @@
 					git -C './repo' ls-files --stage --others
 					git -C './repo' status --verbose --verbose
 					git -C './repo' lg --all --patch ORIG_HEAD
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -177,9 +198,11 @@
 	<h2 class="heading2"><span class="command">git reset --hard</span></h2>
 	{{
 		git config set --system --all 'color.ui' 'always';
-		cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-		mkdir --parents -- './repo';
-		"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+			mkdir --parents -- './repo';
+EOF0
+		) <(cat <<'EOF0'
 			git init './repo'
 			echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 			echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -192,7 +215,8 @@
 			git -C './repo' ls-files --stage --others
 			git -C './repo' status --verbose --verbose
 			git -C './repo' lg --all --patch ORIG_HEAD
-		EOF0
+EOF0
+		) '/dev/null';
 		git config unset --system --all 'color.ui';
 	}}
 	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
@@ -545,9 +569,11 @@
 			<h3 class="heading3">staged changes in index preventing reset<br>e.g. 1 2 3 3 => error</h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -557,7 +583,8 @@
 					git -C './repo' status --verbose --verbose
 					git -C './repo' lg --all --patch
 					git -C './repo' reset --keep HEAD~1
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -565,9 +592,11 @@
 			<h3 class="heading3">edited files in working tree preventing reset<br>e.g. 1 2 2 1 => error</h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -577,7 +606,8 @@
 					git -C './repo' status --verbose --verbose
 					git -C './repo' lg --all --patch
 					git -C './repo' reset --keep HEAD~1
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -585,9 +615,11 @@
 			<h3 class="heading3">unedited files in working tree reset with <span class="inline_code">HEAD</span> and index (<span class="command">git reset --mixed</span> doesn't have this)<br>e.g. 1 2 2 2 -> 1 1 1 1 (1 + "(no changes)" = 1)</h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -600,7 +632,8 @@
 					git -C './repo' ls-files --stage --others
 					git -C './repo' status --verbose --verbose
 					git -C './repo' lg --all --patch ORIG_HEAD
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -608,9 +641,11 @@
 			<h3 class="heading3">unrelated files (same between <span class="command">&lt;commit&gt;</span> and <span class="inline_code">HEAD</span>) behaves like <span class="command">git reset --mixed</span>: index lost, working tree untouched<br>e.g. 1 1 2 3 -> 1 1 1 3 (index entry (pointing to "2") lost)</h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))" --allow-empty
@@ -623,7 +658,8 @@
 					git -C './repo' ls-files --stage --others
 					git -C './repo' status --verbose --verbose
 					git -C './repo' lg --all --patch ORIG_HEAD
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -981,9 +1017,11 @@
 			<h3 class="heading3">unmerged files in working tree reset with <span class="inline_code">HEAD</span> and index (You're more likely to want: <span class="command">git merge --abort</span>)<br>e.g. 1 2 3->4/5 6 -> 1 1 1 1</h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					branch_default_path="$(git -C './repo' symbolic-ref HEAD)"; echo "$branch_default_path"
 					branch_default_name="$(git -C './repo' branch --show-current)"; echo "$branch_default_name"
@@ -1016,7 +1054,8 @@
 					git -C './repo' diff --ours
 					git -C './repo' diff --theirs
 					git -C './repo' diff AUTO_MERGE
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -1024,9 +1063,11 @@
 			<h3 class="heading3">edited files in working tree preventing reset<br>e.g. 1 2 2 1 => error</h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -1036,7 +1077,8 @@
 					git -C './repo' status --verbose --verbose
 					git -C './repo' lg --all --patch
 					git -C './repo' reset --merge HEAD~1
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -1044,9 +1086,11 @@
 			<h3 class="heading3">unedited files in working tree reset with <span class="inline_code">HEAD</span> and index (<span class="command">git reset --mixed</span> doesn't have this)<br>e.g. 1 2 2 2 -> 1 1 1 1 (1 + "(no changes)" = 1)</h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 					echo '2' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
@@ -1059,7 +1103,8 @@
 					git -C './repo' ls-files --stage --others
 					git -C './repo' status --verbose --verbose
 					git -C './repo' lg --all --patch ORIG_HEAD
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
@@ -1067,9 +1112,11 @@
 			<h3 class="heading3">edits to unrelated files (same between <span class="command">&lt;commit&gt;</span> and <span class="inline_code">HEAD</span>) are preserved (behaves like <span class="command">git reset --mixed</span>)<br>e.g. 1 1 1 2 -> 1 1 1 2 (1 + "1 -> 2" = 2)</h3>
 			{{
 				git config set --system --all 'color.ui' 'always';
-				cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
-				mkdir --parents -- './repo';
-				"$SHELL" -i 0<<-'EOF0' 2>&1 | ansi2html_pre
+				mintty_html_dump <(cat <<'EOF0'
+					cd '/'; cd '/'; rm --force --recursive -- './test_git'; mkdir "$_"; cd "$_";
+					mkdir --parents -- './repo';
+EOF0
+				) <(cat <<'EOF0'
 					git init './repo'
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))"
 					echo '1' >'./repo/file'; git -C './repo' add './file'; git -C './repo' commit --message="$((++number))" --allow-empty
@@ -1082,7 +1129,8 @@
 					git -C './repo' ls-files --stage --others
 					git -C './repo' status --verbose --verbose
 					git -C './repo' lg --all --patch ORIG_HEAD
-				EOF0
+EOF0
+				) '/dev/null';
 				git config unset --system --all 'color.ui';
 			}}
 		</div>
