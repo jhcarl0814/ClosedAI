@@ -1,0 +1,26 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_version~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_version~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_version')">git version</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-version">https://git-scm.com/docs/git-version</a></p>
+	<p class="paragraph">Display version information about Git.</p>
+	<form id="git_version_form">
+		<div class="form_item"><input type="checkbox" id="git_version_has_build_options" name="git_version_has_build_options"><label for="git_version_has_build_options"><span class="command">--build-options</span> Include additional information about how git was built for diagnostic purposes.</label></div>
+	</form>
+	<textarea readonly wrap="off" id="git_version_command" name="git_version_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_version_refresh(){
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("version");
+
+			let form_data = new FormData(document.getElementById("git_version_form"));
+			if(form_data.get("git_version_has_build_options"))
+				command_components.push("--build-options");
+
+			let git_version_command = document.getElementById("git_version_command");
+			git_version_command.classList.toggle("error_output", has_error);
+			git_version_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_version_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_version_refresh);
+		});
+	</script>
+</div>

@@ -1,0 +1,269 @@
+<details class="hidden [#reference\_desk\_dispatcher\_form.git\_with\_command~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<summary class="cursor-pointer marker:text-[180%]">
+		<h1 class="heading1 inline"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command~*_&]:[outline:dashed_2px_#0000FF] cursor-text" onmousedown="reference_desk_widget_mousepressed('git_with_command')" onclick="window.event.preventDefault()">git &lt;command&gt; [&lt;args&gt;]</span></h1>
+	</summary>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git">https://git-scm.com/docs/git</a></p>
+	<form id="git_with_command_form">
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_exec\_path~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_exec_path')">
+			<input type="checkbox" id="git_with_command_has_exec_path" name="git_with_command_has_exec_path">
+			<div class="subform basis-0 grow">
+				<label for="git_with_command_has_exec_path"><span class="command">--exec-path=&lt;path&gt;</span> Path to wherever your core Git programs are installed.</label>
+				<div class="form_item"><label for="git_with_command_exec_path"><span class="command">&lt;path&gt;</span>:</label><textarea wrap="off" id="git_with_command_exec_path" name="git_with_command_exec_path" class="basis-0 grow command_input"></textarea></div>
+			</div>
+		</div>
+		<fieldset>
+			<legend><p>configuration:</p></legend>
+			<fieldset>
+				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_config~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_config')"><p><span class="command">-c &lt;name&gt;=&lt;value&gt;</span> Pass a configuration parameter to the command.</p></legend>
+				<input id="git_with_command_config_list_add" type="button" value="Add">
+				<div id="git_with_command_config_list" class="subform"></div>
+				<script>
+					document.getElementById("git_with_command_config_list_add").addEventListener("click",function(e){
+						document.getElementById("git_with_command_config_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_command_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_command_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_command_refresh();
+					})
+				</script>
+			</fieldset>
+			<fieldset>
+				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_config\_env~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_config_env')"><p><span class="command">--config-env=&lt;name&gt;=&lt;env_var_name&gt;</span> Give configuration variable <span class="command">&lt;name&gt;</span> a value, where <span class="command">&lt;env_var_name&gt;</span> is the name of an environment variable from which to retrieve the value.</p></legend>
+				<input id="git_with_command_config_env_list_add" type="button" value="Add">
+				<div id="git_with_command_config_env_list" class="subform"></div>
+				<script>
+					document.getElementById("git_with_command_config_env_list_add").addEventListener("click",function(e){
+						document.getElementById("git_with_command_config_env_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_command_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_command_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_command_refresh();
+					})
+				</script>
+			</fieldset>
+			<div class="form_item">
+				<input type="checkbox" id="git_with_command_has_attr_source" name="git_with_command_has_attr_source">
+				<div class="subform basis-0 grow">
+					<label for="git_with_command_has_attr_source"><span class="command">--attr-source=&lt;tree-ish&gt;</span> Read gitattributes from <span class="command">&lt;tree-ish&gt;</span> instead of the worktree.</label>
+					<div class="form_item"><label for="git_with_command_attr_source"><span class="command">&lt;tree-ish&gt;</span>:</label><textarea wrap="off" id="git_with_command_attr_source" name="git_with_command_attr_source" class="basis-0 grow command_input"></textarea></div>
+				</div>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend><p>scope:</p></legend>
+			<fieldset>
+				<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_current\_working\_directory~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_current_working_directory')"><p><span class="command">-C &lt;path&gt;</span> Run as if git was started in <span class="command">&lt;path&gt;</span> instead of the current working directory.</p></legend>
+				<input id="git_with_command_current_working_directory_list_add" type="button" value="Add">
+				<div id="git_with_command_current_working_directory_list" class="subform"></div>
+				<script>
+					document.getElementById("git_with_command_current_working_directory_list_add").addEventListener("click",function(e){
+						document.getElementById("git_with_command_current_working_directory_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_command_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_command_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_command_refresh();
+					})
+				</script>
+			</fieldset>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_git\_dir\_work\_tree~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_git_dir_work_tree')">
+				<input type="checkbox" id="git_with_command_has_git_dir" name="git_with_command_has_git_dir">
+				<div class="subform basis-0 grow">
+					<label for="git_with_command_has_git_dir"><span class="command">--git-dir=&lt;path&gt;</span> Set the path to the repository (".git" directory).</label>
+					<div class="form_item"><label for="git_with_command_git_dir"><span class="command">&lt;path&gt;</span>:</label><textarea wrap="off" id="git_with_command_git_dir" name="git_with_command_git_dir" class="basis-0 grow command_input"></textarea></div>
+				</div>
+			</div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_bare~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_bare')"><input type="checkbox" id="git_with_command_has_bare" name="git_with_command_has_bare"><label for="git_with_command_has_bare"><span class="command">--bare</span> Treat the repository as a bare repository.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_git\_dir\_work\_tree~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_git_dir_work_tree')">
+				<input type="checkbox" id="git_with_command_has_work_tree" name="git_with_command_has_work_tree">
+				<div class="subform basis-0 grow">
+					<label for="git_with_command_has_work_tree"><span class="command">--work-tree=&lt;path&gt;</span> Set the path to the working tree.</label>
+					<div class="form_item"><label for="git_with_command_work_tree"><span class="command">&lt;path&gt;</span>:</label><textarea wrap="off" id="git_with_command_work_tree" name="git_with_command_work_tree" class="basis-0 grow command_input"></textarea></div>
+				</div>
+			</div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_namespace~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_namespace')">
+				<input type="checkbox" id="git_with_command_has_namespace" name="git_with_command_has_namespace">
+				<div class="subform basis-0 grow">
+					<label for="git_with_command_has_namespace"><span class="command">--namespace=&lt;name&gt;</span> Set the Git namespace.</label>
+					<div class="form_item"><label for="git_with_command_namespace"><span class="command">&lt;name&gt;</span>:</label><input type="text" id="git_with_command_namespace" name="git_with_command_namespace" class="basis-0 grow command_input"></div>
+				</div>
+			</div>
+		</fieldset>
+		<div class="form_item"><input type="checkbox" id="git_with_command_has_no_replace_objects" name="git_with_command_has_no_replace_objects"><label for="git_with_command_has_no_replace_objects"><span class="command">--no-replace-objects</span> Do not use replacement refs to replace Git objects.</label></div>
+		<div class="form_item"><input type="checkbox" id="git_with_command_has_no_lazy_fetch" name="git_with_command_has_no_lazy_fetch"><label for="git_with_command_has_no_lazy_fetch"><span class="command">--no-lazy-fetch</span> Do not fetch missing objects from the promisor remote on demand.</label></div>
+		<div class="form_item"><input type="checkbox" id="git_with_command_has_no_optional_locks" name="git_with_command_has_no_optional_locks"><label for="git_with_command_has_no_optional_locks"><span class="command">--no-optional-locks</span> Do not perform optional operations that require locks.</label></div>
+		<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_with\_command\_pathspecs~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_with_command_pathspecs')">
+			<div class="form_item"><input type="checkbox" id="git_with_command_has_literal_pathspecs" name="git_with_command_has_literal_pathspecs"><label for="git_with_command_has_literal_pathspecs"><span class="command">--literal-pathspecs</span> Treat pathspecs literally (i.e. no globbing, no pathspec magic).</label></div>
+			<div class="form_item"><input type="checkbox" id="git_with_command_has_glob_pathspecs" name="git_with_command_has_glob_pathspecs"><label for="git_with_command_has_glob_pathspecs"><span class="command">--glob-pathspecs</span> Add "glob" magic to all pathspec.</label></div>
+			<div class="form_item"><input type="checkbox" id="git_with_command_has_noglob_pathspecs" name="git_with_command_has_noglob_pathspecs"><label for="git_with_command_has_noglob_pathspecs"><span class="command">--noglob-pathspecs</span> Add "literal" magic to all pathspec.</label></div>
+			<div class="form_item"><input type="checkbox" id="git_with_command_has_icase_pathspecs" name="git_with_command_has_icase_pathspecs"><label for="git_with_command_has_icase_pathspecs"><span class="command">--icase-pathspecs</span> Add "icase" magic to all pathspec.</label></div>
+		</div>
+		<fieldset>
+			<legend><p>output:</p></legend>
+			<div class="form_item"><input type="radio" id="git_with_command_paginate_no_option" name="git_with_command_paginate" value="no_option" checked><label for="git_with_command_paginate_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pagercmd"><span class="inline_code">pager.<span class="command">&lt;cmd&gt;</span></span></a>/<span class="command">$GIT_PAGER</span>/<a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-corepager"><span class="inline_code">core.pager</span></a>/<span class="command">$PAGER</span>/the default chosen at compile time (usually <span class="command">less</span>).)</label></div>
+			<div class="form_item"><input type="radio" id="git_with_command_paginate_paginate" name="git_with_command_paginate" value="paginate"><label for="git_with_command_paginate_paginate"><span class="command">--paginate</span> Pipe all output into less (or if set, <span class="command">$PAGER</span>) if standard output is a terminal.</label></div>
+			<div class="form_item"><input type="radio" id="git_with_command_paginate_no_pager" name="git_with_command_paginate" value="no_pager"><label for="git_with_command_paginate_no_pager"><span class="command">--no-pager</span> Do not pipe Git output into a pager.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="checkbox" id="git_with_command_has_no_advice" name="git_with_command_has_no_advice"><label for="git_with_command_has_no_advice"><span class="command">--no-advice</span> Disable all advice hints from being printed.</label></div>
+		</fieldset>
+	</form>
+	<script>
+		function git_with_command_refresh(){
+			document.getElementById("git_with_command_exec_path").disabled = !document.getElementById("git_with_command_has_exec_path").checked;
+			document.getElementById("git_with_command_git_dir").disabled = !document.getElementById("git_with_command_has_git_dir").checked;
+			document.getElementById("git_with_command_has_work_tree").disabled = !(!document.getElementById("git_with_command_has_bare").checked);
+			document.getElementById("git_with_command_work_tree").disabled = !(!document.getElementById("git_with_command_has_bare").checked && document.getElementById("git_with_command_has_work_tree").checked);
+			document.getElementById("git_with_command_namespace").disabled = !document.getElementById("git_with_command_has_namespace").checked;
+			document.getElementById("git_with_command_attr_source").disabled = !document.getElementById("git_with_command_has_attr_source").checked;
+
+			let has_error = false;
+			let command_components = ["git", ];
+
+			let form_data = new FormData(document.getElementById("git_with_command_form"));
+			if(form_data.get("git_with_command_has_exec_path")){
+				let element_value = form_data.get("git_with_command_exec_path"), element_has_error = element_value.length == 0;
+				command_components.push("--exec-path=" + shell_quote(element_value));
+				document.getElementById("git_with_command_exec_path").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			Array.from(document.getElementById("git_with_command_config_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				command_components.push("-c");
+				command_components.push(shell_quote(textarea.value));
+			});
+			Array.from(document.getElementById("git_with_command_config_env_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				command_components.push("--config-env=" + shell_quote(textarea.value));
+			});
+			if(form_data.get("git_with_command_has_attr_source")){
+				let element_value = form_data.get("git_with_command_attr_source"), element_has_error = element_value.length == 0;
+				command_components.push("--attr-source=" + shell_quote(element_value));
+				document.getElementById("git_with_command_attr_source").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			Array.from(document.getElementById("git_with_command_current_working_directory_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				command_components.push("-C");
+				command_components.push(shell_quote(textarea.value));
+			});
+			if(form_data.get("git_with_command_has_git_dir")){
+				let element_value = form_data.get("git_with_command_git_dir"), element_has_error = element_value.length == 0;
+				command_components.push("--git-dir=" + shell_quote(element_value));
+				document.getElementById("git_with_command_git_dir").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(form_data.get("git_with_command_has_bare"))
+				command_components.push("--bare");
+			else{
+				if(form_data.get("git_with_command_has_work_tree")){
+					let element_value = form_data.get("git_with_command_work_tree"), element_has_error = element_value.length == 0;
+					command_components.push("--work-tree=" + shell_quote(element_value));
+					document.getElementById("git_with_command_work_tree").classList.toggle("error_input", element_has_error);
+					has_error ||= element_has_error;
+				}
+			}
+			if(form_data.get("git_with_command_has_namespace")){
+				let element_value = form_data.get("git_with_command_namespace"), element_has_error = element_value.length == 0;
+				command_components.push("--namespace=" + shell_quote(element_value));
+				document.getElementById("git_with_command_namespace").classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			}
+			if(form_data.get("git_with_command_has_no_replace_objects"))
+				command_components.push("--no-replace-objects");
+			if(form_data.get("git_with_command_has_no_lazy_fetch"))
+				command_components.push("--no-lazy-fetch");
+			if(form_data.get("git_with_command_has_no_optional_locks"))
+				command_components.push("--no-optional-locks");
+			if(form_data.get("git_with_command_has_literal_pathspecs"))
+				command_components.push("--literal-pathspecs");
+			if(form_data.get("git_with_command_has_glob_pathspecs"))
+				command_components.push("-glob-pathspecs");
+			if(form_data.get("git_with_command_has_noglob_pathspecs"))
+				command_components.push("--noglob-pathspecs");
+			if(form_data.get("git_with_command_has_icase_pathspecs"))
+				command_components.push("--icase-pathspecs");
+			switch(form_data.get("git_with_command_paginate")){
+				case "paginate":
+					command_components.push("--paginate");
+					break;
+				case "no_pager":
+					command_components.push("--no-pager");
+					break;
+			}
+			if(form_data.get("git_with_command_has_no_advice"))
+				command_components.push("--no-advice");
+
+			return { has_error: has_error, command_components: command_components, };
+		}
+		function git_command_refresh(){
+			let reference_desk_dispatcher_form = document.getElementById("reference_desk_dispatcher_form");
+			if(reference_desk_dispatcher_form.classList.contains("git_version"))
+				git_version_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_config"))
+				git_config_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_var"))
+				git_var_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_standalone"))
+				git_standalone_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_worktree"))
+				git_worktree_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_show_ref"))
+				git_show_ref_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_ls_remote"))
+				git_ls_remote_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_branch"))
+				git_branch_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_tag"))
+				git_tag_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_init"))
+				git_init_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_remote"))
+				git_remote_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_clone"))
+				git_clone_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_fetch"))
+				git_fetch_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_pull"))
+				git_pull_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_push"))
+				git_push_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_add"))
+				git_add_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_commit"))
+				git_commit_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_reset"))
+				git_reset_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_checkout"))
+				git_checkout_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_ls_files"))
+				git_ls_files_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_status"))
+				git_status_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_diff"))
+				git_diff_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_log"))
+				git_log_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_merge"))
+				git_merge_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_rebase"))
+				git_rebase_refresh();
+			if(reference_desk_dispatcher_form.classList.contains("git_help"))
+				git_help_refresh();
+		}
+		Array.from(document.getElementById("git_with_command_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_command_refresh);
+		});
+		Array.from(document.getElementById("git_with_command_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_command_refresh);
+		});
+	</script>
+</details>

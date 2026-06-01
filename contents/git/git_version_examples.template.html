@@ -1,0 +1,14 @@
+<div class="hidden [#reference\_desk\_dispatcher\_example.git\_version~*_&]:block">
+	<h2 class="heading2"><span class="command">git version</span><br><span class="command">git version --build-options</span></h2>
+	{{
+		mintty_html_dump <(cat <<'EOF0'
+			cd '/'; cd '/';
+EOF0
+		) <(cat <<'EOF0'
+			git version
+			git version --build-options
+EOF0
+		) '/dev/null';
+	}}
+	<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+</div>

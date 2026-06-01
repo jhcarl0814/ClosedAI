@@ -1,0 +1,517 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_merge~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_merge~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_merge')">git merge</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-merge">https://git-scm.com/docs/git-merge</a></p>
+	<p class="paragraph">Join two or more development histories together.</p>
+	<form id="git_merge_form">
+		<p>Choose an action to perform:</p>
+		<div class="form_item"><input type="radio" id="git_merge_action_continue" name="git_merge_action" value="continue"><label for="git_merge_action_continue"><span class="command">--continue</span> Conclude the merge after a <span class="command">git merge</span> stops due to conflicts.</label></div>
+		<div class="form_item"><input type="radio" id="git_merge_action_abort" name="git_merge_action" value="abort"><label for="git_merge_action_abort"><span class="command">--abort</span> Abort the current conflict resolution process, and try to reconstruct the pre-merge state. If an autostash entry is present, apply it to the worktree.</label></div>
+		<div class="form_item"><input type="radio" id="git_merge_action_quit" name="git_merge_action" value="quit"><label for="git_merge_action_quit"><span class="command">--quit</span> Forget about the current merge in progress. Leave the index and the working tree as-is. If <span class="inline_code">MERGE_AUTOSTASH</span> is present, the stash entry will be saved to the stash list.</label></div>
+		<fieldset>
+			<legend>
+				<div class="form_item"><input type="radio" id="git_merge_action_no_option" name="git_merge_action" value="no_option" checked><label for="git_merge_action_no_option"><span class="command">[&lt;commit&gt;...]</span></label></div>
+			</legend>
+			<p>(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-branchnamemergeOptions"><span class="inline_code">branch.<span class="command">&lt;name&gt;</span>.mergeOptions</span></a>.)</p>
+			<fieldset>
+				<legend><p><span class="command">&lt;commit&gt;...</span> Commits, usually other branch heads, to merge into our branch.</p></legend>
+				<input id="git_merge_commit_list_add" type="button" value="Add">
+				<div id="git_merge_commit_list" class="subform"></div>
+				<script>
+					document.getElementById("git_merge_commit_list_add").addEventListener("click",function(e){
+						document.getElementById("git_merge_commit_list").append((function(){
+							let div = document.createElement("div"); div.className = "form_item";
+							let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+							let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_merge_refresh);
+							checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_merge_refresh(); });
+							div.append(checkbox, textarea);
+							return div;
+						})());
+						git_merge_refresh();
+					})
+				</script>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>preconditions:</p></legend>
+				<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_merge\_allow\_unrelated\_histories~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_merge_allow_unrelated_histories')">
+					<div class="form_item"><input type="radio" id="git_merge_allow_unrelated_histories_no_option" name="git_merge_allow_unrelated_histories" value="" checked><label for="git_merge_allow_unrelated_histories_no_option">(Defaults to <span class="command">--no-allow-unrelated-histories</span>.)</label></div>
+					<div class="form_item"><input type="radio" id="git_merge_allow_unrelated_histories_has_allow_unrelated_histories" name="git_merge_allow_unrelated_histories" value="true"><label for="git_merge_allow_unrelated_histories_has_allow_unrelated_histories"><span class="command">--allow-unrelated-histories</span> Override the safety when merging histories of two projects that started their lives independently.</label></div>
+					<div class="form_item"><input type="radio" id="git_merge_allow_unrelated_histories_has_no_allow_unrelated_histories" name="git_merge_allow_unrelated_histories" value="false"><label for="git_merge_allow_unrelated_histories_has_no_allow_unrelated_histories"><span class="command">--no-allow-unrelated-histories</span> Refuses to merge histories that do not share a common ancestor.</label></div>
+				</div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_merge\_ff~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_merge_ff')">
+					<div class="form_item"><input type="radio" id="git_merge_ff_no_option" name="git_merge_ff" value="no_option" checked><label for="git_merge_ff_no_option">not <span class="command">--ff-only</span>/<span class="command">--no-ff</span>/<span class="command">--ff</span> Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeff"><span class="inline_code">merge.ff</span></a> which defaults to <span class="inline_code">false</span> when merging an annotated (and possibly signed) tag that is not stored in its natural place in the <span class="inline_code">refs/tags/</span> hierarchy or <span class="inline_code">true</span> otherwise.</label></div>
+					<div class="form_item"><input type="radio" id="git_merge_ff_ff_only" name="git_merge_ff" value="ff_only"><label for="git_merge_ff_ff_only"><span class="command">--ff-only</span> Resolve the merge as a fast-forward when possible. When not possible, refuse to merge and exit with a non-zero status.</label></div>
+					<div class="form_item"><input type="radio" id="git_merge_ff_no_ff" name="git_merge_ff" value="no_ff"><label for="git_merge_ff_no_ff"><span class="command">--no-ff</span> Create a merge commit in all cases, even when the merge could instead be resolved as a fast-forward.</label></div>
+					<div class="form_item"><input type="radio" id="git_merge_ff_ff" name="git_merge_ff" value="ff"><label for="git_merge_ff_ff"><span class="command">--ff</span> When possible resolve the merge as a fast-forward (only update the branch pointer to match the merged branch; do not create a merge commit). When not possible (when the merged-in history is not a descendant of the current history), create a merge commit.</label></div>
+				</div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div class="form_item"><input type="radio" id="git_merge_overwrite_ignore_no_option" name="git_merge_overwrite_ignore" value="" checked><label for="git_merge_overwrite_ignore_no_option">(Defaults to <span class="command">--overwrite-ignore</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_merge_overwrite_ignore_has_overwrite_ignore" name="git_merge_overwrite_ignore" value="true"><label for="git_merge_overwrite_ignore_has_overwrite_ignore"><span class="command">--overwrite-ignore</span> Silently overwrite ignored files from the merge result.</label></div>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_merge\_no\_overwrite\_ignore~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_merge_no_overwrite_ignore')"><input type="radio" id="git_merge_overwrite_ignore_has_no_overwrite_ignore" name="git_merge_overwrite_ignore" value="false"><label for="git_merge_overwrite_ignore_has_no_overwrite_ignore"><span class="command">--no-overwrite-ignore</span> Abort.</label></div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div class="form_item"><input type="radio" id="git_merge_verify_signatures_no_option" name="git_merge_verify_signatures" value="" checked><label for="git_merge_verify_signatures_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeverifySignatures"><span class="inline_code">merge.verifySignatures</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_merge_verify_signatures_has_verify_signatures" name="git_merge_verify_signatures" value="true"><label for="git_merge_verify_signatures_has_verify_signatures"><span class="command">--verify-signatures</span> Verify that the tip commit of the side branch being merged is signed with a valid key, i.e. a key that has a valid uid: in the default trust model, this means the signing key has been signed by a trusted key. If the tip commit of the side branch is not signed with a valid key, the merge is aborted.</label></div>
+				<div class="form_item"><input type="radio" id="git_merge_verify_signatures_has_no_verify_signatures" name="git_merge_verify_signatures" value="false"><label for="git_merge_verify_signatures_has_no_verify_signatures"><span class="command">--no-verify-signatures</span></label></div>
+			</fieldset>
+
+			<div class="form_item"><input type="radio" id="git_merge_autostash_no_option" name="git_merge_autostash" value="" checked><label for="git_merge_autostash_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergeautoStash"><span class="inline_code">merge.autoStash</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_merge_autostash_has_autostash" name="git_merge_autostash" value="true"><label for="git_merge_autostash_has_autostash"><span class="command">--autostash</span> Automatically create a temporary stash entry before the operation begins, record it in the ref <span class="inline_code">MERGE_AUTOSTASH</span> and apply it after the operation ends.</label></div>
+			<div class="form_item"><input type="radio" id="git_merge_autostash_has_no_autostash" name="git_merge_autostash" value="false"><label for="git_merge_autostash_has_no_autostash"><span class="command">--no-autostash</span></label></div>
+
+			<fieldset>
+				<legend>
+					<p>when fast-forward, whether <span class="inline_code">HEAD</span> is moved:</p>
+					<p>when merge, whether commits are recorded in <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_HEAD</span>, merge commit is created:</p>
+				</legend>
+				<div class="form_item"><input type="radio" id="git_merge_squash_no_option" name="git_merge_squash" value="" checked><label for="git_merge_squash_no_option">(Defaults to <span class="command">--no-squash</span>.)</label></div>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_merge\_squash~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_merge_squash')"><input type="radio" id="git_merge_squash_has_squash" name="git_merge_squash" value="true"><label for="git_merge_squash_has_squash"><span class="command">--squash</span> Produce the working tree and index state as if a real merge happened (except for the merge information), but do not actually make a commit, move the <span class="inline_code">HEAD</span>, or record <span class="inline_code"><span class="command">$GIT_DIR</span>/MERGE_HEAD</span> (to cause the next <span class="command">git commit</span> command to create a merge commit).</label></div>
+				<div class="form_item"><input type="radio" id="git_merge_squash_has_no_squash" name="git_merge_squash" value="false"><label for="git_merge_squash_has_no_squash"><span class="command">--no-squash</span> Perform the merge and commit the result. Can be used to override <span class="command">--squash</span>.</label></div>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>creating merge result (when not <span class="command">--ff-only</span>):</p></legend>
+				<fieldset>
+					<legend class="[outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_merge\_rerere\_autoupdate~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_merge_rerere_autoupdate')"><p>whether rerere updates only working tree or updates working tree and index:</p></legend>
+					<div class="form_item"><input type="radio" id="git_merge_rerere_autoupdate_no_option" name="git_merge_rerere_autoupdate" value="" checked><label for="git_merge_rerere_autoupdate_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-rerereautoUpdate"><span class="inline_code">rerere.autoUpdate</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+					<div class="form_item"><input type="radio" id="git_merge_rerere_autoupdate_has_rerere_autoupdate" name="git_merge_rerere_autoupdate" value="true"><label for="git_merge_rerere_autoupdate_has_rerere_autoupdate"><span class="command">--rerere-autoupdate</span> After the rerere mechanism reuses a recorded resolution on the current conflict to update the files in the working tree, allow it to also update the index with the result of resolution.</label></div>
+					<div class="form_item"><input type="radio" id="git_merge_rerere_autoupdate_has_no_rerere_autoupdate" name="git_merge_rerere_autoupdate" value="false"><label for="git_merge_rerere_autoupdate_has_no_rerere_autoupdate"><span class="command">--no-rerere-autoupdate</span> Double-check what <span class="command">rerere</span> did and catch potential mismerges, before committing the result to the index with a separate <span class="command">git add</span>.</label></div>
+				</fieldset>
+
+				<fieldset>
+					<legend><p><span class="command">--strategy=&lt;strategy&gt;</span> Use the given merge strategy; can be supplied more than once to specify them in the order they should be tried.</p></legend>
+					<input id="git_merge_strategy_list_add" type="button" value="Add">
+					<div id="git_merge_strategy_list" class="subform"></div>
+					<script>
+						document.getElementById("git_merge_strategy_list_add").addEventListener("click",function(e){
+							document.getElementById("git_merge_strategy_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let input = document.createElement("input"); input.type = "text"; input.className = "command_input"; input.addEventListener("input", git_merge_refresh);
+								checkbox.addEventListener("input", function(e){ input.disabled = !checkbox.checked; git_merge_refresh(); });
+								div.append(checkbox, input);
+								return div;
+							})());
+							git_merge_refresh();
+						})
+					</script>
+				</fieldset>
+				<fieldset>
+					<legend><p><span class="command">--strategy-option=&lt;option&gt;</span> Pass merge strategy specific option through to the merge strategy.</p></legend>
+					<input id="git_merge_strategy_option_list_add" type="button" value="Add">
+					<div id="git_merge_strategy_option_list" class="subform"></div>
+					<script>
+						document.getElementById("git_merge_strategy_option_list_add").addEventListener("click",function(e){
+							document.getElementById("git_merge_strategy_option_list").append((function(){
+								let div = document.createElement("div"); div.className = "form_item";
+								let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+								let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_merge_refresh);
+								checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_merge_refresh(); });
+								div.append(checkbox, textarea);
+								return div;
+							})());
+							git_merge_refresh();
+						})
+					</script>
+				</fieldset>
+				<fieldset>
+					<legend><p>whether to stop before creating merge commit (when not <span class="command">--squash</span>):</p></legend>
+					<div class="form_item"><input type="radio" id="git_merge_commit_no_option" name="git_merge_commit" value="" checked><label for="git_merge_commit_no_option">(Defaults to <span class="command">--commit</span>.)</label></div>
+					<div class="form_item"><input type="radio" id="git_merge_commit_has_commit" name="git_merge_commit" value="true"><label for="git_merge_commit_has_commit"><span class="command">--commit</span> Perform the merge and commit the result.</label></div>
+					<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_merge\_no\_commit~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_merge_no_commit')"><input type="radio" id="git_merge_commit_has_no_commit" name="git_merge_commit" value="false"><label for="git_merge_commit_has_no_commit"><span class="command">--no-commit</span> Perform the merge and stop just before creating a merge commit, to give the user a chance to inspect and further tweak the merge result before committing.</label></div>
+				</fieldset>
+
+				<fieldset>
+					<legend><p>creating merge commit (when not <span class="command">--squash</span> &amp;&amp; not <span class="command">--no-commit</span>):</p></legend>
+					<fieldset>
+						<legend><p>commit message:</p></legend>
+						<div class="form_item"><input type="radio" id="git_merge_message_source_no_option" name="git_merge_message_source" value="no_option" checked><label for="git_merge_message_source_no_option"></label></div>
+						<fieldset>
+							<legend>
+								<div class="form_item"><input type="radio" id="git_merge_message_source_message" name="git_merge_message_source" value="message"><label for="git_merge_message_source_message"><span class="command">--message=&lt;msg&gt;</span> Set the commit message to be used for the merge commit (in case one is created).</label></div>
+							</legend>
+							<input id="git_merge_message_source_message_msg_list_add" type="button" value="Add">
+							<div id="git_merge_message_source_message_msg_list" class="subform"></div>
+							<script>
+								document.getElementById("git_merge_message_source_message_msg_list_add").addEventListener("click",function(e){
+									document.getElementById("git_merge_message_source_message_msg_list").append((function(){
+										let div = document.createElement("div"); div.className = "form_item";
+										let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+										let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_merge_refresh);
+										checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_merge_refresh(); });
+										div.append(checkbox, textarea);
+										return div;
+									})());
+									git_merge_refresh();
+								})
+							</script>
+						</fieldset>
+						<div class="form_item">
+							<input type="radio" id="git_merge_message_source_file" name="git_merge_message_source" value="file">
+							<div class="subform basis-0 grow">
+								<label for="git_merge_message_source_file"><span class="command">--file=&lt;file&gt;</span> Read the commit message to be used for the merge commit (in case one is created).</label>
+								<div class="form_item"><label for="git_merge_message_source_file_file"><span class="command">&lt;file&gt;</span>:</label><textarea wrap="off" id="git_merge_message_source_file_file" name="git_merge_message_source_file_file" class="basis-0 grow command_input"></textarea></div>
+							</div>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<div class="form_item"><input type="radio" id="git_merge_log_no_option" name="git_merge_log" value="no_option" checked><label for="git_merge_log_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergelog"><span class="inline_code">merge.log</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+						<div class="form_item"><input type="radio" id="git_merge_log_no_log" name="git_merge_log" value="no_log"><label for="git_merge_log_no_log"><span class="command">--no-log</span> Do not list one-line descriptions from the actual commits being merged.</label></div>
+						<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_merge\_log~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_merge_log')">
+							<input type="radio" id="git_merge_log_log" name="git_merge_log" value="log">
+							<div class="subform basis-0 grow">
+								<label for="git_merge_log_log"><span class="command">--log<input type="checkbox" id="git_merge_log_log_has_argument" name="git_merge_log_log_has_argument"><label for="git_merge_log_log_has_argument">[=&lt;n&gt;]</label></span> In addition to branch names, populate the log message with one-line descriptions from at most <span class="command">&lt;n&gt;</span> actual commits that are being merged.</label>
+								<div class="form_item"><label for="git_merge_log_log_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_merge_log_log_n" name="git_merge_log_log_n" class="basis-0 grow command_input" value="20"></div>
+							</div>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<div class="form_item">
+							<input type="checkbox" id="git_merge_has_into_name" name="git_merge_has_into_name">
+							<div class="subform basis-0 grow">
+								<label for="git_merge_has_into_name"><span class="command">--into-name=&lt;branch&gt;</span> Prepare the default merge message as if merging to the branch <span class="command">&lt;branch&gt;</span>, instead of the name of the real branch to which the merge is made.</label>
+								<div class="form_item"><label for="git_merge_into_name_branch"><span class="command">&lt;branch&gt;</span>:</label><input type="text" id="git_merge_into_name_branch" name="git_merge_into_name_branch" class="basis-0 grow command_input" value=""></div>
+							</div>
+						</div>
+
+						<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+						<div class="form_item"><input type="radio" id="git_merge_signoff_no_option" name="git_merge_signoff" value="" checked><label for="git_merge_signoff_no_option">(Defaults to <span class="command">--no-signoff</span>.)</label></div>
+						<div class="form_item"><input type="radio" id="git_merge_signoff_has_signoff" name="git_merge_signoff" value="true"><label for="git_merge_signoff_has_signoff"><span class="command">--signoff</span> Add a <span class="inline_code">Signed-off-by</span> trailer by the committer at the end of the commit log message.</label></div>
+						<div class="form_item"><input type="radio" id="git_merge_signoff_has_no_signoff" name="git_merge_signoff" value="false"><label for="git_merge_signoff_has_no_signoff"><span class="command">--no-signoff</span> Countermand an earlier <span class="command">--signoff</span> option on the command line.</label></div>
+
+						<fieldset>
+							<legend><p>whether to edit the commit message when mechanical merge succeeds:</p></legend>
+							<div class="form_item"><input type="radio" id="git_merge_edit_no_option" name="git_merge_edit" value="" checked><label for="git_merge_edit_no_option"></label></div>
+							<div class="form_item"><input type="radio" id="git_merge_edit_has_edit" name="git_merge_edit" value="true"><label for="git_merge_edit_has_edit"><span class="command">--edit</span> Invoke an editor before committing successful mechanical merge to further edit the auto-generated merge message, so that the user can explain and justify the merge.</label></div>
+							<div class="form_item"><input type="radio" id="git_merge_edit_has_no_edit" name="git_merge_edit" value="false"><label for="git_merge_edit_has_no_edit"><span class="command">--no-edit</span> Accept the auto-generated message (this is generally discouraged).</label></div>
+						</fieldset>
+
+						<div class="form_item">
+							<input type="checkbox" id="git_merge_has_cleanup" name="git_merge_has_cleanup">
+							<div class="subform basis-0 grow">
+								<label for="git_merge_has_cleanup"><span class="command">--cleanup=(<input type="radio" id="git_merge_cleanup_mode_strip" name="git_merge_cleanup_mode" value="strip"><label for="git_merge_cleanup_mode_strip">strip</label>|<input type="radio" id="git_merge_cleanup_mode_whitespace" name="git_merge_cleanup_mode" value="whitespace"><label for="git_merge_cleanup_mode_whitespace">whitespace</label>|<input type="radio" id="git_merge_cleanup_mode_verbatim" name="git_merge_cleanup_mode" value="verbatim"><label for="git_merge_cleanup_mode_verbatim">verbatim</label>|<input type="radio" id="git_merge_cleanup_mode_scissors" name="git_merge_cleanup_mode" value="scissors"><label for="git_merge_cleanup_mode_scissors">scissors</label>|<input type="radio" id="git_merge_cleanup_mode_default" name="git_merge_cleanup_mode" value="default" checked><label for="git_merge_cleanup_mode_default">default</label>)</span> Determines how the merge message will be cleaned up before committing. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-commitcleanup"><span class="inline_code">commit.cleanup</span></a> which defaults to <span class="inline_code">default</span>.)<br>
+									<div class="ml-[1em]">
+										<span class="command">strip</span> Strip leading and trailing empty lines, trailing whitespace, commentary and collapse consecutive empty lines.<br>
+										<span class="command">whitespace</span> Same as <span class="command">strip</span> except #commentary is not removed.<br>
+										<span class="command">verbatim</span> Do not change the message at all.<br>
+										<span class="command">scissors</span> Same as <span class="command">whitespace</span> except that everything from (and including) the line <span class="inline_code"># ------------------------ >8 ------------------------</span> is truncated, if the message is to be edited.<br>
+										<span class="command">default</span> Same as <span class="command">strip</span> if the message is to be edited. Otherwise <span class="command">whitespace</span>.<br>
+									</div></label>
+							</div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<legend><p>commit information:</p></legend>
+						<div class="form_item"><input type="radio" id="git_merge_gpg_sign_no_option" name="git_merge_gpg_sign" value="no_option" checked><label for="git_merge_gpg_sign_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-commitgpgSign"><span class="inline_code">commit.gpgSign</span></a>.)</label></div>
+						<div class="form_item"><input type="radio" id="git_merge_gpg_sign_no_gpg_sign" name="git_merge_gpg_sign" value="no_gpg_sign"><label for="git_merge_gpg_sign_no_gpg_sign"><span class="command">--no-gpg-sign</span> Countermand both <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-commitgpgSign"><span class="inline_code">commit.gpgSign</span></a> configuration variable, and earlier <span class="command">--gpg-sign</span>.</label></div>
+						<div class="form_item">
+							<input type="radio" id="git_merge_gpg_sign_gpg_sign" name="git_merge_gpg_sign" value="gpg_sign">
+							<div class="subform basis-0 grow">
+								<label for="git_merge_gpg_sign_gpg_sign"><span class="command">--gpg-sign<input type="checkbox" id="git_merge_gpg_sign_gpg_sign_has_argument" name="git_merge_gpg_sign_gpg_sign_has_argument"><label for="git_merge_gpg_sign_gpg_sign_has_argument">[=&lt;key-id&gt;]</label></span> GPG-sign the resulting merge commit. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"><span class="inline_code">user.signingKey</span></a> / the committer identity.)</label>
+								<div class="form_item"><label for="git_merge_gpg_sign_gpg_sign_key_id"><span class="command">&lt;key-id&gt;</span>:</label><textarea wrap="off" id="git_merge_gpg_sign_gpg_sign_key_id" name="git_merge_gpg_sign_gpg_sign_key_id" class="basis-0 grow command_input"></textarea></div>
+							</div>
+						</div>
+					</fieldset>
+				</fieldset>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>output:</p></legend>
+				<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_merge\_stat~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_merge_stat')">
+					<div class="form_item"><input type="radio" id="git_merge_stat_no_option" name="git_merge_stat" value="" checked><label for="git_merge_stat_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-mergestat"><span class="inline_code">merge.stat</span></a> which defaults to <span class="inline_code">true</span>.)</label></div>
+					<fieldset>
+						<legend>
+							<div class="form_item"><input type="radio" id="git_merge_stat_has_stat" name="git_merge_stat" value="true"><label for="git_merge_stat_has_stat"><span class="command">--stat</span> Show a diffstat at the end of the merge.</label></div>
+						</legend>
+						<div class="form_item"><input type="checkbox" id="git_merge_has_compact_summary" name="git_merge_has_compact_summary"><label for="git_merge_has_compact_summary"><span class="command">--compact-summary</span> Show a compact-summary at the end of the merge.</label></div>
+					</fieldset>
+					<div class="form_item"><input type="radio" id="git_merge_stat_has_no_stat" name="git_merge_stat" value="false"><label for="git_merge_stat_has_no_stat"><span class="command">--no-stat</span> Do not show a diffstat at the end of the merge.</label></div>
+				</div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div class="form_item"><input type="checkbox" id="git_merge_has_quiet" name="git_merge_has_quiet"><label for="git_merge_has_quiet"><span class="command">--quiet</span> Operate quietly. Implies <span class="command">--no-progress</span>.</label></div>
+				<div class="form_item"><input type="radio" id="git_merge_progress_no_option" name="git_merge_progress" value="" checked><label for="git_merge_progress_no_option"></label>Progress is shown if standard error is connected to a terminal.</div>
+				<div class="form_item"><input type="radio" id="git_merge_progress_has_progress" name="git_merge_progress" value="true"><label for="git_merge_progress_has_progress"><span class="command">--progress</span> Turn progress on explicitly.</label></div>
+				<div class="form_item"><input type="radio" id="git_merge_progress_has_no_progress" name="git_merge_progress" value="false"><label for="git_merge_progress_has_no_progress"><span class="command">--no-progress</span> Turn progress off explicitly.</label></div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div class="form_item"><input type="checkbox" id="git_merge_has_verbose" name="git_merge_has_verbose"><label for="git_merge_has_verbose"><span class="command">--verbose</span> Be verbose.</label></div>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>hooks:</p></legend>
+				<div class="form_item"><input type="radio" id="git_merge_verify_no_option" name="git_merge_verify" value="" checked><label for="git_merge_verify_no_option">(Defaults to <span class="command">--verify</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_merge_verify_has_verify" name="git_merge_verify" value="true"><label for="git_merge_verify_has_verify"><span class="command">--verify</span> The pre-merge and commit-msg hooks are run.</label></div>
+				<div class="form_item"><input type="radio" id="git_merge_verify_has_no_verify" name="git_merge_verify" value="false"><label for="git_merge_verify_has_no_verify"><span class="command">--no-verify</span> The hooks are bypassed.</label></div>
+			</fieldset>
+		</fieldset>
+	</form>
+	<textarea readonly wrap="off" id="git_merge_command" name="git_merge_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_merge_refresh(){
+			document.getElementById("git_merge_action_no_option").closest("fieldset").disabled = !document.getElementById("git_merge_action_no_option").checked;
+			document.getElementById("git_merge_rerere_autoupdate_no_option").closest("fieldset").closest("fieldset:not(:scope)").disabled = document.getElementById("git_merge_ff_ff_only").checked;
+			document.getElementById("git_merge_commit_no_option").closest("fieldset").disabled = document.getElementById("git_merge_squash_has_squash").checked;
+			document.getElementById("git_merge_message_source_no_option").closest("fieldset").closest("fieldset:not(:scope)").disabled = !(!document.getElementById("git_merge_squash_has_squash").checked && !document.getElementById("git_merge_commit_has_no_commit").checked);
+			document.getElementById("git_merge_message_source_message").closest("fieldset").disabled = !document.getElementById("git_merge_message_source_message").checked;
+			document.getElementById("git_merge_message_source_file_file").disabled = !document.getElementById("git_merge_message_source_file").checked;
+			document.getElementById("git_merge_log_log_has_argument").disabled = !document.getElementById("git_merge_log_log").checked;
+			document.getElementById("git_merge_log_log_n").disabled = !(document.getElementById("git_merge_log_log").checked && document.getElementById("git_merge_log_log_has_argument").checked);
+			document.getElementById("git_merge_into_name_branch").disabled = !document.getElementById("git_merge_has_into_name").checked;
+			document.getElementById("git_merge_cleanup_mode_strip").disabled = !document.getElementById("git_merge_has_cleanup").checked;
+			document.getElementById("git_merge_cleanup_mode_whitespace").disabled = !document.getElementById("git_merge_has_cleanup").checked;
+			document.getElementById("git_merge_cleanup_mode_verbatim").disabled = !document.getElementById("git_merge_has_cleanup").checked;
+			document.getElementById("git_merge_cleanup_mode_scissors").disabled = !document.getElementById("git_merge_has_cleanup").checked;
+			document.getElementById("git_merge_cleanup_mode_default").disabled = !document.getElementById("git_merge_has_cleanup").checked;
+			document.getElementById("git_merge_gpg_sign_gpg_sign_has_argument").disabled = !document.getElementById("git_merge_gpg_sign_gpg_sign").checked;
+			document.getElementById("git_merge_gpg_sign_gpg_sign_key_id").disabled = !(document.getElementById("git_merge_gpg_sign_gpg_sign").checked && document.getElementById("git_merge_gpg_sign_gpg_sign_has_argument").checked);
+			document.getElementById("git_merge_stat_has_stat").closest("fieldset").disabled = !document.getElementById("git_merge_stat_has_stat").checked;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("merge");
+
+			let form_data = new FormData(document.getElementById("git_merge_form"));
+			switch(form_data.get("git_merge_action")){
+				case "continue":
+					command_components.push("--continue");
+					break;
+				case "abort":
+					command_components.push("--abort");
+					break;
+				case "quit":
+					command_components.push("--quit");
+					break;
+				case "no_option":
+					switch(form_data.get("git_merge_allow_unrelated_histories")){
+						case "false":
+							command_components.push("--no-allow-unrelated-histories");
+							break;
+						case "true":
+							command_components.push("--allow-unrelated-histories");
+							break;
+					}
+					switch(form_data.get("git_merge_ff")){
+						case "ff_only":
+							command_components.push("--ff-only");
+							break;
+						case "no_ff":
+							command_components.push("--no-ff");
+							break;
+						case "ff":
+							command_components.push("--ff");
+							break;
+					}
+					switch(form_data.get("git_merge_overwrite_ignore")){
+						case "false":
+							command_components.push("--no-overwrite-ignore");
+							break;
+						case "true":
+							command_components.push("--overwrite-ignore");
+							break;
+					}
+					switch(form_data.get("git_merge_verify_signatures")){
+						case "false":
+							command_components.push("--no-verify-signatures");
+							break;
+						case "true":
+							command_components.push("--verify-signatures");
+							break;
+					}
+					switch(form_data.get("git_merge_autostash")){
+						case "false":
+							command_components.push("--no-autostash");
+							break;
+						case "true":
+							command_components.push("--autostash");
+							break;
+					}
+					switch(form_data.get("git_merge_squash")){
+						case "false":
+							command_components.push("--no-squash");
+							break;
+						case "true":
+							command_components.push("--squash");
+							break;
+					}
+					if(form_data.get("git_merge_ff") != "ff_only"){
+						switch(form_data.get("git_merge_rerere_autoupdate")){
+							case "false":
+								command_components.push("--no-rerere-autoupdate");
+								break;
+							case "true":
+								command_components.push("--rerere-autoupdate");
+								break;
+						}
+						Array.from(document.getElementById("git_merge_strategy_list").querySelectorAll("input[type=\"text\"]:enabled")).forEach(function(input){
+							let element_value = input.value, element_has_error = element_value.length == 0;
+							command_components.push("--strategy=" + shell_quote(element_value));
+							input.classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						});
+						Array.from(document.getElementById("git_merge_strategy_option_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+							let element_value = textarea.value, element_has_error = element_value.length == 0;
+							command_components.push("--strategy-option=" + shell_quote(element_value));
+							textarea.classList.toggle("error_input", element_has_error);
+							has_error ||= element_has_error;
+						});
+						if(form_data.get("git_merge_squash") != "true"){
+							switch(form_data.get("git_merge_commit")){
+								case "false":
+									command_components.push("--no-commit");
+									break;
+								case "true":
+									command_components.push("--commit");
+									break;
+							}
+						}
+						if(form_data.get("git_merge_squash") != "true" && form_data.get("git_merge_commit") != "false"){
+							switch(form_data.get("git_merge_message_source")){
+								case "message":
+									Array.from(document.getElementById("git_merge_message_source_message_msg_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+										command_components.push("--message=" + shell_quote(textarea.value));
+									});
+									break;
+								case "file":
+									{
+										let element_value = form_data.get("git_merge_message_source_file_file"), element_has_error = element_value.length == 0;
+										command_components.push("--file=" + shell_quote(element_value));
+										document.getElementById("git_merge_message_source_file_file").classList.toggle("error_input", element_has_error);
+										has_error ||= element_has_error;
+									}
+									break;
+							}
+							switch(form_data.get("git_merge_log")){
+								case "no_log":
+									command_components.push("--no-log");
+									break;
+								case "log":
+									if(form_data.get("git_merge_log_log_has_argument")){
+										let element_value = form_data.get("git_merge_log_log_n"), element_has_error = element_value.length == 0;
+										command_components.push("--log=" + shell_quote(element_value));
+										document.getElementById("git_merge_log_log_n").classList.toggle("error_input", element_has_error);
+										has_error ||= element_has_error;
+									}
+									else{
+										command_components.push("--log");
+									}
+									break;
+							}
+							if(form_data.get("git_merge_has_into_name")){
+								let element_value = form_data.get("git_merge_into_name_branch"), element_has_error = element_value.length == 0;
+								command_components.push("--into-name=" + shell_quote(element_value));
+								document.getElementById("git_merge_into_name_branch").classList.toggle("error_input", element_has_error);
+								has_error ||= element_has_error;
+							}
+							switch(form_data.get("git_merge_signoff")){
+								case "false":
+									command_components.push("--no-signoff");
+									break;
+								case "true":
+									command_components.push("--signoff");
+									break;
+							}
+							switch(form_data.get("git_merge_edit")){
+								case "false":
+									command_components.push("--no-edit");
+									break;
+								case "true":
+									command_components.push("--edit");
+									break;
+							}
+							if(form_data.get("git_merge_has_cleanup")){
+								switch(form_data.get("git_merge_cleanup_mode")){
+									case "strip":
+										command_components.push("--cleanup=strip");
+										break;
+									case "whitespace":
+										command_components.push("--cleanup=whitespace");
+										break;
+									case "verbatim":
+										command_components.push("--cleanup=verbatim");
+										break;
+									case "scissors":
+										command_components.push("--cleanup=scissors");
+										break;
+									case "default":
+										command_components.push("--cleanup=default");
+										break;
+								}
+							}
+							switch(form_data.get("git_merge_gpg_sign")){
+								case "no_gpg_sign":
+									command_components.push("--no-gpg-sign");
+									break;
+								case "gpg_sign":
+									if(form_data.get("git_merge_gpg_sign_gpg_sign_has_argument")){
+										let element_value = form_data.get("git_merge_gpg_sign_gpg_sign_key_id"), element_has_error = element_value.length == 0;
+										command_components.push("--gpg-sign=" + shell_quote(element_value));
+										document.getElementById("git_merge_gpg_sign_gpg_sign_key_id").classList.toggle("error_input", element_has_error);
+										has_error ||= element_has_error;
+									}
+									else{
+										command_components.push("--gpg-sign");
+									}
+									break;
+							}
+						}
+					}
+
+					switch(form_data.get("git_merge_stat")){
+						case "false":
+							command_components.push("--no-stat");
+							break;
+						case "true":
+							command_components.push("--stat");
+							if(form_data.get("git_merge_has_compact_summary")){
+								command_components.push("--compact-summary");
+							}
+							break;
+					}
+					if(form_data.get("git_merge_has_quiet"))
+						command_components.push("--quiet");
+					switch(form_data.get("git_merge_progress")){
+						case "false":
+							command_components.push("--no-progress");
+							break;
+						case "true":
+							command_components.push("--progress");
+							break;
+					}
+					if(form_data.get("git_merge_has_verbose"))
+						command_components.push("--verbose");
+					switch(form_data.get("git_merge_verify")){
+						case "false":
+							command_components.push("--no-verify");
+							break;
+						case "true":
+							command_components.push("--verify");
+							break;
+					}
+
+					if(Array.from(document.getElementById("git_merge_commit_list").querySelectorAll("textarea:enabled")).length != 0)
+						command_components.push("--end-of-options");
+					Array.from(document.getElementById("git_merge_commit_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+						let element_value = textarea.value, element_has_error = element_value.length == 0;
+						command_components.push(shell_quote(element_value));
+						textarea.classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					});
+					break;
+			}
+
+			let git_merge_command = document.getElementById("git_merge_command");
+			git_merge_command.classList.toggle("error_output", has_error);
+			git_merge_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_merge_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_merge_refresh);
+		});
+		Array.from(document.getElementById("git_merge_form").getElementsByTagName("textarea")).forEach(function(textarea){
+			textarea.addEventListener("input", git_merge_refresh);
+		});
+	</script>
+</div>
