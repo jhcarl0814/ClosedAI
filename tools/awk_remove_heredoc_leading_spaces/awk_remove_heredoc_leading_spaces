@@ -1,0 +1,16 @@
+#!/bin/bash
+
+awk --file='/dev/fd/3' 3<<-'EOF'
+	BEGIN {
+		RS = "\n";
+		FS = "\n";
+		if (getline == 1) {
+			match($0, /^\s*/);
+			indent = RLENGTH + 1;
+			printf("%s%s", substr($0, indent), RT);
+			while (getline == 1) {
+				printf("%s%s", substr($0, indent), RT);
+			}
+		}
+	}
+EOF
