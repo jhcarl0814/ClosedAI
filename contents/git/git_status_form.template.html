@@ -1,0 +1,306 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_status~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_status~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_status')">git status [&lt;pathspec&gt;…]</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-status">https://git-scm.com/docs/git-status</a></p>
+	<p class="paragraph">Show the working tree status.</p>
+	<form id="git_status_form">
+		<fieldset>
+			<legend><p>formatting:</p></legend>
+			<div class="form_item"><input type="radio" id="git_status_format_no_option" name="git_status_format" value="no_option" checked><label for="git_status_format_no_option">(Defaults to <span class="command">--long</span>.) (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-statusshort"><span class="inline_code">status.short</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_status\_long~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_status_long')"><input type="radio" id="git_status_format_long" name="git_status_format" value="long"><label for="git_status_format_long"><span class="command">--long</span> Give the output in the long-format.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_status\_short~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_status_short')"><input type="radio" id="git_status_format_short" name="git_status_format" value="short"><label for="git_status_format_short"><span class="command">--short</span> Give the output in the short-format.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_status\_porcelain\_v1~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_status_porcelain_v1')"><input type="radio" id="git_status_format_porcelain_v1" name="git_status_format" value="porcelain_v1"><label for="git_status_format_porcelain_v1"><span class="command">--porcelain=v1</span> Give the output in an easy-to-parse format for scripts.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_status\_porcelain\_v2~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_status_porcelain_v2')"><input type="radio" id="git_status_format_porcelain_v2" name="git_status_format" value="porcelain_v2"><label for="git_status_format_porcelain_v2"><span class="command">--porcelain=v2</span> Give the output in an easy-to-parse format for scripts.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<p>(when not <span class="command">--long</span>:)</p>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_status\_z~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_status_z')"><input type="checkbox" id="git_status_has_z" name="git_status_has_z"><label for="git_status_has_z"><span class="command">-z</span> Terminate entries with NUL, instead of LF. Implies the <span class="command">--porcelain=v1</span> output format if no other format is given.</label></div>
+		</fieldset>
+
+		<div class="form_item"><input type="radio" id="git_status_renames_no_option" name="git_status_renames" value="no_option" checked><label for="git_status_renames_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-statusrenames"><span class="inline_code">status.renames</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffrenames"><span class="inline_code">diff.renames</span></a> which defaults to <span class="inline_code">true</span>.)</label></div>
+		<div class="form_item"><input type="radio" id="git_status_renames_no_renames" name="git_status_renames" value="no_renames"><label for="git_status_renames_no_renames"><span class="command">--no-renames</span> Turn off rename detection regardless of user configuration.</label></div>
+		<div class="form_item"><input type="radio" id="git_status_renames_renames" name="git_status_renames" value="renames"><label for="git_status_renames_renames"><span class="command">--renames</span> Turn on rename detection regardless of user configuration.</label></div>
+		<div class="form_item">
+			<input type="radio" id="git_status_renames_find_renames" name="git_status_renames" value="find_renames">
+			<div class="subform basis-0 grow">
+				<label for="git_status_renames_find_renames"><span class="command">--find-renames<input type="checkbox" id="git_status_renames_find_renames_has_argument" name="git_status_renames_find_renames_has_argument"><label for="git_status_renames_find_renames_has_argument">[=&lt;n&gt;]</label></span> Turn on rename detection, optionally setting the similarity threshold.</label>
+				<div class="form_item"><label for="git_status_renames_find_renames_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_status_renames_find_renames_n" name="git_status_renames_find_renames_n" class="basis-0 grow command_input" value=""></div>
+			</div>
+		</div>
+		<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+
+		<div class="form_item"><input type="checkbox" id="git_status_has_ignore_submodules" name="git_status_has_ignore_submodules"><label for="git_status_has_ignore_submodules"><span class="command">--ignore-submodules<input type="checkbox" id="git_status_ignore_submodules_has_argument" name="git_status_ignore_submodules_has_argument"><label for="git_status_ignore_submodules_has_argument">[=(<input type="radio" id="git_status_ignore_submodules_when_none" name="git_status_ignore_submodules_when" value="none"><label for="git_status_ignore_submodules_when_none">none</label>|<input type="radio" id="git_status_ignore_submodules_when_untracked" name="git_status_ignore_submodules_when" value="untracked"><label for="git_status_ignore_submodules_when_untracked">untracked</label>|<input type="radio" id="git_status_ignore_submodules_when_dirty" name="git_status_ignore_submodules_when" value="dirty"><label for="git_status_ignore_submodules_when_dirty">dirty</label>|<input type="radio" id="git_status_ignore_submodules_when_all" name="git_status_ignore_submodules_when" value="all" checked><label for="git_status_ignore_submodules_when_all">all</label>)]</label></span> Ignore changes to submodules when looking for changes. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-submodulenameignore"><span class="inline_code">submodule.<span class="command">&lt;name&gt;</span>.ignore</span></a> which defaults to <span class="inline_code">none</span>, <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-diffignoreSubmodules"><span class="inline_code">diff.ignoreSubmodules</span></a> which defaults to <span class="inline_code">untracked</span>.)<br>
+			<div class="ml-[1em]">
+				<span class="command">none</span> Consider the submodule modified when it either contains untracked or modified files or its <span class="inline_code">HEAD</span> differs from the commit recorded in the superproject and can be used to override any settings of the <span class="inline_code">ignore</span> option in <span class="command">git-config</span> or <span class="inline_code"><span class="command">$GIT_WORK_TREE</span>/.gitmodules</span>.<br>
+				<span class="command">untracked</span> Submodules are not considered dirty when they only contain untracked content (but they are still scanned for modified content).<br>
+				<span class="command">dirty</span> Ignores all changes to the work tree of submodules, only changes to the commits stored in the superproject are shown.<br>
+				<span class="command">all</span> Hides all changes to submodules (and suppresses the output of submodule summaries when the config option <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-statussubmoduleSummary"><span class="inline_code">status.submoduleSummary</span></a> is set).<br>
+			</div></label></div>
+
+		<fieldset>
+			<legend><p>additional info:</p></legend>
+			<fieldset>
+				<legend><p>branch:</p></legend>
+				<div class="form_item"><input type="radio" id="git_status_branch_no_option" name="git_status_branch" value="" checked><label for="git_status_branch_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-statusbranch"><span class="inline_code">status.branch</span></a>.)</label></div>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_status\_branch~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_status_branch')"><input type="radio" id="git_status_branch_has_branch" name="git_status_branch" value="true"><label for="git_status_branch_has_branch"><span class="command">--branch</span> Show the branch and tracking info even in short-format. (<span class="command">--long</span> implies this.)</label></div>
+				<div class="form_item"><input type="radio" id="git_status_branch_has_no_branch" name="git_status_branch" value="false"><label for="git_status_branch_has_no_branch"><span class="command">--no-branch</span></label></div>
+
+				<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+				<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_status\_ahead\_behind~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_status_ahead_behind')">
+					<div class="form_item"><input type="radio" id="git_status_ahead_behind_no_option" name="git_status_ahead_behind" value="" checked><label for="git_status_ahead_behind_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-statusaheadBehind"><span class="inline_code">status.aheadBehind</span></a> which defaults to <span class="inline_code">true</span>.)</label></div>
+					<div class="form_item"><input type="radio" id="git_status_ahead_behind_has_no_ahead_behind" name="git_status_ahead_behind" value="false"><label for="git_status_ahead_behind_has_no_ahead_behind"><span class="command">--no-ahead-behind</span> Do not display detailed ahead/behind counts for the branch relative to its upstream branch.</label></div>
+					<div class="form_item"><input type="radio" id="git_status_ahead_behind_has_ahead_behind" name="git_status_ahead_behind" value="true"><label for="git_status_ahead_behind_has_ahead_behind"><span class="command">--ahead-behind</span> Display detailed ahead/behind counts for the branch relative to its upstream branch.</label></div>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>not tracked files:</p></legend>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_status\_untracked\_files~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_status_untracked_files')">
+					<input type="checkbox" id="git_status_has_untracked_files" name="git_status_has_untracked_files">
+					<div class="subform basis-0 grow">
+						<label for="git_status_has_untracked_files"><span class="command">--untracked-files<input type="checkbox" id="git_status_untracked_files_has_argument" name="git_status_untracked_files_has_argument"><label for="git_status_untracked_files_has_argument">[=(<input type="radio" id="git_status_untracked_files_mode_no" name="git_status_untracked_files_mode" value="no"><label for="git_status_untracked_files_mode_no">no</label>|<input type="radio" id="git_status_untracked_files_mode_normal" name="git_status_untracked_files_mode" value="normal"><label for="git_status_untracked_files_mode_normal">normal</label>|<input type="radio" id="git_status_untracked_files_mode_all" name="git_status_untracked_files_mode" value="all" checked><label for="git_status_untracked_files_mode_all">all</label>)]</label></span> Show untracked files. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-statusshowUntrackedFiles"><span class="inline_code">status.showUntrackedFiles</span></a> which defaults to <span class="inline_code">normal</span>.)<br>
+							<div class="ml-[1em]">
+								<span class="command">no</span> Show no untracked files.<br>
+								<span class="command">normal</span> Show untracked files and directories.<br>
+								<span class="command">all</span> Also show individual files in untracked directories.<br>
+							</div></label>
+					</div>
+				</div>
+
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_status\_ignored~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_status_ignored')"><input type="checkbox" id="git_status_has_ignored" name="git_status_has_ignored"><label for="git_status_has_ignored"><span class="command">--ignored<input type="checkbox" id="git_status_ignored_has_argument" name="git_status_ignored_has_argument"><label for="git_status_ignored_has_argument">[=(<input type="radio" id="git_status_ignored_mode_traditional" name="git_status_ignored_mode" value="traditional" checked><label for="git_status_ignored_mode_traditional">traditional</label>|<input type="radio" id="git_status_ignored_mode_no" name="git_status_ignored_mode" value="no"><label for="git_status_ignored_mode_no">no</label>|<input type="radio" id="git_status_ignored_mode_matching" name="git_status_ignored_mode" value="matching"><label for="git_status_ignored_mode_matching">matching</label>)]</label></span> Show ignored files as well.<br>
+					<div class="ml-[1em]">
+						<span class="command">traditional</span> Show ignored files and directories, unless <span class="command">--untracked-files=all</span> is specified, in which case individual files in ignored directories are displayed.<br>
+						<span class="command">no</span> Show no ignored files.<br>
+						<span class="command">matching</span> Show ignored files and directories matching an ignore pattern.<br>
+					</div></label></div>
+
+				<div class="form_item"><input type="radio" id="git_status_column_no_option" name="git_status_column" value="no_option" checked><label for="git_status_column_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-columnstatus"><span class="inline_code">column.status</span></a> which defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-columnui"><span class="inline_code">column.ui</span></a> which defaults to <span class="inline_code">never,column,nodense</span>.)</label></div>
+				<div class="form_item"><input type="radio" id="git_status_column_no_column" name="git_status_column" value="no_column"><label for="git_status_column_no_column"><span class="command">--no-column</span> Equivalent to <span class="command">--column=never</span>.</label></div>
+				<div class="form_item">
+					<input type="radio" id="git_status_column_column" name="git_status_column" value="column">
+					<div class="subform basis-0 grow">
+						<label for="git_status_column_column"><span class="command">--column<input type="checkbox" id="git_status_column_column_has_argument" name="git_status_column_column_has_argument"><label for="git_status_column_column_has_argument">[=&lt;options&gt;]</label></span> Display untracked files in columns.</label>
+						<div class="form_item"><label for="git_status_column_column_options"><span class="command">&lt;options&gt;</span>:</label><input type="text" id="git_status_column_column_options" name="git_status_column_column_options" class="basis-0 grow command_input" value="always"></div>
+					</div>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>stash:</p></legend>
+				<p>(when <span class="command">--long</span>/<span class="command">--porcelain=v2</span>:)</p>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_status\_show\_stash~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_status_show_stash')"><input type="checkbox" id="git_status_has_show_stash" name="git_status_has_show_stash"><label for="git_status_has_show_stash"><span class="command">--show-stash</span> Show the number of entries currently stashed away. (Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-statusshowStash"><span class="inline_code">status.showStash</span></a> which defaults to <span class="inline_code">false</span>.)</label></div>
+			</fieldset>
+
+			<fieldset>
+				<legend><p>diffing:</p></legend>
+				<div class="subform [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_status\_verbose~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_status_verbose')">
+					<div class="form_item"><input type="radio" id="git_status_diffing_no_option" name="git_status_diffing" value="no_option" checked><label for="git_status_diffing_no_option">Show the names of files that have been changed.</label></div>
+					<div class="form_item"><input type="radio" id="git_status_diffing_verbose" name="git_status_diffing" value="verbose"><label for="git_status_diffing_verbose"><span class="command">--verbose</span> Also show the textual changes that are staged to be committed (i.e., like the output of <span class="command">git diff --cached</span>).</label></div>
+					<div class="form_item"><input type="radio" id="git_status_diffing_verbose_verbose" name="git_status_diffing" value="verbose_verbose"><label for="git_status_diffing_verbose_verbose"><span class="command">--verbose --verbose</span> Also show the changes in the working tree that have not yet been staged (i.e., like the output of <span class="command">git diff</span>).</label></div>
+				</div>
+			</fieldset>
+		</fieldset>
+
+		<fieldset>
+			<legend><p><span class="command">&lt;pathspec&gt;...</span></p></legend>
+			<input id="git_status_pathspec_list_add" type="button" value="Add">
+			<div id="git_status_pathspec_list" class="subform"></div>
+			<script>
+				document.getElementById("git_status_pathspec_list_add").addEventListener("click",function(e){
+					document.getElementById("git_status_pathspec_list").append((function(){
+						let div = document.createElement("div"); div.className = "form_item";
+						let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.checked = true; checkbox.className = "self-start";
+						let textarea = document.createElement("textarea"); textarea.wrap = "off"; textarea.className = "command_input"; textarea.addEventListener("input", git_status_refresh);
+						checkbox.addEventListener("input", function(e){ textarea.disabled = !checkbox.checked; git_status_refresh(); });
+						div.append(checkbox, textarea);
+						return div;
+					})());
+					git_status_refresh();
+				})
+			</script>
+		</fieldset>
+	</form>
+	<textarea readonly wrap="off" id="git_status_command" name="git_status_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_status_refresh(){
+			document.getElementById("git_status_has_z").disabled = document.getElementById("git_status_format_long").checked;
+			document.getElementById("git_status_renames_find_renames_has_argument").disabled = !document.getElementById("git_status_renames_find_renames").checked;
+			document.getElementById("git_status_renames_find_renames_n").disabled = !(document.getElementById("git_status_renames_find_renames").checked && document.getElementById("git_status_renames_find_renames_has_argument").checked);
+			document.getElementById("git_status_ignore_submodules_has_argument").disabled = !document.getElementById("git_status_has_ignore_submodules").checked;
+			document.getElementById("git_status_ignore_submodules_when_none").disabled = !(document.getElementById("git_status_has_ignore_submodules").checked && document.getElementById("git_status_ignore_submodules_has_argument").checked);
+			document.getElementById("git_status_ignore_submodules_when_untracked").disabled = !(document.getElementById("git_status_has_ignore_submodules").checked && document.getElementById("git_status_ignore_submodules_has_argument").checked);
+			document.getElementById("git_status_ignore_submodules_when_dirty").disabled = !(document.getElementById("git_status_has_ignore_submodules").checked && document.getElementById("git_status_ignore_submodules_has_argument").checked);
+			document.getElementById("git_status_ignore_submodules_when_all").disabled = !(document.getElementById("git_status_has_ignore_submodules").checked && document.getElementById("git_status_ignore_submodules_has_argument").checked);
+			document.getElementById("git_status_untracked_files_has_argument").disabled = !document.getElementById("git_status_has_untracked_files").checked;
+			document.getElementById("git_status_untracked_files_mode_no").disabled = !(document.getElementById("git_status_has_untracked_files").checked && document.getElementById("git_status_untracked_files_has_argument").checked);
+			document.getElementById("git_status_untracked_files_mode_normal").disabled = !(document.getElementById("git_status_has_untracked_files").checked && document.getElementById("git_status_untracked_files_has_argument").checked);
+			document.getElementById("git_status_untracked_files_mode_all").disabled = !(document.getElementById("git_status_has_untracked_files").checked && document.getElementById("git_status_untracked_files_has_argument").checked);
+			document.getElementById("git_status_ignored_has_argument").disabled = !document.getElementById("git_status_has_ignored").checked;
+			document.getElementById("git_status_ignored_mode_traditional").disabled = !(document.getElementById("git_status_has_ignored").checked && document.getElementById("git_status_ignored_has_argument").checked);
+			document.getElementById("git_status_ignored_mode_no").disabled = !(document.getElementById("git_status_has_ignored").checked && document.getElementById("git_status_ignored_has_argument").checked);
+			document.getElementById("git_status_ignored_mode_matching").disabled = !(document.getElementById("git_status_has_ignored").checked && document.getElementById("git_status_ignored_has_argument").checked);
+			document.getElementById("git_status_column_column_has_argument").disabled = !document.getElementById("git_status_column_column").checked;
+			document.getElementById("git_status_column_column_options").disabled = !(document.getElementById("git_status_column_column").checked && document.getElementById("git_status_column_column_has_argument").checked);
+			let can_have_show_stash = (document.getElementById("git_status_format_no_option").checked && !document.getElementById("git_status_has_z").checked) || document.getElementById("git_status_format_long").checked || document.getElementById("git_status_format_porcelain_v2").checked;
+			document.getElementById("git_status_has_show_stash").disabled = !can_have_show_stash;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("status");
+
+			let form_data = new FormData(document.getElementById("git_status_form"));
+			switch(form_data.get("git_status_format")){
+				case "long":
+					command_components.push("--long");
+					break;
+				case "short":
+					command_components.push("--short");
+					break;
+				case "porcelain_v1":
+					command_components.push("--porcelain=v1");
+					break;
+				case "porcelain_v2":
+					command_components.push("--porcelain=v2");
+					break;
+			}
+			if(form_data.get("git_status_format") != "long"){
+				if(form_data.get("git_status_has_z"))
+					command_components.push("-z");
+			}
+			switch(form_data.get("git_status_renames")){
+				case "no_renames":
+					command_components.push("--no-renames");
+					break;
+				case "renames":
+					command_components.push("--renames");
+					break;
+				case "find_renames":
+					if(form_data.get("git_status_renames_find_renames_has_argument")){
+						let element_value = form_data.get("git_status_renames_find_renames_n"), element_has_error = element_value.length == 0;
+						command_components.push("--find-renames=" + shell_quote(element_value));
+						document.getElementById("git_status_renames_find_renames_n").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					else{
+						command_components.push("--find-renames");
+					}
+					break;
+			}
+			if(form_data.get("git_status_has_ignore_submodules")){
+				if(form_data.get("git_status_ignore_submodules_has_argument")){
+					switch(form_data.get("git_status_ignore_submodules_when")){
+						case "none":
+							command_components.push("--ignore-submodules=none");
+							break;
+						case "untracked":
+							command_components.push("--ignore-submodules=untracked");
+							break;
+						case "dirty":
+							command_components.push("--ignore-submodules=dirty");
+							break;
+						case "all":
+							command_components.push("--ignore-submodules=all");
+							break;
+					}
+				}
+				else{
+					command_components.push("--ignore-submodules");
+				}
+			}
+			switch(form_data.get("git_status_branch")){
+				case "false":
+					command_components.push("--no-branch");
+					break;
+				case "true":
+					command_components.push("--branch");
+					break;
+			}
+			switch(form_data.get("git_status_ahead_behind")){
+				case "false":
+					command_components.push("--no-ahead-behind");
+					break;
+				case "true":
+					command_components.push("--ahead-behind");
+					break;
+			}
+			if(form_data.get("git_status_has_untracked_files")){
+				if(form_data.get("git_status_untracked_files_has_argument")){
+					switch(form_data.get("git_status_untracked_files_mode")){
+						case "no":
+							command_components.push("--untracked-files=no");
+							break;
+						case "normal":
+							command_components.push("--untracked-files=normal");
+							break;
+						case "all":
+							command_components.push("--untracked-files=all");
+							break;
+					}
+				}
+				else{
+					command_components.push("--untracked-files");
+				}
+			}
+			if(form_data.get("git_status_has_ignored")){
+				if(form_data.get("git_status_ignored_has_argument")){
+					switch(form_data.get("git_status_ignored_mode")){
+						case "traditional":
+							command_components.push("--ignored=traditional");
+							break;
+						case "no":
+							command_components.push("--ignored=no");
+							break;
+						case "matching":
+							command_components.push("--ignored=matching");
+							break;
+					}
+				}
+				else{
+					command_components.push("--ignored");
+				}
+			}
+			switch(form_data.get("git_status_column")){
+				case "no_column":
+					command_components.push("--no-column");
+					break;
+				case "column":
+					if(form_data.get("git_status_column_column_has_argument")){
+						let element_value = form_data.get("git_status_column_column_options"), element_has_error = element_value.length == 0;
+						command_components.push("--column=" + shell_quote(element_value));
+						document.getElementById("git_status_column_column_options").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					else{
+						command_components.push("--column");
+					}
+					break;
+			}
+			if(can_have_show_stash){
+				if(form_data.get("git_status_has_show_stash"))
+					command_components.push("--show-stash");
+			}
+			switch(form_data.get("git_status_diffing")){
+				case "verbose":
+					command_components.push("--verbose");
+					break;
+				case "verbose_verbose":
+					command_components.push("--verbose", "--verbose");
+					break;
+			}
+
+			if(Array.from(document.getElementById("git_status_pathspec_list").querySelectorAll("textarea:enabled")).length != 0)
+				command_components.push("--end-of-options");
+			Array.from(document.getElementById("git_status_pathspec_list").querySelectorAll("textarea:enabled")).forEach(function(textarea){
+				let element_value = textarea.value, element_has_error = element_value.length == 0;
+				command_components.push(shell_quote(element_value));
+				textarea.classList.toggle("error_input", element_has_error);
+				has_error ||= element_has_error;
+			});
+
+			let git_status_command = document.getElementById("git_status_command");
+			git_status_command.classList.toggle("error_output", has_error);
+			git_status_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_status_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_status_refresh);
+		});
+	</script>
+</div>

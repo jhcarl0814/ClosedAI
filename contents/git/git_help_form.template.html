@@ -1,0 +1,140 @@
+<div class="hidden [#reference\_desk\_dispatcher\_form.git\_help~*_&]:block border-[1px] border-solid border-[#C0C0C0] bg-[#FAFAFA] rounded-[8px] px-[1em] py-[0.5em] mt-[16px]">
+	<h1 class="heading1"><span class="command [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_help~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_help')">git help</span></h1>
+	<p class="paragraph"><a class="external_link" href="https://git-scm.com/docs/git-help">https://git-scm.com/docs/git-help</a></p>
+	<p class="paragraph">Display help information about Git.</p>
+	<form id="git_help_form">
+		<p>Choose an action to perform:</p>
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_help\_action\_no\_option~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_help_action_no_option')"><input type="radio" id="git_help_action_no_option" name="git_help_action" value="no_option" checked><label for="git_help_action_no_option">Print the synopsis of the git command and a list of the most commonly used Git commands on the standard output.</label></div>
+		<fieldset>
+			<legend>
+				<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_help\_action\_all~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_help_action_all')"><input type="radio" id="git_help_action_all" name="git_help_action" value="all"><label for="git_help_action_all"><span class="command">--all</span> Print all available commands on the standard output.</label></div>
+			</legend>
+			<div class="form_item"><input type="radio" id="git_help_action_all_verbose_no_option" name="git_help_action_all_verbose" value="" checked><label for="git_help_action_all_verbose_no_option">(Defaults to <span class="command">--verbose</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_help_action_all_verbose_has_verbose" name="git_help_action_all_verbose" value="true"><label for="git_help_action_all_verbose_has_verbose"><span class="command">--verbose</span> Print description for all recognized commands.</label></div>
+			<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_help\_action\_all\_no\_verbose~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_help_action_all_no_verbose')"><input type="radio" id="git_help_action_all_verbose_has_no_verbose" name="git_help_action_all_verbose" value="false"><label for="git_help_action_all_verbose_has_no_verbose"><span class="command">--no-verbose</span></label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_help_action_all_external_commands_no_option" name="git_help_action_all_external_commands" value="" checked><label for="git_help_action_all_external_commands_no_option">(Defaults to <span class="command">--external-commands</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_help_action_all_external_commands_has_external_commands" name="git_help_action_all_external_commands" value="true"><label for="git_help_action_all_external_commands_has_external_commands"><span class="command">--external-commands</span></label></div>
+			<div class="form_item"><input type="radio" id="git_help_action_all_external_commands_has_no_external_commands" name="git_help_action_all_external_commands" value="false"><label for="git_help_action_all_external_commands_has_no_external_commands"><span class="command">--no-external-commands</span> Exclude the listing of external "<span class="command">git-*</span>" commands found in the <span class="command">$PATH</span>.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><input type="radio" id="git_help_action_all_aliases_no_option" name="git_help_action_all_aliases" value="" checked><label for="git_help_action_all_aliases_no_option">(Defaults to <span class="command">--aliases</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_help_action_all_aliases_has_aliases" name="git_help_action_all_aliases" value="true"><label for="git_help_action_all_aliases_has_aliases"><span class="command">--aliases</span></label></div>
+			<div class="form_item"><input type="radio" id="git_help_action_all_aliases_has_no_aliases" name="git_help_action_all_aliases" value="false"><label for="git_help_action_all_aliases_has_no_aliases"><span class="command">--no-aliases</span> Exclude the listing of configured aliases.</label></div>
+		</fieldset>
+		<div class="form_item"><input type="radio" id="git_help_action_help" name="git_help_action" value="help"><label for="git_help_action_help"><span class="command">--help</span> Bring up the manual page for <span class="command">git help</span>.</label></div>
+		<fieldset>
+			<legend>
+				<div class="form_item"><input type="radio" id="git_help_action_page" name="git_help_action" value="page"><label for="git_help_action_page"><span class="command">[&lt;command&gt;|&lt;doc&gt;]</span> Bring up the relevant manual page. If an alias is given, shows the definition of the alias on standard output.</label></div>
+			</legend>
+			<div class="form_item"><input type="radio" id="git_help_action_page_program_no_option" name="git_help_action_page_program" value="" checked><label for="git_help_action_page_program_no_option">(Defaults to <a class="external_link" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-helpformat"><span class="inline_code">help.format</span></a> which defaults to <span class="inline_code">man</span>.)</label></div>
+			<div class="form_item"><input type="radio" id="git_help_action_page_program_info" name="git_help_action_page_program" value="info"><label for="git_help_action_page_program_info"><span class="command">--info</span> Display manual page for the command in the info format.</label></div>
+			<div class="form_item"><input type="radio" id="git_help_action_page_program_man" name="git_help_action_page_program" value="man"><label for="git_help_action_page_program_man"><span class="command">--man</span> Display manual page for the command in the man format.</label></div>
+			<div class="form_item"><input type="radio" id="git_help_action_page_program_web" name="git_help_action_page_program" value="web"><label for="git_help_action_page_program_web"><span class="command">--web</span> Display manual page for the command in the web (HTML) format.</label></div>
+
+			<div class="h-[1px] bg-[#C0C0C0] my-[0.5em]"></div>
+			<div class="form_item"><label for="git_help_action_page_name"><span class="command">&lt;command&gt;</span> or <span class="command">&lt;doc&gt;</span>:</label><input type="text" id="git_help_action_page_name" name="git_help_action_page_name" class="basis-0 grow command_input" value="" list="git_help_action_page_name_list"></div>
+			<datalist id="git_help_action_page_name_list">
+			{{
+				comm -23 <(sort <(git help --all | grep '^  ' | awk '{ printf("%s%s", $1, RT); }') <(git help --all --no-verbose | awk 'BEGIN { empty_line_count = 0; } {
+					if(NF == 0)
+						++empty_line_count;
+					if(empty_line_count == 2 || empty_line_count == 4){
+						for(i = 1; i <= NF; ++i)
+							printf("%s%s", $i, RT);
+					}
+				}') | uniq) <(echo 'lg') | while IFS= read -r line; do echo '<option value="'"$line"'"></option>'; done
+			}}
+			</datalist>
+		</fieldset>
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_help\_action\_guides~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_help_action_guides')"><input type="radio" id="git_help_action_guides" name="git_help_action" value="guides"><label for="git_help_action_guides"><span class="command">--guides</span> Print a list of the Git concept guides on the standard output.</label></div>
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_help\_action\_config~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_help_action_config')"><input type="radio" id="git_help_action_config" name="git_help_action" value="config"><label for="git_help_action_config"><span class="command">--config</span> List all available configuration variables.</label></div>
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_help\_action\_user\_interfaces~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_help_action_user_interfaces')"><input type="radio" id="git_help_action_user_interfaces" name="git_help_action" value="user_interfaces"><label for="git_help_action_user_interfaces"><span class="command">--user-interfaces</span> Print a list of the repository, command and file interfaces documentation on the standard output.</label></div>
+		<div class="form_item [outline:dashed_2px_#C0C0C0] [#reference\_desk\_dispatcher\_example.git\_help\_action\_developer\_interfaces~*_&]:[outline:dashed_2px_#0000FF]" onmousedown="reference_desk_widget_mousepressed('git_help_action_developer_interfaces')"><input type="radio" id="git_help_action_developer_interfaces" name="git_help_action" value="developer_interfaces"><label for="git_help_action_developer_interfaces"><span class="command">--developer-interfaces</span> Print a list of file formats, protocols and other developer interfaces documentation on the standard output.</label></div>
+	</form>
+	<textarea readonly wrap="off" id="git_help_command" name="git_help_command" class="command_input mt-[1em]"></textarea>
+	<script>
+		function git_help_refresh(){
+			document.getElementById("git_help_action_all").closest("fieldset").disabled = !document.getElementById("git_help_action_all").checked;
+			document.getElementById("git_help_action_page").closest("fieldset").disabled = !document.getElementById("git_help_action_page").checked;
+
+			let { has_error: has_error, command_components: command_components, } = git_with_command_refresh();
+			command_components.push("help");
+
+			let form_data = new FormData(document.getElementById("git_help_form"));
+			switch(form_data.get("git_help_action")){
+				case "no_option":
+					break;
+				case "all":
+					command_components.push("--all");
+					switch(form_data.get("git_help_action_all_verbose")){
+						case "false":
+							command_components.push("--no-verbose");
+							break;
+						case "true":
+							command_components.push("--verbose");
+							break;
+					}
+					switch(form_data.get("git_help_action_all_external_commands")){
+						case "false":
+							command_components.push("--no-external-commands");
+							break;
+						case "true":
+							command_components.push("--external-commands");
+							break;
+					}
+					switch(form_data.get("git_help_action_all_aliases")){
+						case "false":
+							command_components.push("--no-aliases");
+							break;
+						case "true":
+							command_components.push("--aliases");
+							break;
+					}
+					break;
+				case "help":
+					command_components.push("--help");
+					break;
+				case "page":
+					switch(form_data.get("git_help_action_page_program")){
+						case "info":
+							command_components.push("--info");
+							break;
+						case "man":
+							command_components.push("--man");
+							break;
+						case "web":
+							command_components.push("--web");
+							break;
+					}
+
+					command_components.push("--end-of-options");
+					let element_value = form_data.get("git_help_action_page_name"), element_has_error = element_value.length == 0;
+					command_components.push(shell_quote(element_value));
+					document.getElementById("git_help_action_page_name").classList.toggle("error_input", element_has_error);
+					has_error ||= element_has_error;
+					break;
+				case "guides":
+					command_components.push("--guides");
+					break;
+				case "config":
+					command_components.push("--config");
+					break;
+				case "user_interfaces":
+					command_components.push("--user-interfaces");
+					break;
+				case "developer_interfaces":
+					command_components.push("--developer-interfaces");
+					break;
+			}
+
+			let git_help_command = document.getElementById("git_help_command");
+			git_help_command.classList.toggle("error_output", has_error);
+			git_help_command.value = command_components.join(" ");
+		}
+		Array.from(document.getElementById("git_help_form").getElementsByTagName("input")).forEach(function(input){
+			input.addEventListener("input", git_help_refresh);
+		});
+	</script>
+</div>
