@@ -286,11 +286,19 @@
 					<div class="form_item"><label for="git_log_skip_number"><span class="command">&lt;number&gt;</span>:</label><input type="text" id="git_log_skip_number" name="git_log_skip_number" class="basis-0 grow command_input" value=""></div>
 				</div>
 			</div>
+			<div class="form_item"><input type="radio" id="git_log_max_count_no_option" name="git_log_max_count" value="no_option" checked><label for="git_log_max_count_no_option"></label></div>
 			<div class="form_item">
-				<input type="checkbox" id="git_log_has_max_count" name="git_log_has_max_count">
+				<input type="radio" id="git_log_max_count_max_count" name="git_log_max_count" value="max_count">
 				<div class="subform basis-0 grow">
-					<label for="git_log_has_max_count"><span class="command">--max-count=&lt;number&gt;</span> Limit the output to <span class="command">&lt;number&gt;</span> commits.</label>
+					<label for="git_log_max_count_max_count"><span class="command">--max-count=&lt;number&gt;</span> Limit the output to the first <span class="command">&lt;number&gt;</span> commits that would be shown.</label>
 					<div class="form_item"><label for="git_log_max_count_number"><span class="command">&lt;number&gt;</span>:</label><input type="text" id="git_log_max_count_number" name="git_log_max_count_number" class="basis-0 grow command_input" value=""></div>
+				</div>
+			</div>
+			<div class="form_item">
+				<input type="radio" id="git_log_max_count_max_count_oldest" name="git_log_max_count" value="max_count_oldest">
+				<div class="subform basis-0 grow">
+					<label for="git_log_max_count_max_count_oldest"><span class="command">--max-count-oldest=&lt;number&gt;</span> Limit the output to the last <span class="command">&lt;number&gt;</span> commits that would be shown.</label>
+					<div class="form_item"><label for="git_log_max_count_oldest_number"><span class="command">&lt;number&gt;</span>:</label><input type="text" id="git_log_max_count_oldest_number" name="git_log_max_count_oldest_number" class="basis-0 grow command_input" value=""></div>
 				</div>
 			</div>
 		</fieldset>
@@ -372,7 +380,18 @@
 					</div>
 				</div>
 			</fieldset>
-			<div class="form_item"><input type="radio" id="git_log_formatting_graph" name="git_log_formatting" value="graph" checked><label for="git_log_formatting_graph"><span class="command">--graph</span> Draw a text-based graphical representation of the commit history on the left hand side of the output. (Enables parent rewriting.) (Implies the <span class="command">--topo-order</span> option by default.) <span id="git_log_graph_no_walk_warning">(Incompatible with <span class="command">--no-walk</span>.)</span></label></div>
+			<fieldset>
+				<legend>
+					<div class="form_item"><input type="radio" id="git_log_formatting_graph" name="git_log_formatting" value="graph" checked><label for="git_log_formatting_graph"><span class="command">--graph</span> Draw a text-based graphical representation of the commit history on the left hand side of the output. (Enables parent rewriting.) (Implies the <span class="command">--topo-order</span> option by default.) <span id="git_log_graph_no_walk_warning">(Incompatible with <span class="command">--no-walk</span>.)</span></label></div>
+				</legend>
+				<div class="form_item">
+					<input type="checkbox" id="git_log_has_graph_lane_limit" name="git_log_has_graph_lane_limit">
+					<div class="subform basis-0 grow">
+						<label for="git_log_has_graph_lane_limit"><span class="command">--graph-lane-limit=&lt;n&gt;</span> Limit the number of graph lanes to be shown.</label>
+						<div class="form_item"><label for="git_log_graph_lane_limit_n"><span class="command">&lt;n&gt;</span>:</label><input type="text" id="git_log_graph_lane_limit_n" name="git_log_graph_lane_limit_n" class="basis-0 grow command_input" value="0"></div>
+					</div>
+				</div>
+			</fieldset>
 
 			<fieldset>
 				<legend><p>object name:</p></legend>
@@ -1092,11 +1111,14 @@
 			document.getElementById("git_log_has_all_match").disabled = !(Array.from(document.getElementById("git_log_grep_list").querySelectorAll("textarea:enabled")).length != 0);
 			document.getElementById("git_log_has_invert_grep").disabled = !(Array.from(document.getElementById("git_log_grep_list").querySelectorAll("textarea:enabled")).length != 0);
 			document.getElementById("git_log_skip_number").disabled = !document.getElementById("git_log_has_skip").checked;
-			document.getElementById("git_log_max_count_number").disabled = !document.getElementById("git_log_has_max_count").checked;
+			document.getElementById("git_log_max_count_number").disabled = !document.getElementById("git_log_max_count_max_count").checked;
+			document.getElementById("git_log_max_count_oldest_number").disabled = !document.getElementById("git_log_max_count_max_count_oldest").checked;
 
 			document.getElementById("git_log_formatting_no_option").closest("fieldset").disabled = !document.getElementById("git_log_formatting_no_option").checked;
 			document.getElementById("git_log_show_linear_break_has_argument").disabled = !document.getElementById("git_log_has_show_linear_break").checked;
 			document.getElementById("git_log_show_linear_break_barrier").disabled = !(document.getElementById("git_log_has_show_linear_break").checked && document.getElementById("git_log_show_linear_break_has_argument").checked);
+			document.getElementById("git_log_formatting_graph").closest("fieldset").disabled = !document.getElementById("git_log_formatting_graph").checked;
+			document.getElementById("git_log_graph_lane_limit_n").disabled = !document.getElementById("git_log_has_graph_lane_limit").checked;
 			document.getElementById("git_log_decorate_decorate_has_argument").disabled = !document.getElementById("git_log_decorate_decorate").checked;
 			document.getElementById("git_log_decorate_decorate_mode_short").disabled = !(document.getElementById("git_log_decorate_decorate").checked && document.getElementById("git_log_decorate_decorate_has_argument").checked);
 			document.getElementById("git_log_decorate_decorate_mode_full").disabled = !(document.getElementById("git_log_decorate_decorate").checked && document.getElementById("git_log_decorate_decorate_has_argument").checked);
@@ -1391,11 +1413,23 @@
 				document.getElementById("git_log_skip_number").classList.toggle("error_input", element_has_error);
 				has_error ||= element_has_error;
 			}
-			if(form_data.get("git_log_has_max_count")){
-				let element_value = form_data.get("git_log_max_count_number"), element_has_error = element_value.length == 0;
-				command_components.push("--max-count=" + shell_quote(element_value));
-				document.getElementById("git_log_max_count_number").classList.toggle("error_input", element_has_error);
-				has_error ||= element_has_error;
+			switch(form_data.get("git_log_max_count")){
+				case "max_count":
+					{
+						let element_value = form_data.get("git_log_max_count_number"), element_has_error = element_value.length == 0;
+						command_components.push("--max-count=" + shell_quote(element_value));
+						document.getElementById("git_log_max_count_number").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
+				case "max_count_oldest":
+					{
+						let element_value = form_data.get("git_log_max_count_oldest_number"), element_has_error = element_value.length == 0;
+						command_components.push("--max-count-oldest=" + shell_quote(element_value));
+						document.getElementById("git_log_max_count_oldest_number").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
+					break;
 			}
 			if(form_data.get("git_log_has_simplify_by_decoration"))
 				command_components.push("--simplify-by-decoration");
@@ -1464,6 +1498,12 @@
 					break;
 				case "graph":
 					command_components.push("--graph");
+					if(form_data.get("git_log_has_graph_lane_limit")){
+						let element_value = form_data.get("git_log_graph_lane_limit_n"), element_has_error = element_value.length == 0;
+						command_components.push("--graph-lane-limit=" + shell_quote(element_value));
+						document.getElementById("git_log_graph_lane_limit_n").classList.toggle("error_input", element_has_error);
+						has_error ||= element_has_error;
+					}
 					break;
 			}
 			switch(form_data.get("git_log_parents_children")){
